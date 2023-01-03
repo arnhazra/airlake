@@ -2,7 +2,7 @@
 const mongoose = require('mongoose')
 const dotenv = require('dotenv').config()
 
-//Reading Environment Variables
+//Reading Environment Variable
 const MONGO_URI = process.env.MONGO_URI
 
 //Mongo DB Connection Method
