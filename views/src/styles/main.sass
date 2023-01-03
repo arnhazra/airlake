@@ -1,0 +1,251 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap')
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css')
+
+$mainColor: #1c2b33
+$white: #ffffff
+$inputColor: #f8f8f8
+$blurColor: #d3e8f539
+
+html
+    scrollbar-width: none
+
+::-webkit-scrollbar
+    width: 0px
+
+body
+    background: linear-gradient(to right, rgba(26, 25, 31, 0.6), rgba(26, 25, 31, 0.6)), url(../assets/hero.jpg)
+    -webkit-background-size: cover
+    -moz-background-size: cover
+    -o-background-size: cover
+    background-size: cover
+    background-attachment: fixed
+    font-family: 'Quicksand', sans-serif
+    -webkit-font-smoothing: antialiased
+    -moz-osx-font-smoothing: grayscale
+    -webkit-font-smoothing: antialiased
+
+.cover
+    width: 100vw
+    height: 85vh
+    color: $white
+    vertical-align: middle
+    display: table-cell
+    padding-left: 1.5rem
+    animation: slide-down 0.3s forwards
+
+.card
+    background: $blurColor
+    color: $white
+    border-radius: 1rem
+    backdrop-filter: blur(0.4rem)
+    border: none
+    font-weight: bold
+    min-height: 380px
+    animation: slide-down 0.7s forwards
+
+.card-header,
+.card-body,
+.card-footer
+    border: none
+    font-weight: bold
+
+.card-footer
+    text-align: right
+
+.cardtext
+    font-size: 110%
+
+.cardhead
+    font-size: 140%
+
+.lead
+    font-size: 110%
+    font-weight: bold
+
+.box
+    top: 54%
+    left: 50%
+    position: absolute
+    transform: translate(-50%,-50%)
+    box-sizing: border-box
+    padding: 27px
+    background: $white
+    color: $mainColor
+    width: 350px
+    border-radius: 4px
+    text-align: left
+    font-weight: bold
+
+.branding
+    font-size: 170%
+    letter-spacing: 0.1rem
+    height: 50px
+    text-align: left
+    padding-left: 0.8rem
+
+.boxtext
+    text-align: left
+    padding-left: 0.8rem
+
+.tabs
+    margin-top: -27px
+    margin-left: -27px
+    margin-right: -27px
+
+.nav-item
+    padding-bottom: 20px
+    padding-top: 20px
+    border-bottom: 1px solid black
+
+.btn
+    border: 1px solid transparent !important
+    background: $mainColor
+    border-radius: 50px
+    padding: 0.8rem
+    padding-left: 1.4rem
+    padding-right: 1.4rem
+    margin-right: 1rem
+    margin-bottom: 1rem
+    color: $white !important
+    font-weight: bold
+    letter-spacing: 0.05rem
+
+.btn:hover,
+.btn:focus
+    background-color: $mainColor !important
+
+.btnbox
+    width: 100% !important
+
+a,
+a:hover,
+a:focus,
+a:active
+    color: $mainColor
+    text-decoration: none
+    cursor: pointer
+
+.boxlink
+    color: $mainColor
+    text-decoration: none
+    cursor: pointer
+
+input,
+input:hover,
+input:focus,
+input:active
+    outline: 0
+    width: 100%
+    height: 60px
+    border: none
+    border-radius: 50px
+    background-color: $inputColor
+    color: $mainColor
+    margin: 5px 0 15px
+    text-align: left
+    padding-left: 1.7rem
+    box-sizing: border-box
+    font-size: 15px
+    font-weight: bold
+    letter-spacing: 0.02rem
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button
+    -webkit-appearance: none
+    margin: 0
+
+input[type=number]
+    -moz-appearance: textfield
+
+input:focus
+    border: 1px dashed $mainColor
+
+#alert
+    color: $mainColor
+    cursor: pointer
+    text-align: center
+    font-size: 1rem
+    font-weight: bold
+
+.navbar
+    background: $white
+    z-index: 2
+    font-weight: bold
+    padding: 1.3rem
+    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, .2), 0 3px 3px 0 rgba(0, 0, 0, .2)
+
+.navbar-brand
+    font-size: 16px
+    letter-spacing: 0.1rem
+    cursor: pointer
+    color: $mainColor !important
+
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus
+    outline: none
+    box-shadow: none
+
+@keyframes slide-down
+    from
+        opacity: 0
+        transform: translateY(-80px)
+
+    to
+        opacity: 1
+        transform: translateY(0px)
+
+@keyframes transitionIn
+    from
+        opacity: 0
+        transform: rotateX(5deg)
+
+    to
+        opacity: 1
+        transform: rotateX(0)
+
+    .col-lg-4,
+    .col-lg-12
+        margin-top: 2rem
+
+.container
+    min-width: 90%
+
+table tr:first-child th:first-child
+    border-top-left-radius: 30px
+
+table tr:first-child th:last-child
+    border-top-right-radius: 30px
+
+table tr:last-child td:first-child
+    border-bottom-left-radius: 30px
+
+table tr:last-child td:last-child
+    border-bottom-right-radius: 30px
+
+th,td,tr
+    background: $white !important
+    height: 60px
+    border: none
+    vertical-align: middle
+    font-weight: bold
+    text-align: center
+
+.fa-solid
+    padding-left: 0.6rem
+    padding-right: 0.6rem
+    cursor: pointer
+
+.fa-circle-check
+    color: #1ed760
+
+.fa-circle-xmark
+    color: #d73a1e
+
+.fa-triangle-exclamation
+    color: orange
+    margin-left: 0.5rem
+
+@media only screen and (max-width: 999px)
+    .lead
+        font-size: 90%

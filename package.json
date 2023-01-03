@@ -1,0 +1,33 @@
+{
+  "name": "project-frostlake",
+  "version": "2.0",
+  "description": "Jump start your crypto portfolio",
+  "homepage": "https://frostlake.vercel.app",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app",
+    "api": "nodemon app",
+    "views": "npm start --prefix views",
+    "dev": "concurrently \"npm run api\" \"npm run views\"",
+    "deploy": "npm run build --prefix views && git fetch -a && git checkout master &&  git add . && git commit -m autodeploy && git push origin master",
+    "deploynobuild": "git fetch -a && git checkout master &&  git add . && git commit -m autodeploy && git push origin master"
+  },
+  "keywords": [],
+  "author": "Arnab Hazra",
+  "license": "MIT",
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.8.0",
+    "concurrently": "^7.6.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-validator": "^6.14.2",
+    "googleapis": "^110.0.0",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^6.8.2",
+    "nodemailer": "^6.8.0",
+    "nodemon": "^2.0.20",
+    "otp-without-db": "^1.0.4",
+    "react-router-dom": "^6.6.1"
+  }
+}
