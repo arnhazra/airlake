@@ -1,6 +1,6 @@
 enum Constants {
-    HomeHeader1 = `Jump start `,
-    HomeHeader2 = `your crypto portfolio`,
+    HomeHeader1 = 'Your crypto portfolio,',
+    HomeHeader2 = `enabled by blockchain`,
     HomeIntro1 = `FLG is an ERC-20 token that you can buy with ETH using wallet`,
     HomeIntro2 = `Start learing about ERC-20 before you start`,
     HomeIntro3 = `Frostlake, an open source project, for crypto exchange built on Ethereum Blockchain`,
