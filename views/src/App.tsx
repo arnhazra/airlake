@@ -7,21 +7,21 @@ import ErrorComponent from './components/ErrorComponent'
 
 //UI Router
 const Router = () => {
-  return (
-    <Fragment>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<HomePage />} />
-          <Route path='/auth' element={<AuthPage />} />
-          <Route path='/auth/signout' element={<SignOutPage />} />
-          <Route path='/wallet/dashboard' element={<WalletDashboardPage />} />
-          <Route path='/wallet/buy' element={<BuyCoin />} />
-          <Route path='/wallet/sell' element={<SellCoin />} />
-          <Route path='*' element={<ErrorComponent />} />
-        </Routes>
-      </BrowserRouter>
-    </Fragment>
-  )
+	return (
+		<Fragment>
+			<BrowserRouter>
+				<Routes>
+					<Route path='/' element={<HomePage />} />
+					<Route path='/auth' element={<AuthPage />} />
+					<Route path='/auth/signout' element={<SignOutPage />} />
+					<Route path='/wallet/dashboard' element={<WalletDashboardPage />} />
+					<Route path='/wallet/buy' element={<BuyCoin />} />
+					<Route path='/wallet/sell' element={<SellCoin />} />
+					<Route path='*' element={<ErrorComponent />} />
+				</Routes>
+			</BrowserRouter>
+		</Fragment>
+	)
 }
 
 export default Router

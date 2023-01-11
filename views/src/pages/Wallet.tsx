@@ -1,38 +1,39 @@
-//Import Statements
 import { Link, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { Container, Row } from 'react-bootstrap'
 import { Fragment } from 'react'
 import NavComponent from '../components/NavComponent'
 import useAuth from '../hooks/useAuth'
-import Constants from '../Constants'
+import Constants from '../constants/Constants'
 import LoadingComponent from '../components/LoadingComponent'
 import ReactIfComponent from '../components/ReactIfComponent'
-import { tokenABI, vendorABI } from '../contracts/Contract'
+import { tokenABI } from '../contracts/TokenABI'
+import { vendorABI } from '../contracts/VendorABI'
 import Web3 from 'web3'
 import CardComponent from '../components/CardComponent'
 import Snackbar from 'node-snackbar'
 import axios from 'axios'
 import moment from 'moment'
-
+import { walletDashBoardService } from '../services/WalletService'
+import contractAddress from '../constants/Address'
+import endPoints from '../constants/Endpoints'
 declare const window: any
 const web3 = new Web3(Web3.givenProvider)
 
 //Wallet Dashboard Page
 const WalletDashboardPage = () => {
-    //Logic
     const auth = useAuth()
     const navigate = useNavigate()
     const [state, setState] = useState({ transactions: [], isLoaded: false })
 
     const getDashBoardData = async () => {
         try {
-            axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`
-            const response = await axios.post('/api/wallet/dashboard')
+            const accessToken = localStorage.getItem('accessToken') as string
+            const response = await walletDashBoardService(accessToken)
             setState({ ...state, transactions: response.data.transactions, isLoaded: true })
         }
 
-        catch (error) {
+        catch (error: any) {
             if (error.response) {
                 if (error.response.status === 401) {
                     localStorage.removeItem('accessToken')
@@ -50,7 +51,7 @@ const WalletDashboardPage = () => {
         getDashBoardData()
     }, [])
 
-    const transactionsToDisplay = state.transactions.map(transaction => {
+    const transactionsToDisplay = state.transactions.map((transaction: any) => {
         return <CardComponent
             key={transaction._id}
             header={transaction.flgAmount + ' FLG'}
@@ -133,7 +134,7 @@ const BuyCoin = () => {
     const buyCoin = async () => {
         try {
             setStep(2)
-            const vendor = new web3.eth.Contract(vendorABI as any, Constants.VendorContractAddress)
+            const vendor = new web3.eth.Contract(vendorABI as any, contractAddress.vendorContractAddress)
             const request = await vendor.methods.buyTokens().send({
                 from: account,
                 value: web3.utils.toWei(ether.toString(), 'ether'),
@@ -145,7 +146,7 @@ const BuyCoin = () => {
                 ethAmount: ether,
                 txHash: request.transactionHash
             }
-            await axios.post('/api/wallet/createtx', obj)
+            await axios.post(endPoints.createTxEndpoint, obj)
             setStep(3)
             Snackbar.show({ text: 'You have successfully bought FLG tokens!' })
         } catch (err) {
@@ -238,13 +239,13 @@ const SellCoin = () => {
         try {
             setStep(2)
             const accounts = await web3.eth.getAccounts()
-            const tokenContract = new web3.eth.Contract(tokenABI as any, Constants.TokenContractAddress)
+            const tokenContract = new web3.eth.Contract(tokenABI as any, contractAddress.tokenContractAddress)
 
             // Approve the contract to spend the tokens
-            let request = await tokenContract.methods.approve(Constants.VendorContractAddress, web3.utils.toWei(tokens, 'ether')).send({ from: accounts[0] })
+            let request = await tokenContract.methods.approve(contractAddress.vendorContractAddress, web3.utils.toWei(tokens, 'ether')).send({ from: accounts[0] })
 
             // Trigger the selling of tokens
-            const vendor = new web3.eth.Contract(vendorABI as any, Constants.VendorContractAddress)
+            const vendor = new web3.eth.Contract(vendorABI as any, contractAddress.vendorContractAddress)
             request = await vendor.methods.sellTokens(web3.utils.toWei(tokens, 'ether')).send({ from: accounts[0] })
 
             const obj = {
@@ -254,7 +255,7 @@ const SellCoin = () => {
                 ethAmount: ether,
                 txHash: request.transactionHash
             }
-            await axios.post('/api/wallet/createtx', obj)
+            await axios.post(endPoints.createTxEndpoint, obj)
             setStep(3)
             Snackbar.show({ text: 'You have successfully bought FLG tokens!' })
         } catch (err) {

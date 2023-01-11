@@ -2,7 +2,6 @@
 const express = require('express')
 const { check, validationResult } = require('express-validator')
 const authorize = require('../middlewares/authorize')
-const UserModel = require('../models/UserModel')
 const WalletModel = require('../models/WalletModel')
 const router = express.Router()
 

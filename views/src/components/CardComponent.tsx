@@ -2,7 +2,7 @@
 import { Card, Col } from 'react-bootstrap'
 
 //Card Component Component
-const CardComponent = (props) => {
+const CardComponent = (props: any) => {
     return (
         <Col xs={12} sm={12} md={6} lg={6} xl={4} className='mb-4'>
             <Card>

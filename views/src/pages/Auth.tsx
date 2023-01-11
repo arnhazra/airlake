@@ -4,8 +4,9 @@ import axios from 'axios'
 import { Navigate, useNavigate } from 'react-router-dom'
 import NavComponent from '../components/NavComponent'
 import LoadingComponent from '../components/LoadingComponent'
-import Constants from '../Constants'
+import Constants from '../constants/Constants'
 import ReactIfComponent from '../components/ReactIfComponent'
+import endPoints from '../constants/Endpoints'
 
 //Auth Page
 const AuthPage = () => {
@@ -14,12 +15,12 @@ const AuthPage = () => {
     const [alert, setAlert] = useState('')
     const navigate = useNavigate()
 
-    const generateAuthcode = async (e) => {
-        e.preventDefault()
+    const generateAuthcode = async (event: any) => {
+        event.preventDefault()
         setAlert(Constants.AuthMessage)
 
         try {
-            const response = await axios.post('/api/auth/generateauthcode', state)
+            const response = await axios.post(endPoints.generateAuthCodeEndpoint, state)
             setState({ ...state, hash: response.data.hash, newuser: response.data.newuser })
             setAlert(response.data.msg)
             setAuthStep({ firststep: false, secondstep: true })
@@ -30,19 +31,19 @@ const AuthPage = () => {
         }
     }
 
-    const verifyAuthcode = async (e) => {
-        e.preventDefault()
+    const verifyAuthcode = async (event: any) => {
+        event.preventDefault()
         setAlert(Constants.AuthMessage)
 
         try {
-            const response = await axios.post('/api/auth/verifyauthcode', state)
+            const response = await axios.post(endPoints.verifyAuthCodeEndpoint, state)
             axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`
             localStorage.setItem('accessToken', response.data.accessToken)
             setAlert('Successfully authenticated')
             navigate('/wallet/dashboard')
         }
 
-        catch (error) {
+        catch (error: any) {
             if (error.response) {
                 setAlert(error.response.data.msg)
             }
@@ -95,7 +96,7 @@ const SignOutPage = () => {
         (async () => {
             try {
                 axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`
-                await axios.post('/api/auth/signout')
+                await axios.post(endPoints.signOutEndpoint)
                 localStorage.removeItem('accessToken')
                 navigate('/')
             }

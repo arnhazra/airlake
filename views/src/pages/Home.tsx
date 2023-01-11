@@ -3,7 +3,7 @@ import { Navigate, Link } from 'react-router-dom'
 import { Container } from 'react-bootstrap'
 import { Fragment } from 'react'
 import NavComponent from '../components/NavComponent'
-import Constants from '../Constants'
+import Constants from '../constants/Constants'
 import ReactIfComponent from '../components/ReactIfComponent'
 
 //Home Page
