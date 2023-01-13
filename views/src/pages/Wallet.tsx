@@ -14,22 +14,22 @@ import CardComponent from '../components/CardComponent'
 import Snackbar from 'node-snackbar'
 import axios from 'axios'
 import moment from 'moment'
-import { walletDashBoardService } from '../services/WalletService'
+import { walletTransactionsService } from '../services/WalletService'
 import contractAddress from '../constants/Address'
 import endPoints from '../constants/Endpoints'
 declare const window: any
 const web3 = new Web3(Web3.givenProvider)
 
-//Wallet Dashboard Page
-const WalletDashboardPage = () => {
+//Wallet Transactions Page
+const WalletTransactionPage = () => {
     const auth = useAuth()
     const navigate = useNavigate()
     const [state, setState] = useState({ transactions: [], isLoaded: false })
 
-    const getDashBoardData = async () => {
+    const getTransactionsData = async () => {
         try {
             const accessToken = localStorage.getItem('accessToken') as string
-            const response = await walletDashBoardService(accessToken)
+            const response = await walletTransactionsService(accessToken)
             setState({ ...state, transactions: response.data.transactions, isLoaded: true })
         }
 
@@ -39,23 +39,19 @@ const WalletDashboardPage = () => {
                     localStorage.removeItem('accessToken')
                     navigate('/')
                 }
-
-                else {
-                    Snackbar.show({ text: error.response.data.msg })
-                }
             }
         }
     }
 
     useEffect(() => {
-        getDashBoardData()
+        getTransactionsData()
     }, [])
 
     const transactionsToDisplay = state.transactions.map((transaction: any) => {
         return <CardComponent
             key={transaction._id}
             header={transaction.flgAmount + ' FLG'}
-            body={[<div key={transaction._id}><p>Transaction Type : {transaction.transactionType} FLG</p><p>ETH : {transaction.ethAmount}</p><p>Created on : {moment(transaction.date).format('MMM, Do YYYY, h:mm a')}</p></div>]}
+            body={[<div key={transaction._id}><p>Transaction Type : {transaction.transactionType} FLG</p><p>ETH : {transaction.ethAmount}</p><p>Date : {moment(transaction.date).format('MMM, Do YYYY, h:mm a')}</p></div>]}
             footer={[<a key={transaction._id} rel='noopener noreferrer' target='_blank' href={`https://goerli.etherscan.io/tx/${transaction.txHash}`} className='mt-auto btn'>View on EtherScan<i className='fa-solid fa-circle-arrow-right'></i></a>]}
         />
     })
@@ -313,4 +309,4 @@ const SellCoin = () => {
     )
 }
 
-export { WalletDashboardPage, BuyCoin, SellCoin } 
+export { WalletTransactionPage, BuyCoin, SellCoin } 

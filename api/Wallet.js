@@ -42,9 +42,9 @@ router.post(
     }
 )
 
-//Transaction Dashboard Route
+//Transaction Route
 router.post(
-    '/dashboard',
+    '/transactions',
 
     authorize,
 

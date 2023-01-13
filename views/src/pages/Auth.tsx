@@ -40,7 +40,7 @@ const AuthPage = () => {
             axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`
             localStorage.setItem('accessToken', response.data.accessToken)
             setAlert('Successfully authenticated')
-            navigate('/wallet/dashboard')
+            navigate('/wallet/transactions')
         }
 
         catch (error: any) {
@@ -57,7 +57,7 @@ const AuthPage = () => {
     return (
         <Fragment>
             <ReactIfComponent condition={localStorage.hasOwnProperty('accessToken')}>
-                <Navigate replace to='/wallet/dashboard' />
+                <Navigate replace to='/wallet/transactions' />
             </ReactIfComponent>
             <ReactIfComponent condition={!localStorage.hasOwnProperty('accessToken')}>
                 <NavComponent />
@@ -79,7 +79,7 @@ const AuthPage = () => {
                         </ReactIfComponent>
                         <input type='password' name='otp' placeholder='Enter auth code sent to you' onChange={(e) => setState({ ...state, otp: e.target.value })} required autoComplete={'off'} minLength={8} maxLength={8} />
                         <p id='alert'>{alert}</p>
-                        <button type='submit' className='mt-2 btn btnbox'>{state.newuser ? 'Set up the account' : 'Continue to dashboard'}<i className='fa-solid fa-circle-arrow-right'></i></button>
+                        <button type='submit' className='mt-2 btn btnbox'>{state.newuser ? 'Set up the account' : 'Continue to the app'}<i className='fa-solid fa-circle-arrow-right'></i></button>
                     </form>
                 </ReactIfComponent>
             </ReactIfComponent>

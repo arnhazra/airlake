@@ -10,9 +10,9 @@ const NavComponent = () => {
             <ReactIfComponent condition={localStorage.hasOwnProperty('accessToken')}>
                 <Navbar variant='light' expand='lg'>
                     <Container>
-                        <Link to='/wallet/dashboard'>
+                        <Link to='/wallet/transactions'>
                             <Navbar.Brand style={{ fontSize: '20px' }}>
-                                Dashboard
+                                Transactions
                             </Navbar.Brand>
                         </Link>
                         <Navbar.Toggle></Navbar.Toggle>

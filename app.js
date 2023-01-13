@@ -2,7 +2,6 @@
 const express = require('express')
 const Connection = require('./functions/Connection')
 const dotenv = require('dotenv').config()
-const cors = require('cors')
 const fs = require('fs')
 
 //Initialize Express handler
@@ -10,7 +9,6 @@ const handler = express()
 handler.listen(process.env.PORT)
 
 handler.use(express.json({ extended: false, limit: '1mb' }))
-handler.use(cors())
 
 //MongoDB Connection
 Connection()
