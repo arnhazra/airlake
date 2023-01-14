@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
+import { Card, Col, Container, Nav, Navbar, Row, Table } from 'react-bootstrap'
 import { Fragment } from 'react'
 import NavComponent from '../components/NavComponent'
 import useAuth from '../hooks/useAuth'
@@ -26,13 +26,16 @@ const WalletTransactionPage = () => {
     const transactions = useTransactionData()
     const liveprice = useLivePrice()
 
-    const transactionsToDisplay = transactions.transactions.map((transaction: any) => {
-        return <CardComponent
-            key={transaction._id}
-            header={<p className='display-6 fw-bold'>{transaction.flgAmount} FLG</p>}
-            body={[<div key={transaction._id}><p>Transaction Type : {transaction.transactionType} FLG</p><p>ETH : {transaction.ethAmount}</p><p>Date : {moment(transaction.date).format('MMM, Do YYYY, h:mm a')}</p></div>]}
-            footer={[<a key={transaction._id} rel='noopener noreferrer' target='_blank' href={`https://goerli.etherscan.io/tx/${transaction.txHash}`} className='mt-auto btn'>View on EtherScan<i className='fa-solid fa-circle-arrow-right'></i></a>]}
-        />
+    const transactionsToDisplay = transactions.transactions.map((tx: any) => {
+        return (
+            <tr key={tx._id}>
+                <td>{tx.transactionType} FLG</td>
+                <td>{tx.flgAmount} FLG</td>
+                <td>{tx.ethAmount} ETH</td>
+                <td>{moment(tx.date).format('MMM, Do YYYY, h:mm a')}</td>
+                <td><a href={`https://goerli.etherscan.io/tx/${tx.txHash}`} target='_blank' rel='noopener noreferrer'>View on EtherScan</a></td>
+            </tr>
+        )
     })
 
     //JSX
@@ -77,9 +80,22 @@ const WalletTransactionPage = () => {
                         />
                     </Row>
 
-                    <Row className='mt-4 mb-4'>
-                        {transactionsToDisplay}
-                    </Row>
+                    <Table responsive hover variant='light'>
+                        <thead>
+                            <tr>
+                                <th>Event</th>
+                                <th>FLG Amount</th>
+                                <th>ETH Amount</th>
+                                <th>Transaction Time</th>
+                                <th>EtherScan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                transactionsToDisplay
+                            }
+                        </tbody>
+                    </Table>
                 </Container>
             </ReactIfComponent>
             <ReactIfComponent condition={!auth.isLoaded}>
