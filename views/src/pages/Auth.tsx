@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useState } from 'react'
 import axios from 'axios'
 import { Navigate, useNavigate } from 'react-router-dom'
 import NavComponent from '../components/NavComponent'
@@ -6,6 +6,7 @@ import LoadingComponent from '../components/LoadingComponent'
 import Constants from '../constants/Constants'
 import ReactIfComponent from '../components/ReactIfComponent'
 import endPoints from '../constants/Endpoints'
+import useSignOut from '../hooks/useSignOut'
 
 const AuthPage = () => {
     const [authstep, setAuthStep] = useState({ firststep: true, secondstep: false })
@@ -86,24 +87,7 @@ const AuthPage = () => {
 }
 
 const SignOutPage = () => {
-    const navigate = useNavigate()
-
-    useEffect(() => {
-        (async () => {
-            try {
-                axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`
-                await axios.post(endPoints.signOutEndpoint)
-                localStorage.removeItem('accessToken')
-                navigate('/')
-            }
-
-            catch (error) {
-                localStorage.removeItem('accessToken')
-                navigate('/')
-            }
-        })()
-    }, [])
-
+    useSignOut()
     return <LoadingComponent />
 }
 
