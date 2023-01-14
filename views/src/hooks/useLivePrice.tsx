@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
 import endPoints from '../constants/Endpoints'
 
 const useLivePrice = () => {
     const [state, setState] = useState({ inr: 0, usd: 0, eur: 0, isLoaded: false })
-    const navigate = useNavigate()
 
     const getLivePrice = async () => {
         try {
@@ -15,10 +13,7 @@ const useLivePrice = () => {
         }
 
         catch (error: any) {
-            if (error.response.status === 401) {
-                localStorage.removeItem('accessToken')
-                navigate('/')
-            }
+            setState({ inr: 0, usd: 0, eur: 0, isLoaded: true })
         }
     }
 

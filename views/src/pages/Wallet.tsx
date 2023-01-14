@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import { Card, Col, Container, Nav, Navbar, Row, Table } from 'react-bootstrap'
+import { Col, Container, Row, Table } from 'react-bootstrap'
 import { Fragment } from 'react'
 import NavComponent from '../components/NavComponent'
 import useAuth from '../hooks/useAuth'
@@ -33,7 +33,7 @@ const WalletTransactionPage = () => {
                 <td>{tx.flgAmount} FLG</td>
                 <td>{tx.ethAmount} ETH</td>
                 <td>{moment(tx.date).format('MMM, Do YYYY, h:mm a')}</td>
-                <td><a href={`https://goerli.etherscan.io/tx/${tx.txHash}`} target='_blank' rel='noopener noreferrer'>View on EtherScan</a></td>
+                <td><a href={`${endPoints.etherScanEndpoint}/${tx.txHash}`} target='_blank' rel='noopener noreferrer'>View on EtherScan</a></td>
             </tr>
         )
     })
@@ -41,7 +41,7 @@ const WalletTransactionPage = () => {
     //JSX
     return (
         <Fragment>
-            <ReactIfComponent condition={auth.isLoaded}>
+            <ReactIfComponent condition={auth.isLoaded && transactions.isLoaded && liveprice.isLoaded}>
                 <NavComponent />
                 <Container>
                     <Row className='mt-4 mb-4'>
@@ -91,14 +91,12 @@ const WalletTransactionPage = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {
-                                transactionsToDisplay
-                            }
+                            {transactionsToDisplay}
                         </tbody>
                     </Table>
                 </Container>
             </ReactIfComponent>
-            <ReactIfComponent condition={!auth.isLoaded}>
+            <ReactIfComponent condition={!auth.isLoaded || !transactions.isLoaded || !liveprice.isLoaded}>
                 <LoadingComponent />
             </ReactIfComponent>
         </Fragment>
