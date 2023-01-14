@@ -1,5 +1,6 @@
 enum endPoints {
     walletTransactionEndpoint = '/api/wallet/transactions',
+    walletLivePriceEndpoint = '/api/wallet/getliveprice',
     generateAuthCodeEndpoint = '/api/auth/generateauthcode',
     verifyAuthCodeEndpoint = '/api/auth/verifyauthcode',
     signOutEndpoint = '/api/auth/signout',

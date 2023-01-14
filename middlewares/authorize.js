@@ -1,12 +1,9 @@
-//Import Statements
 const jwt = require('jsonwebtoken')
 const UserModel = require('../models/UserModel')
 const dotenv = require('dotenv').config()
 
-//Reading Environment Variables
 const JWT_SECRET = process.env.JWT_SECRET
 
-//Authentication Checking Middleware
 module.exports = async function (req, res, next) {
     const accessToken = req.headers['authorization']?.split(' ')[1]
 

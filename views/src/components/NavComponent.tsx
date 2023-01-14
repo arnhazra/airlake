@@ -1,9 +1,7 @@
-//Import Statements
 import { Container, Navbar, Nav } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import ReactIfComponent from './ReactIfComponent'
 
-//Navigation Component Component
 const NavComponent = () => {
     return (
         <>
@@ -47,5 +45,5 @@ const NavComponent = () => {
         </>
     )
 }
-//Export Statement
+
 export default NavComponent

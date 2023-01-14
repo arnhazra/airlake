@@ -9,7 +9,6 @@ enum Constants {
     SyncCompleteMessage = `Sync Complete`,
     ConnectionErrorMessage = `Connection Error`,
     AuthMessage = `Securely Authenticating`,
-    CurrentRate = '1 ETH = 100 Thusand FLG, 1 INR ≅ 1 FLG',
     ErrorComponentMessage = '404, Lost'
 }
 

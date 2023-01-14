@@ -1,10 +1,8 @@
-//Import Statements
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import endPoints from '../constants/Endpoints'
 
-//useAUth Hook
 const useAuth = () => {
     const [state, setState] = useState({ userid: '', name: '', isLoaded: false })
     const navigate = useNavigate()
@@ -36,5 +34,4 @@ const useAuth = () => {
     return state
 }
 
-//Export Statement
 export default useAuth

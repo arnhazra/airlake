@@ -1,11 +1,8 @@
-//Import Statements
 const mongoose = require('mongoose')
 const dotenv = require('dotenv').config()
 
-//Reading Environment Variable
 const MONGO_URI = process.env.MONGO_URI
 
-//Mongo DB Connection Method
 const Connection = async () => {
     mongoose.connect(MONGO_URI, {
         useNewUrlParser: true,
@@ -21,5 +18,4 @@ const Connection = async () => {
     })
 }
 
-//Export Statement
 module.exports = Connection

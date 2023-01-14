@@ -1,4 +1,3 @@
-//Import Statements
 import { Fragment, useEffect, useState } from 'react'
 import axios from 'axios'
 import { Navigate, useNavigate } from 'react-router-dom'
@@ -8,7 +7,6 @@ import Constants from '../constants/Constants'
 import ReactIfComponent from '../components/ReactIfComponent'
 import endPoints from '../constants/Endpoints'
 
-//Auth Page
 const AuthPage = () => {
     const [authstep, setAuthStep] = useState({ firststep: true, secondstep: false })
     const [state, setState] = useState({ name: '', email: '', hash: '', otp: '', newuser: false })
@@ -87,9 +85,7 @@ const AuthPage = () => {
     )
 }
 
-//Sign Out Page
 const SignOutPage = () => {
-    //LOGIC
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -108,9 +104,7 @@ const SignOutPage = () => {
         })()
     }, [])
 
-    //JSX
     return <LoadingComponent />
 }
 
-//Export Statement
 export { AuthPage, SignOutPage }

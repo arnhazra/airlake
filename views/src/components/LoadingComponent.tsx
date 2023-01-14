@@ -1,7 +1,5 @@
-//Import Statements
 import NavComponent from './NavComponent'
 
-//Loading Component Component
 const LoadingComponent = () => {
     return (
         <>
@@ -13,5 +11,4 @@ const LoadingComponent = () => {
     )
 }
 
-//Export Statement
 export default LoadingComponent

@@ -1,11 +1,10 @@
-//Import Statements
 const express = require('express')
 const { check, validationResult } = require('express-validator')
 const authorize = require('../middlewares/authorize')
+const superagent = require('superagent')
 const WalletModel = require('../models/WalletModel')
 const router = express.Router()
 
-//Create Transaction Route
 router.post(
     '/createtx',
 
@@ -42,7 +41,6 @@ router.post(
     }
 )
 
-//Transaction Route
 router.post(
     '/transactions',
 
@@ -60,5 +58,21 @@ router.post(
     }
 )
 
-//Export Statement
+router.post(
+    '/getliveprice',
+
+    authorize,
+
+    async (req, res) => {
+        try {
+            const livePrice = await superagent.get('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=inr%2Cusd%2Ceur')
+            return res.status(200).json(JSON.parse(livePrice.text))
+        }
+
+        catch (error) {
+            return res.status(500).json({ msg: 'Connection Error' })
+        }
+    }
+)
+
 module.exports = router

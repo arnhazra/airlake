@@ -1,19 +1,15 @@
-//Import Statements
 const express = require('express')
 const Connection = require('./functions/Connection')
 const dotenv = require('dotenv').config()
 const fs = require('fs')
 
-//Initialize Express handler
 const handler = express()
 handler.listen(process.env.PORT)
 
 handler.use(express.json({ extended: false, limit: '1mb' }))
 
-//MongoDB Connection
 Connection()
 
-//API Routes
 fs.readdirSync('./api').map(route => handler.use(`/api/${route.split('.')[0].toLowerCase()}`, require(`./api/${route.split('.')[0]}`)))
 
 if (process.env.NODE_ENV == 'production') {

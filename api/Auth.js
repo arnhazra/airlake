@@ -1,4 +1,3 @@
-//Import Statements
 const router = require('express').Router()
 const dotenv = require('dotenv').config()
 const jwt = require('jsonwebtoken')
@@ -9,11 +8,9 @@ const UserModel = require('../models/UserModel')
 const sendmail = require('../functions/SendMail')
 const authorize = require('../middlewares/authorize')
 
-//Reading Environment Variables
 const JWT_SECRET = process.env.JWT_SECRET
 const OTP_SECRET = process.env.OTP_SECRET
 
-//Auth Route - Generate Auth Code
 router.post(
     '/generateauthcode',
 
@@ -52,7 +49,6 @@ router.post(
     }
 )
 
-//Auth Route - Verify Auth Code
 router.post(
     '/verifyauthcode',
 
@@ -116,7 +112,6 @@ router.post(
     }
 )
 
-//UseAuth Route
 router.post(
     '/useauth',
 
@@ -141,7 +136,6 @@ router.post(
     }
 )
 
-//Signout Route
 router.post(
     '/signout',
 
@@ -161,5 +155,4 @@ router.post(
     }
 )
 
-//Export Statement
 module.exports = router

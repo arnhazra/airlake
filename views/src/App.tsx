@@ -5,8 +5,7 @@ import { AuthPage, SignOutPage } from './pages/Auth'
 import { BuyCoin, SellCoin, WalletTransactionPage } from './pages/Wallet'
 import ErrorComponent from './components/ErrorComponent'
 
-//UI Router
-const Router = () => {
+const App = () => {
 	return (
 		<Fragment>
 			<BrowserRouter>
@@ -24,4 +23,4 @@ const Router = () => {
 	)
 }
 
-export default Router
+export default App

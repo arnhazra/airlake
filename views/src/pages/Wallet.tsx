@@ -1,6 +1,6 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import { Container, Row } from 'react-bootstrap'
+import { Col, Container, Row } from 'react-bootstrap'
 import { Fragment } from 'react'
 import NavComponent from '../components/NavComponent'
 import useAuth from '../hooks/useAuth'
@@ -14,43 +14,22 @@ import CardComponent from '../components/CardComponent'
 import Snackbar from 'node-snackbar'
 import axios from 'axios'
 import moment from 'moment'
-import { walletTransactionsService } from '../services/WalletService'
 import contractAddress from '../constants/Address'
 import endPoints from '../constants/Endpoints'
+import useTransactionData from '../hooks/useTransactionData'
+import useLivePrice from '../hooks/useLivePrice'
 declare const window: any
 const web3 = new Web3(Web3.givenProvider)
 
-//Wallet Transactions Page
 const WalletTransactionPage = () => {
     const auth = useAuth()
-    const navigate = useNavigate()
-    const [state, setState] = useState({ transactions: [], isLoaded: false })
+    const transactions = useTransactionData()
+    const liveprice = useLivePrice()
 
-    const getTransactionsData = async () => {
-        try {
-            const accessToken = localStorage.getItem('accessToken') as string
-            const response = await walletTransactionsService(accessToken)
-            setState({ ...state, transactions: response.data.transactions, isLoaded: true })
-        }
-
-        catch (error: any) {
-            if (error.response) {
-                if (error.response.status === 401) {
-                    localStorage.removeItem('accessToken')
-                    navigate('/')
-                }
-            }
-        }
-    }
-
-    useEffect(() => {
-        getTransactionsData()
-    }, [])
-
-    const transactionsToDisplay = state.transactions.map((transaction: any) => {
+    const transactionsToDisplay = transactions.transactions.map((transaction: any) => {
         return <CardComponent
             key={transaction._id}
-            header={transaction.flgAmount + ' FLG'}
+            header={<p className='display-6 fw-bold'>{transaction.flgAmount} FLG</p>}
             body={[<div key={transaction._id}><p>Transaction Type : {transaction.transactionType} FLG</p><p>ETH : {transaction.ethAmount}</p><p>Date : {moment(transaction.date).format('MMM, Do YYYY, h:mm a')}</p></div>]}
             footer={[<a key={transaction._id} rel='noopener noreferrer' target='_blank' href={`https://goerli.etherscan.io/tx/${transaction.txHash}`} className='mt-auto btn'>View on EtherScan<i className='fa-solid fa-circle-arrow-right'></i></a>]}
         />
@@ -65,19 +44,34 @@ const WalletTransactionPage = () => {
                     <Row className='mt-4 mb-4'>
                         <CardComponent
                             key={'userinfo'}
-                            header={'Hi, ' + auth.name.split(' ')[0]}
-                            body={[<div key={'userinfo'}><p>{Constants.HomeIntro3}</p><p>{Constants.CurrentRate}</p></div>]}
-                            footer={[<Link key={'userinfo'} to='/wallet/buy' className='btn'>Buy FLG<i className='fa-solid fa-circle-arrow-right'></i></Link>]}
+                            header={
+                                <Row>
+                                    <Col>
+                                        <p className='display-6 fw-bold'>Hi, {auth.name.split(' ')[0]}</p>
+                                    </Col>
+                                    <Col style={{ textAlign: 'end' }}>
+                                        <button className='btn livebutton'>LIVE</button>
+                                    </Col>
+                                </Row>
+                            }
+                            body={
+                                <div key={'userinfo'}>
+                                    <p>1 ETH = ₹ {liveprice.inr}, 1 FLG = ₹ {(liveprice.inr / 100000).toFixed(3)}</p>
+                                    <p>1 ETH = $ {liveprice.usd}, 1 FLG = $ {(liveprice.usd / 100000).toFixed(3)}</p>
+                                    <p>1 ETH = € {liveprice.eur}, 1 FLG = € {(liveprice.eur / 100000).toFixed(3)}</p>
+                                </div>
+                            }
+                            footer={<Link key={'userinfo'} to='/wallet/buy' className='btn'>Buy FLG<i className='fa-solid fa-circle-arrow-right'></i></Link>}
                         />
                         <CardComponent
                             key={'info'}
-                            header={'Info'}
+                            header={<p className='display-6 fw-bold'>Info</p>}
                             body={[<div key={'info'}><p>{Constants.Info}</p></div>]}
                             footer={[<Link key={'info'} to='/wallet/sell' className='btn'>Sell FLG<i className='fa-solid fa-circle-arrow-right'></i></Link>]}
                         />
                         <CardComponent
                             key={'warning'}
-                            header={<>Warning<i className='fa-solid fa-triangle-exclamation'></i></>}
+                            header={<p className='display-6 fw-bold'>Warning<i className='fa-solid fa-triangle-exclamation'></i></p>}
                             body={[<div key={'warning'} className='warning'><p>{Constants.Warning}</p></div>]}
                             footer={[<a key={'warning'} target='_blank' rel='noopener noreferrer' href='https://goerli-faucet.pk910.de/' className='btn'>Mine ETH<i className='fa-solid fa-circle-arrow-right'></i></a>]}
                         />
@@ -95,7 +89,6 @@ const WalletTransactionPage = () => {
     )
 }
 
-//Buy Coin Page
 const BuyCoin = () => {
     const auth = useAuth()
     const [tokens, setTokens] = useState('')
@@ -200,7 +193,6 @@ const BuyCoin = () => {
     )
 }
 
-//Sell Coin Page
 const SellCoin = () => {
     const auth = useAuth()
     const [tokens, setTokens] = useState('')
