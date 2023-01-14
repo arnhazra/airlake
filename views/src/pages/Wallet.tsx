@@ -1,16 +1,13 @@
-import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import { Col, Container, Row, Table } from 'react-bootstrap'
+import { Container, Table } from 'react-bootstrap'
 import { Fragment } from 'react'
 import NavComponent from '../components/NavComponent'
 import useAuth from '../hooks/useAuth'
-import Constants from '../constants/Constants'
 import LoadingComponent from '../components/LoadingComponent'
 import ReactIfComponent from '../components/ReactIfComponent'
 import { tokenABI } from '../contracts/TokenABI'
 import { vendorABI } from '../contracts/VendorABI'
 import Web3 from 'web3'
-import CardComponent from '../components/CardComponent'
 import Snackbar from 'node-snackbar'
 import axios from 'axios'
 import moment from 'moment'
@@ -18,6 +15,7 @@ import contractAddress from '../constants/Address'
 import endPoints from '../constants/Endpoints'
 import useTransactionData from '../hooks/useTransactionData'
 import useLivePrice from '../hooks/useLivePrice'
+import { DashboardStack } from '../modules/DashboardStack'
 declare const window: any
 const web3 = new Web3(Web3.givenProvider)
 
@@ -44,42 +42,7 @@ const WalletTransactionPage = () => {
             <ReactIfComponent condition={auth.isLoaded && transactions.isLoaded && liveprice.isLoaded}>
                 <NavComponent />
                 <Container>
-                    <Row className='mt-4 mb-4'>
-                        <CardComponent
-                            key={'userinfo'}
-                            header={
-                                <Row>
-                                    <Col>
-                                        <p className='display-6 fw-bold'>Hi, {auth.name.split(' ')[0]}</p>
-                                    </Col>
-                                    <Col style={{ textAlign: 'end' }}>
-                                        <button className='btn livebutton'>LIVE</button>
-                                    </Col>
-                                </Row>
-                            }
-                            body={
-                                <div key={'userinfo'}>
-                                    <p>1 ETH = ₹ {liveprice.inr}, 1 FLG = ₹ {(liveprice.inr / 100000).toFixed(3)}</p>
-                                    <p>1 ETH = $ {liveprice.usd}, 1 FLG = $ {(liveprice.usd / 100000).toFixed(3)}</p>
-                                    <p>1 ETH = € {liveprice.eur}, 1 FLG = € {(liveprice.eur / 100000).toFixed(3)}</p>
-                                </div>
-                            }
-                            footer={<Link key={'userinfo'} to='/wallet/buy' className='btn'>Buy FLG<i className='fa-solid fa-circle-arrow-right'></i></Link>}
-                        />
-                        <CardComponent
-                            key={'info'}
-                            header={<p className='display-6 fw-bold'>Info</p>}
-                            body={[<div key={'info'}><p>{Constants.Info}</p></div>]}
-                            footer={[<Link key={'info'} to='/wallet/sell' className='btn'>Sell FLG<i className='fa-solid fa-circle-arrow-right'></i></Link>]}
-                        />
-                        <CardComponent
-                            key={'warning'}
-                            header={<p className='display-6 fw-bold'>Warning<i className='fa-solid fa-triangle-exclamation'></i></p>}
-                            body={[<div key={'warning'} className='warning'><p>{Constants.Warning}</p></div>]}
-                            footer={[<a key={'warning'} target='_blank' rel='noopener noreferrer' href='https://goerli-faucet.pk910.de/' className='btn'>Mine ETH<i className='fa-solid fa-circle-arrow-right'></i></a>]}
-                        />
-                    </Row>
-
+                    <DashboardStack auth={auth} liveprice={liveprice} />
                     <Table responsive hover variant='light'>
                         <thead>
                             <tr>
@@ -109,7 +72,6 @@ const BuyCoin = () => {
     const [ether, setEther] = useState(0)
     const [account, setAccount] = useState('')
     const [step, setStep] = useState(1)
-    const [pinErr, setPinErr] = useState('')
     const [txError, setTxError] = useState(false)
 
     useEffect(() => {
@@ -118,7 +80,6 @@ const BuyCoin = () => {
 
     const connectWallet = async () => {
         try {
-            setPinErr('')
             if (typeof window != 'undefined' && typeof window.ethereum != 'undefined') {
                 try {
                     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
@@ -130,7 +91,7 @@ const BuyCoin = () => {
                 Snackbar.show({ text: 'Please install metamask' })
             }
         } catch (error) {
-            setPinErr('Metamask Error')
+            Snackbar.show({ text: 'Please install metamask' })
         }
     }
 
@@ -213,7 +174,6 @@ const SellCoin = () => {
     const [ether, setEther] = useState(0)
     const [account, setAccount] = useState('')
     const [step, setStep] = useState(1)
-    const [pinErr, setPinErr] = useState('')
     const [txError, setTxError] = useState(false)
 
     useEffect(() => {
@@ -233,7 +193,7 @@ const SellCoin = () => {
                 Snackbar.show({ text: 'Please install metamask' })
             }
         } catch (error) {
-            setPinErr('Metamask Error')
+            Snackbar.show({ text: 'Please install metamask' })
         }
     }
 
