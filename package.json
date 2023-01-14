@@ -2,7 +2,6 @@
   "name": "project-frostlake",
   "version": "2.0",
   "description": "Jump start your crypto portfolio",
-  "homepage": "https://frostlake.vercel.app",
   "main": "app.js",
   "scripts": {
     "start": "node app",
