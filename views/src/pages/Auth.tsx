@@ -39,7 +39,7 @@ const AuthPage = () => {
             axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`
             localStorage.setItem('accessToken', response.data.accessToken)
             setAlert('Successfully authenticated')
-            navigate('/wallet/transactions')
+            navigate('/wallet/dashboard')
         }
 
         catch (error: any) {
@@ -56,7 +56,7 @@ const AuthPage = () => {
     return (
         <Fragment>
             <ReactIfComponent condition={localStorage.hasOwnProperty('accessToken')}>
-                <Navigate replace to='/wallet/transactions' />
+                <Navigate replace to='/wallet/dashboard' />
             </ReactIfComponent>
             <ReactIfComponent condition={!localStorage.hasOwnProperty('accessToken')}>
                 <NavComponent />

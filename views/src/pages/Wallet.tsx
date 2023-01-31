@@ -19,7 +19,7 @@ import { DashboardStack } from '../modules/DashboardStack'
 declare const window: any
 const web3 = new Web3(Web3.givenProvider)
 
-const WalletTransactionPage = () => {
+const WalletDashboardPage = () => {
     const auth = useAuth()
     const transactions = useTransactionData()
     const liveprice = useLivePrice()
@@ -275,4 +275,4 @@ const SellCoin = () => {
     )
 }
 
-export { WalletTransactionPage, BuyCoin, SellCoin } 
+export { WalletDashboardPage, BuyCoin, SellCoin } 

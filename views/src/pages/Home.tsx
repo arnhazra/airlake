@@ -10,7 +10,7 @@ const HomePage = () => {
         <Fragment>
             <NavComponent />
             <ReactIfComponent condition={localStorage.hasOwnProperty('accessToken')}>
-                <Navigate replace to='/wallet/transactions' />
+                <Navigate replace to='/wallet/dashboard' />
             </ReactIfComponent>
             <ReactIfComponent condition={!localStorage.hasOwnProperty('accessToken')}>
                 <Container>
