@@ -24,7 +24,7 @@ const useTransactionData = () => {
 
     useEffect(() => {
         getAllTransactions()
-        const getRealtimeData = setInterval(() => getAllTransactions(), 59000)
+        const getRealtimeData = setInterval(() => getAllTransactions(), 30000)
         return () => clearInterval(getRealtimeData)
     }, [])
 

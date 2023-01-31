@@ -2,8 +2,9 @@ import { Col, Row, Table } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import CardComponent from '../components/CardComponent'
 import Constants from '../constants/Constants'
+import { DashboardStackProps } from '../interfaces/Props'
 
-export const DashboardStack = ({ auth, liveprice }: any) => {
+export const DashboardStack = ({ auth, liveprice }: DashboardStackProps) => {
     return (
         <Row className='mt-4 mb-4'>
             <CardComponent

@@ -1,7 +1,8 @@
-import React from 'react'
+import { FC } from 'react'
+import { ReactIfProps } from '../interfaces/Props'
 
-function ReactIfComponent(props: { condition: boolean | undefined; children: React.ReactNode }): JSX.Element {
-    return props.condition === undefined || !props.condition ? <></> : <>{props.children}</>
+const ReactIfComponent: FC<ReactIfProps> = ({ condition, children }: ReactIfProps) => {
+    return condition === undefined || !condition ? <></> : <>{children}</>
 }
 
 export default ReactIfComponent

@@ -223,7 +223,7 @@ const SellCoin = () => {
         } catch (err) {
             setTxError(true)
             setStep(3)
-            Snackbar.show({ text: 'Error purchasing FLG tokens' })
+            Snackbar.show({ text: 'Error selling FLG tokens' })
         }
     }
 

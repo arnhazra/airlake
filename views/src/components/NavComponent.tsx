@@ -1,8 +1,9 @@
+import { FC } from 'react'
 import { Container, Navbar, Nav } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import ReactIfComponent from './ReactIfComponent'
 
-const NavComponent = () => {
+const NavComponent: FC = () => {
     return (
         <>
             <ReactIfComponent condition={localStorage.hasOwnProperty('accessToken')}>

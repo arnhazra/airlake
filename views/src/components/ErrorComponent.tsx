@@ -1,6 +1,7 @@
+import { FC } from 'react'
 import Constants from '../constants/Constants'
 
-const ErrorComponent = () => {
+const ErrorComponent: FC = () => {
     return (
         <div className='box text-center'>
             <p className='branding mb-4'>{Constants.ErrorComponentMessage}</p>

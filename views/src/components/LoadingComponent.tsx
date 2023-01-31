@@ -1,6 +1,7 @@
+import { FC } from 'react'
 import NavComponent from './NavComponent'
 
-const LoadingComponent = () => {
+const LoadingComponent: FC = () => {
     return (
         <>
             <NavComponent />

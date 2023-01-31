@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import endPoints from '../constants/Endpoints'
+import { LivePriceState } from '../interfaces/States'
 
 const useLivePrice = () => {
-    const [state, setState] = useState({ inr: 0, usd: 0, eur: 0, isLoaded: false })
+    const [state, setState] = useState<LivePriceState>({ inr: 0, usd: 0, eur: 0, isLoaded: false })
 
     const getLivePrice = async () => {
         try {
@@ -19,7 +20,7 @@ const useLivePrice = () => {
 
     useEffect(() => {
         getLivePrice()
-        const getRealtimeData = setInterval(() => getLivePrice(), 55000)
+        const getRealtimeData = setInterval(() => getLivePrice(), 45000)
         return () => clearInterval(getRealtimeData)
     }, [])
 
