@@ -7,6 +7,8 @@ const { check, validationResult } = require('express-validator')
 const UserModel = require('../models/UserModel')
 const sendmail = require('../functions/SendMail')
 const authorize = require('../middlewares/authorize')
+const statusMessages = require('../constants/Messages')
+const endPoints = require('../constants/Endpoints')
 
 const JWT_SECRET = process.env.JWT_SECRET
 const OTP_SECRET = process.env.OTP_SECRET
@@ -34,16 +36,16 @@ router.post(
                 const hash = otptool.createNewOTP(email, otp, key = OTP_SECRET, expiresAfter = 5, algorithm = 'sha256')
                 await sendmail(email, otp)
                 if (user) {
-                    return res.status(200).json({ hash, newuser: false, msg: 'Check Auth Code in Email' })
+                    return res.status(200).json({ hash, newuser: false, msg: statusMessages.authCodeEmail })
                 }
 
                 else {
-                    return res.status(200).json({ hash, newuser: true, msg: 'Check Auth Code in Email' })
+                    return res.status(200).json({ hash, newuser: true, msg: statusMessages.authCodeEmail })
                 }
             }
 
             catch (error) {
-                return res.status(500).json({ msg: 'Connection Error' })
+                return res.status(500).json({ msg: statusMessages.connectionError })
             }
         }
     }
@@ -81,7 +83,7 @@ router.post(
                         }
 
                         else {
-                            const payload = { id: user.id, iss: 'https://frostlake.vercel.app' }
+                            const payload = { id: user.id, iss: endPoints.tokenIssuer }
                             const accessToken = jwt.sign(payload, JWT_SECRET)
                             user.accessToken = accessToken
                             await user.save()
@@ -92,7 +94,7 @@ router.post(
                     else {
                         const { name } = req.body || 'No Name'
                         user = new UserModel({ name, email })
-                        const payload = { id: user.id, iss: 'https://frostlake.vercel.app' }
+                        const payload = { id: user.id, iss: endPoints.tokenIssuer }
                         const accessToken = jwt.sign(payload, JWT_SECRET)
                         user.accessToken = accessToken
                         await user.save()
@@ -101,12 +103,12 @@ router.post(
                 }
 
                 else {
-                    return res.status(400).json({ authenticated: false, msg: 'Invalid Auth Code' })
+                    return res.status(400).json({ authenticated: false, msg: statusMessages.invalidAuthCode })
                 }
             }
 
             catch (error) {
-                return res.status(500).json({ authenticated: false, msg: 'Connection Error' })
+                return res.status(500).json({ authenticated: false, msg: statusMessages.connectionError })
             }
         }
     }
@@ -126,12 +128,12 @@ router.post(
             }
 
             else {
-                return res.status(401).json({ msg: 'Unauthorized' })
+                return res.status(401).json({ msg: statusMessages.unauthorized })
             }
         }
 
         catch (error) {
-            return res.status(500).json({ msg: 'Connection Error' })
+            return res.status(500).json({ msg: statusMessages.connectionError })
         }
     }
 )
@@ -146,11 +148,11 @@ router.post(
             const user = await UserModel.findById(req.id)
             user.accessToken = ''
             await user.save()
-            return res.status(200).json({ msg: 'Sign Out Successful' })
+            return res.status(200).json({ msg: statusMessages.signOutSuccess })
         }
 
         catch (error) {
-            return res.status(500).json({ msg: 'Connection Error' })
+            return res.status(500).json({ msg: statusMessages.connectionError })
         }
     }
 )

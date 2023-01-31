@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const statusMessages = require('../constants/Messages')
 const dotenv = require('dotenv').config()
 
 const MONGO_URI = process.env.MONGO_URI
@@ -10,11 +11,11 @@ const Connection = async () => {
     })
 
     mongoose.connection.on('connected', () => {
-        console.log('Mongo DB Connected')
+        console.log(statusMessages.mongoDbConnected)
     })
 
     mongoose.connection.on('error', (err) => {
-        console.log('Mongo DB Connection Error', err)
+        console.log(statusMessages.mongoDbConnectionErr, err)
     })
 }
 

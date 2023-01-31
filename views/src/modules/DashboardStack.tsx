@@ -15,7 +15,7 @@ export const DashboardStack = ({ auth, liveprice }: DashboardStackProps) => {
                             <p className='display-6 fw-bold'>Hi, {auth.name.split(' ')[0]}</p>
                         </Col>
                         <Col style={{ textAlign: 'end' }}>
-                            <button className='btn livebutton'>LIVE</button>
+                            <button className='btn livebutton'>REALTIME</button>
                         </Col>
                     </Row>
                 }

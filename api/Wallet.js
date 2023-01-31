@@ -3,6 +3,8 @@ const { check, validationResult } = require('express-validator')
 const authorize = require('../middlewares/authorize')
 const superagent = require('superagent')
 const WalletModel = require('../models/WalletModel')
+const statusMessages = require('../constants/Messages')
+const endPoints = require('../constants/Endpoints')
 const router = express.Router()
 
 router.post(
@@ -31,11 +33,11 @@ router.post(
             try {
                 const transaction = new WalletModel({ owner: req.id, transactionType, fromAddress, flgAmount, ethAmount, txHash })
                 await transaction.save()
-                return res.status(200).json({ msg: 'New Transaction Created', transaction })
+                return res.status(200).json({ msg: statusMessages.transactionCreationSuccess, transaction })
             }
 
             catch (error) {
-                return res.status(500).json({ msg: 'Error Creating ERC20 Transaction' })
+                return res.status(500).json({ msg: statusMessages.transactionCreationError })
             }
         }
     }
@@ -53,7 +55,7 @@ router.post(
         }
 
         catch (error) {
-            return res.status(500).json({ msg: 'Connection Error' })
+            return res.status(500).json({ msg: statusMessages.connectionError })
         }
     }
 )
@@ -65,12 +67,12 @@ router.post(
 
     async (req, res) => {
         try {
-            const livePrice = await superagent.get('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=inr%2Cusd%2Ceur')
+            const livePrice = await superagent.get(endPoints.liveEthPriceEndPoint)
             return res.status(200).json(JSON.parse(livePrice.text))
         }
 
         catch (error) {
-            return res.status(500).json({ msg: 'Connection Error' })
+            return res.status(500).json({ msg: statusMessages.connectionError })
         }
     }
 )
