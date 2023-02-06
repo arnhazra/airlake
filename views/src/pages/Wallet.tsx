@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Container, Table } from 'react-bootstrap'
+import { Col, Container, Row, Table } from 'react-bootstrap'
 import { Fragment } from 'react'
 import NavComponent from '../components/NavComponent'
 import useAuth from '../hooks/useAuth'
@@ -15,11 +15,13 @@ import contractAddress from '../constants/Address'
 import endPoints from '../constants/Endpoints'
 import useTransactionData from '../hooks/useTransactionData'
 import useLivePrice from '../hooks/useLivePrice'
-import { DashboardStack } from '../modules/DashboardStack'
+import CardComponent from '../components/CardComponent'
+import { Link } from 'react-router-dom'
+import Constants from '../constants/Constants'
 declare const window: any
 const web3 = new Web3(Web3.givenProvider)
 
-const WalletDashboardPage = () => {
+const WalletTransactionsPage = () => {
     const auth = useAuth()
     const transactions = useTransactionData()
     const liveprice = useLivePrice()
@@ -36,13 +38,47 @@ const WalletDashboardPage = () => {
         )
     })
 
-    //JSX
     return (
         <Fragment>
             <ReactIfComponent condition={auth.isLoaded && transactions.isLoaded && liveprice.isLoaded}>
                 <NavComponent />
                 <Container>
-                    <DashboardStack auth={auth} liveprice={liveprice} />
+                    <div className="jumbotron mt-4 pl-5">
+                        <p className='display-6 fw-bold'>Hi, {auth.name.split(' ')[0]}</p>
+                        <div key={'liveprice'}>
+                            <Table responsive hover variant='light'>
+                                <thead>
+                                    <tr>
+                                        <th>Crypto</th>
+                                        <th>INR</th>
+                                        <th>USD</th>
+                                        <th>EUR</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>ETH</td>
+                                        <td>{liveprice.inr}</td>
+                                        <td>{liveprice.usd}</td>
+                                        <td>{liveprice.eur}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>FLG</td>
+                                        < td > {(liveprice.inr / 100000).toFixed(3)}</td>
+                                        <td>{(liveprice.usd / 100000).toFixed(3)}</td>
+                                        <td>{(liveprice.eur / 100000).toFixed(3)}</td>
+                                    </tr>
+                                </tbody>
+                            </Table>
+                        </div>
+                        <div className='info'>
+                            <p className='lead'>{Constants.Info}</p>
+                            <p className='lead'>{Constants.Warning}</p>
+                            <Link to='/wallet/buy' className='btn'>Buy FLG<i className='fa-solid fa-circle-arrow-right'></i></Link>
+                            <Link to='/wallet/sell' className='btn'>Sell FLG<i className='fa-solid fa-circle-arrow-right'></i></Link>
+                        </div>
+                    </div>
+
                     <Table responsive hover variant='light'>
                         <thead>
                             <tr>
@@ -62,7 +98,7 @@ const WalletDashboardPage = () => {
             <ReactIfComponent condition={!auth.isLoaded || !transactions.isLoaded || !liveprice.isLoaded}>
                 <LoadingComponent />
             </ReactIfComponent>
-        </Fragment>
+        </Fragment >
     )
 }
 
@@ -275,4 +311,4 @@ const SellCoin = () => {
     )
 }
 
-export { WalletDashboardPage, BuyCoin, SellCoin } 
+export { WalletTransactionsPage, BuyCoin, SellCoin } 

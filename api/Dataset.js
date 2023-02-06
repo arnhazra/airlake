@@ -1,0 +1,111 @@
+const express = require('express')
+const { check, validationResult } = require('express-validator')
+const statusMessages = require('../constants/Messages')
+const authorize = require('../middlewares/authorize')
+const DatasetModel = require('../models/DatasetModel')
+const router = express.Router()
+
+router.post(
+    '/create',
+
+    [
+        check('name', 'Name must not be empty').notEmpty(),
+        check('category', 'Category must not be empty').notEmpty(),
+        check('description', 'Description must not be empty').notEmpty(),
+        check('data', 'data must be an array of object').isArray(),
+        check('price', 'Price must not be empty').isNumeric()
+    ],
+
+    async (req, res) => {
+        const errors = validationResult(req)
+
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ msg: errors.array()[0].msg })
+        }
+
+        else {
+            const { name, category, description, data, price } = req.body
+
+            try {
+                const dataset = new DatasetModel({ name, category, description, data, price })
+                await dataset.save()
+                return res.status(200).json({ msg: statusMessages.transactionCreationSuccess })
+            }
+
+            catch (error) {
+                return res.status(500).json({ msg: statusMessages.connectionError })
+            }
+        }
+    }
+)
+
+router.post(
+    '/filtercategories',
+
+    authorize,
+
+    async (req, res) => {
+        try {
+            const categories = ['all', 'finance', 'entertainment', 'miscellaneous', 'places', 'users']
+            return res.status(200).json({ categories })
+        }
+
+        catch (error) {
+            return res.status(500).json({ msg: statusMessages.connectionError })
+        }
+    }
+)
+
+router.post(
+    '/store',
+
+    authorize,
+
+    async (req, res) => {
+        try {
+            const datasets = await DatasetModel.find().select('-data').sort({ _id: -1 })
+            return res.status(200).json({ datasets })
+        }
+
+        catch (error) {
+            return res.status(500).json({ msg: statusMessages.connectionError })
+        }
+    }
+)
+
+router.post(
+    '/view/:id',
+
+    authorize,
+
+    async (req, res) => {
+        try {
+            const metadata = await DatasetModel.findById(req.params.id).select('-data')
+            return res.status(200).json({ metadata })
+        }
+
+        catch (error) {
+            console.log(error)
+            return res.status(404).json({ msg: statusMessages.connectionError })
+        }
+    }
+)
+
+router.get(
+    '/data/preview/:id',
+
+    async (req, res) => {
+        try {
+            const data = await DatasetModel.findById(req.params.id).select('data')
+            const previewdata = data.data[0]
+            return res.status(200).json({ previewdata })
+        }
+
+        catch (error) {
+            console.log(error)
+            return res.status(404).json({ msg: statusMessages.connectionError })
+        }
+    }
+)
+
+module.exports = router

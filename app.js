@@ -6,7 +6,7 @@ const fs = require('fs')
 const handler = express()
 handler.listen(process.env.PORT)
 
-handler.use(express.json({ extended: false, limit: '1mb' }))
+handler.use(express.json({ extended: false, limit: '50mb' }))
 
 Connection()
 

@@ -1,26 +1,65 @@
 import { FC } from 'react'
-import { Container, Navbar, Nav } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Container, Navbar, Nav, NavDropdown, Form, Button, InputGroup } from 'react-bootstrap'
+import { Link, useNavigate } from 'react-router-dom'
 import ReactIfComponent from './ReactIfComponent'
 
-const NavComponent: FC = () => {
+interface NavProps {
+    sendSearchInput?: (input: string) => void
+}
+
+const NavComponent: FC<NavProps> = ({ sendSearchInput }: NavProps) => {
+    const navigate = useNavigate()
+    const redirect = (): void => {
+        navigate('/dataset/store')
+    }
+
+    const handleSearch = (searchInput: string): void => {
+        sendSearchInput ? sendSearchInput(searchInput) : console.log('no')
+    }
+
     return (
         <>
             <ReactIfComponent condition={localStorage.hasOwnProperty('accessToken')}>
-                <Navbar variant='light' expand='lg'>
+                <Navbar expand="lg">
                     <Container>
-                        <Link to='/wallet/dashboard'>
-                            <Navbar.Brand style={{ fontSize: '20px' }}>
-                                Dashboard
-                            </Navbar.Brand>
-                        </Link>
-                        <Navbar.Toggle></Navbar.Toggle>
-                        <Navbar.Collapse id='basic-navbar-nav'>
-                            <Nav className='ms-auto'>
-                                <Link to='/wallet/buy'><Navbar.Brand>Buy FLG</Navbar.Brand></Link>
-                                <Link to='/wallet/sell'><Navbar.Brand>Sell FLG</Navbar.Brand></Link>
-                                <Link to='/auth/signout'><Navbar.Brand>Sign Out</Navbar.Brand></Link>
+                        <Navbar.Brand>
+                            <Link to='/dataset/store'>
+                                Frostlake
+                            </Link>
+                        </Navbar.Brand>
+                        <Navbar.Toggle aria-controls="navbarScroll" />
+                        <Navbar.Collapse id="navbarScroll">
+                            <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '5rem' }} navbarScroll>
+                                <Navbar.Brand>
+                                    <Link to='/dataset/subscriptions'>
+                                        Subscriptions
+                                    </Link>
+                                </Navbar.Brand>
+                                <Navbar.Brand>
+                                    <Link to='/wallet/transactions'>
+                                        Wallet
+                                    </Link>
+                                </Navbar.Brand>
+                                <Navbar.Brand>
+                                    <Link to='/account'>
+                                        Account
+                                    </Link>
+                                </Navbar.Brand>
                             </Nav>
+                            <Form className="d-flex">
+                                <InputGroup>
+                                    <Form.Control
+                                        autoFocus={window.location.pathname === '/dataset/store' ? true : false}
+                                        type="search"
+                                        placeholder="Search the Store"
+                                        className="searchbar-navbar"
+                                        aria-label="Search"
+                                        onClick={redirect}
+                                        onChange={(e: any): void => handleSearch(e.target.value)}
+                                    />
+                                    <InputGroup.Text><i className="fa-solid fa-magnifying-glass"></i></InputGroup.Text>
+                                </InputGroup>
+                            </Form>
                         </Navbar.Collapse>
                     </Container>
                 </Navbar>
@@ -29,7 +68,7 @@ const NavComponent: FC = () => {
                 <Navbar variant='light' expand='lg'>
                     <Container>
                         <Link to='/'>
-                            <Navbar.Brand style={{ fontSize: '20px' }}>
+                            <Navbar.Brand >
                                 Frostlake
                             </Navbar.Brand>
                         </Link>
@@ -45,6 +84,10 @@ const NavComponent: FC = () => {
             </ReactIfComponent>
         </>
     )
+}
+
+NavComponent.defaultProps = {
+    sendSearchInput: (input: string) => console.log(input)
 }
 
 export default NavComponent
