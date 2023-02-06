@@ -9,6 +9,7 @@ enum endPoints {
     datasetStoreEndpoint = '/api/dataset/store',
     datasetSubscriptionEndpoint = '/api/dataset/subscriptions',
     datasetViewEndpoint = '/api/dataset/viewone',
+    findsimilarDatasets = '/api/dataset/findsimilar',
     datasetFilterCategoriesEndpoint = '/api/dataset/filtercategories',
     etherScanEndpoint = 'https://goerli.etherscan.io/tx'
 }

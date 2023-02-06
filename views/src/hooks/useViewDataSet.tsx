@@ -8,7 +8,7 @@ interface UseViewDataSetInterface {
 }
 
 const useViewDataSet = ({ id }: UseViewDataSetInterface) => {
-    const [state, setState] = useState({ id: '', name: '', description: '', category: '', price: 0, isLoaded: false, hasError: false })
+    const [state, setState] = useState({ id: '', name: '', description: '', category: '', price: 0, dataLength: 0, isLoaded: false, hasError: false })
     const navigate = useNavigate()
 
     const getDataSetView = async () => {
@@ -16,7 +16,7 @@ const useViewDataSet = ({ id }: UseViewDataSetInterface) => {
             axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`
             const response = await axios.post(`${endPoints.datasetViewEndpoint}/${id}`)
             const { _id, name, description, category, price } = response.data.metadata
-            setState({ ...state, id: _id, name: name, description: description, category: category, price: price, isLoaded: true })
+            setState({ ...state, id: _id, name: name, description: description, category: category, price: price, dataLength: response.data.dataLength, isLoaded: true })
         }
 
         catch (error: any) {

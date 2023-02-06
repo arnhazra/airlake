@@ -13,6 +13,7 @@ import useViewDataSet from '../hooks/useViewDataSet'
 import useIsSubscribed from '../hooks/useIsSubscribed'
 import axios from 'axios'
 import useViewSubscriptions from '../hooks/useViewSubscriptions'
+import useFindSimilarDatasets from '../hooks/useFindSimilarDatasets'
 
 const ViewAllDataSetsPage: FC = () => {
     const [searchInput, setSearchInput] = useState('')
@@ -27,6 +28,7 @@ const ViewAllDataSetsPage: FC = () => {
             header={<p className='lead text-capitalize'>{dataset.name}</p>}
             body={<div>
                 <p className='lead'>{dataset.category}</p>
+                <p className="lead">MIT License</p>
                 <button className='livebutton'>{dataset.price === 0 ? 'FREE' : `${dataset.price} FLG`}</button>
             </div>}
             footer={<Link to={`/dataset/viewone/${dataset._id}`} className='btn btnbox'>View Dataset<i className='fa-solid fa-circle-arrow-right'></i></Link>}
@@ -73,6 +75,7 @@ const ViewSubscriptionsPage: FC = () => {
             header={<p className='lead text-capitalize'>{dataset.name}</p>}
             body={<div>
                 <p className='lead'>{dataset.category}</p>
+                <p className="lead">MIT License</p>
                 <button className='livebutton'>SUBSCRIBED</button>
             </div>}
             footer={<Link to={`/dataset/viewone/${dataset._id}`} className='btn btnbox'>View Dataset<i className='fa-solid fa-circle-arrow-right'></i></Link>}
@@ -105,16 +108,34 @@ const ViewOneDataSetPage: FC = () => {
     let { id } = useParams()
     const dataset = useViewDataSet({ id: id })
     const subscriptionStatus = useIsSubscribed({ id: id })
+    const similarDatasets = useFindSimilarDatasets({ id: id })
     const [isSubscribed, setSubscribed] = useState(subscriptionStatus.isSubscribed)
 
     useEffect(() => {
         setSubscribed(subscriptionStatus.isSubscribed)
     }, [subscriptionStatus])
 
+    useEffect(() => {
+        console.log(similarDatasets)
+    }, [similarDatasets])
+
     const subscribe = (): void => {
         axios.post(`/api/subscription/subscribe/${id}`)
         setSubscribed(true)
     }
+
+    const datasetsToDisplay = similarDatasets.similarDatasets.map((dataset: any) => {
+        return <CardComponent
+            key={dataset._id}
+            header={<p className='lead text-capitalize'>{dataset.name}</p>}
+            body={<div>
+                <p className='lead'>{dataset.category}</p>
+                <p className="lead">MIT License</p>
+                <button className='livebutton'>{dataset.price === 0 ? 'FREE' : `${dataset.price} FLG`}</button>
+            </div>}
+            footer={<Link to={`/dataset/viewone/${dataset._id}`} className='btn btnbox'>View Dataset<i className='fa-solid fa-circle-arrow-right'></i></Link>}
+        />
+    })
 
     return (
         <Fragment>
@@ -135,6 +156,7 @@ const ViewOneDataSetPage: FC = () => {
                                 header={<p className='lead text-capitalize'>{dataset.name}</p>}
                                 body={<div>
                                     <p className='lead'>{dataset.category}</p>
+                                    <p className="lead">{dataset.dataLength} Datapoints</p>
                                     <button className='livebutton'>{dataset.price === 0 ? 'FREE' : `${dataset.price} FLG`}</button>
                                 </div>}
                                 footer={<button disabled={isSubscribed} className='btn btnbox' onClick={(): void => subscribe()}>
@@ -144,12 +166,8 @@ const ViewOneDataSetPage: FC = () => {
                             />
                         </Row>
                         <Row>
-                            <Col xs={12} sm={12} md={12} lg={12} xl={12}>
-                                <div className='jumbotron'>
-                                    <p className='display-6 fw-bold text-capitalize'>Similar Datasets</p>
-
-                                </div>
-                            </Col>
+                            <p className="lead text-center fw-bold text-white mb-4">Similar Datasets</p>
+                            {datasetsToDisplay}
                         </Row>
                     </Container>
                 </ReactIfComponent>

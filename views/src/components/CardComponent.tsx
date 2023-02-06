@@ -4,7 +4,7 @@ import { CardProps } from '../interfaces/Props'
 
 const CardComponent: FC<CardProps> = ({ header, body, footer }: CardProps) => {
     return (
-        <Col xs={12} sm={12} md={12} lg={6} xl={3} className='mb-4'>
+        <Col xs={12} sm={12} md={6} lg={4} xl={3} className='mb-4'>
             <Card>
                 <Card.Header className='cardhead pt-4'>
                     {header}

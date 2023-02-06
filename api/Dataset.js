@@ -103,8 +103,29 @@ router.post(
 
     async (req, res) => {
         try {
-            const metadata = await DatasetModel.findById(req.params.datasetId).select('-data')
-            return res.status(200).json({ metadata })
+            const totalData = await DatasetModel.findById(req.params.datasetId)
+            const dataLength = totalData.data.length
+            const metadata = { name: totalData.name, category: totalData.category, description: totalData.description, price: totalData.price }
+            return res.status(200).json({ metadata, dataLength })
+        }
+
+        catch (error) {
+            console.log(error)
+            return res.status(404).json({ msg: statusMessages.connectionError })
+        }
+    }
+)
+
+router.post(
+    '/findsimilar/:datasetId',
+
+    authorize,
+
+    async (req, res) => {
+        try {
+            const { category } = await DatasetModel.findById(req.params.datasetId).select('-data')
+            const similarDatasets = await DatasetModel.find({ category: category }).select('-data')
+            return res.status(200).json({ similarDatasets })
         }
 
         catch (error) {
