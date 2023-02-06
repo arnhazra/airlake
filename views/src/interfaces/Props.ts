@@ -12,7 +12,6 @@ export interface ReactIfProps {
     children: ReactNode
 }
 
-export interface DashboardStackProps {
-    auth: AuthState
-    liveprice: LivePriceState
+export interface ProtectedRouteProps {
+    child: ReactNode
 }

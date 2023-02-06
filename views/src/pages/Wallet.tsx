@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
-import { Col, Container, Row, Table } from 'react-bootstrap'
+import { Container, Table } from 'react-bootstrap'
 import { Fragment } from 'react'
 import NavComponent from '../components/NavComponent'
-import useAuth from '../hooks/useAuth'
 import LoadingComponent from '../components/LoadingComponent'
 import ReactIfComponent from '../components/ReactIfComponent'
 import { tokenABI } from '../contracts/TokenABI'
@@ -15,14 +14,12 @@ import contractAddress from '../constants/Address'
 import endPoints from '../constants/Endpoints'
 import useTransactionData from '../hooks/useTransactionData'
 import useLivePrice from '../hooks/useLivePrice'
-import CardComponent from '../components/CardComponent'
 import { Link } from 'react-router-dom'
 import Constants from '../constants/Constants'
 declare const window: any
 const web3 = new Web3(Web3.givenProvider)
 
 const WalletTransactionsPage = () => {
-    const auth = useAuth()
     const transactions = useTransactionData()
     const liveprice = useLivePrice()
 
@@ -40,11 +37,11 @@ const WalletTransactionsPage = () => {
 
     return (
         <Fragment>
-            <ReactIfComponent condition={auth.isLoaded && transactions.isLoaded && liveprice.isLoaded}>
+            <ReactIfComponent condition={transactions.isLoaded && liveprice.isLoaded}>
                 <NavComponent />
                 <Container>
                     <div className="jumbotron mt-4 pl-5">
-                        <p className='display-6 fw-bold'>Hi, {auth.name.split(' ')[0]}</p>
+                        <p className='display-6 fw-bold'>Wallet</p>
                         <div key={'liveprice'}>
                             <Table responsive hover variant='light'>
                                 <thead>
@@ -95,7 +92,7 @@ const WalletTransactionsPage = () => {
                     </Table>
                 </Container>
             </ReactIfComponent>
-            <ReactIfComponent condition={!auth.isLoaded || !transactions.isLoaded || !liveprice.isLoaded}>
+            <ReactIfComponent condition={!transactions.isLoaded || !liveprice.isLoaded}>
                 <LoadingComponent />
             </ReactIfComponent>
         </Fragment >
@@ -103,7 +100,6 @@ const WalletTransactionsPage = () => {
 }
 
 const BuyCoin = () => {
-    const auth = useAuth()
     const [tokens, setTokens] = useState('')
     const [ether, setEther] = useState(0)
     const [account, setAccount] = useState('')
@@ -158,54 +154,48 @@ const BuyCoin = () => {
 
     return (
         <Fragment>
-            <ReactIfComponent condition={auth.isLoaded}>
-                <NavComponent />
-                <div className='box'>
-                    <ReactIfComponent condition={account !== ''}>
-                        <ReactIfComponent condition={step === 1}>
-                            <p className='branding'>Buy FLG</p>
-                            <input type='number' placeholder='Amount of tokens' required className='exchange__textBox' onChange={(e) => setTokens(e.target.value)} />
-                            <p id='alert'>ETH equivalent: {ether}</p>
-                            <button className='btn btnbox' onClick={buyCoin}>Buy<i className='fa-solid fa-circle-arrow-right'></i></button>
-                        </ReactIfComponent>
-                        <ReactIfComponent condition={step === 2}>
-                            <p className='branding'>Transaction Status</p>
-                            <div className='text-center mt-4'>
-                                <i className='fa-solid fa-circle-notch fa-spin text-center fa-6x'></i>
-                                <p className='lead text-center mt-4'>Processing</p>
+            <NavComponent />
+            <div className='box'>
+                <ReactIfComponent condition={account !== ''}>
+                    <ReactIfComponent condition={step === 1}>
+                        <p className='branding'>Buy FLG</p>
+                        <input type='number' placeholder='Amount of tokens' required className='exchange__textBox' onChange={(e) => setTokens(e.target.value)} />
+                        <p id='alert'>ETH equivalent: {ether}</p>
+                        <button className='btn btnbox' onClick={buyCoin}>Buy<i className='fa-solid fa-circle-arrow-right'></i></button>
+                    </ReactIfComponent>
+                    <ReactIfComponent condition={step === 2}>
+                        <p className='branding'>Transaction Status</p>
+                        <div className='text-center mt-4'>
+                            <i className='fa-solid fa-circle-notch fa-spin text-center fa-6x'></i>
+                            <p className='lead text-center mt-4'>Processing</p>
+                        </div>
+                    </ReactIfComponent>
+                    <ReactIfComponent condition={step === 3}>
+                        <p className='branding'>Transaction Status</p>
+                        <ReactIfComponent condition={!txError}>
+                            <div className='text-center'>
+                                <i className='fa-solid fa-circle-check fa-6x'></i>
+                                <p className='lead text-center mt-4'>Success</p>
                             </div>
                         </ReactIfComponent>
-                        <ReactIfComponent condition={step === 3}>
-                            <p className='branding'>Transaction Status</p>
-                            <ReactIfComponent condition={!txError}>
-                                <div className='text-center'>
-                                    <i className='fa-solid fa-circle-check fa-6x'></i>
-                                    <p className='lead text-center mt-4'>Success</p>
-                                </div>
-                            </ReactIfComponent>
-                            <ReactIfComponent condition={txError}>
-                                <div className='text-center'>
-                                    <i className='fa-solid fa-circle-xmark fa-6x'></i>
-                                    <p className='lead text-center mt-4'>Failed</p>
-                                </div>
-                            </ReactIfComponent>
+                        <ReactIfComponent condition={txError}>
+                            <div className='text-center'>
+                                <i className='fa-solid fa-circle-xmark fa-6x'></i>
+                                <p className='lead text-center mt-4'>Failed</p>
+                            </div>
                         </ReactIfComponent>
                     </ReactIfComponent>
-                    <ReactIfComponent condition={account === ''}>
-                        <p className='branding'>Connect Wallet</p>
-                        <button className='btn btnbox' onClick={connectWallet}>Connect to Metamask<i className='fa-solid fa-circle-arrow-right'></i></button>
-                    </ReactIfComponent>
-                </div>
-            </ReactIfComponent>
-            <ReactIfComponent condition={!auth.isLoaded}>
-                <LoadingComponent />
-            </ReactIfComponent>
+                </ReactIfComponent>
+                <ReactIfComponent condition={account === ''}>
+                    <p className='branding'>Connect Wallet</p>
+                    <button className='btn btnbox' onClick={connectWallet}>Connect to Metamask<i className='fa-solid fa-circle-arrow-right'></i></button>
+                </ReactIfComponent>
+            </div>
         </Fragment>
     )
 }
 
 const SellCoin = () => {
-    const auth = useAuth()
     const [tokens, setTokens] = useState('')
     const [ether, setEther] = useState(0)
     const [account, setAccount] = useState('')
@@ -265,48 +255,43 @@ const SellCoin = () => {
 
     return (
         <Fragment>
-            <ReactIfComponent condition={auth.isLoaded}>
-                <NavComponent />
-                <div className='box'>
-                    <ReactIfComponent condition={account !== ''}>
-                        <ReactIfComponent condition={step === 1}>
-                            <p className='branding'>Sell FLG</p>
-                            <input type='number' placeholder='Amount of tokens' required className='exchange__textBox' onChange={(e) => setTokens(e.target.value)} />
-                            <p id='alert'>ETH equivalent: {ether}</p>
-                            <button className='btn btnbox' onClick={sellCoin}>Sell<i className='fa-solid fa-circle-arrow-right'></i></button>
-                        </ReactIfComponent>
-                        <ReactIfComponent condition={step === 2}>
-                            <p className='branding'>Transaction Status</p>
-                            <div className='text-center mt-4'>
-                                <i className='fa-solid fa-circle-notch fa-spin text-center fa-6x'></i>
-                                <p className='lead text-center mt-4'>Processing</p>
+            <NavComponent />
+            <div className='box'>
+                <ReactIfComponent condition={account !== ''}>
+                    <ReactIfComponent condition={step === 1}>
+                        <p className='branding'>Sell FLG</p>
+                        <input type='number' placeholder='Amount of tokens' required className='exchange__textBox' onChange={(e) => setTokens(e.target.value)} />
+                        <p id='alert'>ETH equivalent: {ether}</p>
+                        <button className='btn btnbox' onClick={sellCoin}>Sell<i className='fa-solid fa-circle-arrow-right'></i></button>
+                    </ReactIfComponent>
+                    <ReactIfComponent condition={step === 2}>
+                        <p className='branding'>Transaction Status</p>
+                        <div className='text-center mt-4'>
+                            <i className='fa-solid fa-circle-notch fa-spin text-center fa-6x'></i>
+                            <p className='lead text-center mt-4'>Processing</p>
+                        </div>
+                    </ReactIfComponent>
+                    <ReactIfComponent condition={step === 3}>
+                        <p className='branding'>Transaction Status</p>
+                        <ReactIfComponent condition={!txError}>
+                            <div className='text-center'>
+                                <i className='fa-solid fa-circle-check fa-6x'></i>
+                                <p className='lead text-center mt-4'>Success</p>
                             </div>
                         </ReactIfComponent>
-                        <ReactIfComponent condition={step === 3}>
-                            <p className='branding'>Transaction Status</p>
-                            <ReactIfComponent condition={!txError}>
-                                <div className='text-center'>
-                                    <i className='fa-solid fa-circle-check fa-6x'></i>
-                                    <p className='lead text-center mt-4'>Success</p>
-                                </div>
-                            </ReactIfComponent>
-                            <ReactIfComponent condition={txError}>
-                                <div className='text-center'>
-                                    <i className='fa-solid fa-circle-xmark fa-6x'></i>
-                                    <p className='lead text-center mt-4'>Failed</p>
-                                </div>
-                            </ReactIfComponent>
+                        <ReactIfComponent condition={txError}>
+                            <div className='text-center'>
+                                <i className='fa-solid fa-circle-xmark fa-6x'></i>
+                                <p className='lead text-center mt-4'>Failed</p>
+                            </div>
                         </ReactIfComponent>
                     </ReactIfComponent>
-                    <ReactIfComponent condition={account === ''}>
-                        <p className='branding'>Connect Wallet</p>
-                        <button className='btn btnbox' onClick={connectWallet}>Connect to Metamask<i className='fa-solid fa-circle-arrow-right'></i></button>
-                    </ReactIfComponent>
-                </div>
-            </ReactIfComponent>
-            <ReactIfComponent condition={!auth.isLoaded}>
-                <LoadingComponent />
-            </ReactIfComponent>
+                </ReactIfComponent>
+                <ReactIfComponent condition={account === ''}>
+                    <p className='branding'>Connect Wallet</p>
+                    <button className='btn btnbox' onClick={connectWallet}>Connect to Metamask<i className='fa-solid fa-circle-arrow-right'></i></button>
+                </ReactIfComponent>
+            </div>
         </Fragment>
     )
 }

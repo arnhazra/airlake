@@ -6,7 +6,7 @@ const LoadingComponent: FC = () => {
         <>
             <NavComponent />
             <div className='cover text-center'>
-                <i className='fa-solid fa-circle-notch fa-spin fa-6x'></i>
+                <i className='fas fa-spinner fa-pulse fa-6x'></i>
             </div>
         </>
     )

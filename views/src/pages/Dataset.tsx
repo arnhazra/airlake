@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import { Fragment, FC } from 'react'
 import NavComponent from '../components/NavComponent'
@@ -13,9 +13,9 @@ import useFilterCategories from '../hooks/useFilterCategories'
 import useViewDataSet from '../hooks/useViewDataSet'
 import useIsSubscribed from '../hooks/useIsSubscribed'
 import axios from 'axios'
+import useViewSubscriptions from '../hooks/useViewSubscriptions'
 
 const ViewAllDataSetsPage: FC = () => {
-    const auth = useAuth()
     const [searchInput, setSearchInput] = useState('')
     const [selectedFilter, setSelectedFilter] = useState('')
     const [sortOption, setSortOption] = useState('')
@@ -40,7 +40,7 @@ const ViewAllDataSetsPage: FC = () => {
 
     return (
         <Fragment>
-            <ReactIfComponent condition={auth.isLoaded && datasetStore.isLoaded && filterCategories.isLoaded}>
+            <ReactIfComponent condition={datasetStore.isLoaded && filterCategories.isLoaded}>
                 <NavComponent sendSearchInput={(input): void => setSearchInput(input)} />
                 <Container>
                     <div className='jumbotron mt-4'>
@@ -49,8 +49,8 @@ const ViewAllDataSetsPage: FC = () => {
                         <p className='lead text-capitalize'>Sort Datasets</p>
                         <button className='livebutton' onClick={(): void => setSortOption('alphabetical')}>A - Z</button>
                         <button className='livebutton' onClick={(): void => setSortOption('reverseAlphabetical')}>Z - A</button>
-                        <button className='livebutton' onClick={(): void => setSortOption('priceAscending')}>Low Price First</button>
-                        <button className='livebutton' onClick={(): void => setSortOption('priceDescending')}>High Price First</button>
+                        <button className='livebutton' onClick={(): void => setSortOption('priceAscending')}>Affordable</button>
+                        <button className='livebutton' onClick={(): void => setSortOption('priceDescending')}>Premium</button>
                         <button className='livebutton' onClick={(): void => setSortOption('freshness')}>Freshness</button>
                     </div>
                     <Row className='mt-4 mb-4'>
@@ -58,7 +58,39 @@ const ViewAllDataSetsPage: FC = () => {
                     </Row>
                 </Container>
             </ReactIfComponent>
-            <ReactIfComponent condition={!auth.isLoaded || !datasetStore.isLoaded || !filterCategories.isLoaded}>
+            <ReactIfComponent condition={!datasetStore.isLoaded || !filterCategories.isLoaded}>
+                <LoadingComponent />
+            </ReactIfComponent>
+        </Fragment>
+    )
+}
+
+const ViewSubscriptionsPage: FC = () => {
+    const datasetSubscriptions = useViewSubscriptions()
+
+    const datasetsToDisplay = datasetSubscriptions.subscribedDatasets.map((dataset: any) => {
+        return <CardComponent
+            key={dataset._id}
+            header={<p className='lead text-capitalize'>{dataset.name}</p>}
+            body={<div>
+                <p className='lead'>{dataset.category}</p>
+                <button className='livebutton'>SUBSCRIBED</button>
+            </div>}
+            footer={<Link to={`/dataset/viewone/${dataset._id}`} className='btn btnbox'>View Dataset<i className='fa-solid fa-circle-arrow-right'></i></Link>}
+        />
+    })
+
+    return (
+        <Fragment>
+            <ReactIfComponent condition={datasetSubscriptions.isLoaded}>
+                <NavComponent />
+                <Container>
+                    <Row className='mt-4 mb-4'>
+                        {datasetsToDisplay}
+                    </Row>
+                </Container>
+            </ReactIfComponent>
+            <ReactIfComponent condition={!datasetSubscriptions.isLoaded}>
                 <LoadingComponent />
             </ReactIfComponent>
         </Fragment>
@@ -66,18 +98,23 @@ const ViewAllDataSetsPage: FC = () => {
 }
 
 const ViewOneDataSetPage: FC = () => {
-    const auth = useAuth()
     let { id } = useParams()
     const dataset = useViewDataSet({ id: id })
     const subscriptionStatus = useIsSubscribed({ id: id })
+    const [isSubscribed, setSubscribed] = useState(subscriptionStatus.isSubscribed)
+
+    useEffect(() => {
+        setSubscribed(subscriptionStatus.isSubscribed)
+    }, [subscriptionStatus])
 
     const subscribe = (): void => {
         axios.post(`/api/subscription/subscribe/${id}`)
+        setSubscribed(true)
     }
 
     return (
         <Fragment>
-            <ReactIfComponent condition={auth.isLoaded && dataset.isLoaded && subscriptionStatus.isLoaded}>
+            <ReactIfComponent condition={dataset.isLoaded && subscriptionStatus.isLoaded}>
                 <ReactIfComponent condition={!dataset.hasError}>
                     <NavComponent />
                     <Container className='mt-4'>
@@ -94,9 +131,9 @@ const ViewOneDataSetPage: FC = () => {
                                     <p className='lead'>{dataset.category}</p>
                                     <button className='livebutton'>{dataset.price === 0 ? 'FREE' : `${dataset.price} FLG`}</button>
                                 </div>}
-                                footer={<button className='btn btnbox' onClick={(): void => subscribe()}>
-                                    {subscriptionStatus.isSubscribed ? 'Subscribed' : 'Subscribe'}
-                                    {subscriptionStatus.isSubscribed ? <i className="fa-solid fa-circle-check"></i> : <i className="fa-solid fa-circle-plus"></i>}
+                                footer={<button disabled={isSubscribed} className='btn btnbox' onClick={(): void => subscribe()}>
+                                    {isSubscribed ? 'Subscribed' : 'Subscribe'}
+                                    {isSubscribed ? <i className="fa-solid fa-circle-check fa-white"></i> : <i className="fa-solid fa-circle-plus"></i>}
                                 </button>}
                             />
                         </Row>
@@ -130,11 +167,11 @@ const ViewOneDataSetPage: FC = () => {
                     <ErrorComponent />
                 </ReactIfComponent>
             </ReactIfComponent>
-            <ReactIfComponent condition={!auth.isLoaded || !dataset.isLoaded || !subscriptionStatus.isLoaded}>
+            <ReactIfComponent condition={!dataset.isLoaded || !subscriptionStatus.isLoaded}>
                 <LoadingComponent />
             </ReactIfComponent>
         </Fragment >
     )
 }
 
-export { ViewAllDataSetsPage, ViewOneDataSetPage } 
+export { ViewAllDataSetsPage, ViewSubscriptionsPage, ViewOneDataSetPage } 

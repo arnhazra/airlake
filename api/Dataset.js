@@ -3,6 +3,7 @@ const { check, validationResult } = require('express-validator')
 const statusMessages = require('../constants/Messages')
 const authorize = require('../middlewares/authorize')
 const DatasetModel = require('../models/DatasetModel')
+const SubscriptionModel = require('../models/SubscriptionModel')
 const router = express.Router()
 
 router.post(
@@ -69,6 +70,28 @@ router.post(
 
         catch (error) {
             return res.status(500).json({ msg: statusMessages.connectionError })
+        }
+    }
+)
+
+router.post(
+    '/subscriptions',
+
+    authorize,
+
+    async (req, res) => {
+        try {
+            const subscriptions = await SubscriptionModel.find({ userId: req.id });
+            const subscribedDatasetPromises = subscriptions.map(async (sub) => {
+                const subscribedDataset = await DatasetModel.find({ _id: sub.datasetId }).select('-data').select('-description');
+                return subscribedDataset[0];
+            });
+            const subscribedDatasets = await Promise.all(subscribedDatasetPromises);
+            return res.status(200).json({ subscribedDatasets });
+        }
+
+        catch (error) {
+            return res.status(500).json({ msg: statusMessages.connectionError });
         }
     }
 )

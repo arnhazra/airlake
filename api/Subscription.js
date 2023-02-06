@@ -2,6 +2,7 @@ const express = require('express')
 const statusMessages = require('../constants/Messages')
 const authorize = require('../middlewares/authorize')
 const SubscriptionModel = require('../models/SubscriptionModel')
+const DatasetModel = require('../models/DatasetModel')
 const router = express.Router()
 
 router.post(
@@ -57,12 +58,17 @@ router.post(
 
     async (req, res) => {
         try {
-            const datasets = await DatasetModel.find().select('-data').sort({ _id: -1 })
-            return res.status(200).json({ datasets })
+            const subscriptions = await SubscriptionModel.find({ userId: req.id });
+            const subscribedDatasetPromises = subscriptions.map(async (sub) => {
+                const subscribedDataset = await DatasetModel.find({ _id: sub.datasetId }).select('-data').select('-description');
+                return subscribedDataset[0];
+            });
+            const subscribedDatasets = await Promise.all(subscribedDatasetPromises);
+            return res.status(200).json({ subscribedDatasets });
         }
 
         catch (error) {
-            return res.status(500).json({ msg: statusMessages.connectionError })
+            return res.status(500).json({ msg: statusMessages.connectionError });
         }
     }
 )
