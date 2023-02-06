@@ -97,13 +97,13 @@ router.post(
 )
 
 router.post(
-    '/view/:id',
+    '/viewone/:datasetId',
 
     authorize,
 
     async (req, res) => {
         try {
-            const metadata = await DatasetModel.findById(req.params.id).select('-data')
+            const metadata = await DatasetModel.findById(req.params.datasetId).select('-data')
             return res.status(200).json({ metadata })
         }
 
@@ -115,13 +115,38 @@ router.post(
 )
 
 router.get(
-    '/data/preview/:id',
+    '/data/preview/:datasetId',
 
     async (req, res) => {
         try {
-            const data = await DatasetModel.findById(req.params.id).select('data')
+            const data = await DatasetModel.findById(req.params.datasetId).select('data')
             const previewdata = data.data[0]
             return res.status(200).json({ previewdata })
+        }
+
+        catch (error) {
+            console.log(error)
+            return res.status(404).json({ msg: statusMessages.connectionError })
+        }
+    }
+)
+
+router.get(
+    '/data/view/:datasetId/:subscriptionId',
+
+    async (req, res) => {
+        try {
+            const subscriptionId = req.params.subscriptionId
+            const datasetId = req.params.datasetId
+            const subscription = await SubscriptionModel.find({ _id: subscriptionId, datasetId: datasetId })
+            if (subscription.length > 0) {
+                const data = await DatasetModel.findById(datasetId).select('data')
+                return res.status(200).json({ data })
+            }
+
+            else {
+                throw new Error
+            }
         }
 
         catch (error) {

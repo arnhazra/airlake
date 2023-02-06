@@ -15,3 +15,11 @@ export interface ReactIfProps {
 export interface ProtectedRouteProps {
     child: ReactNode
 }
+
+export interface ErrorComponentProps {
+    customMessage?: string
+}
+
+export interface NavProps {
+    sendSearchInput?: (input: string) => void
+}

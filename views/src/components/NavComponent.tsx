@@ -1,11 +1,8 @@
 import { FC } from 'react'
-import { Container, Navbar, Nav, NavDropdown, Form, Button, InputGroup } from 'react-bootstrap'
+import { Container, Navbar, Nav, Form, InputGroup } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import ReactIfComponent from './ReactIfComponent'
-
-interface NavProps {
-    sendSearchInput?: (input: string) => void
-}
+import { NavProps } from '../interfaces/Props'
 
 const NavComponent: FC<NavProps> = ({ sendSearchInput }: NavProps) => {
     const navigate = useNavigate()

@@ -8,8 +8,7 @@ enum endPoints {
     createTxEndpoint = '/api/wallet/createtx',
     datasetStoreEndpoint = '/api/dataset/store',
     datasetSubscriptionEndpoint = '/api/dataset/subscriptions',
-    datasetViewEndpoint = '/api/dataset/view',
-    datasetPreviewDataEndpoint = '/api/dataset/data/preview',
+    datasetViewEndpoint = '/api/dataset/viewone',
     datasetFilterCategoriesEndpoint = '/api/dataset/filtercategories',
     etherScanEndpoint = 'https://goerli.etherscan.io/tx'
 }
