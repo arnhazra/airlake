@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const WalletSchema = new mongoose.Schema({
+const TransactionSchema = new mongoose.Schema({
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
@@ -37,4 +37,4 @@ const WalletSchema = new mongoose.Schema({
     }
 }, { versionKey: false })
 
-module.exports = WalletModel = mongoose.model('wallet', WalletSchema)
+module.exports = TransactionModel = mongoose.model('transaction', TransactionSchema)

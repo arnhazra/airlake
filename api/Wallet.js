@@ -2,7 +2,7 @@ const express = require('express')
 const { check, validationResult } = require('express-validator')
 const authorize = require('../middlewares/authorize')
 const superagent = require('superagent')
-const WalletModel = require('../models/WalletModel')
+const TransactionModel = require('../models/TransactionModel')
 const statusMessages = require('../constants/Messages')
 const endPoints = require('../constants/Endpoints')
 const router = express.Router()
@@ -31,7 +31,7 @@ router.post(
             const { transactionType, fromAddress, fltAmount, ethAmount, txHash } = req.body
 
             try {
-                const transaction = new WalletModel({ owner: req.id, transactionType, fromAddress, fltAmount, ethAmount, txHash })
+                const transaction = new TransactionModel({ owner: req.id, transactionType, fromAddress, fltAmount, ethAmount, txHash })
                 await transaction.save()
                 return res.status(200).json({ msg: statusMessages.transactionCreationSuccess, transaction })
             }
@@ -50,7 +50,7 @@ router.post(
 
     async (req, res) => {
         try {
-            const transactions = await WalletModel.find({ owner: req.id }).sort({ date: -1 })
+            const transactions = await TransactionModel.find({ owner: req.id }).sort({ date: -1 })
             return res.status(200).json({ transactions })
         }
 
