@@ -117,6 +117,7 @@ const ViewOneDataSetPage: FC = () => {
     const [fromAccount, setFromAccount] = useState('')
     const [amount, setAmount] = useState('')
     const [isSubscribed, setSubscribed] = useState(subscriptionStatus.isSubscribed)
+    const [subscriptionId, setSubscriptionId] = useState(subscriptionStatus.subscriptionId)
 
     useEffect(() => {
         async function loadAccounts() {
@@ -136,8 +137,9 @@ const ViewOneDataSetPage: FC = () => {
 
     const subscribe = async () => {
         if (dataset.price === 0) {
-            axios.post(`/api/subscription/subscribe/${id}`)
+            const res = await axios.post(`/api/subscription/subscribe/${id}`)
             setSubscribed(true)
+            setSubscriptionId(res.data.subscription._id)
         }
 
         else {
@@ -179,7 +181,7 @@ const ViewOneDataSetPage: FC = () => {
                                     <p className='display-6 fw-bold text-capitalize'>{dataset.name}</p>
                                     <p className='lead'>{dataset.description}</p>
                                     {!isSubscribed && <a target='_blank' href={window.location.hostname === 'localhost' ? `http://localhost:7000/api/dataset/data/preview/${id}` : `/api/dataset/data/preview/${id}`} className='btn'>View Preview<i className='fa-solid fa-circle-arrow-right'></i></a>}
-                                    {isSubscribed && <a target='_blank' href={window.location.hostname === 'localhost' ? `http://localhost:7000/api/dataset/data/view/${id}/${subscriptionStatus.subscriptionId}` : `/api/dataset/data/preview/${id}`} className='btn'>View Dataset<i className='fa-solid fa-circle-arrow-right'></i></a>}
+                                    {isSubscribed && <a target='_blank' href={window.location.hostname === 'localhost' ? `http://localhost:7000/api/dataset/data/view/${id}/${subscriptionId}` : `/api/dataset/data/preview/${id}`} className='btn'>View Dataset<i className='fa-solid fa-circle-arrow-right'></i></a>}
                                 </div>
                             </Col>
                             <CardComponent

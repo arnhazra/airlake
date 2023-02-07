@@ -16,7 +16,7 @@ router.post(
         try {
             const subscription = new SubscriptionModel({ userId, datasetId })
             await subscription.save()
-            return res.status(200).json({ msg: statusMessages.subscriptionSuccess })
+            return res.status(200).json({ msg: statusMessages.subscriptionSuccess, subscription })
         }
 
         catch (error) {
