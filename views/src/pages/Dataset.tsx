@@ -182,7 +182,7 @@ const ViewOneDataSetPage: FC = () => {
                                     <p className='display-6 fw-bold text-capitalize'>{dataset.name}</p>
                                     <p className='lead'>{dataset.description}</p>
                                     {!isSubscribed && <a target='_blank' href={window.location.hostname === 'localhost' ? `http://localhost:7000/api/dataset/data/preview/${id}` : `/api/dataset/data/preview/${id}`} className='btn'>View Preview<i className='fa-solid fa-circle-arrow-right'></i></a>}
-                                    {isSubscribed && <a target='_blank' href={window.location.hostname === 'localhost' ? `http://localhost:7000/api/dataset/data/view/${id}/${subscriptionId}` : `/api/dataset/data/preview/${id}`} className='btn'>View Dataset<i className='fa-solid fa-circle-arrow-right'></i></a>}
+                                    {isSubscribed && <a target='_blank' href={window.location.hostname === 'localhost' ? `http://localhost:7000/api/dataset/data/view/${id}/${subscriptionId}` : `/api/dataset/data/view/${id}/${subscriptionId}`} className='btn'>View Dataset<i className='fa-solid fa-circle-arrow-right'></i></a>}
                                 </div>
                             </Col>
                             <CardComponent
