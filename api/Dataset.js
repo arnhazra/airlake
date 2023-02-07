@@ -110,7 +110,6 @@ router.post(
         }
 
         catch (error) {
-            console.log(error)
             return res.status(404).json({ msg: statusMessages.connectionError })
         }
     }
@@ -129,7 +128,6 @@ router.post(
         }
 
         catch (error) {
-            console.log(error)
             return res.status(404).json({ msg: statusMessages.connectionError })
         }
     }
@@ -146,7 +144,6 @@ router.get(
         }
 
         catch (error) {
-            console.log(error)
             return res.status(404).json({ msg: statusMessages.connectionError })
         }
     }
@@ -171,7 +168,6 @@ router.get(
         }
 
         catch (error) {
-            console.log(error)
             return res.status(404).json({ msg: statusMessages.connectionError })
         }
     }

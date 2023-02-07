@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import { Fragment, FC } from 'react'
 import Web3 from 'web3'
-import Snackbar from 'node-snackbar'
 import NavComponent from '../components/NavComponent'
 import LoadingComponent from '../components/LoadingComponent'
 import ErrorComponent from '../components/ErrorComponent'
@@ -18,7 +17,6 @@ import useViewSubscriptions from '../hooks/useViewSubscriptions'
 import useFindSimilarDatasets from '../hooks/useFindSimilarDatasets'
 import { tokenABI } from '../contracts/TokenABI'
 import contractAddress from '../constants/Address'
-import { vendorABI } from '../contracts/VendorABI'
 declare const window: any
 const web3 = new Web3(Web3.givenProvider)
 
@@ -116,29 +114,25 @@ const ViewOneDataSetPage: FC = () => {
     const dataset = useViewDataSet({ id: id })
     const subscriptionStatus = useIsSubscribed({ id: id })
     const similarDatasets = useFindSimilarDatasets({ id: id })
-    const [account, setAccount] = useState('')
+    const [fromAccount, setFromAccount] = useState('')
+    const [amount, setAmount] = useState('')
     const [isSubscribed, setSubscribed] = useState(subscriptionStatus.isSubscribed)
+
+    useEffect(() => {
+        async function loadAccounts() {
+            const accounts = await web3.eth.getAccounts()
+            setFromAccount(accounts[0])
+        }
+        loadAccounts()
+    }, [])
+
+    useEffect(() => {
+        setAmount(dataset.price.toString())
+    }, [dataset])
 
     useEffect(() => {
         setSubscribed(subscriptionStatus.isSubscribed)
     }, [subscriptionStatus])
-
-    const connectWallet = async () => {
-        try {
-            if (typeof window != 'undefined' && typeof window.ethereum != 'undefined') {
-                try {
-                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
-                    setAccount(accounts[0])
-                } catch (err) {
-                    Snackbar.show({ text: 'Unable to connect to metamask' })
-                }
-            } else {
-                Snackbar.show({ text: 'Please install metamask' })
-            }
-        } catch (error) {
-            Snackbar.show({ text: 'Please install metamask' })
-        }
-    }
 
     const subscribe = async () => {
         if (dataset.price === 0) {
@@ -147,10 +141,16 @@ const ViewOneDataSetPage: FC = () => {
         }
 
         else {
-            await connectWallet()
-            const tokenContract = new web3.eth.Contract(tokenABI as any, contractAddress.tokenContractAddress)
-            const request = await tokenContract.methods.transfer(account, 200).encodeABI()
-            console.log(request)
+            try {
+                const contract = new web3.eth.Contract(tokenABI as any, contractAddress.tokenContractAddress)
+                const result = await contract.methods.transfer(contractAddress.tokenContractAddress, web3.utils.toWei(amount, 'ether')).send({ from: fromAccount })
+                axios.post(`/api/subscription/subscribe/${id}`)
+                setSubscribed(true)
+            }
+
+            catch (error) {
+                setSubscribed(false)
+            }
         }
     }
 
