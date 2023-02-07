@@ -47,7 +47,7 @@ router.post(
 
     async (req, res) => {
         try {
-            const categories = ['all', 'finance', 'entertainment', 'miscellaneous', 'places', 'users']
+            const categories = ['all', 'finance', 'entertainment', 'miscellaneous', 'places', 'users', 'science']
             return res.status(200).json({ categories })
         }
 

@@ -17,16 +17,16 @@ const NavComponent: FC<NavProps> = ({ sendSearchInput }: NavProps) => {
     return (
         <>
             <ReactIfComponent condition={localStorage.hasOwnProperty('accessToken')}>
-                <Navbar expand="lg">
+                <Navbar expand='lg'>
                     <Container>
                         <Navbar.Brand>
                             <Link to='/dataset/store'>
                                 Frostlake
                             </Link>
                         </Navbar.Brand>
-                        <Navbar.Toggle aria-controls="navbarScroll" />
-                        <Navbar.Collapse id="navbarScroll">
-                            <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '5rem' }} navbarScroll>
+                        <Navbar.Toggle aria-controls='navbarScroll' />
+                        <Navbar.Collapse id='navbarScroll'>
+                            <Nav className='me-auto my-2 my-lg-0' style={{ maxHeight: '5rem' }} navbarScroll>
                                 <Navbar.Brand>
                                     <Link to='/dataset/subscriptions'>
                                         Subscriptions
@@ -43,18 +43,18 @@ const NavComponent: FC<NavProps> = ({ sendSearchInput }: NavProps) => {
                                     </Link>
                                 </Navbar.Brand>
                             </Nav>
-                            <Form className="d-flex">
+                            <Form className='d-flex'>
                                 <InputGroup>
                                     <Form.Control
                                         autoFocus={window.location.pathname === '/dataset/store' ? true : false}
-                                        type="search"
-                                        placeholder="Search the Store"
-                                        className="searchbar-navbar"
-                                        aria-label="Search"
+                                        type='search'
+                                        placeholder='Search the Store'
+                                        className='searchbar-navbar'
+                                        aria-label='Search'
                                         onClick={redirect}
                                         onChange={(e: any): void => handleSearch(e.target.value)}
                                     />
-                                    <InputGroup.Text><i className="fa-solid fa-magnifying-glass"></i></InputGroup.Text>
+                                    <InputGroup.Text><i className='fa-solid fa-magnifying-glass'></i></InputGroup.Text>
                                 </InputGroup>
                             </Form>
                         </Navbar.Collapse>

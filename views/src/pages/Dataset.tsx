@@ -33,7 +33,7 @@ const ViewAllDataSetsPage: FC = () => {
             header={<p className='lead text-capitalize'>{dataset.name}</p>}
             body={<div>
                 <p className='lead'>{dataset.category}</p>
-                <p className="lead">MIT License</p>
+                <p className='lead'>MIT License</p>
                 <button className='livebutton'>{dataset.price === 0 ? 'FREE' : `${dataset.price} FLT`}</button>
             </div>}
             footer={<Link to={`/dataset/viewone/${dataset._id}`} className='btn btnbox'>View Dataset<i className='fa-solid fa-circle-arrow-right'></i></Link>}
@@ -52,12 +52,13 @@ const ViewAllDataSetsPage: FC = () => {
                     <div className='jumbotron mt-4'>
                         <p className='lead text-capitalize'>Filter by Category</p>
                         {filterCategoriesToDisplay}
-                        <p className='lead text-capitalize'>Sort Datasets</p>
+                        <p className='mt-4 lead text-capitalize'>Sort Datasets</p>
                         <button className='livebutton' onClick={(): void => setSortOption('alphabetical')}>A - Z</button>
                         <button className='livebutton' onClick={(): void => setSortOption('reverseAlphabetical')}>Z - A</button>
                         <button className='livebutton' onClick={(): void => setSortOption('priceAscending')}>Affordable</button>
                         <button className='livebutton' onClick={(): void => setSortOption('priceDescending')}>Premium</button>
                         <button className='livebutton' onClick={(): void => setSortOption('freshness')}>Freshness</button>
+                        <p className='mt-4 lead text-capitalize'>Displaying {datasetStore.filteredDataSets.length} datasets</p>
                     </div>
                     <Row className='mt-4 mb-4'>
                         {datasetsToDisplay}
@@ -80,7 +81,7 @@ const ViewSubscriptionsPage: FC = () => {
             header={<p className='lead text-capitalize'>{dataset.name}</p>}
             body={<div>
                 <p className='lead'>{dataset.category}</p>
-                <p className="lead">MIT License</p>
+                <p className='lead'>MIT License</p>
                 <button className='livebutton'>SUBSCRIBED</button>
             </div>}
             footer={<Link to={`/dataset/viewone/${dataset._id}`} className='btn btnbox'>View Dataset<i className='fa-solid fa-circle-arrow-right'></i></Link>}
@@ -162,7 +163,7 @@ const ViewOneDataSetPage: FC = () => {
             header={<p className='lead text-capitalize'>{dataset.name}</p>}
             body={<div>
                 <p className='lead'>{dataset.category}</p>
-                <p className="lead">MIT License</p>
+                <p className='lead'>MIT License</p>
                 <button className='livebutton'>{dataset.price === 0 ? 'FREE' : `${dataset.price} FLT`}</button>
             </div>}
             footer={<Link to={`/dataset/viewone/${dataset._id}`} className='btn btnbox'>View Dataset<i className='fa-solid fa-circle-arrow-right'></i></Link>}
@@ -188,17 +189,17 @@ const ViewOneDataSetPage: FC = () => {
                                 header={<p className='lead text-capitalize'>{dataset.name}</p>}
                                 body={<div>
                                     <p className='lead'>{dataset.category}</p>
-                                    <p className="lead">{dataset.dataLength} Datapoints</p>
+                                    <p className='lead'>{dataset.dataLength} Datapoints</p>
                                     <button className='livebutton'>{dataset.price === 0 ? 'FREE' : `${dataset.price} FLT`}</button>
                                 </div>}
                                 footer={<button disabled={isSubscribed} className='btn btnbox' onClick={subscribe}>
                                     {isSubscribed ? 'Subscribed' : 'Subscribe'}
-                                    {isSubscribed ? <i className="fa-solid fa-circle-check fa-white"></i> : <i className="fa-solid fa-circle-plus"></i>}
+                                    {isSubscribed ? <i className='fa-solid fa-circle-check fa-white'></i> : <i className='fa-solid fa-circle-plus'></i>}
                                 </button>}
                             />
                         </Row>
                         <Row>
-                            <p className="lead text-center fw-bold text-white mb-4">Similar Datasets</p>
+                            <p className='lead text-center fw-bold text-white mb-4'>Similar Datasets</p>
                             {datasetsToDisplay}
                         </Row>
                     </Container>

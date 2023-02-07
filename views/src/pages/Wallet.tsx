@@ -40,7 +40,7 @@ const WalletTransactionsPage = () => {
             <ReactIfComponent condition={transactions.isLoaded && liveprice.isLoaded}>
                 <NavComponent />
                 <Container>
-                    <div className="jumbotron mt-4 pl-5">
+                    <div className='jumbotron mt-4 pl-5'>
                         <p className='display-6 fw-bold'>Wallet</p>
                         <div key={'liveprice'}>
                             <Table responsive hover variant='light'>
