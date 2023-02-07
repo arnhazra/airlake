@@ -2,6 +2,8 @@ import { Link, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import { Fragment, FC } from 'react'
+import Web3 from 'web3'
+import Snackbar from 'node-snackbar'
 import NavComponent from '../components/NavComponent'
 import LoadingComponent from '../components/LoadingComponent'
 import ErrorComponent from '../components/ErrorComponent'
@@ -14,6 +16,11 @@ import useIsSubscribed from '../hooks/useIsSubscribed'
 import axios from 'axios'
 import useViewSubscriptions from '../hooks/useViewSubscriptions'
 import useFindSimilarDatasets from '../hooks/useFindSimilarDatasets'
+import { tokenABI } from '../contracts/TokenABI'
+import contractAddress from '../constants/Address'
+import { vendorABI } from '../contracts/VendorABI'
+declare const window: any
+const web3 = new Web3(Web3.givenProvider)
 
 const ViewAllDataSetsPage: FC = () => {
     const [searchInput, setSearchInput] = useState('')
@@ -29,7 +36,7 @@ const ViewAllDataSetsPage: FC = () => {
             body={<div>
                 <p className='lead'>{dataset.category}</p>
                 <p className="lead">MIT License</p>
-                <button className='livebutton'>{dataset.price === 0 ? 'FREE' : `${dataset.price} FLG`}</button>
+                <button className='livebutton'>{dataset.price === 0 ? 'FREE' : `${dataset.price} FLT`}</button>
             </div>}
             footer={<Link to={`/dataset/viewone/${dataset._id}`} className='btn btnbox'>View Dataset<i className='fa-solid fa-circle-arrow-right'></i></Link>}
         />
@@ -109,19 +116,42 @@ const ViewOneDataSetPage: FC = () => {
     const dataset = useViewDataSet({ id: id })
     const subscriptionStatus = useIsSubscribed({ id: id })
     const similarDatasets = useFindSimilarDatasets({ id: id })
+    const [account, setAccount] = useState('')
     const [isSubscribed, setSubscribed] = useState(subscriptionStatus.isSubscribed)
 
     useEffect(() => {
         setSubscribed(subscriptionStatus.isSubscribed)
     }, [subscriptionStatus])
 
-    useEffect(() => {
-        console.log(similarDatasets)
-    }, [similarDatasets])
+    const connectWallet = async () => {
+        try {
+            if (typeof window != 'undefined' && typeof window.ethereum != 'undefined') {
+                try {
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+                    setAccount(accounts[0])
+                } catch (err) {
+                    Snackbar.show({ text: 'Unable to connect to metamask' })
+                }
+            } else {
+                Snackbar.show({ text: 'Please install metamask' })
+            }
+        } catch (error) {
+            Snackbar.show({ text: 'Please install metamask' })
+        }
+    }
 
-    const subscribe = (): void => {
-        axios.post(`/api/subscription/subscribe/${id}`)
-        setSubscribed(true)
+    const subscribe = async () => {
+        if (dataset.price === 0) {
+            axios.post(`/api/subscription/subscribe/${id}`)
+            setSubscribed(true)
+        }
+
+        else {
+            await connectWallet()
+            const tokenContract = new web3.eth.Contract(tokenABI as any, contractAddress.tokenContractAddress)
+            const request = await tokenContract.methods.transfer(account, 200).encodeABI()
+            console.log(request)
+        }
     }
 
     const datasetsToDisplay = similarDatasets.similarDatasets.map((dataset: any) => {
@@ -131,7 +161,7 @@ const ViewOneDataSetPage: FC = () => {
             body={<div>
                 <p className='lead'>{dataset.category}</p>
                 <p className="lead">MIT License</p>
-                <button className='livebutton'>{dataset.price === 0 ? 'FREE' : `${dataset.price} FLG`}</button>
+                <button className='livebutton'>{dataset.price === 0 ? 'FREE' : `${dataset.price} FLT`}</button>
             </div>}
             footer={<Link to={`/dataset/viewone/${dataset._id}`} className='btn btnbox'>View Dataset<i className='fa-solid fa-circle-arrow-right'></i></Link>}
         />
@@ -157,9 +187,9 @@ const ViewOneDataSetPage: FC = () => {
                                 body={<div>
                                     <p className='lead'>{dataset.category}</p>
                                     <p className="lead">{dataset.dataLength} Datapoints</p>
-                                    <button className='livebutton'>{dataset.price === 0 ? 'FREE' : `${dataset.price} FLG`}</button>
+                                    <button className='livebutton'>{dataset.price === 0 ? 'FREE' : `${dataset.price} FLT`}</button>
                                 </div>}
-                                footer={<button disabled={isSubscribed} className='btn btnbox' onClick={(): void => subscribe()}>
+                                footer={<button disabled={isSubscribed} className='btn btnbox' onClick={subscribe}>
                                     {isSubscribed ? 'Subscribed' : 'Subscribe'}
                                     {isSubscribed ? <i className="fa-solid fa-circle-check fa-white"></i> : <i className="fa-solid fa-circle-plus"></i>}
                                 </button>}

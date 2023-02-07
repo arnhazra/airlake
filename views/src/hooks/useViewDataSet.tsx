@@ -33,7 +33,7 @@ const useViewDataSet = ({ id }: UseViewDataSetInterface) => {
 
     useEffect(() => {
         getDataSetView()
-    }, [])
+    }, [id])
 
     return state
 }

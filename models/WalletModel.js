@@ -16,7 +16,7 @@ const WalletSchema = new mongoose.Schema({
         required: true
     },
 
-    flgAmount: {
+    fltAmount: {
         type: String,
         required: true
     },

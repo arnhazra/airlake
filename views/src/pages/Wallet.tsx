@@ -26,8 +26,8 @@ const WalletTransactionsPage = () => {
     const transactionsToDisplay = transactions.transactions.map((tx: any) => {
         return (
             <tr key={tx._id}>
-                <td>{tx.transactionType} FLG</td>
-                <td>{tx.flgAmount} FLG</td>
+                <td>{tx.transactionType} FLT</td>
+                <td>{tx.fltAmount} FLT</td>
                 <td>{tx.ethAmount} ETH</td>
                 <td>{moment(tx.date).format('MMM, Do YYYY, h:mm a')}</td>
                 <td><a href={`${endPoints.etherScanEndpoint}/${tx.txHash}`} target='_blank' rel='noopener noreferrer'>View on EtherScan</a></td>
@@ -60,10 +60,10 @@ const WalletTransactionsPage = () => {
                                         <td>{liveprice.eur}</td>
                                     </tr>
                                     <tr>
-                                        <td>FLG</td>
-                                        < td > {(liveprice.inr / 100000).toFixed(3)}</td>
-                                        <td>{(liveprice.usd / 100000).toFixed(3)}</td>
-                                        <td>{(liveprice.eur / 100000).toFixed(3)}</td>
+                                        <td>FLT</td>
+                                        < td > {(liveprice.inr / 10000).toFixed(3)}</td>
+                                        <td>{(liveprice.usd / 10000).toFixed(3)}</td>
+                                        <td>{(liveprice.eur / 10000).toFixed(3)}</td>
                                     </tr>
                                 </tbody>
                             </Table>
@@ -71,8 +71,8 @@ const WalletTransactionsPage = () => {
                         <div className='info'>
                             <p className='lead'>{Constants.Info}</p>
                             <p className='lead'>{Constants.Warning}</p>
-                            <Link to='/wallet/buy' className='btn'>Buy FLG<i className='fa-solid fa-circle-arrow-right'></i></Link>
-                            <Link to='/wallet/sell' className='btn'>Sell FLG<i className='fa-solid fa-circle-arrow-right'></i></Link>
+                            <Link to='/wallet/buy' className='btn'>Buy FLT<i className='fa-solid fa-circle-arrow-right'></i></Link>
+                            <Link to='/wallet/sell' className='btn'>Sell FLT<i className='fa-solid fa-circle-arrow-right'></i></Link>
                         </div>
                     </div>
 
@@ -80,7 +80,7 @@ const WalletTransactionsPage = () => {
                         <thead>
                             <tr>
                                 <th>Event</th>
-                                <th>FLG Amount</th>
+                                <th>FLT Amount</th>
                                 <th>ETH Amount</th>
                                 <th>Transaction Time</th>
                                 <th>EtherScan</th>
@@ -107,7 +107,7 @@ const BuyCoin = () => {
     const [txError, setTxError] = useState(false)
 
     useEffect(() => {
-        setEther(Number(tokens) / 100000)
+        setEther(Number(tokens) / 10000)
     }, [tokens])
 
     const connectWallet = async () => {
@@ -138,17 +138,17 @@ const BuyCoin = () => {
             const obj = {
                 fromAddress: request.from || '0x',
                 transactionType: 'Buy',
-                flgAmount: tokens,
+                fltAmount: tokens,
                 ethAmount: ether,
                 txHash: request.transactionHash
             }
             await axios.post(endPoints.createTxEndpoint, obj)
             setStep(3)
-            Snackbar.show({ text: 'You have successfully bought FLG tokens!' })
+            Snackbar.show({ text: 'You have successfully bought FLT tokens!' })
         } catch (err) {
             setTxError(true)
             setStep(3)
-            Snackbar.show({ text: 'Error purchasing FLG tokens' })
+            Snackbar.show({ text: 'Error purchasing FLT tokens' })
         }
     }
 
@@ -158,7 +158,7 @@ const BuyCoin = () => {
             <div className='box'>
                 <ReactIfComponent condition={account !== ''}>
                     <ReactIfComponent condition={step === 1}>
-                        <p className='branding'>Buy FLG</p>
+                        <p className='branding'>Buy FLT</p>
                         <input type='number' placeholder='Amount of tokens' required className='exchange__textBox' onChange={(e) => setTokens(e.target.value)} />
                         <p id='alert'>ETH equivalent: {ether}</p>
                         <button className='btn btnbox' onClick={buyCoin}>Buy<i className='fa-solid fa-circle-arrow-right'></i></button>
@@ -203,7 +203,7 @@ const SellCoin = () => {
     const [txError, setTxError] = useState(false)
 
     useEffect(() => {
-        setEther(Number(tokens) / 100000)
+        setEther(Number(tokens) / 10000)
     }, [tokens])
 
     const connectWallet = async () => {
@@ -239,17 +239,17 @@ const SellCoin = () => {
             const obj = {
                 fromAddress: request.from || '0x',
                 transactionType: 'Sell',
-                flgAmount: tokens,
+                fltAmount: tokens,
                 ethAmount: ether,
                 txHash: request.transactionHash
             }
             await axios.post(endPoints.createTxEndpoint, obj)
             setStep(3)
-            Snackbar.show({ text: 'You have successfully bought FLG tokens!' })
+            Snackbar.show({ text: 'You have successfully bought FLT tokens!' })
         } catch (err) {
             setTxError(true)
             setStep(3)
-            Snackbar.show({ text: 'Error selling FLG tokens' })
+            Snackbar.show({ text: 'Error selling FLT tokens' })
         }
     }
 
@@ -259,7 +259,7 @@ const SellCoin = () => {
             <div className='box'>
                 <ReactIfComponent condition={account !== ''}>
                     <ReactIfComponent condition={step === 1}>
-                        <p className='branding'>Sell FLG</p>
+                        <p className='branding'>Sell FLT</p>
                         <input type='number' placeholder='Amount of tokens' required className='exchange__textBox' onChange={(e) => setTokens(e.target.value)} />
                         <p id='alert'>ETH equivalent: {ether}</p>
                         <button className='btn btnbox' onClick={sellCoin}>Sell<i className='fa-solid fa-circle-arrow-right'></i></button>

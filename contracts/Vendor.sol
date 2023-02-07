@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract Vendor is Ownable {
     Frostlake yourToken;
-    uint256 public tokensPerETH = 100000;
+    uint256 public tokensPerETH = 10000;
     event BuyTokens(address buyer, uint256 amountOfETH, uint256 amountOfTokens);
 
     constructor(address tokenAddress) {
@@ -53,5 +53,15 @@ contract Vendor is Ownable {
 
         (sent, ) = msg.sender.call{value: amountOfETHToTransfer}("");
         require(sent, "Failed to send ETH to the user");
+    }
+
+    function transferToken(address recipient, uint256 amount) public {
+        require(amount > 0, "Specify an amount greater than zero");
+
+        uint256 userBalance = yourToken.balanceOf(msg.sender);
+        require(userBalance >= amount, "You have insufficient tokens");
+
+        bool sent = yourToken.transfer(recipient, amount);
+        require(sent, "Failed to transfer token");
     }
 }
