@@ -111,10 +111,12 @@ const ViewSubscriptionsPage: FC = () => {
     )
 }
 
+//NEED TO WORK ON PREMIUM DATASETS
 const ViewOneDataSetPage: FC = () => {
+    const [hasClickedSubscribed, setClickedSubscribed] = useState(false)
     let { datasetId } = useParams()
     const dataset = useViewDataSet({ id: datasetId })
-    const subscriptionStatus = useIsSubscribed({ id: datasetId })
+    const subscriptionStatus = useIsSubscribed({ id: datasetId, hasClickedSubscribed })
     const similarDatasets = useFindSimilarDatasets({ id: datasetId })
     const [fromAccount, setFromAccount] = useState('')
 
@@ -129,6 +131,7 @@ const ViewOneDataSetPage: FC = () => {
     const subscribe = async () => {
         if (dataset.price === 0) {
             await axios.post(`${endPoints.subscribeEndpoint}/${datasetId}`)
+            setClickedSubscribed(true)
         }
 
         else {

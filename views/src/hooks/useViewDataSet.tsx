@@ -29,6 +29,7 @@ const useViewDataSet = ({ id }: GenericIdType) => {
     }
 
     useEffect(() => {
+        setState({ ...state, isLoaded: false })
         getDataSetView()
     }, [id])
 

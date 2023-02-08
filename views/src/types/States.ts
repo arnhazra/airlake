@@ -18,5 +18,10 @@ export type UseDataSetStore = {
 }
 
 export type GenericIdType = {
-    id: any
+    id: string | undefined
+}
+
+export type UseIsSubscribed = {
+    id: any,
+    hasClickedSubscribed: boolean
 }

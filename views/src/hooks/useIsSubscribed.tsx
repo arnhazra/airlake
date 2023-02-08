@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import endPoints from '../constants/Endpoints'
-import { GenericIdType } from '../types/States'
+import { UseIsSubscribed } from '../types/States'
 
-const useIsSubscribed = ({ id }: GenericIdType) => {
+const useIsSubscribed = ({ id, hasClickedSubscribed }: UseIsSubscribed) => {
     const [state, setState] = useState({ isSubscribed: false, subscriptionId: '', isLoaded: false })
     const navigate = useNavigate()
 
@@ -25,7 +25,7 @@ const useIsSubscribed = ({ id }: GenericIdType) => {
 
     useEffect(() => {
         checkIfSubscribed()
-    }, [id])
+    }, [id, hasClickedSubscribed])
 
     return state
 }
