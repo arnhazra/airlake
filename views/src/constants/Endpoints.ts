@@ -11,7 +11,9 @@ enum endPoints {
     datasetViewEndpoint = '/api/dataset/viewone',
     findsimilarDatasets = '/api/dataset/findsimilar',
     datasetFilterCategoriesEndpoint = '/api/dataset/filtercategories',
-    etherScanEndpoint = 'https://goerli.etherscan.io/tx'
+    etherScanEndpoint = 'https://goerli.etherscan.io/tx',
+    subscribeEndpoint = '/api/subscription/subscribe',
+    checkSubscriptionEndpoint = '/api/subscription/issubscribed'
 }
 
 export default endPoints

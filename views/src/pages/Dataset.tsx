@@ -17,6 +17,7 @@ import useViewSubscriptions from '../hooks/useViewSubscriptions'
 import useFindSimilarDatasets from '../hooks/useFindSimilarDatasets'
 import { tokenABI } from '../contracts/TokenABI'
 import contractAddress from '../constants/Address'
+import endPoints from '../constants/Endpoints'
 declare const window: any
 const web3 = new Web3(Web3.givenProvider)
 
@@ -111,14 +112,11 @@ const ViewSubscriptionsPage: FC = () => {
 }
 
 const ViewOneDataSetPage: FC = () => {
-    let { id } = useParams()
-    const dataset = useViewDataSet({ id: id })
-    const subscriptionStatus = useIsSubscribed({ id: id })
-    const similarDatasets = useFindSimilarDatasets({ id: id })
+    let { datasetId } = useParams()
+    const dataset = useViewDataSet({ id: datasetId })
+    const subscriptionStatus = useIsSubscribed({ id: datasetId })
+    const similarDatasets = useFindSimilarDatasets({ id: datasetId })
     const [fromAccount, setFromAccount] = useState('')
-    const [amount, setAmount] = useState('')
-    const [isSubscribed, setSubscribed] = useState(subscriptionStatus.isSubscribed)
-    const [subscriptionId, setSubscriptionId] = useState(subscriptionStatus.subscriptionId)
 
     useEffect(() => {
         async function loadAccounts() {
@@ -128,32 +126,15 @@ const ViewOneDataSetPage: FC = () => {
         loadAccounts()
     }, [])
 
-    useEffect(() => {
-        setAmount(dataset.price.toString())
-    }, [dataset])
-
-    useEffect(() => {
-        setSubscribed(subscriptionStatus.isSubscribed)
-    }, [subscriptionStatus])
-
     const subscribe = async () => {
         if (dataset.price === 0) {
-            const res = await axios.post(`/api/subscription/subscribe/${id}`)
-            setSubscribed(true)
-            setSubscriptionId(res.data.subscription._id)
+            await axios.post(`${endPoints.subscribeEndpoint}/${datasetId}`)
         }
 
         else {
-            try {
-                const contract = new web3.eth.Contract(tokenABI as any, contractAddress.tokenContractAddress)
-                const result = await contract.methods.transfer(contractAddress.tokenContractAddress, web3.utils.toWei(amount, 'ether')).send({ from: fromAccount })
-                axios.post(`/api/subscription/subscribe/${id}`)
-                setSubscribed(true)
-            }
-
-            catch (error) {
-                setSubscribed(false)
-            }
+            const contract = new web3.eth.Contract(tokenABI as any, contractAddress.tokenContractAddress)
+            await contract.methods.transfer(contractAddress.tokenContractAddress, web3.utils.toWei(dataset.price.toString(), 'ether')).send({ from: fromAccount })
+            await axios.post(`${endPoints.subscribeEndpoint}/${datasetId}`)
         }
     }
 
@@ -181,8 +162,8 @@ const ViewOneDataSetPage: FC = () => {
                                 <div className='jumbotron'>
                                     <p className='display-6 fw-bold text-capitalize'>{dataset.name}</p>
                                     <p className='lead'>{dataset.description}</p>
-                                    {!isSubscribed && <a target='_blank' href={window.location.hostname === 'localhost' ? `http://localhost:7000/api/dataset/data/preview/${id}` : `/api/dataset/data/preview/${id}`} className='btn'>View Preview<i className='fa-solid fa-circle-arrow-right'></i></a>}
-                                    {isSubscribed && <a target='_blank' href={window.location.hostname === 'localhost' ? `http://localhost:7000/api/dataset/data/view/${id}/${subscriptionId}` : `/api/dataset/data/view/${id}/${subscriptionId}`} className='btn'>View Dataset<i className='fa-solid fa-circle-arrow-right'></i></a>}
+                                    {!subscriptionStatus.isSubscribed && <a target='_blank' rel="noreferrer" href={window.location.hostname === 'localhost' ? `http://localhost:7000/api/dataset/data/preview/${datasetId}` : `/api/dataset/data/preview/${datasetId}`} className='btn'>View Preview<i className='fa-solid fa-circle-arrow-right'></i></a>}
+                                    {subscriptionStatus.isSubscribed && <a target='_blank' rel="noreferrer" href={window.location.hostname === 'localhost' ? `http://localhost:7000/api/dataset/data/view/${datasetId}/${subscriptionStatus.subscriptionId}` : `/api/dataset/data/view/${datasetId}/${subscriptionStatus.subscriptionId}`} className='btn'>View Dataset<i className='fa-solid fa-circle-arrow-right'></i></a>}
                                 </div>
                             </Col>
                             <CardComponent
@@ -192,9 +173,9 @@ const ViewOneDataSetPage: FC = () => {
                                     <p className='lead'>{dataset.dataLength} Datapoints</p>
                                     <button className='livebutton'>{dataset.price === 0 ? 'FREE' : `${dataset.price} FLT`}</button>
                                 </div>}
-                                footer={<button disabled={isSubscribed} className='btn btnbox' onClick={subscribe}>
-                                    {isSubscribed ? 'Subscribed' : 'Subscribe'}
-                                    {isSubscribed ? <i className='fa-solid fa-circle-check fa-white'></i> : <i className='fa-solid fa-circle-plus'></i>}
+                                footer={<button disabled={subscriptionStatus.isSubscribed} className='btn btnbox' onClick={subscribe}>
+                                    {subscriptionStatus.isSubscribed ? 'Subscribed' : 'Subscribe'}
+                                    {subscriptionStatus.isSubscribed ? <i className='fa-solid fa-circle-check fa-white'></i> : <i className='fa-solid fa-circle-plus'></i>}
                                 </button>}
                             />
                         </Row>
