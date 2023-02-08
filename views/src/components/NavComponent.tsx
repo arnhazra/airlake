@@ -2,9 +2,9 @@ import { FC } from 'react'
 import { Container, Navbar, Nav, Form, InputGroup } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import ReactIfComponent from './ReactIfComponent'
-import { NavProps } from '../interfaces/Props'
+import { NavProps } from '../types/Props'
 
-const NavComponent: FC<NavProps> = ({ sendSearchInput }: NavProps) => {
+const NavComponent: FC<NavProps> = ({ sendSearchInput }) => {
     const navigate = useNavigate()
     const redirect = (): void => {
         navigate('/dataset/store')

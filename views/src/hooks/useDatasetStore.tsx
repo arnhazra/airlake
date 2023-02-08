@@ -2,34 +2,27 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import endPoints from '../constants/Endpoints'
+import { UseDataSetStore } from '../types/States'
 
-interface UseDataSetStoreInterface {
-    searchInput: string,
-    selectedFilter: string,
-    sortOption: string
-}
-
-const useDataSetStore = ({ searchInput, selectedFilter, sortOption }: UseDataSetStoreInterface) => {
+const useDataSetStore = ({ searchInput, selectedFilter, sortOption }: UseDataSetStore) => {
     const [state, setState] = useState({ fullDataSets: [], filteredDataSets: [], isLoaded: false })
     const navigate = useNavigate()
 
-    const getDataSetStoreData = async () => {
-        try {
-            axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`
-            const response = await axios.post(endPoints.datasetStoreEndpoint)
-            setState({ ...state, fullDataSets: response.data.datasets, filteredDataSets: response.data.datasets, isLoaded: true })
-        }
-
-        catch (error: any) {
-            if (error.response.status === 401) {
-                localStorage.removeItem('accessToken')
-                navigate('/')
-            }
-        }
-    }
-
     useEffect(() => {
-        getDataSetStoreData()
+        (async () => {
+            try {
+                axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`
+                const response = await axios.post(endPoints.datasetStoreEndpoint)
+                setState({ ...state, fullDataSets: response.data.datasets, filteredDataSets: response.data.datasets, isLoaded: true })
+            }
+
+            catch (error: any) {
+                if (error.response.status === 401) {
+                    localStorage.removeItem('accessToken')
+                    navigate('/')
+                }
+            }
+        })()
     }, [])
 
     useEffect(() => {
@@ -105,13 +98,13 @@ const useDataSetStore = ({ searchInput, selectedFilter, sortOption }: UseDataSet
     }, [sortOption])
 
     useEffect(() => {
-        if (selectedFilter === 'all') {
+        if (selectedFilter === 'All') {
             const filteredDataSets = state.fullDataSets
             setState({ ...state, filteredDataSets: filteredDataSets })
         }
 
         else {
-            const filteredDataSets = state.fullDataSets.filter((dataset: any) => dataset.category.toLowerCase().includes(selectedFilter))
+            const filteredDataSets = state.fullDataSets.filter((dataset: any) => dataset.category.includes(selectedFilter))
             setState({ ...state, filteredDataSets: filteredDataSets })
         }
     }, [selectedFilter])

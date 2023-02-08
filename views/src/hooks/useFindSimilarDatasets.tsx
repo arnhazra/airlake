@@ -2,12 +2,9 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import endPoints from '../constants/Endpoints'
 import { useNavigate } from 'react-router-dom'
+import { GenericIdType } from '../types/States'
 
-interface UseFindSimilarDatasetsInterface {
-    id: any
-}
-
-const useFindSimilarDatasets = ({ id }: UseFindSimilarDatasetsInterface) => {
+const useFindSimilarDatasets = ({ id }: GenericIdType) => {
     const [state, setState] = useState({ similarDatasets: [], isLoaded: false, hasError: false })
     const navigate = useNavigate()
 

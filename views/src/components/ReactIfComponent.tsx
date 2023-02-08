@@ -1,7 +1,7 @@
 import { FC } from 'react'
-import { ReactIfProps } from '../interfaces/Props'
+import { ReactIfProps } from '../types/Props'
 
-const ReactIfComponent: FC<ReactIfProps> = ({ condition, children }: ReactIfProps) => {
+const ReactIfComponent: FC<ReactIfProps> = ({ condition, children }) => {
     return condition === undefined || !condition ? <></> : <>{children}</>
 }
 

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import endPoints from '../constants/Endpoints'
-import { AuthState } from '../interfaces/States'
+import { AuthState } from '../types/States'
 
 const useAuth = () => {
     const [state, setState] = useState<AuthState>({ userid: '', name: '', isLoaded: false })

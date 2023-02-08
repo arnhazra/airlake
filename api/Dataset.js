@@ -7,47 +7,14 @@ const SubscriptionModel = require('../models/SubscriptionModel')
 const router = express.Router()
 
 router.post(
-    '/create',
-
-    [
-        check('name', 'Name must not be empty').notEmpty(),
-        check('category', 'Category must not be empty').notEmpty(),
-        check('description', 'Description must not be empty').notEmpty(),
-        check('data', 'data must be an array of object').isArray(),
-        check('price', 'Price must not be empty').isNumeric()
-    ],
-
-    async (req, res) => {
-        const errors = validationResult(req)
-
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ msg: errors.array()[0].msg })
-        }
-
-        else {
-            const { name, category, description, data, price } = req.body
-
-            try {
-                const dataset = new DatasetModel({ name, category, description, data, price })
-                await dataset.save()
-                return res.status(200).json({ msg: statusMessages.transactionCreationSuccess })
-            }
-
-            catch (error) {
-                return res.status(500).json({ msg: statusMessages.connectionError })
-            }
-        }
-    }
-)
-
-router.post(
     '/filtercategories',
 
     authorize,
 
     async (req, res) => {
         try {
-            const categories = ['all', 'finance', 'entertainment', 'miscellaneous', 'places', 'users', 'science']
+            const categories = await DatasetModel.find().distinct('category')
+            categories.push('All')
             return res.status(200).json({ categories })
         }
 
@@ -169,6 +136,40 @@ router.get(
 
         catch (error) {
             return res.status(404).json({ msg: statusMessages.connectionError })
+        }
+    }
+)
+
+router.post(
+    '/create',
+
+    [
+        check('name', 'Name must not be empty').notEmpty(),
+        check('category', 'Category must not be empty').notEmpty(),
+        check('description', 'Description must not be empty').notEmpty(),
+        check('data', 'data must be an array of object').isArray(),
+        check('price', 'Price must not be empty').isNumeric()
+    ],
+
+    async (req, res) => {
+        const errors = validationResult(req)
+
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ msg: errors.array()[0].msg })
+        }
+
+        else {
+            const { name, category, description, data, price } = req.body
+
+            try {
+                const dataset = new DatasetModel({ name, category, description, data, price })
+                await dataset.save()
+                return res.status(200).json({ msg: statusMessages.transactionCreationSuccess })
+            }
+
+            catch (error) {
+                return res.status(500).json({ msg: statusMessages.connectionError })
+            }
         }
     }
 )

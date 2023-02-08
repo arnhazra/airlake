@@ -1,10 +1,10 @@
-import { Fragment } from 'react'
+import { FC, Fragment } from 'react'
 import LoadingComponent from '../components/LoadingComponent'
 import ReactIfComponent from '../components/ReactIfComponent'
 import useAuth from '../hooks/useAuth'
-import { ProtectedRouteProps } from '../interfaces/Props'
+import { ProtectedRouteProps } from '../types/Props'
 
-const ProtectedRoute = ({ child }: ProtectedRouteProps) => {
+const ProtectedRoute: FC<ProtectedRouteProps> = ({ child }) => {
     const auth = useAuth()
 
     return (

@@ -1,8 +1,8 @@
 import { FC } from 'react'
 import { Card, Col } from 'react-bootstrap'
-import { CardProps } from '../interfaces/Props'
+import { CardProps } from '../types/Props'
 
-const CardComponent: FC<CardProps> = ({ header, body, footer }: CardProps) => {
+const CardComponent: FC<CardProps> = ({ header, body, footer }) => {
     return (
         <Col xs={12} sm={12} md={6} lg={4} xl={3} className='mb-4'>
             <Card>

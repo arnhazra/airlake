@@ -1,8 +1,8 @@
 import { FC } from 'react'
 import Constants from '../constants/Constants'
-import { ErrorComponentProps } from '../interfaces/Props'
+import { ErrorComponentProps } from '../types/Props'
 
-const ErrorComponent: FC<ErrorComponentProps> = ({ customMessage = '' }: ErrorComponentProps) => {
+const ErrorComponent: FC<ErrorComponentProps> = ({ customMessage }) => {
     return (
         <div className='box text-center'>
             <p className='branding mb-4'>{customMessage ? customMessage : Constants.ErrorComponentMessage}</p>

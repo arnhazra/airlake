@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import endPoints from '../constants/Endpoints'
-import { LivePriceState } from '../interfaces/States'
+import { LivePriceState } from '../types/States'
 
 const useLivePrice = () => {
     const [state, setState] = useState<LivePriceState>({ inr: 0, usd: 0, eur: 0, isLoaded: false })
