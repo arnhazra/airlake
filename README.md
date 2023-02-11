@@ -1,5 +1,9 @@
-# Frostlake
+# LENSTACK
 
-* Frostlake, an open source project, for crypto exchange built on Ethereum Blockchain
-* To Add FLT in your Metamask wallet, switch to Goerli Test Network and Import Token 0xe46fc21372e9a6ca8d90d8b868d292cf78b38432
-* Do not use mainnet ethers to buy FLT coins, it is just an implementation POC for ERC-20 standard. To get ethers in your Goerli testnet account click the link below.
+* Lenstack, a dataset store, allows users to find free and premium data sets
+* A dataset is a collection of data. In the case of tabular data, a dataset corresponds to one or more database tables, 
+where every column of a table represents a particular variable, and each row corresponds to a given record of the dataset in question.
+* Subscribe to the datasets and use api with subscription ID to integrate with your application.
+* Subscription to premium datasets require LST (an ERC-20 standard token) developed on Ethereum Blockchain.
+* To add LST to your metamask wallet Import Token ""
+* On subscribing to a premium dataset you will be given an ERC-721 token.

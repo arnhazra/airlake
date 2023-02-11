@@ -14,7 +14,7 @@ export type LivePriceState = {
 export type UseDataSetStore = {
     searchInput: string,
     selectedFilter: string,
-    sortOption: string
+    selectedSortOption: string
 }
 
 export type GenericIdType = {

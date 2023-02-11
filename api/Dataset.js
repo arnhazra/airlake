@@ -4,6 +4,7 @@ const statusMessages = require('../constants/Messages')
 const authorize = require('../middlewares/authorize')
 const DatasetModel = require('../models/DatasetModel')
 const SubscriptionModel = require('../models/SubscriptionModel')
+const sortObjects = require('../utils/sortObjects')
 const router = express.Router()
 
 router.post(
@@ -14,8 +15,25 @@ router.post(
     async (req, res) => {
         try {
             const categories = await DatasetModel.find().distinct('category')
-            categories.push('All')
+            categories.push('all')
             return res.status(200).json({ categories })
+        }
+
+        catch (error) {
+            return res.status(500).json({ msg: statusMessages.connectionError })
+        }
+    }
+)
+
+router.post(
+    '/sortoptions',
+
+    authorize,
+
+    async (req, res) => {
+        try {
+            const options = Object.keys(sortObjects)
+            return res.status(200).json({ options })
         }
 
         catch (error) {
@@ -30,9 +48,23 @@ router.post(
     authorize,
 
     async (req, res) => {
+        const selectedFilterCategory = (req.body.selectedFilter.length === 0 || req.body.selectedFilter === 'all') ? {} : { category: req.body.selectedFilter }
+        const selectedSortOption = req.body.selectedSortOption.length > 0 ? sortObjects[req.body.selectedSortOption] : sortObjects.Freshness
+        const searchInput = req.body.searchInput.length > 0 && req.body.searchInput
+
         try {
-            const datasets = await DatasetModel.find().select('-data').sort({ _id: -1 })
-            return res.status(200).json({ datasets })
+            const datasets = await DatasetModel.find(selectedFilterCategory).select('-data').select('-description').sort(selectedSortOption)
+
+            if (req.body.searchInput.length > 0) {
+                const filteredDataSets = datasets.filter((dataset) => {
+                    return dataset.name.toLowerCase().includes(searchInput) || dataset.category.toLowerCase().includes(searchInput)
+                })
+                return res.status(200).json({ datasets: filteredDataSets })
+            }
+
+            else {
+                return res.status(200).json({ datasets })
+            }
         }
 
         catch (error) {
@@ -42,7 +74,7 @@ router.post(
 )
 
 router.post(
-    '/subscriptions',
+    '/mysubscriptions',
 
     authorize,
 

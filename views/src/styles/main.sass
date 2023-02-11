@@ -141,10 +141,14 @@ a:active
     font-style: italic
     border: none
     padding-left: 20px
-    margin-top: 0
+    margin-top: 10px !important
     margin-bottom: 0
     border-top-left-radius: 50px
     border-bottom-left-radius: 50px
+
+.search-glass-container
+    height: 40px
+    margin-top: 10px
 
 .searchbar-navbar:focus
     background: $inputColor
@@ -173,21 +177,17 @@ input[type=number]:focus,
 .fa-magnifying-glass
     color: #adb5bd
 
-input
-    outline: 0
+.form-control
     width: 100%
-    height: 3.75rem
-    border: none
     border-radius: 3.1rem
-    background-color: $inputColor
-    color: $mainColor
     margin: 0.3rem 0 1rem
-    text-align: left
-    padding-left: 1.7rem
-    box-sizing: border-box
+    padding-left: 1.9rem !important
     font-size: 0.94rem
     font-weight: bold
     letter-spacing: 0.02rem
+
+label
+    padding-left: 2rem !important
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button
@@ -209,7 +209,6 @@ input[type=number]
     min-height: 5.2rem
     z-index: 2
     font-weight: bold
-    padding: 1.3rem
     box-shadow: 0 0.5rem 0.5rem 0 rgba(0, 0, 0, .2), 0 0.2rem 0.2rem 0 rgba(0, 0, 0, .2)
     zoom: 0.8
 
@@ -283,3 +282,7 @@ th,td,tr
 @media only screen and (max-width: 62rem)
     .lead
         font-size: 90%
+
+.favicon
+    margin-right: 0.3rem
+    margin-top: -0.1rem

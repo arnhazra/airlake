@@ -1,9 +1,9 @@
 import { FC, Fragment } from 'react'
 import { Routes, Route, BrowserRouter } from 'react-router-dom'
 import { HomePage } from '../pages/Home'
-import { AuthPage, SignOutPage } from '../pages/Auth'
+import AuthPage from '../pages/Auth'
 import { BuyCoin, SellCoin, WalletTransactionsPage } from '../pages/Wallet'
-import ErrorComponent from '../components/ErrorComponent'
+import ErrorComponent from '../components/Error'
 import { ViewAllDataSetsPage, ViewOneDataSetPage, ViewSubscriptionsPage } from '../pages/Dataset'
 import { AccountPage } from '../pages/Account'
 import ProtectedRoute from './ProtectedRoute'
@@ -15,7 +15,6 @@ const AppRouter: FC = () => {
 				<Routes>
 					<Route path='/' element={<HomePage />} />
 					<Route path='/auth' element={<AuthPage />} />
-					<Route path='/auth/signout' element={<SignOutPage />} />
 					<Route path='/dataset/store' element={<ProtectedRoute child={<ViewAllDataSetsPage />} />} />
 					<Route path='/dataset/subscriptions' element={<ProtectedRoute child={<ViewSubscriptionsPage />} />} />
 					<Route path='/dataset/viewone/:datasetId' element={<ProtectedRoute child={<ViewOneDataSetPage />} />} />

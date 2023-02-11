@@ -19,7 +19,7 @@ async function sendmail(email, otp) {
             service: 'gmail',
             auth: { type: 'OAuth2', user, clientId, clientSecret, refreshToken, accessToken }
         })
-        let subject = 'Frostlake Authcode'
+        let subject = 'Lenstack Authcode'
         let content = `${otp} is your auth code. Do not share the code with anyone.`
         await transporter.sendMail({ from: user, to: email, subject: subject, html: content })
     }

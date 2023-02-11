@@ -4,10 +4,10 @@ import { Col, Container, Row } from 'react-bootstrap'
 import { Fragment, FC } from 'react'
 import Web3 from 'web3'
 import NavComponent from '../components/NavComponent'
-import LoadingComponent from '../components/LoadingComponent'
-import ErrorComponent from '../components/ErrorComponent'
-import ReactIfComponent from '../components/ReactIfComponent'
-import CardComponent from '../components/CardComponent'
+import LoadingComponent from '../components/Loading'
+import ErrorComponent from '../components/Error'
+import ReactIfComponent from '../components/ReactIf'
+import CardComponent from '../components/ProductCard'
 import useDataSetStore from '../hooks/useDatasetStore'
 import useFilterCategories from '../hooks/useFilterCategories'
 import useViewDataSet from '../hooks/useViewDataSet'
@@ -18,15 +18,17 @@ import useFindSimilarDatasets from '../hooks/useFindSimilarDatasets'
 import { tokenABI } from '../contracts/TokenABI'
 import contractAddress from '../constants/Address'
 import endPoints from '../constants/Endpoints'
+import useSortOptions from '../hooks/useSortOptions'
 declare const window: any
 const web3 = new Web3(Web3.givenProvider)
 
 const ViewAllDataSetsPage: FC = () => {
     const [searchInput, setSearchInput] = useState('')
     const [selectedFilter, setSelectedFilter] = useState('')
-    const [sortOption, setSortOption] = useState('')
-    const datasetStore = useDataSetStore({ searchInput, selectedFilter, sortOption })
+    const [selectedSortOption, setSelectedSortOption] = useState('')
     const filterCategories = useFilterCategories()
+    const sortOptions = useSortOptions()
+    const datasetStore = useDataSetStore({ searchInput, selectedFilter, selectedSortOption })
 
     const datasetsToDisplay = datasetStore.filteredDataSets.map((dataset: any) => {
         return <CardComponent
@@ -41,8 +43,12 @@ const ViewAllDataSetsPage: FC = () => {
         />
     })
 
-    const filterCategoriesToDisplay = filterCategories.categories.map((category: any) => {
+    const filterCategoriesToDisplay = filterCategories.categories.map((category: string) => {
         return <button key={category} className='livebutton' onClick={(): void => setSelectedFilter(category)}>{category}</button>
+    })
+
+    const sortOptionsToDisplay = sortOptions.options.map((option: string) => {
+        return <button key={option} className='livebutton' onClick={(): void => setSelectedSortOption(option)}>{option}</button>
     })
 
     return (
@@ -54,11 +60,7 @@ const ViewAllDataSetsPage: FC = () => {
                         <p className='lead text-capitalize'>Filter by Category</p>
                         {filterCategoriesToDisplay}
                         <p className='mt-4 lead text-capitalize'>Sort Datasets</p>
-                        <button className='livebutton' onClick={(): void => setSortOption('alphabetical')}>A - Z</button>
-                        <button className='livebutton' onClick={(): void => setSortOption('reverseAlphabetical')}>Z - A</button>
-                        <button className='livebutton' onClick={(): void => setSortOption('priceAscending')}>Affordable</button>
-                        <button className='livebutton' onClick={(): void => setSortOption('priceDescending')}>Premium</button>
-                        <button className='livebutton' onClick={(): void => setSortOption('freshness')}>Freshness</button>
+                        {sortOptionsToDisplay}
                         <p className='mt-4 lead text-capitalize'>Displaying {datasetStore.filteredDataSets.length} datasets</p>
                     </div>
                     <Row className='mt-4 mb-4'>

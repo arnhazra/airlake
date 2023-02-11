@@ -1,7 +1,7 @@
 {
-  "name": "project-frostlake",
+  "name": "project-lenstack",
   "version": "2.0",
-  "description": "Jump start your crypto portfolio",
+  "description": "Project Lenstack",
   "main": "app.js",
   "scripts": {
     "initialize": "npm install && npm install --prefix views",

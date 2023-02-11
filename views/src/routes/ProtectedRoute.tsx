@@ -1,6 +1,6 @@
 import { FC, Fragment } from 'react'
-import LoadingComponent from '../components/LoadingComponent'
-import ReactIfComponent from '../components/ReactIfComponent'
+import LoadingComponent from '../components/Loading'
+import ReactIfComponent from '../components/ReactIf'
 import useAuth from '../hooks/useAuth'
 import { ProtectedRouteProps } from '../types/Props'
 

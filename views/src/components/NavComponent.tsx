@@ -1,8 +1,9 @@
 import { FC } from 'react'
 import { Container, Navbar, Nav, Form, InputGroup } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
-import ReactIfComponent from './ReactIfComponent'
+import ReactIfComponent from './ReactIf'
 import { NavProps } from '../types/Props'
+import FavIcon from './FavIcon'
 
 const NavComponent: FC<NavProps> = ({ sendSearchInput }) => {
     const navigate = useNavigate()
@@ -21,7 +22,7 @@ const NavComponent: FC<NavProps> = ({ sendSearchInput }) => {
                     <Container>
                         <Navbar.Brand>
                             <Link to='/dataset/store'>
-                                Frostlake
+                                <FavIcon /> Lenstack
                             </Link>
                         </Navbar.Brand>
                         <Navbar.Toggle aria-controls='navbarScroll' />
@@ -54,7 +55,7 @@ const NavComponent: FC<NavProps> = ({ sendSearchInput }) => {
                                         onClick={redirect}
                                         onChange={(e: any): void => handleSearch(e.target.value)}
                                     />
-                                    <InputGroup.Text><i className='fa-solid fa-magnifying-glass'></i></InputGroup.Text>
+                                    <InputGroup.Text className='search-glass-container'><i className='fa-solid fa-magnifying-glass'></i></InputGroup.Text>
                                 </InputGroup>
                             </Form>
                         </Navbar.Collapse>
@@ -66,7 +67,7 @@ const NavComponent: FC<NavProps> = ({ sendSearchInput }) => {
                     <Container>
                         <Link to='/'>
                             <Navbar.Brand >
-                                Frostlake
+                                <FavIcon /> Lenstack
                             </Navbar.Brand>
                         </Link>
                         <Navbar.Toggle></Navbar.Toggle>

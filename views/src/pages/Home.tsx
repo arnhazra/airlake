@@ -3,7 +3,7 @@ import { Container } from 'react-bootstrap'
 import { Fragment } from 'react'
 import NavComponent from '../components/NavComponent'
 import Constants from '../constants/Constants'
-import ReactIfComponent from '../components/ReactIfComponent'
+import ReactIfComponent from '../components/ReactIf'
 
 const HomePage = () => {
     return (
