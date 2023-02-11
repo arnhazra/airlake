@@ -1,6 +1,6 @@
 enum contractAddress {
-    tokenContractAddress = '0x941C8f40F2B20835C65a9AEbEf348538D2B810d5',
-    vendorContractAddress = '0x2cc66A67aF15CC580a33c5C334D7cDd6a278BacD',
+    tokenContractAddress = '0x9d46e816e10c6353Fcf7381343b053117641d472',
+    vendorContractAddress = '0xeF98846BF1e7F5f8c380F481701763650021A5d4',
 }
 
 export default contractAddress

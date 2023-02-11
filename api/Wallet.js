@@ -15,7 +15,7 @@ router.post(
     [
         check('transactionType', 'Transaction Type must not be empty').notEmpty(),
         check('fromAddress', 'Fromaddress must not be empty').notEmpty(),
-        check('fltAmount', 'FLT Amount must not be empty').notEmpty(),
+        check('lstAmount', 'LST Amount must not be empty').notEmpty(),
         check('ethAmount', 'ethAmount must not be empty').notEmpty(),
         check('txHash', 'txHash must not be empty').notEmpty()
     ],
@@ -28,10 +28,10 @@ router.post(
         }
 
         else {
-            const { transactionType, fromAddress, fltAmount, ethAmount, txHash } = req.body
+            const { transactionType, fromAddress, lstAmount, ethAmount, txHash } = req.body
 
             try {
-                const transaction = new TransactionModel({ owner: req.id, transactionType, fromAddress, fltAmount, ethAmount, txHash })
+                const transaction = new TransactionModel({ owner: req.id, transactionType, fromAddress, lstAmount, ethAmount, txHash })
                 await transaction.save()
                 return res.status(200).json({ msg: statusMessages.transactionCreationSuccess, transaction })
             }

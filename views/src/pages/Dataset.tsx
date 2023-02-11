@@ -37,7 +37,7 @@ const ViewAllDataSetsPage: FC = () => {
             body={<div>
                 <p className='lead'>{dataset.category}</p>
                 <p className='lead'>MIT License</p>
-                <button className='livebutton'>{dataset.price === 0 ? 'FREE' : `${dataset.price} FLT`}</button>
+                <button className='livebutton'>{dataset.price === 0 ? 'FREE' : `${dataset.price} LST`}</button>
             </div>}
             footer={<Link to={`/dataset/viewone/${dataset._id}`} className='btn btnbox'>View Dataset<i className='fa-solid fa-circle-arrow-right'></i></Link>}
         />
@@ -150,7 +150,7 @@ const ViewOneDataSetPage: FC = () => {
             body={<div>
                 <p className='lead'>{dataset.category}</p>
                 <p className='lead'>MIT License</p>
-                <button className='livebutton'>{dataset.price === 0 ? 'FREE' : `${dataset.price} FLT`}</button>
+                <button className='livebutton'>{dataset.price === 0 ? 'FREE' : `${dataset.price} LST`}</button>
             </div>}
             footer={<Link to={`/dataset/viewone/${dataset._id}`} className='btn btnbox'>View Dataset<i className='fa-solid fa-circle-arrow-right'></i></Link>}
         />
@@ -176,7 +176,7 @@ const ViewOneDataSetPage: FC = () => {
                                 body={<div>
                                     <p className='lead'>{dataset.category}</p>
                                     <p className='lead'>{dataset.dataLength} Datapoints</p>
-                                    <button className='livebutton'>{dataset.price === 0 ? 'FREE' : `${dataset.price} FLT`}</button>
+                                    <button className='livebutton'>{dataset.price === 0 ? 'FREE' : `${dataset.price} LST`}</button>
                                 </div>}
                                 footer={<button disabled={subscriptionStatus.isSubscribed} className='btn btnbox' onClick={subscribe}>
                                     {subscriptionStatus.isSubscribed ? 'Subscribed' : 'Subscribe'}
