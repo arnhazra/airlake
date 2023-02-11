@@ -12,6 +12,7 @@
     "moment": "^2.29.4",
     "node-sass": "^8.0.0",
     "node-snackbar": "^0.1.16",
+    "project-frostlake": "file:..",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.0",
     "react-dom": "^18.2.0",

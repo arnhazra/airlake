@@ -4,12 +4,12 @@
   "description": "Jump start your crypto portfolio",
   "main": "app.js",
   "scripts": {
+    "initialize": "npm install && npm install --prefix views",
     "start": "node app",
     "api": "nodemon app",
     "views": "npm start --prefix views",
     "dev": "concurrently \"npm run api\" \"npm run views\"",
-    "deploy": "npm run build --prefix views && git fetch -a && git checkout master &&  git add . && git commit -m autodeploy && git push origin master",
-    "deploynobuild": "git fetch -a && git checkout master &&  git add . && git commit -m autodeploy && git push origin master"
+    "deploy": "sh ./deploy.sh"
   },
   "keywords": [],
   "author": "Arnab Hazra",
