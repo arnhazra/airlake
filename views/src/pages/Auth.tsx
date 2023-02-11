@@ -80,7 +80,7 @@ const AuthPage = () => {
                 </ReactIfComponent>
                 <ReactIfComponent condition={authstep.secondstep}>
                     <form className='box' onSubmit={verifyAuthcode}>
-                        <p className='branding'>Frostlake Auth</p>
+                        <p className='branding'>Lenstack Auth</p>
                         <p className='boxtext'>Check your email address and enter auth code to continue</p>
                         <ReactIfComponent condition={state.newuser}>
                             <FloatingLabel controlId="floatingName" label="Your Name">

@@ -30,7 +30,7 @@ const ViewAllDataSetsPage: FC = () => {
     const sortOptions = useSortOptions()
     const datasetStore = useDataSetStore({ searchInput, selectedFilter, selectedSortOption })
 
-    const datasetsToDisplay = datasetStore.filteredDataSets.map((dataset: any) => {
+    const datasetsToDisplay = datasetStore.datasets.map((dataset: any) => {
         return <CardComponent
             key={dataset._id}
             header={<p className='lead text-capitalize'>{dataset.name}</p>}
@@ -61,7 +61,7 @@ const ViewAllDataSetsPage: FC = () => {
                         {filterCategoriesToDisplay}
                         <p className='mt-4 lead text-capitalize'>Sort Datasets</p>
                         {sortOptionsToDisplay}
-                        <p className='mt-4 lead text-capitalize'>Displaying {datasetStore.filteredDataSets.length} datasets</p>
+                        <p className='mt-4 lead text-capitalize'>Displaying {datasetStore.datasets.length} datasets</p>
                     </div>
                     <Row className='mt-4 mb-4'>
                         {datasetsToDisplay}

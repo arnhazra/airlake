@@ -5,7 +5,7 @@ import endPoints from '../constants/Endpoints'
 import { UseDataSetStore } from '../types/States'
 
 const useDataSetStore = ({ searchInput, selectedFilter, selectedSortOption }: UseDataSetStore) => {
-    const [state, setState] = useState({ fullDataSets: [], filteredDataSets: [], isLoaded: false })
+    const [state, setState] = useState({ datasets: [], isLoaded: false })
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -13,7 +13,7 @@ const useDataSetStore = ({ searchInput, selectedFilter, selectedSortOption }: Us
             try {
                 axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`
                 const response = await axios.post(endPoints.datasetStoreEndpoint, { selectedSortOption, selectedFilter, searchInput })
-                setState({ ...state, fullDataSets: response.data.datasets, filteredDataSets: response.data.datasets, isLoaded: true })
+                setState({ ...state, datasets: response.data.datasets, isLoaded: true })
             }
 
             catch (error: any) {
