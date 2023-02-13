@@ -1,8 +1,8 @@
-import { FC } from 'react'
+import { FC, Fragment } from 'react'
 import { ReactIfProps } from '../types/Props'
 
-const ReactIfComponent: FC<ReactIfProps> = ({ condition, children }) => {
-    return condition === undefined || !condition ? <></> : <>{children}</>
+const ReactIf: FC<ReactIfProps> = ({ condition, children }) => {
+    return condition === undefined || !condition ? <Fragment></Fragment> : <Fragment>{children}</Fragment>
 }
 
-export default ReactIfComponent
+export default ReactIf

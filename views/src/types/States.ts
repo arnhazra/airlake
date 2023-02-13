@@ -2,6 +2,7 @@ export type AuthState = {
     userid: string,
     name: string,
     isLoaded: boolean
+    isAuthorized: boolean
 }
 
 export type LivePriceState = {

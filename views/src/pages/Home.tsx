@@ -1,18 +1,16 @@
 import { Navigate, Link } from 'react-router-dom'
 import { Container } from 'react-bootstrap'
 import { Fragment } from 'react'
-import NavComponent from '../components/NavComponent'
 import Constants from '../constants/Constants'
-import ReactIfComponent from '../components/ReactIf'
+import ReactIf from '../components/ReactIf'
 
 const HomePage = () => {
     return (
         <Fragment>
-            <NavComponent />
-            <ReactIfComponent condition={localStorage.hasOwnProperty('accessToken')}>
+            <ReactIf condition={localStorage.hasOwnProperty('accessToken')}>
                 <Navigate replace to='/dataset/store' />
-            </ReactIfComponent>
-            <ReactIfComponent condition={!localStorage.hasOwnProperty('accessToken')}>
+            </ReactIf>
+            <ReactIf condition={!localStorage.hasOwnProperty('accessToken')}>
                 <Container>
                     <div className='cover covertext'>
                         <p className='display-5 fw-bold'>
@@ -27,7 +25,7 @@ const HomePage = () => {
                         <Link to='/auth' className='btn'>Get Started<i className='fa-solid fa-circle-arrow-right'></i></Link>
                     </div>
                 </Container>
-            </ReactIfComponent>
+            </ReactIf>
 
         </Fragment >
     )

@@ -7,25 +7,33 @@ import ErrorComponent from '../components/Error'
 import { ViewAllDataSetsPage, ViewOneDataSetPage, ViewSubscriptionsPage } from '../pages/Dataset'
 import { AccountPage } from '../pages/Account'
 import ProtectedRoute from './ProtectedRoute'
+import GlobalStateProvider from '../context/globalStateProvider'
+import Layout from '../layout/Layout'
 
 const AppRouter: FC = () => {
 	return (
 		<Fragment>
-			<BrowserRouter>
-				<Routes>
-					<Route path='/' element={<HomePage />} />
-					<Route path='/auth' element={<AuthPage />} />
-					<Route path='/dataset/store' element={<ProtectedRoute child={<ViewAllDataSetsPage />} />} />
-					<Route path='/dataset/subscriptions' element={<ProtectedRoute child={<ViewSubscriptionsPage />} />} />
-					<Route path='/dataset/viewone/:datasetId' element={<ProtectedRoute child={<ViewOneDataSetPage />} />} />
-					<Route path='/wallet/transactions' element={<ProtectedRoute child={<WalletTransactionsPage />} />} />
-					<Route path='/wallet/buy' element={<ProtectedRoute child={<BuyCoin />} />} />
-					<Route path='/wallet/sell' element={<ProtectedRoute child={<SellCoin />} />} />
-					<Route path='/account' element={<ProtectedRoute child={<AccountPage />} />} />
-					<Route path='*' element={<ErrorComponent />} />
-				</Routes>
-			</BrowserRouter>
-		</Fragment>
+			<GlobalStateProvider>
+				<BrowserRouter>
+					<Routes>
+						<Route element={<Layout />}>
+							<Route path='/' element={<HomePage />} />
+							<Route path='/auth' element={<AuthPage />} />
+							<Route element={<ProtectedRoute />}>
+								<Route path='/dataset/store' element={<ViewAllDataSetsPage />} />
+								<Route path='/dataset/subscriptions' element={<ViewSubscriptionsPage />} />
+								<Route path='/dataset/viewone/:datasetId' element={<ViewOneDataSetPage />} />
+								<Route path='/wallet/transactions' element={<WalletTransactionsPage />} />
+								<Route path='/wallet/buy' element={<BuyCoin />} />
+								<Route path='/wallet/sell' element={<SellCoin />} />
+								<Route path='/account' element={<AccountPage />} />
+							</Route>
+							<Route path='*' element={<ErrorComponent />} />
+						</Route>
+					</Routes>
+				</BrowserRouter>
+			</GlobalStateProvider>
+		</Fragment >
 	)
 }
 

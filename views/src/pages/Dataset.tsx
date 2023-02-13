@@ -3,10 +3,9 @@ import { useEffect, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import { Fragment, FC } from 'react'
 import Web3 from 'web3'
-import NavComponent from '../components/NavComponent'
 import LoadingComponent from '../components/Loading'
 import ErrorComponent from '../components/Error'
-import ReactIfComponent from '../components/ReactIf'
+import ReactIf from '../components/ReactIf'
 import CardComponent from '../components/ProductCard'
 import useDataSetStore from '../hooks/useDatasetStore'
 import useFilterCategories from '../hooks/useFilterCategories'
@@ -37,24 +36,24 @@ const ViewAllDataSetsPage: FC = () => {
             body={<div>
                 <p className='lead'>{dataset.category}</p>
                 <p className='lead'>MIT License</p>
-                <button className='livebutton'>{dataset.price === 0 ? 'FREE' : `${dataset.price} LST`}</button>
+                <button className='chip'>{dataset.price === 0 ? 'FREE' : `${dataset.price} LST`}</button>
             </div>}
             footer={<Link to={`/dataset/viewone/${dataset._id}`} className='btn btnbox'>View Dataset<i className='fa-solid fa-circle-arrow-right'></i></Link>}
         />
     })
 
     const filterCategoriesToDisplay = filterCategories.categories.map((category: string) => {
-        return <button key={category} className='livebutton' onClick={(): void => setSelectedFilter(category)}>{category}</button>
+        return <button key={category} className='chip' onClick={(): void => setSelectedFilter(category)}>{category}</button>
     })
 
     const sortOptionsToDisplay = sortOptions.options.map((option: string) => {
-        return <button key={option} className='livebutton' onClick={(): void => setSelectedSortOption(option)}>{option}</button>
+        return <button key={option} className='chip' onClick={(): void => setSelectedSortOption(option)}>{option}</button>
     })
 
     return (
         <Fragment>
-            <ReactIfComponent condition={datasetStore.isLoaded && filterCategories.isLoaded}>
-                <NavComponent sendSearchInput={(input): void => setSearchInput(input)} />
+            <ReactIf condition={datasetStore.isLoaded && filterCategories.isLoaded}>
+
                 <Container>
                     <div className='jumbotron mt-4'>
                         <p className='lead text-capitalize'>Filter by Category</p>
@@ -67,10 +66,10 @@ const ViewAllDataSetsPage: FC = () => {
                         {datasetsToDisplay}
                     </Row>
                 </Container>
-            </ReactIfComponent>
-            <ReactIfComponent condition={!datasetStore.isLoaded || !filterCategories.isLoaded}>
+            </ReactIf>
+            <ReactIf condition={!datasetStore.isLoaded || !filterCategories.isLoaded}>
                 <LoadingComponent />
-            </ReactIfComponent>
+            </ReactIf>
         </Fragment>
     )
 }
@@ -85,7 +84,7 @@ const ViewSubscriptionsPage: FC = () => {
             body={<div>
                 <p className='lead'>{dataset.category}</p>
                 <p className='lead'>MIT License</p>
-                <button className='livebutton'>SUBSCRIBED</button>
+                <button className='chip'>SUBSCRIBED</button>
             </div>}
             footer={<Link to={`/dataset/viewone/${dataset._id}`} className='btn btnbox'>View Dataset<i className='fa-solid fa-circle-arrow-right'></i></Link>}
         />
@@ -93,22 +92,21 @@ const ViewSubscriptionsPage: FC = () => {
 
     return (
         <Fragment>
-            <ReactIfComponent condition={datasetSubscriptions.isLoaded}>
-                <NavComponent />
+            <ReactIf condition={datasetSubscriptions.isLoaded}>
                 <Container>
-                    <ReactIfComponent condition={datasetSubscriptions.subscribedDatasets.length > 0}>
+                    <ReactIf condition={datasetSubscriptions.subscribedDatasets.length > 0}>
                         <Row className='mt-4 mb-4'>
                             {datasetsToDisplay}
                         </Row>
-                    </ReactIfComponent>
-                    <ReactIfComponent condition={datasetSubscriptions.subscribedDatasets.length === 0}>
+                    </ReactIf>
+                    <ReactIf condition={datasetSubscriptions.subscribedDatasets.length === 0}>
                         <ErrorComponent customMessage='No Subscriptions' />
-                    </ReactIfComponent>
+                    </ReactIf>
                 </Container>
-            </ReactIfComponent>
-            <ReactIfComponent condition={!datasetSubscriptions.isLoaded}>
+            </ReactIf>
+            <ReactIf condition={!datasetSubscriptions.isLoaded}>
                 <LoadingComponent />
-            </ReactIfComponent>
+            </ReactIf>
         </Fragment>
     )
 }
@@ -150,7 +148,7 @@ const ViewOneDataSetPage: FC = () => {
             body={<div>
                 <p className='lead'>{dataset.category}</p>
                 <p className='lead'>MIT License</p>
-                <button className='livebutton'>{dataset.price === 0 ? 'FREE' : `${dataset.price} LST`}</button>
+                <button className='chip'>{dataset.price === 0 ? 'FREE' : `${dataset.price} LST`}</button>
             </div>}
             footer={<Link to={`/dataset/viewone/${dataset._id}`} className='btn btnbox'>View Dataset<i className='fa-solid fa-circle-arrow-right'></i></Link>}
         />
@@ -158,9 +156,8 @@ const ViewOneDataSetPage: FC = () => {
 
     return (
         <Fragment>
-            <ReactIfComponent condition={dataset.isLoaded && subscriptionStatus.isLoaded}>
-                <ReactIfComponent condition={!dataset.hasError}>
-                    <NavComponent />
+            <ReactIf condition={dataset.isLoaded && subscriptionStatus.isLoaded}>
+                <ReactIf condition={!dataset.hasError}>
                     <Container className='mt-4'>
                         <Row>
                             <Col xs={12} sm={12} md={12} lg={6} xl={9}>
@@ -176,7 +173,7 @@ const ViewOneDataSetPage: FC = () => {
                                 body={<div>
                                     <p className='lead'>{dataset.category}</p>
                                     <p className='lead'>{dataset.dataLength} Datapoints</p>
-                                    <button className='livebutton'>{dataset.price === 0 ? 'FREE' : `${dataset.price} LST`}</button>
+                                    <button className='chip'>{dataset.price === 0 ? 'FREE' : `${dataset.price} LST`}</button>
                                 </div>}
                                 footer={<button disabled={subscriptionStatus.isSubscribed} className='btn btnbox' onClick={subscribe}>
                                     {subscriptionStatus.isSubscribed ? 'Subscribed' : 'Subscribe'}
@@ -189,14 +186,14 @@ const ViewOneDataSetPage: FC = () => {
                             {datasetsToDisplay}
                         </Row>
                     </Container>
-                </ReactIfComponent>
-                <ReactIfComponent condition={dataset.hasError}>
+                </ReactIf>
+                <ReactIf condition={dataset.hasError}>
                     <ErrorComponent />
-                </ReactIfComponent>
-            </ReactIfComponent>
-            <ReactIfComponent condition={!dataset.isLoaded || !subscriptionStatus.isLoaded}>
+                </ReactIf>
+            </ReactIf>
+            <ReactIf condition={!dataset.isLoaded || !subscriptionStatus.isLoaded}>
                 <LoadingComponent />
-            </ReactIfComponent>
+            </ReactIf>
         </Fragment >
     )
 }

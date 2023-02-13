@@ -4,7 +4,7 @@ enum endPoints {
     generateAuthCodeEndpoint = '/api/auth/generateauthcode',
     verifyAuthCodeEndpoint = '/api/auth/verifyauthcode',
     signOutEndpoint = '/api/auth/signout',
-    useAuthEndpoint = '/api/auth/useauth',
+    verifyAuthEndpoint = '/api/auth/verifyauth',
     createTxEndpoint = '/api/wallet/createtx',
     datasetStoreEndpoint = '/api/dataset/store',
     datasetSubscriptionEndpoint = '/api/dataset/mysubscriptions',

@@ -11,14 +11,6 @@ export type ReactIfProps = {
     children: ReactNode
 }
 
-export type ProtectedRouteProps = {
-    child: ReactNode
-}
-
 export type ErrorComponentProps = {
     customMessage?: string
-}
-
-export type NavProps = {
-    sendSearchInput?: (input: string) => void
 }

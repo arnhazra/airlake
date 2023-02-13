@@ -116,7 +116,7 @@ router.post(
 )
 
 router.post(
-    '/useauth',
+    '/verifyauth',
 
     authorize,
 

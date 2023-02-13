@@ -1,14 +1,12 @@
-import { FC } from 'react'
-import NavComponent from './NavComponent'
+import { FC, Fragment } from 'react'
 
 const LoadingComponent: FC = () => {
     return (
-        <>
-            <NavComponent />
+        <Fragment>
             <div className='cover text-center'>
                 <i className='fas fa-spinner fa-pulse fa-6x'></i>
             </div>
-        </>
+        </Fragment>
     )
 }
 
