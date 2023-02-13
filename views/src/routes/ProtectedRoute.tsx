@@ -11,7 +11,7 @@ const ProtectedRoute: FC = () => {
     const location = useLocation()
     const navigate = useNavigate()
 
-    useQuery([location.pathname, 'verifyauth-service'], () => verifyAuthService(), {
+    const { isLoading } = useQuery([location.pathname, 'verifyauth-service'], () => verifyAuthService(), {
         refetchInterval: 30000,
         refetchOnWindowFocus: false,
         onSuccess(data: any) {
@@ -33,7 +33,7 @@ const ProtectedRoute: FC = () => {
 
     return (
         <Fragment>
-            <ReactIf condition={userState.isLoaded}>
+            <ReactIf condition={!isLoading}>
                 <ReactIf condition={userState.isAuthorized}>
                     <Outlet />
                 </ReactIf>
@@ -41,7 +41,7 @@ const ProtectedRoute: FC = () => {
                     <Navigate to='/' />
                 </ReactIf>
             </ReactIf>
-            <ReactIf condition={!userState.isLoaded}>
+            <ReactIf condition={isLoading}>
                 <LoadingComponent />
             </ReactIf>
         </Fragment>

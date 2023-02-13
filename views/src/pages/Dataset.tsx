@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import { Fragment, FC } from 'react'
 import Web3 from 'web3'
@@ -8,7 +8,6 @@ import ErrorComponent from '../components/Error'
 import ReactIf from '../components/ReactIf'
 import CardComponent from '../components/ProductCard'
 import useDataSetStore from '../hooks/useDatasetStore'
-import useFilterCategories from '../hooks/useFilterCategories'
 import useViewDataSet from '../hooks/useViewDataSet'
 import useIsSubscribed from '../hooks/useIsSubscribed'
 import axios from 'axios'
@@ -17,17 +16,14 @@ import useFindSimilarDatasets from '../hooks/useFindSimilarDatasets'
 import { tokenABI } from '../contracts/TokenABI'
 import contractAddress from '../constants/Address'
 import endPoints from '../constants/Endpoints'
-import useSortOptions from '../hooks/useSortOptions'
+import { GlobalContext } from '../context/globalStateProvider'
+import DatasetStoreHeader from '../modules/DatasetStoreHeader'
 declare const window: any
 const web3 = new Web3(Web3.givenProvider)
 
 const ViewAllDataSetsPage: FC = () => {
-    const [searchInput, setSearchInput] = useState('')
-    const [selectedFilter, setSelectedFilter] = useState('')
-    const [selectedSortOption, setSelectedSortOption] = useState('')
-    const filterCategories = useFilterCategories()
-    const sortOptions = useSortOptions()
-    const datasetStore = useDataSetStore({ searchInput, selectedFilter, selectedSortOption })
+    const [{ datasetRequestState }] = useContext(GlobalContext)
+    const datasetStore = useDataSetStore(datasetRequestState)
 
     const datasetsToDisplay = datasetStore.datasets.map((dataset: any) => {
         return <CardComponent
@@ -42,32 +38,17 @@ const ViewAllDataSetsPage: FC = () => {
         />
     })
 
-    const filterCategoriesToDisplay = filterCategories.categories.map((category: string) => {
-        return <button key={category} className='chip' onClick={(): void => setSelectedFilter(category)}>{category}</button>
-    })
-
-    const sortOptionsToDisplay = sortOptions.options.map((option: string) => {
-        return <button key={option} className='chip' onClick={(): void => setSelectedSortOption(option)}>{option}</button>
-    })
-
     return (
         <Fragment>
-            <ReactIf condition={datasetStore.isLoaded && filterCategories.isLoaded}>
-
+            <ReactIf condition={datasetStore.isLoaded}>
                 <Container>
-                    <div className='jumbotron mt-4'>
-                        <p className='lead text-capitalize'>Filter by Category</p>
-                        {filterCategoriesToDisplay}
-                        <p className='mt-4 lead text-capitalize'>Sort Datasets</p>
-                        {sortOptionsToDisplay}
-                        <p className='mt-4 lead text-capitalize'>Displaying {datasetStore.datasets.length} datasets</p>
-                    </div>
+                    <DatasetStoreHeader />
                     <Row className='mt-4 mb-4'>
                         {datasetsToDisplay}
                     </Row>
                 </Container>
             </ReactIf>
-            <ReactIf condition={!datasetStore.isLoaded || !filterCategories.isLoaded}>
+            <ReactIf condition={!datasetStore.isLoaded}>
                 <LoadingComponent />
             </ReactIf>
         </Fragment>
@@ -164,8 +145,8 @@ const ViewOneDataSetPage: FC = () => {
                                 <div className='jumbotron'>
                                     <p className='display-6 fw-bold text-capitalize'>{dataset.name}</p>
                                     <p className='lead'>{dataset.description}</p>
-                                    {!subscriptionStatus.isSubscribed && <a target='_blank' rel="noreferrer" href={window.location.hostname === 'localhost' ? `http://localhost:7000/api/dataset/data/preview/${datasetId}` : `/api/dataset/data/preview/${datasetId}`} className='btn'>View Preview<i className='fa-solid fa-circle-arrow-right'></i></a>}
-                                    {subscriptionStatus.isSubscribed && <a target='_blank' rel="noreferrer" href={window.location.hostname === 'localhost' ? `http://localhost:7000/api/dataset/data/view/${datasetId}/${subscriptionStatus.subscriptionId}` : `/api/dataset/data/view/${datasetId}/${subscriptionStatus.subscriptionId}`} className='btn'>View Dataset<i className='fa-solid fa-circle-arrow-right'></i></a>}
+                                    {!subscriptionStatus.isSubscribed && <a target='_blank' rel='noreferrer' href={window.location.hostname === 'localhost' ? `http://localhost:7000/api/dataset/data/preview/${datasetId}` : `/api/dataset/data/preview/${datasetId}`} className='btn'>View Preview<i className='fa-solid fa-circle-arrow-right'></i></a>}
+                                    {subscriptionStatus.isSubscribed && <a target='_blank' rel='noreferrer' href={window.location.hostname === 'localhost' ? `http://localhost:7000/api/dataset/data/view/${datasetId}/${subscriptionStatus.subscriptionId}` : `/api/dataset/data/view/${datasetId}/${subscriptionStatus.subscriptionId}`} className='btn'>View Dataset<i className='fa-solid fa-circle-arrow-right'></i></a>}
                                 </div>
                             </Col>
                             <CardComponent

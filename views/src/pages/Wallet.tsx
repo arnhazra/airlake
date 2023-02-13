@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Container, Table } from 'react-bootstrap'
+import { Container, FloatingLabel, Table, Form } from 'react-bootstrap'
 import { Fragment } from 'react'
 import LoadingComponent from '../components/Loading'
 import ReactIf from '../components/ReactIf'
@@ -156,7 +156,9 @@ const BuyCoin = () => {
                 <ReactIf condition={account !== ''}>
                     <ReactIf condition={step === 1}>
                         <p className='branding'>Buy LST</p>
-                        <input type='number' placeholder='Amount of tokens' required className='exchange__textBox' onChange={(e) => setTokens(e.target.value)} />
+                        <FloatingLabel controlId='floatingAmount' label='Amount of tokens'>
+                            <Form.Control autoFocus type='email' placeholder='Amount of tokens' onChange={(e: any) => setTokens(e.target.value)} required />
+                        </FloatingLabel>
                         <p id='alert'>ETH equivalent: {ether}</p>
                         <button className='btn btnbox' onClick={buyCoin}>Buy<i className='fa-solid fa-circle-arrow-right'></i></button>
                     </ReactIf>
@@ -256,7 +258,9 @@ const SellCoin = () => {
                 <ReactIf condition={account !== ''}>
                     <ReactIf condition={step === 1}>
                         <p className='branding'>Sell LST</p>
-                        <input type='number' placeholder='Amount of tokens' required className='exchange__textBox' onChange={(e) => setTokens(e.target.value)} />
+                        <FloatingLabel controlId='floatingAmount' label='Amount of tokens'>
+                            <Form.Control autoFocus type='email' placeholder='Amount of tokens' onChange={(e: any) => setTokens(e.target.value)} required />
+                        </FloatingLabel>
                         <p id='alert'>ETH equivalent: {ether}</p>
                         <button className='btn btnbox' onClick={sellCoin}>Sell<i className='fa-solid fa-circle-arrow-right'></i></button>
                     </ReactIf>

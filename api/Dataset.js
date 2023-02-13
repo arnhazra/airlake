@@ -57,7 +57,7 @@ router.post(
 
             if (req.body.searchInput.length > 0) {
                 const filteredDataSets = datasets.filter((dataset) => {
-                    return dataset.name.toLowerCase().includes(searchInput) || dataset.category.toLowerCase().includes(searchInput)
+                    return dataset.name.toLowerCase().includes(searchInput)
                 })
                 return res.status(200).json({ datasets: filteredDataSets })
             }

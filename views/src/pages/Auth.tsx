@@ -69,11 +69,11 @@ const AuthPage = () => {
                     <form className='box' onSubmit={generateAuthcode}>
                         <p className='branding'>Lenstack Auth</p>
                         <p className='boxtext'>Enter the email address where you can be contacted. This email address will be used for authentication.</p>
-                        <FloatingLabel controlId="floatingEmail" label="Your Email">
-                            <Form.Control autoFocus type="email" placeholder="Your Email" onChange={(e) => setState({ ...state, email: e.target.value })} required autoComplete={'off'} minLength={4} maxLength={40} />
+                        <FloatingLabel controlId='floatingEmail' label='Your Email'>
+                            <Form.Control autoFocus type='email' placeholder='Your Email' onChange={(e) => setState({ ...state, email: e.target.value })} required autoComplete={'off'} minLength={4} maxLength={40} />
                         </FloatingLabel>
                         <p id='alert'>{alert}</p>
-                        <button type='submit' className='mt-2 btn btnbox'>Continue to Lenstack {isLoading ? <i className="fas fa-circle-notch fa-spin"></i> : <i className='fa-solid fa-circle-arrow-right'></i>}</button><br />
+                        <button type='submit' className='mt-2 btn btnbox'>Continue to Lenstack {isLoading ? <i className='fas fa-circle-notch fa-spin'></i> : <i className='fa-solid fa-circle-arrow-right'></i>}</button><br />
                     </form>
                 </ReactIf>
                 <ReactIf condition={authstep.secondstep}>
@@ -81,15 +81,15 @@ const AuthPage = () => {
                         <p className='branding'>Lenstack Auth</p>
                         <p className='boxtext'>Check your email address and enter auth code to continue</p>
                         <ReactIf condition={state.newuser}>
-                            <FloatingLabel controlId="floatingName" label="Your Name">
-                                <Form.Control type='text' placeholder="Your Name" onChange={(e) => setState({ ...state, name: e.target.value })} required autoComplete={'off'} minLength={3} maxLength={40} />
+                            <FloatingLabel controlId='floatingName' label='Your Name'>
+                                <Form.Control type='text' placeholder='Your Name' onChange={(e) => setState({ ...state, name: e.target.value })} required autoComplete={'off'} minLength={3} maxLength={40} />
                             </FloatingLabel>
                         </ReactIf>
-                        <FloatingLabel controlId="floatingPassword" label="Enter Auth Code">
+                        <FloatingLabel controlId='floatingPassword' label='Enter Auth Code'>
                             <Form.Control type='password' name='otp' placeholder='Enter Auth Code' onChange={(e) => setState({ ...state, otp: e.target.value })} required autoComplete={'off'} minLength={8} maxLength={8} />
                         </FloatingLabel>
                         <p id='alert'>{alert}</p>
-                        <button type='submit' className='mt-2 btn btnbox'>{state.newuser ? 'Set up the account' : 'Continue to the app'} {isLoading ? <i className="fas fa-circle-notch fa-spin"></i> : <i className='fa-solid fa-circle-arrow-right'></i>}</button>
+                        <button type='submit' className='mt-2 btn btnbox'>{state.newuser ? 'Set up the account' : 'Continue to the app'} {isLoading ? <i className='fas fa-circle-notch fa-spin'></i> : <i className='fa-solid fa-circle-arrow-right'></i>}</button>
                     </form>
                 </ReactIf>
             </ReactIf>

@@ -137,46 +137,20 @@ a:active
 .searchbar-navbar
     height: 40px
     min-width: 350px !important
-    background-color: $inputColor
+    background-color: $blurColor !important
+    color: $white !important
     font-weight: bold
-    font-style: italic
+    letter-spacing: 0.15rem
     border: none
-    padding-left: 20px
     margin-top: 10px !important
     margin-bottom: 0
-    border-top-left-radius: 50px
-    border-bottom-left-radius: 50px
+    border-radius: 3rem
+    text-transform: uppercase
+    text-align: center
 
-.search-glass-container
-    height: 40px
-    margin-top: 10px
-
-.searchbar-navbar:focus
-    background: $inputColor
-
-textarea:focus,
-textarea.form-control:focus,
-input.form-control:focus,
-input[type=text]:focus,
-input[type=password]:focus,
-input[type=email]:focus,
-input[type=number]:focus,
-[type=text].form-control:focus,
-[type=password].form-control:focus,
-[type=email].form-control:focus,
-[type=tel].form-control:focus,
-[contenteditable].form-control:focus
-    box-shadow: inset 0 -1px 0 $inputColor
-
-.input-group-text
-    background-color: $inputColor
-    border: none
-    border-top-right-radius: 50px
-    border-bottom-right-radius: 50px
-    cursor: pointer
-
-.fa-magnifying-glass
-    color: #adb5bd
+.searchbar-navbar::placeholder
+    color: $white
+    opacity: 0.8
 
 .form-control
     width: 100%

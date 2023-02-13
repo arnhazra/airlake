@@ -1,8 +1,7 @@
-export type AuthState = {
+export type UserState = {
     userid: string,
     name: string,
-    isLoaded: boolean
-    isAuthorized: boolean
+    isAuthorized: boolean,
 }
 
 export type LivePriceState = {

@@ -1,14 +1,17 @@
+import { UserState } from '../types/States'
+
 export type GlobalState = {
-    userState: {
-        userid: string,
-        name: string,
-        isLoaded: boolean,
-        isAuthorized: boolean
+    userState: UserState
+    datasetRequestState: {
+        searchInput: string,
+        selectedFilter: string,
+        selectedSortOption: string
     }
 }
 
 export type ActionsMap = {
     setUserState: { [key: string]: string | boolean }
+    setDatasetRequestState: { [key: string]: string }
 }
 
 export type Actions = {
@@ -24,6 +27,12 @@ export const GlobalReducer = (state: GlobalState, action: Actions): GlobalState 
             return {
                 ...state, userState: { ...state.userState, ...action.payload }
             }
+
+        case 'setDatasetRequestState':
+            return {
+                ...state, datasetRequestState: { ...state.datasetRequestState, ...action.payload }
+            }
+
         default:
             return state
     }
