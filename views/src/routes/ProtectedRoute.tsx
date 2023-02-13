@@ -1,39 +1,44 @@
-import { FC, Fragment, useContext } from 'react'
+import { FC, Fragment, useContext, useEffect } from 'react'
 import { Outlet, Navigate, useLocation, useNavigate } from 'react-router-dom'
 import LoadingComponent from '../components/Loading'
 import ReactIf from '../components/ReactIf'
 import { GlobalContext } from '../context/globalStateProvider'
-import verifyAuthService from '../services/verifyAuthService'
-import { useQuery } from 'react-query'
+import axios from 'axios'
+import endPoints from '../constants/Endpoints'
+import toast from 'react-hot-toast'
 
 const ProtectedRoute: FC = () => {
     const [{ userState }, dispatch] = useContext(GlobalContext)
     const location = useLocation()
     const navigate = useNavigate()
 
-    const { isLoading } = useQuery([location.pathname, 'verifyauth-service'], () => verifyAuthService(), {
-        refetchInterval: 30000,
-        refetchOnWindowFocus: false,
-        onSuccess(data: any) {
+    useEffect(() => {
+        (async () => {
             try {
-                dispatch('setUserState', { userid: data.data.user._id, name: data.data.user.name, isLoaded: true, isAuthorized: true })
-            } catch (error) {
-                dispatch('setUserState', { isLoaded: true, isAuthorized: false })
-                localStorage.removeItem('accessToken')
-                navigate('/')
+                axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`
+                const response = await axios.post(endPoints.verifyAuthEndpoint)
+                dispatch('setUserState', { userid: response.data.user._id, name: response.data.user.name, isLoaded: true, isAuthorized: true })
             }
-        },
 
-        onError(err) {
-            dispatch('setUserState', { isLoaded: true, isAuthorized: false })
-            localStorage.removeItem('accessToken')
-            navigate('/')
-        },
-    })
+            catch (error: any) {
+                if (error.response.status === 401) {
+                    dispatch('setUserState', { isLoaded: true, isAuthorized: false })
+                    localStorage.removeItem('accessToken')
+                    navigate('/')
+                }
+
+                else {
+                    dispatch('setUserState', { isLoaded: true })
+                    toast.error('Something went wrong')
+                }
+            }
+        })()
+    }, [location.pathname])
+
 
     return (
         <Fragment>
-            <ReactIf condition={!isLoading}>
+            <ReactIf condition={userState.isLoaded}>
                 <ReactIf condition={userState.isAuthorized}>
                     <Outlet />
                 </ReactIf>
@@ -41,7 +46,7 @@ const ProtectedRoute: FC = () => {
                     <Navigate to='/' />
                 </ReactIf>
             </ReactIf>
-            <ReactIf condition={isLoading}>
+            <ReactIf condition={!userState.isLoaded}>
                 <LoadingComponent />
             </ReactIf>
         </Fragment>

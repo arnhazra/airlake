@@ -6,7 +6,6 @@ import ReactIf from '../components/ReactIf'
 import { tokenABI } from '../contracts/TokenABI'
 import { vendorABI } from '../contracts/VendorABI'
 import Web3 from 'web3'
-import Snackbar from 'node-snackbar'
 import axios from 'axios'
 import moment from 'moment'
 import contractAddress from '../constants/Address'
@@ -15,6 +14,7 @@ import useTransactionData from '../hooks/useTransactionData'
 import useLivePrice from '../hooks/useLivePrice'
 import { Link } from 'react-router-dom'
 import Constants from '../constants/Constants'
+import { toast } from 'react-hot-toast'
 declare const window: any
 const web3 = new Web3(Web3.givenProvider)
 
@@ -115,13 +115,13 @@ const BuyCoin = () => {
                     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
                     setAccount(accounts[0])
                 } catch (err) {
-                    Snackbar.show({ text: 'Unable to connect to metamask' })
+                    toast.error('Unable to connect to metamask')
                 }
             } else {
-                Snackbar.show({ text: 'Please install metamask' })
+                toast.error('Please install metamask')
             }
         } catch (error) {
-            Snackbar.show({ text: 'Please install metamask' })
+            toast.error('Please install metamask')
         }
     }
 
@@ -142,11 +142,11 @@ const BuyCoin = () => {
             }
             await axios.post(endPoints.createTxEndpoint, obj)
             setStep(3)
-            Snackbar.show({ text: 'You have successfully bought LST tokens!' })
+            toast.success('You have successfully bought LST tokens!')
         } catch (err) {
             setTxError(true)
             setStep(3)
-            Snackbar.show({ text: 'Error purchasing LST tokens' })
+            toast.error('Error purchasing LST tokens')
         }
     }
 
@@ -212,13 +212,13 @@ const SellCoin = () => {
                     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
                     setAccount(accounts[0])
                 } catch (err) {
-                    Snackbar.show({ text: 'Unable to connect to metamask' })
+                    toast.error('Unable to connect to metamask')
                 }
             } else {
-                Snackbar.show({ text: 'Please install metamask' })
+                toast.error('Please install metamask')
             }
         } catch (error) {
-            Snackbar.show({ text: 'Please install metamask' })
+            toast.error('Please install metamask')
         }
     }
 
@@ -244,11 +244,11 @@ const SellCoin = () => {
             }
             await axios.post(endPoints.createTxEndpoint, obj)
             setStep(3)
-            Snackbar.show({ text: 'You have successfully bought LST tokens!' })
+            toast.success('You have successfully sold LST tokens!')
         } catch (err) {
             setTxError(true)
             setStep(3)
-            Snackbar.show({ text: 'Error selling LST tokens' })
+            toast.error('Error selling LST tokens')
         }
     }
 

@@ -1,6 +1,7 @@
 export type UserState = {
     userid: string,
     name: string,
+    isLoaded: boolean,
     isAuthorized: boolean,
 }
 
@@ -24,4 +25,11 @@ export type GenericIdType = {
 export type UseIsSubscribed = {
     id: any,
     hasClickedSubscribed: boolean
+}
+
+export type Dataset = {
+    _id: string,
+    name: string,
+    price: number,
+    category: string
 }

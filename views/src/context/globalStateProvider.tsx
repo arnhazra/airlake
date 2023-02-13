@@ -10,6 +10,7 @@ const initialState = {
     userState: {
         userid: '',
         name: '',
+        isLoaded: false,
         isAuthorized: false,
     },
 
@@ -17,6 +18,10 @@ const initialState = {
         searchInput: '',
         selectedFilter: '',
         selectedSortOption: ''
+    },
+
+    datasetResponseState: {
+        datasets: []
     }
 }
 

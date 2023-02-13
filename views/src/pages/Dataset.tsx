@@ -22,10 +22,10 @@ declare const window: any
 const web3 = new Web3(Web3.givenProvider)
 
 const ViewAllDataSetsPage: FC = () => {
-    const [{ datasetRequestState }] = useContext(GlobalContext)
+    const [{ datasetRequestState, datasetResponseState }] = useContext(GlobalContext)
     const datasetStore = useDataSetStore(datasetRequestState)
 
-    const datasetsToDisplay = datasetStore.datasets.map((dataset: any) => {
+    const datasetsToDisplay = datasetResponseState.datasets.map((dataset: any) => {
         return <CardComponent
             key={dataset._id}
             header={<p className='lead text-capitalize'>{dataset.name}</p>}
