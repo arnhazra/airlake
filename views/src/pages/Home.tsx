@@ -26,7 +26,6 @@ const HomePage = () => {
                     </div>
                 </Container>
             </ReactIf>
-
         </Fragment >
     )
 }

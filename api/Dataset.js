@@ -82,8 +82,8 @@ router.post(
         try {
             const subscriptions = await SubscriptionModel.find({ userId: req.id });
             const subscribedDatasetPromises = subscriptions.map(async (sub) => {
-                const subscribedDataset = await DatasetModel.find({ _id: sub.datasetId }).select('-data').select('-description');
-                return subscribedDataset[0];
+                const subscribedDataset = await DatasetModel.findById(sub.datasetId).select('-data').select('-description');
+                return subscribedDataset;
             });
             const subscribedDatasets = await Promise.all(subscribedDatasetPromises);
             return res.status(200).json({ subscribedDatasets });

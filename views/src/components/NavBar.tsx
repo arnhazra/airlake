@@ -1,10 +1,10 @@
-import { Fragment, useContext } from 'react'
+import { FC, Fragment, useContext } from 'react'
 import { Container, Navbar, Nav } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { GlobalContext } from '../context/globalStateProvider'
 import ReactIf from './ReactIf'
 
-const NavBar = () => {
+const NavBar: FC = () => {
     const [{ userState }] = useContext(GlobalContext)
 
     return (

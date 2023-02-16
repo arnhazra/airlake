@@ -8,7 +8,7 @@ import useSortOptions from '../hooks/useSortOptions'
 const DatasetStoreHeader = () => {
     const filterCategories = useFilterCategories()
     const sortOptions = useSortOptions()
-    const [, dispatch] = useContext(GlobalContext)
+    const [{ datasetResponseState }, dispatch] = useContext(GlobalContext)
 
     const filterCategoriesToDisplay = filterCategories.categories.map((category: string) => {
         return <button key={category} className='chip' onClick={(): void => dispatch('setDatasetRequestState', { selectedFilter: category })}>{category}</button>
@@ -26,7 +26,7 @@ const DatasetStoreHeader = () => {
                     {filterCategoriesToDisplay}
                     <p className='mt-4 lead text-capitalize'>Sort Datasets</p>
                     {sortOptionsToDisplay}
-                    <p className='mt-4 lead text-capitalize'>Displaying 37 datasets</p>
+                    <p className='mt-4 lead text-capitalize'>Displaying {datasetResponseState.datasets.length} datasets</p>
                     <input type='text' placeholder='Search Datasets' className='searchbar-navbar' onChange={(e): void => dispatch('setDatasetRequestState', { searchInput: e.target.value })} />
                 </div>
             </ReactIf>
