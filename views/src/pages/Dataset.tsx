@@ -42,7 +42,7 @@ const ViewAllDataSetsPage: FC = () => {
         <Fragment>
             <ReactIf condition={datasetStore.isLoaded}>
                 <Container>
-                    <DatasetStoreHeader />
+                    <DatasetStoreHeader datasetCount={datasetStore.datasets.length} />
                     <Row className='mt-4 mb-4'>
                         {datasetsToDisplay}
                     </Row>

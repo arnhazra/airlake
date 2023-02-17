@@ -19,10 +19,6 @@ const initialState = {
         selectedFilter: '',
         selectedSortOption: ''
     },
-
-    datasetResponseState: {
-        datasets: []
-    }
 }
 
 export const GlobalContext = createContext<GlobalContextInterface>([initialState, ((): void => undefined)])

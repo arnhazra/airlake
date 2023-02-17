@@ -7,16 +7,11 @@ export type GlobalState = {
         selectedFilter: string,
         selectedSortOption: string
     }
-
-    datasetResponseState: {
-        datasets: Dataset[]
-    }
 }
 
 export type ActionsMap = {
     setUserState: { [key: string]: string | boolean }
     setDatasetRequestState: { [key: string]: string }
-    setDatasetResponseState: { [key: string]: Dataset[] }
 }
 
 export type Actions = {
@@ -36,11 +31,6 @@ export const GlobalReducer = (state: GlobalState, action: Actions): GlobalState 
         case 'setDatasetRequestState':
             return {
                 ...state, datasetRequestState: { ...state.datasetRequestState, ...action.payload }
-            }
-
-        case 'setDatasetResponseState':
-            return {
-                ...state, datasetResponseState: { ...state.datasetResponseState, ...action.payload }
             }
 
         default:

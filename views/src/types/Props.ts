@@ -14,3 +14,7 @@ export type ReactIfProps = {
 export type ErrorComponentProps = {
     customMessage?: string
 }
+
+export type DatasetStoreHeaderProps = {
+    datasetCount: number
+}
