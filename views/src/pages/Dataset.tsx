@@ -155,11 +155,11 @@ const ViewOneDataSetPage: FC = () => {
                                 <button className='chip'>{dataset.price === 0 ? 'FREE' : `${dataset.price} LST`}</button>
                                 <button className='chip'>{dataset.dataLength} Datapoints</button><br />
                             </div>
-                            {account && <button disabled={subscriptionStatus.isSubscribed} className='btn' onClick={subscribe}>
+                            <button disabled={subscriptionStatus.isSubscribed} className='btn' onClick={subscribe}>
                                 {subscriptionStatus.isSubscribed ? 'Subscribed' : 'Subscribe'}
                                 {subscriptionStatus.isSubscribed ? <i className='fa-solid fa-circle-check fa-white'></i> : <i className='fa-solid fa-circle-plus'></i>}
-                            </button>}
-                            {!subscriptionStatus.isSubscribed && <a target='_blank' rel='noreferrer' href={window.location.hostname === 'localhost' ? `http://localhost:7000/api/dataset/data/preview/${datasetId}` : `/api/dataset/data/preview/${datasetId}`} className='btn'>View Preview<i className='fa-solid fa-circle-arrow-right'></i></a>}
+                            </button>
+                            {!subscriptionStatus.isSubscribed && <a target='_blank' rel='noreferrer' href={window.location.hostname === 'localhost' ? `http://localhost:7000/api/dataset/data/preview/${datasetId}` : `/api/dataset/data/preview/${datasetId}`} className='btn'>Preview Dataset<i className='fa-solid fa-circle-arrow-right'></i></a>}
                             {subscriptionStatus.isSubscribed && <a target='_blank' rel='noreferrer' href={window.location.hostname === 'localhost' ? `http://localhost:7000/api/dataset/data/view/${datasetId}/${subscriptionStatus.subscriptionId}` : `/api/dataset/data/view/${datasetId}/${subscriptionStatus.subscriptionId}`} className='btn'>View Dataset<i className='fa-solid fa-circle-arrow-right'></i></a>}
                         </div>
                         <Row>
