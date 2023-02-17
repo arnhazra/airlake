@@ -1,23 +1,20 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import endPoints from '../constants/Endpoints'
 import { UseDataSetStore } from '../types/States'
-import { GlobalContext } from '../context/globalStateProvider'
 
 const useDataSetStore = ({ searchInput, selectedFilter, selectedSortOption }: UseDataSetStore) => {
-    const [state, setState] = useState({ isLoaded: false })
+    const [state, setState] = useState({ datasets: [], isLoaded: false })
     const navigate = useNavigate()
-    const [, dispatch] = useContext(GlobalContext)
 
     useEffect(() => {
         (async () => {
             try {
                 axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`
                 const response = await axios.post(endPoints.datasetStoreEndpoint, { selectedSortOption, selectedFilter, searchInput })
-                setState({ isLoaded: true })
-                dispatch('setDatasetResponseState', { datasets: response.data.datasets })
+                setState({ datasets: response.data.datasets, isLoaded: true })
             }
 
             catch (error: any) {
@@ -27,7 +24,7 @@ const useDataSetStore = ({ searchInput, selectedFilter, selectedSortOption }: Us
                 }
 
                 else {
-                    setState({ isLoaded: true })
+                    setState({ ...state, isLoaded: true })
                     toast.error('Something went wrong')
                 }
             }

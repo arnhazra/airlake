@@ -22,10 +22,10 @@ declare const window: any
 const web3 = new Web3(Web3.givenProvider)
 
 const ViewAllDataSetsPage: FC = () => {
-    const [{ datasetRequestState, datasetResponseState }] = useContext(GlobalContext)
+    const [{ datasetRequestState }] = useContext(GlobalContext)
     const datasetStore = useDataSetStore(datasetRequestState)
 
-    const datasetsToDisplay = datasetResponseState.datasets.map((dataset: any) => {
+    const datasetsToDisplay = datasetStore.datasets.map((dataset: any) => {
         return <CardComponent
             key={dataset._id}
             header={<p className='lead text-capitalize'>{dataset.name}</p>}
@@ -92,7 +92,6 @@ const ViewSubscriptionsPage: FC = () => {
     )
 }
 
-//NEED TO WORK ON PREMIUM DATASETS
 const ViewOneDataSetPage: FC = () => {
     const [hasClickedSubscribed, setClickedSubscribed] = useState(false)
     let { datasetId } = useParams()
@@ -122,7 +121,7 @@ const ViewOneDataSetPage: FC = () => {
         }
     }
 
-    const datasetsToDisplay = similarDatasets.similarDatasets.map((dataset: any) => {
+    const similarDatasetsToDisplay = similarDatasets.similarDatasets.map((dataset: any) => {
         return <CardComponent
             key={dataset._id}
             header={<p className='lead text-capitalize'>{dataset.name}</p>}
@@ -140,31 +139,24 @@ const ViewOneDataSetPage: FC = () => {
             <ReactIf condition={dataset.isLoaded && subscriptionStatus.isLoaded}>
                 <ReactIf condition={!dataset.hasError}>
                     <Container className='mt-4'>
-                        <Row>
-                            <Col xs={12} sm={12} md={12} lg={6} xl={9}>
-                                <div className='jumbotron'>
-                                    <p className='display-6 fw-bold text-capitalize'>{dataset.name}</p>
-                                    <p className='lead'>{dataset.description}</p>
-                                    {!subscriptionStatus.isSubscribed && <a target='_blank' rel='noreferrer' href={window.location.hostname === 'localhost' ? `http://localhost:7000/api/dataset/data/preview/${datasetId}` : `/api/dataset/data/preview/${datasetId}`} className='btn'>View Preview<i className='fa-solid fa-circle-arrow-right'></i></a>}
-                                    {subscriptionStatus.isSubscribed && <a target='_blank' rel='noreferrer' href={window.location.hostname === 'localhost' ? `http://localhost:7000/api/dataset/data/view/${datasetId}/${subscriptionStatus.subscriptionId}` : `/api/dataset/data/view/${datasetId}/${subscriptionStatus.subscriptionId}`} className='btn'>View Dataset<i className='fa-solid fa-circle-arrow-right'></i></a>}
-                                </div>
-                            </Col>
-                            <CardComponent
-                                header={<p className='lead text-capitalize'>{dataset.name}</p>}
-                                body={<div>
-                                    <p className='lead'>{dataset.category}</p>
-                                    <p className='lead'>{dataset.dataLength} Datapoints</p>
-                                    <button className='chip'>{dataset.price === 0 ? 'FREE' : `${dataset.price} LST`}</button>
-                                </div>}
-                                footer={<button disabled={subscriptionStatus.isSubscribed} className='btn btnbox' onClick={subscribe}>
-                                    {subscriptionStatus.isSubscribed ? 'Subscribed' : 'Subscribe'}
-                                    {subscriptionStatus.isSubscribed ? <i className='fa-solid fa-circle-check fa-white'></i> : <i className='fa-solid fa-circle-plus'></i>}
-                                </button>}
-                            />
-                        </Row>
+                        <div className='jumbotron'>
+                            <p className='display-6 fw-bold text-capitalize'>{dataset.name}</p>
+                            <p className='lead'>{dataset.description}</p>
+                            <div className='chip-grid'>
+                                <button className='chip'>{dataset.category}</button>
+                                <button className='chip'>{dataset.price === 0 ? 'FREE' : `${dataset.price} LST`}</button>
+                                <button className='chip'>{dataset.dataLength} Datapoints</button><br />
+                            </div>
+                            <button disabled={subscriptionStatus.isSubscribed} className='btn' onClick={subscribe}>
+                                {subscriptionStatus.isSubscribed ? 'Subscribed' : 'Subscribe'}
+                                {subscriptionStatus.isSubscribed ? <i className='fa-solid fa-circle-check fa-white'></i> : <i className='fa-solid fa-circle-plus'></i>}
+                            </button>
+                            {!subscriptionStatus.isSubscribed && <a target='_blank' rel='noreferrer' href={window.location.hostname === 'localhost' ? `http://localhost:7000/api/dataset/data/preview/${datasetId}` : `/api/dataset/data/preview/${datasetId}`} className='btn'>View Preview<i className='fa-solid fa-circle-arrow-right'></i></a>}
+                            {subscriptionStatus.isSubscribed && <a target='_blank' rel='noreferrer' href={window.location.hostname === 'localhost' ? `http://localhost:7000/api/dataset/data/view/${datasetId}/${subscriptionStatus.subscriptionId}` : `/api/dataset/data/view/${datasetId}/${subscriptionStatus.subscriptionId}`} className='btn'>View Dataset<i className='fa-solid fa-circle-arrow-right'></i></a>}
+                        </div>
                         <Row>
                             <p className='lead text-center fw-bold text-white mb-4'>Similar Datasets</p>
-                            {datasetsToDisplay}
+                            {similarDatasetsToDisplay}
                         </Row>
                     </Container>
                 </ReactIf>

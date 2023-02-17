@@ -39,6 +39,7 @@ body
     background: $blurColor !important
     color: $white
     border-radius: 1rem
+    min-height: 25rem
 
 .card
     background: $blurColor !important
@@ -98,6 +99,10 @@ body
     font-weight: bold
     letter-spacing: 0.05rem
 
+    &:disabled
+        background: $mainColor
+        color: $white !important
+
 .chip
     border: none
     background: $mainColor
@@ -112,6 +117,9 @@ body
     margin-bottom: 1rem
     margin-right: 0.5rem
     margin-left: 0.5rem
+
+.chip-grid
+    margin-left: -0.5rem
 
 .btn:hover,
 .btn:focus
@@ -187,7 +195,7 @@ input[type=number]
     zoom: 0.8
 
 .navbar-brand
-    font-size: 1.2rem
+    font-size: 1rem
     letter-spacing: 0.1rem
     margin-right: 1.5rem
     cursor: pointer

@@ -3,9 +3,10 @@ import axios from 'axios'
 import endPoints from '../constants/Endpoints'
 import { useNavigate } from 'react-router-dom'
 import { GenericIdType } from '../types/States'
+import toast from 'react-hot-toast'
 
 const useFindSimilarDatasets = ({ id }: GenericIdType) => {
-    const [state, setState] = useState({ similarDatasets: [], isLoaded: false, hasError: false })
+    const [state, setState] = useState({ similarDatasets: [], isLoaded: false })
     const navigate = useNavigate()
 
     const findSimilarDatasets = async () => {
@@ -22,7 +23,8 @@ const useFindSimilarDatasets = ({ id }: GenericIdType) => {
             }
 
             else {
-                setState({ ...state, isLoaded: true, hasError: true })
+                setState({ ...state, isLoaded: true })
+                toast.error('Something went wrong')
             }
         }
     }

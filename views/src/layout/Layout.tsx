@@ -7,7 +7,7 @@ const Layout = () => {
     return (
         <Fragment>
             <NavBar />
-            <Toaster position="bottom-center" containerClassName='toaster' />
+            <Toaster position='bottom-center' containerClassName='toaster' />
             <Outlet />
         </Fragment>
     )
