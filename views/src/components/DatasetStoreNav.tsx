@@ -10,7 +10,7 @@ import { DatasetStoreHeaderProps } from '../types/Props'
 const DatasetStoreNav: FC<DatasetStoreHeaderProps> = ({ datasetCount }) => {
     const filterCategories = useFilterCategories()
     const sortOptions = useSortOptions()
-    const [, dispatch] = useContext(GlobalContext)
+    const [{ datasetRequestState }, dispatch] = useContext(GlobalContext)
 
     const filterCategoriesToDisplay = filterCategories.categories.map((category: string) => {
         return <option className='options' key={category} value={category}>{category}</option>
@@ -26,14 +26,14 @@ const DatasetStoreNav: FC<DatasetStoreHeaderProps> = ({ datasetCount }) => {
                 <Row className="g-2 mt-4">
                     <Col xs={12} sm={12} md={6} lg={4} xl={3}>
                         <FloatingLabel controlId="floatingSelectGrid" label="Select Category">
-                            <Form.Select defaultValue={"All"} aria-label="Floating label select example" onChange={(e): void => dispatch('setDatasetRequestState', { selectedFilter: e.target.value })}>
+                            <Form.Select defaultValue={datasetRequestState.selectedFilter} aria-label="Floating label select example" onChange={(e): void => dispatch('setDatasetRequestState', { selectedFilter: e.target.value })}>
                                 {filterCategoriesToDisplay}
                             </Form.Select>
                         </FloatingLabel>
                     </Col>
                     <Col xs={12} sm={12} md={6} lg={4} xl={3}>
                         <FloatingLabel controlId="floatingSelectGrid" label="Sort By">
-                            <Form.Select defaultValue={"Freshness"} aria-label="Floating label select example" onChange={(e): void => dispatch('setDatasetRequestState', { selectedSortOption: e.target.value })}>
+                            <Form.Select defaultValue={datasetRequestState.selectedSortOption} aria-label="Floating label select example" onChange={(e): void => dispatch('setDatasetRequestState', { selectedSortOption: e.target.value })}>
                                 {sortOptionsToDisplay}
                             </Form.Select>
                         </FloatingLabel>

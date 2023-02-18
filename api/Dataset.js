@@ -48,8 +48,8 @@ router.post(
     authorize,
 
     async (req, res) => {
-        const selectedFilterCategory = (req.body.selectedFilter.length === 0 || req.body.selectedFilter === 'All') ? {} : { category: req.body.selectedFilter }
-        const selectedSortOption = req.body.selectedSortOption.length > 0 ? sortObjects[req.body.selectedSortOption] : sortObjects.Freshness
+        const selectedFilterCategory = req.body.selectedFilter === 'All' ? {} : { category: req.body.selectedFilter }
+        const selectedSortOption = sortObjects[req.body.selectedSortOption]
         const searchInput = req.body.searchInput.length > 0 && req.body.searchInput
 
         try {
