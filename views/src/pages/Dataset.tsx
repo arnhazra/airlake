@@ -103,8 +103,13 @@ const ViewOneDataSetPage: FC = () => {
 
     const subscribe = async () => {
         if (dataset.price === 0) {
-            await axios.post(`${endPoints.subscribeEndpoint}/${datasetId}`)
-            setClickedSubscribed(true)
+            try {
+                await axios.post(`${endPoints.subscribeEndpoint}/${datasetId}`)
+                setClickedSubscribed(true)
+            } catch (error) {
+                toast.error('Something went wrong')
+            }
+
         }
 
         else {
