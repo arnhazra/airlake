@@ -206,4 +206,25 @@ router.post(
     }
 )
 
+router.post(
+    '/viewrecommended',
+
+    async (req, res) => {
+        try {
+            DatasetModel.aggregate([
+                { $match: { $expr: { $gt: [{ $strLenCP: "$description" }, 200] } } },
+                { $project: { data: 0 } },
+                { $sample: { size: 1 } }
+            ]).exec((err, result) => {
+                const recommendedDataset = result[0]
+                res.status(200).json({ recommendedDataset })
+            });
+        }
+
+        catch (error) {
+            return res.status(404).json({ msg: statusMessages.connectionError })
+        }
+    }
+)
+
 module.exports = router
