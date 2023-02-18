@@ -13,6 +13,7 @@ const AccountPage = () => {
             dispatch('setUserState', { isLoaded: true, isAuthorized: false })
             navigate('/')
         } catch (error) {
+            dispatch('setUserState', { isLoaded: true, isAuthorized: false })
             navigate('/')
         }
     }

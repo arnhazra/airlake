@@ -1,10 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap')
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css')
 
-$mainColor: #1c1e21
+$mainColor: #101a1f
 $white: #ffffff
 $inputColor: #f8f8f8
 $blurColor: #cad4db7b
+$searchBoxColor: #162024
+$green: #1ed760
+$red: #d71e62
 
 html
     scrollbar-width: none
@@ -13,7 +16,7 @@ html
     width: 0
 
 body
-    background: linear-gradient(to right, rgba(26, 25, 31, 0.5), rgba(26, 25, 31, 0.5)), url(../assets/hero.jpg)
+    background: linear-gradient(to right, rgba(26, 25, 31, 0.7), rgba(26, 25, 31, 0.7)), url(../assets/hero.jpg)
     -webkit-background-size: cover
     -moz-background-size: cover
     -o-background-size: cover
@@ -31,7 +34,7 @@ body
     vertical-align: middle
     display: table-cell
     padding-left: 1.5rem
-    animation: transitionIn 0.3s forwards
+    animation: transitionIn 0.4s forwards
 
 .jumbotron
     padding: 2rem 4rem
@@ -135,24 +138,19 @@ a:active
     text-decoration: none
     cursor: pointer
 
-.boxlink
-    color: $mainColor
-    text-decoration: none
-    cursor: pointer
-
 .searchbar-navbar
-    height: 40px
-    min-width: 350px !important
-    background-color: $blurColor !important
+    height: 3.2rem
+    min-width: 23.75rem !important
+    background-color: $searchBoxColor !important
     color: $white !important
     font-weight: bold
     letter-spacing: 0.15rem
     border: none
-    margin-top: 10px !important
+    font-style: italic
+    margin-top: 1.06rem !important
     margin-bottom: 0
     border-radius: 3rem
-    text-transform: uppercase
-    text-align: center
+    text-align: left
 
 .searchbar-navbar::placeholder
     color: $white
@@ -166,6 +164,18 @@ a:active
     font-size: 0.94rem
     font-weight: bold
     letter-spacing: 0.02rem
+
+.form-select
+    font-weight: bold
+    border-radius: 3.125rem
+    padding-left: 1.75rem
+
+.form-floating
+    font-weight: bold
+    border-radius: 3.125rem
+
+.options
+    font-weight: bold
 
 label
     padding-left: 2rem !important
@@ -187,14 +197,14 @@ input[type=number]
 
 .navbar
     background: $mainColor
-    min-height: 5.2rem
+    min-height: 5.5rem
     z-index: 2
     font-weight: bold
     box-shadow: 0 0.5rem 0.5rem 0 rgba(0, 0, 0, .2), 0 0.2rem 0.2rem 0 rgba(0, 0, 0, .2)
-    zoom: 0.8
+    zoom: 0.7
 
 .navbar-brand
-    font-size: 1rem
+    font-size: 1.2rem
     letter-spacing: 0.1rem
     margin-right: 1.5rem
     cursor: pointer
@@ -205,19 +215,6 @@ input[type=number]
 .navbar-toggler-icon:focus
     outline: none
     box-shadow: none
-
-@keyframes transitionIn
-    from
-        opacity: 0
-        transform: rotateX(5deg)
-
-    to
-        opacity: 1
-        transform: rotateX(0)
-
-    .col-lg-4,
-    .col-lg-12
-        margin-top: 2rem
 
 .container
     min-width: 90%
@@ -248,10 +245,10 @@ th,td,tr
     cursor: pointer
 
 .fa-circle-check
-    color: #1ed760
+    color: $green
 
 .fa-circle-xmark
-    color: #d71e62
+    color: $red
 
 .fa-white
     color: $white
@@ -267,3 +264,16 @@ th,td,tr
 @media only screen and (max-width: 62rem)
     .lead
         font-size: 90%
+
+@keyframes transitionIn
+    from
+        opacity: 0
+        transform: rotateX(5deg)
+
+    to
+        opacity: 1
+        transform: rotateX(0)
+
+    .col-lg-4,
+    .col-lg-12
+        margin-top: 2rem

@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom'
-import { useContext, useEffect, useState } from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
+import { useContext, useState } from 'react'
+import { Container, Row } from 'react-bootstrap'
 import { Fragment, FC } from 'react'
 import Web3 from 'web3'
 import Loading from '../components/Loading'
@@ -17,13 +17,13 @@ import { tokenABI } from '../contracts/TokenABI'
 import contractAddress from '../constants/Address'
 import endPoints from '../constants/Endpoints'
 import { GlobalContext } from '../context/globalStateProvider'
-import DatasetStoreHeader from '../modules/DatasetStoreHeader'
 import { toast } from 'react-hot-toast'
+import DatasetStoreNav from '../components/DatasetStoreNav'
 declare const window: any
 const web3 = new Web3(Web3.givenProvider)
 
 const ViewAllDataSetsPage: FC = () => {
-    const [{ datasetRequestState }] = useContext(GlobalContext)
+    const [{ datasetRequestState }, dispatch] = useContext(GlobalContext)
     const datasetStore = useDataSetStore(datasetRequestState)
 
     const datasetsToDisplay = datasetStore.datasets.map((dataset: any) => {
@@ -43,9 +43,14 @@ const ViewAllDataSetsPage: FC = () => {
         <Fragment>
             <ReactIf condition={datasetStore.isLoaded}>
                 <Container>
-                    <DatasetStoreHeader datasetCount={datasetStore.datasets.length} />
+                    <DatasetStoreNav datasetCount={datasetStore.datasets.length} />
                     <Row className='mt-4 mb-4'>
-                        {datasetsToDisplay}
+                        <ReactIf condition={datasetStore.datasets.length === 0}>
+                            <Error customMessage='No Datasets' />
+                        </ReactIf>
+                        <ReactIf condition={datasetStore.datasets.length > 0}>
+                            {datasetsToDisplay}
+                        </ReactIf>
                     </Row>
                 </Container>
             </ReactIf>
