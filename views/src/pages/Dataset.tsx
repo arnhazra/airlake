@@ -3,10 +3,10 @@ import { useContext, useEffect, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import { Fragment, FC } from 'react'
 import Web3 from 'web3'
-import LoadingComponent from '../components/Loading'
-import ErrorComponent from '../components/Error'
+import Loading from '../components/Loading'
+import Error from '../components/Error'
 import ReactIf from '../components/ReactIf'
-import CardComponent from '../components/ProductCard'
+import DataCard from '../components/DataCard'
 import useDataSetStore from '../hooks/useDatasetStore'
 import useViewDataSet from '../hooks/useViewDataSet'
 import useIsSubscribed from '../hooks/useIsSubscribed'
@@ -27,7 +27,7 @@ const ViewAllDataSetsPage: FC = () => {
     const datasetStore = useDataSetStore(datasetRequestState)
 
     const datasetsToDisplay = datasetStore.datasets.map((dataset: any) => {
-        return <CardComponent
+        return <DataCard
             key={dataset._id}
             header={<p className='lead text-capitalize'>{dataset.name}</p>}
             body={<div>
@@ -50,7 +50,7 @@ const ViewAllDataSetsPage: FC = () => {
                 </Container>
             </ReactIf>
             <ReactIf condition={!datasetStore.isLoaded}>
-                <LoadingComponent />
+                <Loading />
             </ReactIf>
         </Fragment>
     )
@@ -60,7 +60,7 @@ const ViewSubscriptionsPage: FC = () => {
     const datasetSubscriptions = useViewSubscriptions()
 
     const datasetsToDisplay = datasetSubscriptions.subscribedDatasets.map((dataset: any) => {
-        return <CardComponent
+        return <DataCard
             key={dataset._id}
             header={<p className='lead text-capitalize'>{dataset.name}</p>}
             body={<div>
@@ -82,12 +82,12 @@ const ViewSubscriptionsPage: FC = () => {
                         </Row>
                     </ReactIf>
                     <ReactIf condition={datasetSubscriptions.subscribedDatasets.length === 0}>
-                        <ErrorComponent customMessage='No Subscriptions' />
+                        <Error customMessage='No Subscriptions' />
                     </ReactIf>
                 </Container>
             </ReactIf>
             <ReactIf condition={!datasetSubscriptions.isLoaded}>
-                <LoadingComponent />
+                <Loading />
             </ReactIf>
         </Fragment>
     )
@@ -135,7 +135,7 @@ const ViewOneDataSetPage: FC = () => {
     }
 
     const similarDatasetsToDisplay = similarDatasets.similarDatasets.map((dataset: any) => {
-        return <CardComponent
+        return <DataCard
             key={dataset._id}
             header={<p className='lead text-capitalize'>{dataset.name}</p>}
             body={<div>
@@ -174,11 +174,11 @@ const ViewOneDataSetPage: FC = () => {
                     </Container>
                 </ReactIf>
                 <ReactIf condition={dataset.hasError}>
-                    <ErrorComponent />
+                    <Error />
                 </ReactIf>
             </ReactIf>
             <ReactIf condition={!dataset.isLoaded || !subscriptionStatus.isLoaded}>
-                <LoadingComponent />
+                <Loading />
             </ReactIf>
         </Fragment >
     )

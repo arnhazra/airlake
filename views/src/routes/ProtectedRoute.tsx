@@ -1,6 +1,6 @@
 import { FC, Fragment, useContext, useEffect } from 'react'
 import { Outlet, Navigate, useLocation, useNavigate } from 'react-router-dom'
-import LoadingComponent from '../components/Loading'
+import Loading from '../components/Loading'
 import ReactIf from '../components/ReactIf'
 import { GlobalContext } from '../context/globalStateProvider'
 import axios from 'axios'
@@ -47,7 +47,7 @@ const ProtectedRoute: FC = () => {
                 </ReactIf>
             </ReactIf>
             <ReactIf condition={!userState.isLoaded}>
-                <LoadingComponent />
+                <Loading />
             </ReactIf>
         </Fragment>
     )

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Container, FloatingLabel, Table, Form } from 'react-bootstrap'
 import { Fragment } from 'react'
-import LoadingComponent from '../components/Loading'
+import Loading from '../components/Loading'
 import ReactIf from '../components/ReactIf'
 import { tokenABI } from '../contracts/TokenABI'
 import { vendorABI } from '../contracts/VendorABI'
@@ -91,7 +91,7 @@ const WalletTransactionsPage = () => {
                 </Container>
             </ReactIf>
             <ReactIf condition={!transactions.isLoaded || !liveprice.isLoaded}>
-                <LoadingComponent />
+                <Loading />
             </ReactIf>
         </Fragment >
     )

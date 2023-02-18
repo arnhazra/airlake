@@ -11,7 +11,7 @@ export type ReactIfProps = {
     children: ReactNode
 }
 
-export type ErrorComponentProps = {
+export type ErrorProps = {
     customMessage?: string
 }
 

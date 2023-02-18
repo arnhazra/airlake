@@ -1,6 +1,6 @@
 import { FC, Fragment } from 'react'
 
-const LoadingComponent: FC = () => {
+const Loading: FC = () => {
     return (
         <Fragment>
             <div className='cover text-center'>
@@ -10,4 +10,4 @@ const LoadingComponent: FC = () => {
     )
 }
 
-export default LoadingComponent
+export default Loading

@@ -10,7 +10,7 @@ const NavBar: FC = () => {
     return (
         <Fragment>
             <ReactIf condition={userState.isAuthorized}>
-                <Navbar variant='light' expand='lg'>
+                <Navbar variant='dark' expand='lg'>
                     <Container>
                         <Link to='/dataset/store'>
                             <Navbar.Brand style={{ fontSize: '20px' }}>
@@ -29,7 +29,7 @@ const NavBar: FC = () => {
                 </Navbar>
             </ReactIf>
             <ReactIf condition={!userState.isAuthorized}>
-                <Navbar variant='light' expand='lg'>
+                <Navbar variant='dark' expand='lg'>
                     <Container>
                         <Link to='/'>
                             <Navbar.Brand style={{ fontSize: '20px' }}>

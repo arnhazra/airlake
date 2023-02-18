@@ -3,7 +3,7 @@ import { Routes, Route, BrowserRouter } from 'react-router-dom'
 import { HomePage } from '../pages/Home'
 import AuthPage from '../pages/Auth'
 import { BuyCoin, SellCoin, WalletTransactionsPage } from '../pages/Wallet'
-import ErrorComponent from '../components/Error'
+import Error from '../components/Error'
 import { ViewAllDataSetsPage, ViewOneDataSetPage, ViewSubscriptionsPage } from '../pages/Dataset'
 import { AccountPage } from '../pages/Account'
 import ProtectedRoute from './ProtectedRoute'
@@ -28,7 +28,7 @@ const AppRouter: FC = () => {
 								<Route path='/wallet/sell' element={<SellCoin />} />
 								<Route path='/account' element={<AccountPage />} />
 							</Route>
-							<Route path='*' element={<ErrorComponent />} />
+							<Route path='*' element={<Error />} />
 						</Route>
 					</Routes>
 				</BrowserRouter>

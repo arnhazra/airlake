@@ -1,5 +1,5 @@
 import { FC, Fragment, useContext } from 'react'
-import LoadingComponent from '../components/Loading'
+import Loading from '../components/Loading'
 import ReactIf from '../components/ReactIf'
 import { GlobalContext } from '../context/globalStateProvider'
 import useFilterCategories from '../hooks/useFilterCategories'
@@ -32,7 +32,7 @@ const DatasetStoreHeader: FC<DatasetStoreHeaderProps> = ({ datasetCount }) => {
                 </div>
             </ReactIf>
             <ReactIf condition={!filterCategories.isLoaded || !sortOptions.isLoaded}>
-                <LoadingComponent />
+                <Loading />
             </ReactIf>
         </Fragment>
     )

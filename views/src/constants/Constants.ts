@@ -9,7 +9,7 @@ enum Constants {
     SyncCompleteMessage = `Sync Complete`,
     ConnectionErrorMessage = `Connection Error`,
     AuthMessage = `Securely Authenticating`,
-    ErrorComponentMessage = '404, Lost'
+    ErrorMessage = '404, Lost'
 }
 
 export default Constants
