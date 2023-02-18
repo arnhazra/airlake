@@ -18,4 +18,7 @@ if (process.env.NODE_ENV == 'production') {
     handler.get('*', (req, res) => {
         res.sendFile('index.html', { root })
     })
+    handler.get('/static/js/*', (req, res) => {
+        res.sendFile(req.url, { root })
+    })
 }
