@@ -12,7 +12,7 @@ export type LivePriceState = {
     isLoaded: boolean
 }
 
-export type UseDataSetStore = {
+export type UseDataSetLibrary = {
     searchInput: string,
     selectedFilter: string,
     selectedSortOption: string
@@ -25,11 +25,4 @@ export type GenericIdType = {
 export type UseIsSubscribed = {
     id: any,
     hasClickedSubscribed: boolean
-}
-
-export type Dataset = {
-    _id: string,
-    name: string,
-    price: number,
-    category: string
 }

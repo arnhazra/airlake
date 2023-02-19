@@ -73,21 +73,22 @@ const WalletTransactionsPage = () => {
                             <Link to='/wallet/sell' className='btn'>Sell LST<i className='fa-solid fa-circle-arrow-right'></i></Link>
                         </div>
                     </div>
-
-                    <Table responsive hover variant='light'>
-                        <thead>
-                            <tr>
-                                <th>Event</th>
-                                <th>LST Amount</th>
-                                <th>ETH Amount</th>
-                                <th>Transaction Time</th>
-                                <th>EtherScan</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {transactionsToDisplay}
-                        </tbody>
-                    </Table>
+                    <ReactIf condition={transactions.transactions.length > 0}>
+                        <Table responsive hover variant='light'>
+                            <thead>
+                                <tr>
+                                    <th>Event</th>
+                                    <th>LST Amount</th>
+                                    <th>ETH Amount</th>
+                                    <th>Transaction Time</th>
+                                    <th>EtherScan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {transactionsToDisplay}
+                            </tbody>
+                        </Table>
+                    </ReactIf>
                 </Container>
             </ReactIf>
             <ReactIf condition={!transactions.isLoaded || !liveprice.isLoaded}>

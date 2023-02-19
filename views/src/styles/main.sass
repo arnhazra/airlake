@@ -138,23 +138,6 @@ a:active
     text-decoration: none
     cursor: pointer
 
-.searchbar-navbar
-    height: 3.2rem
-    min-width: 23.75rem !important
-    background-color: $searchBoxColor !important
-    color: $white !important
-    font-weight: bold
-    border: none
-    font-style: italic
-    margin-top: 1.06rem !important
-    margin-bottom: 0
-    border-radius: 3rem
-    text-align: left
-
-.searchbar-navbar::placeholder
-    color: $white
-    opacity: 0.8
-
 .form-control
     width: 100%
     border-radius: 3.1rem
@@ -194,16 +177,25 @@ input[type=number]
     font-size: 1rem
     font-weight: bold
 
-.navbar
+.navbar-unauthorized
     background: $mainColor
-    min-height: 5.5rem
     z-index: 2
     font-weight: bold
+    padding-top: 1rem !important
+    padding-bottom: 1rem !important
     box-shadow: 0 0.5rem 0.5rem 0 rgba(0, 0, 0, .2), 0 0.2rem 0.2rem 0 rgba(0, 0, 0, .2)
-    zoom: 0.7
+    min-height: 4.5rem
+
+.navbar
+    background: $mainColor
+    z-index: 2
+    font-weight: bold
+    padding-top: 1rem !important
+    padding-bottom: 1rem !important
+    box-shadow: 0 0.5rem 0.5rem 0 rgba(0, 0, 0, .2), 0 0.2rem 0.2rem 0 rgba(0, 0, 0, .2)
 
 .navbar-brand
-    font-size: 1.2rem
+    font-size: 1rem
     letter-spacing: 0.1rem
     margin-right: 1.5rem
     cursor: pointer
@@ -214,6 +206,23 @@ input[type=number]
 .navbar-toggler-icon:focus
     outline: none
     box-shadow: none
+
+.searchbar-navbar
+    height: 3rem
+    min-width: 23.75rem !important
+    background-color: $searchBoxColor !important
+    color: $white !important
+    font-weight: bold
+    border: none
+    margin-bottom: 0.2rem !important
+    font-style: italic
+    border-radius: 3rem
+    text-align: left
+
+.searchbar-navbar::placeholder
+    color: $white
+
+.navbar-authorized
 
 .container
     min-width: 90%

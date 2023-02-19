@@ -4,7 +4,7 @@ import { HomePage } from '../pages/Home'
 import AuthPage from '../pages/Auth'
 import { BuyCoin, SellCoin, WalletTransactionsPage } from '../pages/Wallet'
 import Error from '../components/Error'
-import { ViewAllDataSetsPage, ViewOneDataSetPage, ViewSubscriptionsPage } from '../pages/Dataset'
+import { DatasetLibraryPage, ViewOneDataSetPage, ViewSubscriptionsPage } from '../pages/Dataset'
 import { AccountPage } from '../pages/Account'
 import ProtectedRoute from './ProtectedRoute'
 import GlobalStateProvider from '../context/globalStateProvider'
@@ -20,7 +20,7 @@ const AppRouter: FC = () => {
 							<Route path='/' element={<HomePage />} />
 							<Route path='/auth' element={<AuthPage />} />
 							<Route element={<ProtectedRoute />}>
-								<Route path='/dataset/store' element={<ViewAllDataSetsPage />} />
+								<Route path='/dataset/library' element={<DatasetLibraryPage />} />
 								<Route path='/dataset/subscriptions' element={<ViewSubscriptionsPage />} />
 								<Route path='/dataset/viewone/:datasetId' element={<ViewOneDataSetPage />} />
 								<Route path='/wallet/transactions' element={<WalletTransactionsPage />} />

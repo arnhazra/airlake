@@ -6,7 +6,7 @@ enum endPoints {
     signOutEndpoint = '/api/auth/signout',
     verifyAuthEndpoint = '/api/auth/verifyauth',
     createTxEndpoint = '/api/wallet/createtx',
-    datasetStoreEndpoint = '/api/dataset/store',
+    datasetLibraryEndpoint = '/api/dataset/library',
     datasetSubscriptionEndpoint = '/api/dataset/mysubscriptions',
     datasetViewEndpoint = '/api/dataset/viewone',
     findsimilarDatasets = '/api/dataset/findsimilar',

@@ -5,11 +5,11 @@ import ReactIf from './ReactIf'
 import { GlobalContext } from '../context/globalStateProvider'
 import useFilterCategories from '../hooks/useFilterCategories'
 import useSortOptions from '../hooks/useSortOptions'
-import { DatasetStoreHeaderProps } from '../types/Props'
+import { DatasetLibraryHeaderProps } from '../types/Props'
 import useRecommendedDataset from '../hooks/useRecommendedDataset'
 import { Link } from 'react-router-dom'
 
-const DatasetStoreNav: FC<DatasetStoreHeaderProps> = ({ datasetCount }) => {
+const DatasetLibraryNav: FC<DatasetLibraryHeaderProps> = ({ datasetCount }) => {
     const filterCategories = useFilterCategories()
     const sortOptions = useSortOptions()
     const [{ datasetRequestState }, dispatch] = useContext(GlobalContext)
@@ -60,4 +60,4 @@ const DatasetStoreNav: FC<DatasetStoreHeaderProps> = ({ datasetCount }) => {
     )
 }
 
-export default DatasetStoreNav
+export default DatasetLibraryNav

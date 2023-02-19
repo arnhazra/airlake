@@ -15,6 +15,6 @@ export type ErrorProps = {
     customMessage?: string
 }
 
-export type DatasetStoreHeaderProps = {
+export type DatasetLibraryHeaderProps = {
     datasetCount: number
 }

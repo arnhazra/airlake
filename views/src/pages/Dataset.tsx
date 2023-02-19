@@ -7,7 +7,7 @@ import Loading from '../components/Loading'
 import Error from '../components/Error'
 import ReactIf from '../components/ReactIf'
 import DataCard from '../components/DataCard'
-import useDataSetStore from '../hooks/useDatasetStore'
+import useDataSetLibrary from '../hooks/useDatasetLibrary'
 import useViewDataSet from '../hooks/useViewDataSet'
 import useIsSubscribed from '../hooks/useIsSubscribed'
 import axios from 'axios'
@@ -18,15 +18,15 @@ import contractAddress from '../constants/Address'
 import endPoints from '../constants/Endpoints'
 import { GlobalContext } from '../context/globalStateProvider'
 import { toast } from 'react-hot-toast'
-import DatasetStoreNav from '../components/DatasetStoreNav'
+import DatasetLibraryNav from '../components/DatasetLibraryNav'
 declare const window: any
 const web3 = new Web3(Web3.givenProvider)
 
-const ViewAllDataSetsPage: FC = () => {
-    const [{ datasetRequestState }, dispatch] = useContext(GlobalContext)
-    const datasetStore = useDataSetStore(datasetRequestState)
+const DatasetLibraryPage: FC = () => {
+    const [{ datasetRequestState }] = useContext(GlobalContext)
+    const datasetLibrary = useDataSetLibrary(datasetRequestState)
 
-    const datasetsToDisplay = datasetStore.datasets.map((dataset: any) => {
+    const datasetsToDisplay = datasetLibrary.datasets.map((dataset: any) => {
         return <DataCard
             key={dataset._id}
             header={<p className='lead text-capitalize'>{dataset.name}</p>}
@@ -41,20 +41,15 @@ const ViewAllDataSetsPage: FC = () => {
 
     return (
         <Fragment>
-            <ReactIf condition={datasetStore.isLoaded}>
+            <ReactIf condition={datasetLibrary.isLoaded}>
                 <Container>
-                    <DatasetStoreNav datasetCount={datasetStore.datasets.length} />
+                    <DatasetLibraryNav datasetCount={datasetLibrary.datasets.length} />
                     <Row className='mt-4 mb-4'>
-                        <ReactIf condition={datasetStore.datasets.length === 0}>
-                            <Error customMessage='No Datasets' />
-                        </ReactIf>
-                        <ReactIf condition={datasetStore.datasets.length > 0}>
-                            {datasetsToDisplay}
-                        </ReactIf>
+                        {datasetsToDisplay}
                     </Row>
                 </Container>
             </ReactIf>
-            <ReactIf condition={!datasetStore.isLoaded}>
+            <ReactIf condition={!datasetLibrary.isLoaded}>
                 <Loading />
             </ReactIf>
         </Fragment>
@@ -189,4 +184,4 @@ const ViewOneDataSetPage: FC = () => {
     )
 }
 
-export { ViewAllDataSetsPage, ViewSubscriptionsPage, ViewOneDataSetPage } 
+export { DatasetLibraryPage, ViewSubscriptionsPage, ViewOneDataSetPage } 

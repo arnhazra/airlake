@@ -43,7 +43,7 @@ router.post(
 )
 
 router.post(
-    '/store',
+    '/library',
 
     authorize,
 
@@ -212,7 +212,7 @@ router.post(
     async (req, res) => {
         try {
             DatasetModel.aggregate([
-                { $match: { $expr: { $gt: [{ $strLenCP: "$description" }, 200] } } },
+                { $match: { $expr: { $gt: [{ $strLenCP: "$description" }, 300] } } },
                 { $project: { data: 0 } },
                 { $sample: { size: 1 } }
             ]).exec((err, result) => {

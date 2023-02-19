@@ -1,4 +1,4 @@
-import { Dataset, UserState } from '../types/States'
+import { UserState } from '../types/States'
 
 export type GlobalState = {
     userState: UserState

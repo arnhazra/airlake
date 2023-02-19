@@ -43,7 +43,7 @@ const AuthPage = () => {
             localStorage.setItem('accessToken', response.data.accessToken)
             setAlert('Successfully authenticated')
             setLoading(false)
-            navigate('/dataset/store')
+            navigate('/dataset/library')
         }
 
         catch (error: any) {
@@ -62,7 +62,7 @@ const AuthPage = () => {
     return (
         <Fragment>
             <ReactIf condition={localStorage.hasOwnProperty('accessToken')}>
-                <Navigate replace to='/dataset/store' />
+                <Navigate replace to='/dataset/library' />
             </ReactIf>
             <ReactIf condition={!localStorage.hasOwnProperty('accessToken')}>
                 <ReactIf condition={authstep.firststep}>
