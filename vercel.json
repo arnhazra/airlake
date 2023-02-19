@@ -10,8 +10,5 @@
             "src": "/.*",
             "dest": "app.js"
         }
-    ],
-    "static": {
-        "directory": "views/build"
-    }
+    ]
 }
