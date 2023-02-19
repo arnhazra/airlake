@@ -81,7 +81,7 @@ const WalletTransactionsPage = () => {
                                     <th>LST Amount</th>
                                     <th>ETH Amount</th>
                                     <th>Transaction Time</th>
-                                    <th>EtherScan</th>
+                                    <th>EtherScan Link</th>
                                 </tr>
                             </thead>
                             <tbody>
