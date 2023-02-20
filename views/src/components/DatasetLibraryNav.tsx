@@ -30,7 +30,6 @@ const DatasetLibraryNav: FC<DatasetLibraryHeaderProps> = ({ datasetCount }) => {
                     <p className='display-6 fw-bold text-capitalize'>{recommendedDataset.name}</p>
                     <p className='lead'>{recommendedDataset.description}</p>
                     <div className='chip-grid'>
-                        <button className='chip'>RECOMMENDED</button>
                         <button className='chip'>{recommendedDataset.category}</button>
                         <button className='chip'>{recommendedDataset.price === 0 ? 'FREE' : recommendedDataset.price + ' LST'}</button>
                     </div>

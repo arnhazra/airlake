@@ -4,8 +4,8 @@
 $mainColor: #101a1f
 $white: #ffffff
 $inputColor: #f8f8f8
-$blurColor: #64686d7b
-$searchBoxColor: #162024
+$blurColor: #8d90947b
+$searchBoxColor: #202a2e
 $green: #1ed760
 $red: #d71e62
 
@@ -41,12 +41,12 @@ body
     margin-bottom: 2rem
     background: $blurColor !important
     color: $white
-    border-radius: 1rem
+    border-radius: 0.5rem
 
 .card
-    background: $blurColor !important
+    background: transparent
     color: $white
-    border-radius: 1rem
+    border-radius: 0.5rem
     backdrop-filter: blur(0.4rem)
     border: none
     font-weight: bold
@@ -56,11 +56,16 @@ body
 .card-header,
 .card-body,
 .card-footer
+    background: $blurColor !important
+
+.card-header,
+.card-body,
+.card-footer
     border: none
     text-align: center
 
 .lead
-    font-size: 120%
+    font-size: 100%
     font-weight: bold
 
 .box
@@ -73,7 +78,7 @@ body
     background: $white
     color: $mainColor
     width: 22rem
-    border-radius: 0.25rem
+    border-radius: 0.5rem
     text-align: left
     font-weight: bold
 
@@ -100,20 +105,22 @@ body
     color: $white !important
     font-weight: bold
     letter-spacing: 0.05rem
+    font-size: 0.8rem
 
     &:disabled
         background: $mainColor
         color: $white !important
 
 .chip
+    font-size: 0.6rem !important
     border: none
     background: $mainColor
     color: $white
     font-weight: bold
     text-transform: uppercase
-    letter-spacing: 0.15rem
+    letter-spacing: 0.1rem
     padding: 0.5rem 1.7rem
-    border-radius: 3.1rem
+    border-radius: 3rem
     font-size: 0.75rem
     margin-top: 0.65rem
     margin-bottom: 1rem
@@ -140,7 +147,7 @@ a:active
 
 .form-control
     width: 100%
-    border-radius: 3.1rem
+    border-radius: 3rem
     margin: 0.3rem 0 1rem
     padding-left: 1.9rem !important
     font-size: 0.94rem
@@ -149,12 +156,12 @@ a:active
 
 .form-select
     font-weight: bold
-    border-radius: 3.125rem
+    border-radius: 3rem
     padding-left: 1.75rem
 
 .form-floating
     font-weight: bold
-    border-radius: 3.125rem
+    border-radius: 3rem
 
 .options
     font-weight: bold
@@ -216,7 +223,7 @@ input[type=number]
     border: none
     margin-bottom: 0.2rem !important
     font-style: italic
-    border-radius: 3rem
+    border-radius: 0.5rem
     text-align: left
 
 .searchbar-navbar::placeholder
@@ -228,16 +235,16 @@ input[type=number]
     min-width: 90%
 
 table tr:first-child th:first-child
-    border-top-left-radius: 1.5rem
+    border-top-left-radius: 0.5rem
 
 table tr:first-child th:last-child
-    border-top-right-radius: 1.5rem
+    border-top-right-radius: 0.5rem
 
 table tr:last-child td:first-child
-    border-bottom-left-radius: 1.5rem
+    border-bottom-left-radius: 0.5rem
 
 table tr:last-child td:last-child
-    border-bottom-right-radius: 1.5rem
+    border-bottom-right-radius: 0.5rem
 
 th,td,tr
     background: $white !important
@@ -271,7 +278,7 @@ th,td,tr
 
 @media only screen and (max-width: 62rem)
     .lead
-        font-size: 90%
+        font-size: 80%
 
 @keyframes transitionIn
     from
