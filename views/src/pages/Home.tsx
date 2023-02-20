@@ -13,7 +13,7 @@ const HomePage = () => {
             <ReactIf condition={!localStorage.hasOwnProperty('accessToken')}>
                 <Container>
                     <div className='cover covertext'>
-                        <p className='display-5 fw-bold'>
+                        <p className='display-6 fw-bold'>
                             {Constants.HomeHeader1}<br />
                             {Constants.HomeHeader2}<br />
                             {Constants.HomeHeader3}
