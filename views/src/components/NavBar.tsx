@@ -20,7 +20,7 @@ const NavBar: FC = () => {
                                 <Link to='/dataset/subscriptions'><Navbar.Brand><i className='fa-solid fa-thumbtack'></i>Subscriptions</Navbar.Brand></Link>
                                 <Link to='/wallet/transactions'><Navbar.Brand><i className='fa-solid fa-wallet'></i>Wallet</Navbar.Brand></Link>
                                 <Link to='/account'><Navbar.Brand><i className='fa-solid fa-circle-user'></i>Account</Navbar.Brand></Link>
-                                {/* <Link to='/account'><Navbar.Brand><i className='fa-solid fa-bell'></i>Notifications</Navbar.Brand></Link> */}
+                                <Link to='/account'><Navbar.Brand><i className='fa-solid fa-bell'></i>Notifications</Navbar.Brand></Link>
                             </Nav>
                             <Form className='d-flex'>
                                 <Form.Control
