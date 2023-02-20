@@ -2,7 +2,6 @@
   "name": "project-lenstack",
   "version": "3.0",
   "description": "Project Lenstack",
-  "homepage": "https://lenstack.vercel.app/",
   "main": "app.js",
   "scripts": {
     "initialize": "npm install && npm install --prefix views",

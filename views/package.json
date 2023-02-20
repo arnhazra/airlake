@@ -1,7 +1,6 @@
 {
   "name": "view",
   "version": "3.0",
-  "homepage": "https://lenstack.vercel.app/",
   "private": false,
   "dependencies": {
     "@types/jest": "^27.5.2",
