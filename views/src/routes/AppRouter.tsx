@@ -27,6 +27,7 @@ const AppRouter: FC = () => {
 								<Route path='/wallet/buy' element={<BuyCoin />} />
 								<Route path='/wallet/sell' element={<SellCoin />} />
 								<Route path='/account' element={<AccountPage />} />
+								<Route path='/notifications' element={<AccountPage />} />
 							</Route>
 							<Route path='*' element={<Error />} />
 						</Route>
