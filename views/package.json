@@ -45,7 +45,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:7000",
   "devDependencies": {
     "@svgr/webpack": "^6.4.0"
   },
