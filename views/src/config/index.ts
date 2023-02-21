@@ -1,3 +1,3 @@
-const urlPathName = process.env.NODE_ENV === 'production' ? 'https://lenstack-api.vercel.app' : 'http://localhost:7000'
+const urlPathName = process.env.NODE_ENV === 'production' ? 'https://lenstack-api.vercel.app' : 'https://lenstack-api.vercel.app'
 
 export default urlPathName
