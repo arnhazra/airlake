@@ -6,6 +6,7 @@ const fs = require('fs')
 const app = express()
 const root = require('path').join(__dirname, 'views', 'build')
 app.use(express.static(root));
+app.use(cors())
 app.listen(process.env.PORT)
 app.use(express.json({ extended: false, limit: '50mb' }))
 Connection()
