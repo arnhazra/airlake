@@ -6,6 +6,13 @@ export type CardProps = {
     footer: ReactNode
 }
 
+export type DatasetCardProps = {
+    id: string
+    category: string,
+    name: string,
+    price: number,
+}
+
 export type ReactIfProps = {
     condition: boolean,
     children: ReactNode

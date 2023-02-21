@@ -1,12 +1,18 @@
 {
   "files": {
-    "main.css": "/static/css/main.26cf943a.css",
-    "main.js": "/static/js/main.95456e79.js",
+    "main.css": "/static/css/main.08e6632c.css",
+    "main.js": "/static/js/main.f35b6f70.js",
     "static/media/hero.jpg": "/static/media/hero.0dcb1dcc7175e7339d2c.jpg",
+    "static/media/geography.jpg": "/static/media/geography.26258cbd11653be1a2ec.jpg",
+    "static/media/generic.jpg": "/static/media/generic.7a57d1b30d5828e5a655.jpg",
+    "static/media/science.jpg": "/static/media/science.77b01b80725efd29f0f7.jpg",
+    "static/media/entertainment.jpg": "/static/media/entertainment.7033d59a2d8c3855a35f.jpg",
+    "static/media/users.jpg": "/static/media/users.9d288fb49d97b278f5a2.jpg",
+    "static/media/finance.jpg": "/static/media/finance.6fc161986690a36554ea.jpg",
     "index.html": "/index.html"
   },
   "entrypoints": [
-    "static/css/main.26cf943a.css",
-    "static/js/main.95456e79.js"
+    "static/css/main.08e6632c.css",
+    "static/js/main.f35b6f70.js"
   ]
 }

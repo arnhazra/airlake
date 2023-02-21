@@ -19,6 +19,7 @@ import endPoints from '../constants/Endpoints'
 import { GlobalContext } from '../context/globalStateProvider'
 import { toast } from 'react-hot-toast'
 import DatasetLibraryNav from '../components/DatasetLibraryNav'
+import DatasetCard from '../components/DatasetCard'
 declare const window: any
 const web3 = new Web3(Web3.givenProvider)
 
@@ -27,16 +28,7 @@ const DatasetLibraryPage: FC = () => {
     const datasetLibrary = useDataSetLibrary(datasetRequestState)
 
     const datasetsToDisplay = datasetLibrary.datasets.map((dataset: any) => {
-        return <DataCard
-            key={dataset._id}
-            header={<p className='lead text-capitalize'>{dataset.name}</p>}
-            body={<div>
-                <p className='lead'>{dataset.category}</p>
-                <p className='lead'>MIT License</p>
-                <button className='chip'>{dataset.price === 0 ? 'FREE' : `${dataset.price} LST`}</button>
-            </div>}
-            footer={<Link to={`/dataset/viewone/${dataset._id}`} className='btn btnbox'>View Dataset<i className='fa-solid fa-circle-arrow-right'></i></Link>}
-        />
+        return <DatasetCard key={dataset._id} id={dataset._id} category={dataset.category} name={dataset.name} price={dataset.price} />
     })
 
     return (
@@ -60,16 +52,7 @@ const ViewSubscriptionsPage: FC = () => {
     const datasetSubscriptions = useViewSubscriptions()
 
     const datasetsToDisplay = datasetSubscriptions.subscribedDatasets.map((dataset: any) => {
-        return <DataCard
-            key={dataset._id}
-            header={<p className='lead text-capitalize'>{dataset.name}</p>}
-            body={<div>
-                <p className='lead'>{dataset.category}</p>
-                <p className='lead'>MIT License</p>
-                <button className='chip'>SUBSCRIBED</button>
-            </div>}
-            footer={<Link to={`/dataset/viewone/${dataset._id}`} className='btn btnbox'>View Dataset<i className='fa-solid fa-circle-arrow-right'></i></Link>}
-        />
+        return <DatasetCard key={dataset._id} id={dataset._id} category={dataset.category} name={dataset.name} price={dataset.price} />
     })
 
     return (
@@ -135,16 +118,7 @@ const ViewOneDataSetPage: FC = () => {
     }
 
     const similarDatasetsToDisplay = similarDatasets.similarDatasets.map((dataset: any) => {
-        return <DataCard
-            key={dataset._id}
-            header={<p className='lead text-capitalize'>{dataset.name}</p>}
-            body={<div>
-                <p className='lead'>{dataset.category}</p>
-                <p className='lead'>MIT License</p>
-                <button className='chip'>{dataset.price === 0 ? 'FREE' : `${dataset.price} LST`}</button>
-            </div>}
-            footer={<Link to={`/dataset/viewone/${dataset._id}`} className='btn btnbox'>View Dataset<i className='fa-solid fa-circle-arrow-right'></i></Link>}
-        />
+        return <DatasetCard key={dataset._id} id={dataset._id} category={dataset.category} name={dataset.name} price={dataset.price} />
     })
 
     return (
@@ -156,16 +130,16 @@ const ViewOneDataSetPage: FC = () => {
                             <p className='display-6 fw-bold text-capitalize'>{dataset.name}</p>
                             <p className='lead'>{dataset.description}</p>
                             <div className='chip-grid'>
-                                <button className='chip'>{dataset.category}</button>
-                                <button className='chip'>{dataset.price === 0 ? 'FREE' : `${dataset.price} LST`}</button>
+                                <button className='chip me-3'>{dataset.category}</button>
+                                <button className='chip me-3'>{dataset.price === 0 ? 'FREE' : `${dataset.price} LST`}</button>
                                 <button className='chip'>{dataset.dataLength} Datapoints</button><br />
                             </div>
                             <button disabled={subscriptionStatus.isSubscribed} className='btn' onClick={subscribe}>
                                 {subscriptionStatus.isSubscribed ? 'Subscribed' : 'Subscribe'}
                                 {subscriptionStatus.isSubscribed ? <i className='fa-solid fa-circle-check fa-white'></i> : <i className='fa-solid fa-circle-plus'></i>}
                             </button>
-                            {!subscriptionStatus.isSubscribed && <a target='_blank' rel='noreferrer' href={window.location.hostname === 'localhost' ? `http://localhost:7000/api/dataset/data/preview/${datasetId}` : `/api/dataset/data/preview/${datasetId}`} className='btn'>Preview Dataset<i className='fa-solid fa-circle-arrow-right'></i></a>}
-                            {subscriptionStatus.isSubscribed && <a target='_blank' rel='noreferrer' href={window.location.hostname === 'localhost' ? `http://localhost:7000/api/dataset/data/view/${datasetId}/${subscriptionStatus.subscriptionId}` : `/api/dataset/data/view/${datasetId}/${subscriptionStatus.subscriptionId}`} className='btn'>View Dataset<i className='fa-solid fa-circle-arrow-right'></i></a>}
+                            {!subscriptionStatus.isSubscribed && <a target='_blank' rel='noreferrer' href={window.location.hostname === 'localhost' ? `http://localhost:7000/api/dataset/data/preview/${datasetId}` : `/api/dataset/data/preview/${datasetId}`} className='btn'>Preview Data<i className='fa-solid fa-circle-arrow-right'></i></a>}
+                            {subscriptionStatus.isSubscribed && <a target='_blank' rel='noreferrer' href={window.location.hostname === 'localhost' ? `http://localhost:7000/api/dataset/data/view/${datasetId}/${subscriptionStatus.subscriptionId}` : `/api/dataset/data/view/${datasetId}/${subscriptionStatus.subscriptionId}`} className='btn'>View Data<i className='fa-solid fa-circle-arrow-right'></i></a>}
                         </div>
                         <Row>
                             <p className='lead text-center fw-bold text-white mb-4'>Similar Datasets</p>

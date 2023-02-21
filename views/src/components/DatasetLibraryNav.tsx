@@ -29,8 +29,8 @@ const DatasetLibraryNav: FC<DatasetLibraryHeaderProps> = ({ datasetCount }) => {
                 <div className="jumbotron mt-4">
                     <p className='display-6 fw-bold text-capitalize'>{recommendedDataset.name}</p>
                     <p className='lead'>{recommendedDataset.description}</p>
-                    <div className='chip-grid'>
-                        <button className='chip'>{recommendedDataset.category}</button>
+                    <div>
+                        <button className='chip me-3'>{recommendedDataset.category}</button>
                         <button className='chip'>{recommendedDataset.price === 0 ? 'FREE' : recommendedDataset.price + ' LST'}</button>
                     </div>
                     <Link className='btn' to={`/dataset/viewone/${recommendedDataset.id}`}>View Dataset<i className='fa-solid fa-circle-arrow-right'></i></Link>
