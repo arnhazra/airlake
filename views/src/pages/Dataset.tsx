@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useContext, useState } from 'react'
 import { Container, Row } from 'react-bootstrap'
 import { Fragment, FC } from 'react'
