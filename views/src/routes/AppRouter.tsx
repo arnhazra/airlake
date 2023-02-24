@@ -15,7 +15,7 @@ const AppRouter: FC = () => {
 	return (
 		<Fragment>
 			<GlobalStateProvider>
-				<BrowserRouter>
+				<BrowserRouter basename='/'>
 					<Routes>
 						<Route element={<Layout />}>
 							<Route path='/' element={<HomePage />} />
