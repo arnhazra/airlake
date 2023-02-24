@@ -21,8 +21,8 @@ fs.readdirSync('./api').map(route => app.use(`/api/${route.split('.')[0].toLower
 // }
 
 if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, './views', 'build')));
+    app.use(express.static(path.join(__dirname, 'views', 'build')));
     app.get('/*', (req, res) => {
-        res.sendFile(path.join(__dirname, './views', 'build', 'index.html'));
+        res.sendFile(path.join(__dirname, 'views', 'build', 'index.html'));
     })
 }
