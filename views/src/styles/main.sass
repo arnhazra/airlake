@@ -43,7 +43,7 @@ body
     background: $blurColor !important
     color: $white
     border-radius: 0.5rem
-    box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, .2), 0 0.2rem 0.2rem 0 rgba(0, 0, 0, .2)
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px
 
 .card
     background: transparent
@@ -53,7 +53,7 @@ body
     border: none
     font-weight: bold
     animation: transitionIn 0.7s forwards
-    box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, .2), 0 0.2rem 0.2rem 0 rgba(0, 0, 0, .2)
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px
 
 .card-header
     background: $blurColor !important
@@ -70,6 +70,10 @@ body
     font-size: 100%
     font-weight: bold
 
+.smalltext
+    font-size: 80%
+    color: silver
+
 .box
     top: 54%
     left: 50%
@@ -83,6 +87,7 @@ body
     border-radius: 0.5rem
     text-align: left
     font-weight: bold
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px
 
 .branding
     font-size: 170%
@@ -187,7 +192,7 @@ input[type=number]
     font-weight: bold
     padding-top: 1rem !important
     padding-bottom: 1rem !important
-    box-shadow: 0 0.5rem 0.5rem 0 rgba(0, 0, 0, .2), 0 0.2rem 0.2rem 0 rgba(0, 0, 0, .2)
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px
     min-height: 4.5rem
 
 .navbar
@@ -196,7 +201,7 @@ input[type=number]
     font-weight: bold
     padding-top: 1rem !important
     padding-bottom: 1rem !important
-    box-shadow: 0 0.5rem 0.5rem 0 rgba(0, 0, 0, .2), 0 0.2rem 0.2rem 0 rgba(0, 0, 0, .2)
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px
 
 .navbar-brand
     font-size: 1rem
@@ -224,8 +229,6 @@ input[type=number]
 
 .searchbar-navbar::placeholder
     color: $white
-
-.navbar-authorized
 
 .container
     min-width: 90%
@@ -290,7 +293,7 @@ th,td,tr
         margin-top: 2rem
 
 @mixin categoryContainer
-    height: 15rem
+    height: 10rem
     width: 100%
     text-align: center !important
     border-radius: 0.5rem

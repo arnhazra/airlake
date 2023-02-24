@@ -14,8 +14,8 @@ const DatasetCard: FC<DatasetCardProps> = ({ id, category, name, price }) => {
                     </Card.Header>
                     <Card.Footer className='pt-4 pb-2 ps-4'>
                         <p className="lead">{name}</p>
+                        <p className='smalltext'>{category}</p>
                         <button className='chip'>{price === 0 ? 'FREE' : price + ' FLG'}</button><br />
-                        <button className='chip'>{category}</button>
                     </Card.Footer>
                 </Card>
             </Link>
