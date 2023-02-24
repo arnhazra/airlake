@@ -21,15 +21,23 @@ const ProtectedRoute: FC = () => {
             }
 
             catch (error: any) {
-                if (error.response.status === 401) {
-                    dispatch('setUserState', { isLoaded: true, isAuthorized: false })
-                    localStorage.removeItem('accessToken')
-                    navigate('/')
+                if (error.response) {
+                    if (error.response.status === 401) {
+                        localStorage.removeItem('accessToken')
+                        dispatch('setUserState', { isLoaded: true, isAuthorized: false })
+                        navigate('/')
+                    }
+
+                    else {
+                        dispatch('setUserState', { isLoaded: true })
+                        toast.error('Something went wrong')
+                    }
                 }
 
                 else {
-                    dispatch('setUserState', { isLoaded: true })
-                    toast.error('Something went wrong')
+                    localStorage.removeItem('accessToken')
+                    dispatch('setUserState', { isLoaded: true, isAuthorized: false })
+                    navigate('/')
                 }
             }
         })()
