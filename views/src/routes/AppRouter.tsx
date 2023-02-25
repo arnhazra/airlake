@@ -4,7 +4,7 @@ import { HomePage } from '../pages/Home'
 import AuthPage from '../pages/Auth'
 import { BuyCoin, SellCoin, WalletTransactionsPage } from '../pages/Wallet'
 import Error from '../components/Error'
-import { DatasetLibraryPage, ViewOneDataSetPage, ViewSubscriptionsPage } from '../pages/Dataset'
+import { DatasetLibraryPage, ViewOneDatasetPage, ViewSubscriptionsPage } from '../pages/Dataset'
 import { AccountPage } from '../pages/Account'
 import ProtectedRoute from './ProtectedRoute'
 import GlobalStateProvider from '../context/globalStateProvider'
@@ -23,7 +23,7 @@ const AppRouter: FC = () => {
 							<Route element={<ProtectedRoute />}>
 								<Route path='/dataset/library' element={<DatasetLibraryPage />} />
 								<Route path='/dataset/subscriptions' element={<ViewSubscriptionsPage />} />
-								<Route path='/dataset/viewone/:datasetId' element={<ViewOneDataSetPage />} />
+								<Route path='/dataset/viewone/:datasetId' element={<ViewOneDatasetPage />} />
 								<Route path='/wallet/transactions' element={<WalletTransactionsPage />} />
 								<Route path='/wallet/buy' element={<BuyCoin />} />
 								<Route path='/wallet/sell' element={<SellCoin />} />

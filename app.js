@@ -2,15 +2,33 @@ const express = require('express')
 const Connection = require('./functions/Connection')
 const cors = require('cors')
 const dotenv = require('dotenv').config()
-const fs = require('fs')
 const path = require('path')
+const SubscriptionRouter = require('./routes/Subscription')
+const DatasetRouter = require('./routes/Dataset')
+const WalletRouter = require('./routes/Wallet')
+const AuthRouter = require('./routes/Auth')
 
+const subscriptionRouter = new SubscriptionRouter()
+const datasetRouter = new DatasetRouter()
+const walletRouter = new WalletRouter()
+const authRouter = new AuthRouter()
 const app = express()
 app.listen(process.env.PORT)
 app.use(cors())
 app.use(express.json({ extended: false, limit: '5mb' }))
 Connection()
-fs.readdirSync('./api').map(route => app.use(`/api/${route.split('.')[0].toLowerCase()}`, require(`./api/${route.split('.')[0]}`)))
+
+app.use('/api/subscription', subscriptionRouter.getRouter())
+app.use('/api/dataset', datasetRouter.getRouter())
+app.use('/api/wallet', walletRouter.getRouter())
+app.use('/api/auth', authRouter.getRouter())
+
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, 'views', 'build')))
+    app.get('/*', (req, res) => {
+        res.sendFile(path.join(__dirname, 'views', 'build', 'index.html'))
+    })
+}
 
 // if (process.env.NODE_ENV == 'production') {
 //     const root = require('path').join(__dirname, 'views', 'build')
@@ -19,10 +37,3 @@ fs.readdirSync('./api').map(route => app.use(`/api/${route.split('.')[0].toLower
 //         res.sendFile('index.html', { root })
 //     })
 // }
-
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, 'views', 'build')));
-    app.get('/*', (req, res) => {
-        res.sendFile(path.join(__dirname, 'views', 'build', 'index.html'));
-    })
-}

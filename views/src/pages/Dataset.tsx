@@ -6,8 +6,8 @@ import Web3 from 'web3'
 import Loading from '../components/Loading'
 import Error from '../components/Error'
 import ReactIf from '../components/ReactIf'
-import useDataSetLibrary from '../hooks/useDatasetLibrary'
-import useViewDataSet from '../hooks/useViewDataSet'
+import useDatasetLibrary from '../hooks/useDatasetLibrary'
+import useViewDataset from '../hooks/useViewDataset'
 import useIsSubscribed from '../hooks/useIsSubscribed'
 import axios from 'axios'
 import useViewSubscriptions from '../hooks/useViewSubscriptions'
@@ -24,7 +24,7 @@ const web3 = new Web3(Web3.givenProvider)
 
 const DatasetLibraryPage: FC = () => {
     const [{ datasetRequestState }] = useContext(GlobalContext)
-    const datasetLibrary = useDataSetLibrary(datasetRequestState)
+    const datasetLibrary = useDatasetLibrary(datasetRequestState)
 
     const datasetsToDisplay = datasetLibrary.datasets.map((dataset: any) => {
         return <DatasetCard key={dataset._id} id={dataset._id} category={dataset.category} name={dataset.name} price={dataset.price} />
@@ -75,10 +75,10 @@ const ViewSubscriptionsPage: FC = () => {
     )
 }
 
-const ViewOneDataSetPage: FC = () => {
+const ViewOneDatasetPage: FC = () => {
     const [hasClickedSubscribed, setClickedSubscribed] = useState(false)
     let { datasetId } = useParams()
-    const dataset = useViewDataSet({ id: datasetId })
+    const dataset = useViewDataset({ id: datasetId })
     const subscriptionStatus = useIsSubscribed({ id: datasetId, hasClickedSubscribed })
     const similarDatasets = useFindSimilarDatasets({ id: datasetId })
     const [account, setAccount] = useState('')
@@ -157,4 +157,4 @@ const ViewOneDataSetPage: FC = () => {
     )
 }
 
-export { DatasetLibraryPage, ViewSubscriptionsPage, ViewOneDataSetPage } 
+export { DatasetLibraryPage, ViewSubscriptionsPage, ViewOneDatasetPage } 

@@ -1,26 +1,11 @@
-const express = require('express')
-const { check, validationResult } = require('express-validator')
-const authorize = require('../middlewares/authorize')
-const superagent = require('superagent')
-const TransactionModel = require('../models/TransactionModel')
 const statusMessages = require('../constants/Messages')
 const endPoints = require('../constants/Endpoints')
-const router = express.Router()
+const { validationResult } = require('express-validator')
+const superagent = require('superagent')
+const TransactionModel = require('../models/TransactionModel')
 
-router.post(
-    '/createtx',
-
-    authorize,
-
-    [
-        check('transactionType', 'Transaction Type must not be empty').notEmpty(),
-        check('fromAddress', 'Fromaddress must not be empty').notEmpty(),
-        check('lstAmount', 'LST Amount must not be empty').notEmpty(),
-        check('ethAmount', 'ethAmount must not be empty').notEmpty(),
-        check('txHash', 'txHash must not be empty').notEmpty()
-    ],
-
-    async (req, res) => {
+class WalletController {
+    async createTransaction(req, res) {
         const errors = validationResult(req)
 
         if (!errors.isEmpty()) {
@@ -41,14 +26,8 @@ router.post(
             }
         }
     }
-)
 
-router.post(
-    '/transactions',
-
-    authorize,
-
-    async (req, res) => {
+    async getTransactions(req, res) {
         try {
             const transactions = await TransactionModel.find({ owner: req.id }).sort({ date: -1 })
             return res.status(200).json({ transactions })
@@ -58,14 +37,8 @@ router.post(
             return res.status(500).json({ msg: statusMessages.connectionError })
         }
     }
-)
 
-router.post(
-    '/getliveprice',
-
-    authorize,
-
-    async (req, res) => {
+    async getLivePrice(req, res) {
         try {
             const livePrice = await superagent.get(endPoints.liveEthPriceEndPoint)
             return res.status(200).json(JSON.parse(livePrice.text))
@@ -75,6 +48,6 @@ router.post(
             return res.status(500).json({ msg: statusMessages.connectionError })
         }
     }
-)
+}
 
-module.exports = router
+module.exports = WalletController

@@ -3,9 +3,9 @@ import axios from 'axios'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import endPoints from '../constants/Endpoints'
-import { UseDataSetLibrary } from '../types/States'
+import { UseDatasetLibrary } from '../types/States'
 
-const useDataSetLibrary = ({ searchInput, selectedFilter, selectedSortOption }: UseDataSetLibrary) => {
+const useDatasetLibrary = ({ searchInput, selectedFilter, selectedSortOption }: UseDatasetLibrary) => {
     const [state, setState] = useState({ datasets: [], isLoaded: false })
     const navigate = useNavigate()
 
@@ -34,4 +34,4 @@ const useDataSetLibrary = ({ searchInput, selectedFilter, selectedSortOption }: 
     return state
 }
 
-export default useDataSetLibrary
+export default useDatasetLibrary

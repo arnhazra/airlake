@@ -1,15 +1,8 @@
-const express = require('express')
 const statusMessages = require('../constants/Messages')
-const authorize = require('../middlewares/authorize')
 const SubscriptionModel = require('../models/SubscriptionModel')
-const router = express.Router()
 
-router.post(
-    '/subscribe/:datasetId',
-
-    authorize,
-
-    async (req, res) => {
+class SubscriptionController {
+    async subscribe(req, res) {
         const datasetId = req.params.datasetId
         const userId = req.id
 
@@ -23,14 +16,8 @@ router.post(
             return res.status(500).json({ msg: statusMessages.connectionError })
         }
     }
-)
 
-router.post(
-    '/issubscribed/:datasetId',
-
-    authorize,
-
-    async (req, res) => {
+    async isSubscribed(req, res) {
         const datasetId = req.params.datasetId
         const userId = req.id
 
@@ -48,6 +35,6 @@ router.post(
             return res.status(500).json({ msg: statusMessages.connectionError })
         }
     }
-)
+}
 
-module.exports = router
+module.exports = SubscriptionController

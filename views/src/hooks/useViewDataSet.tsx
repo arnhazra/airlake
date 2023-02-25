@@ -4,11 +4,11 @@ import endPoints from '../constants/Endpoints'
 import { useNavigate } from 'react-router-dom'
 import { GenericIdType } from '../types/States'
 
-const useViewDataSet = ({ id }: GenericIdType) => {
+const useViewDataset = ({ id }: GenericIdType) => {
     const [state, setState] = useState({ id: '', name: '', description: '', category: '', price: 0, dataLength: 0, isLoaded: false, hasError: false })
     const navigate = useNavigate()
 
-    const getDataSetView = async () => {
+    const getDatasetView = async () => {
         try {
             axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`
             const response = await axios.post(`${endPoints.datasetViewEndpoint}/${id}`)
@@ -30,10 +30,10 @@ const useViewDataSet = ({ id }: GenericIdType) => {
 
     useEffect(() => {
         setState({ ...state, isLoaded: false })
-        getDataSetView()
+        getDatasetView()
     }, [id])
 
     return state
 }
 
-export default useViewDataSet
+export default useViewDataset

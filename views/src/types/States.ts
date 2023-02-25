@@ -12,7 +12,7 @@ export type LivePriceState = {
     isLoaded: boolean
 }
 
-export type UseDataSetLibrary = {
+export type UseDatasetLibrary = {
     searchInput: string,
     selectedFilter: string,
     selectedSortOption: string

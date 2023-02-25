@@ -1,18 +1,11 @@
-const express = require('express')
-const { check, validationResult } = require('express-validator')
 const statusMessages = require('../constants/Messages')
-const authorize = require('../middlewares/authorize')
+const { validationResult } = require('express-validator')
 const DatasetModel = require('../models/DatasetModel')
 const SubscriptionModel = require('../models/SubscriptionModel')
 const sortObjects = require('../utils/sortObjects')
-const router = express.Router()
 
-router.post(
-    '/filtercategories',
-
-    authorize,
-
-    async (req, res) => {
+class DatasetController {
+    async filterCategories(req, res) {
         try {
             const categories = await DatasetModel.find().distinct('category')
             categories.push('All')
@@ -23,14 +16,8 @@ router.post(
             return res.status(500).json({ msg: statusMessages.connectionError })
         }
     }
-)
 
-router.post(
-    '/sortoptions',
-
-    authorize,
-
-    async (req, res) => {
+    async getSortOptions(req, res) {
         try {
             const options = Object.keys(sortObjects)
             return res.status(200).json({ options })
@@ -40,14 +27,8 @@ router.post(
             return res.status(500).json({ msg: statusMessages.connectionError })
         }
     }
-)
 
-router.post(
-    '/library',
-
-    authorize,
-
-    async (req, res) => {
+    async getLibrary(req, res) {
         const selectedFilterCategory = req.body.selectedFilter === 'All' ? {} : { category: req.body.selectedFilter }
         const selectedSortOption = sortObjects[req.body.selectedSortOption]
         const searchInput = req.body.searchInput.length > 0 && req.body.searchInput
@@ -56,10 +37,10 @@ router.post(
             const datasets = await DatasetModel.find(selectedFilterCategory).select('-data').select('-description').sort(selectedSortOption)
 
             if (req.body.searchInput.length > 0) {
-                const filteredDataSets = datasets.filter((dataset) => {
+                const filteredDatasets = datasets.filter((dataset) => {
                     return dataset.name.toLowerCase().includes(searchInput)
                 })
-                return res.status(200).json({ datasets: filteredDataSets })
+                return res.status(200).json({ datasets: filteredDatasets })
             }
 
             else {
@@ -71,36 +52,24 @@ router.post(
             return res.status(500).json({ msg: statusMessages.connectionError })
         }
     }
-)
 
-router.post(
-    '/mysubscriptions',
-
-    authorize,
-
-    async (req, res) => {
+    async getMySubscriptions(req, res) {
         try {
-            const subscriptions = await SubscriptionModel.find({ userId: req.id });
+            const subscriptions = await SubscriptionModel.find({ userId: req.id })
             const subscribedDatasetPromises = subscriptions.map(async (sub) => {
-                const subscribedDataset = await DatasetModel.findById(sub.datasetId).select('-data').select('-description');
-                return subscribedDataset;
-            });
-            const subscribedDatasets = await Promise.all(subscribedDatasetPromises);
-            return res.status(200).json({ subscribedDatasets });
+                const subscribedDataset = await DatasetModel.findById(sub.datasetId).select('-data').select('-description')
+                return subscribedDataset
+            })
+            const subscribedDatasets = await Promise.all(subscribedDatasetPromises)
+            return res.status(200).json({ subscribedDatasets })
         }
 
         catch (error) {
-            return res.status(500).json({ msg: statusMessages.connectionError });
+            return res.status(500).json({ msg: statusMessages.connectionError })
         }
     }
-)
 
-router.post(
-    '/viewone/:datasetId',
-
-    authorize,
-
-    async (req, res) => {
+    async viewOneDataset(req, res) {
         try {
             const totalData = await DatasetModel.findById(req.params.datasetId)
             const dataLength = totalData.data.length
@@ -112,14 +81,8 @@ router.post(
             return res.status(404).json({ msg: statusMessages.connectionError })
         }
     }
-)
 
-router.post(
-    '/findsimilar/:datasetId',
-
-    authorize,
-
-    async (req, res) => {
+    async findSimilarDatasets(req, res) {
         try {
             const { category } = await DatasetModel.findById(req.params.datasetId).select('-data')
             const similarDatasets = await DatasetModel.find({ category: category }).select('-data')
@@ -130,12 +93,8 @@ router.post(
             return res.status(404).json({ msg: statusMessages.connectionError })
         }
     }
-)
 
-router.get(
-    '/data/preview/:datasetId',
-
-    async (req, res) => {
+    async previewData(req, res) {
         try {
             const data = await DatasetModel.findById(req.params.datasetId).select('data')
             const previewdata = data.data[0]
@@ -146,12 +105,8 @@ router.get(
             return res.status(404).json({ msg: statusMessages.connectionError })
         }
     }
-)
 
-router.get(
-    '/data/view/:datasetId/:subscriptionId',
-
-    async (req, res) => {
+    async viewData(req, res) {
         try {
             const subscriptionId = req.params.subscriptionId
             const datasetId = req.params.datasetId
@@ -170,20 +125,25 @@ router.get(
             return res.status(404).json({ msg: statusMessages.connectionError })
         }
     }
-)
 
-router.post(
-    '/create',
+    async viewRecommendedDataset(req, res) {
+        try {
+            DatasetModel.aggregate([
+                { $match: { $expr: { $gt: [{ $strLenCP: "$description" }, 300] } } },
+                { $project: { data: 0 } },
+                { $sample: { size: 1 } }
+            ]).exec((err, result) => {
+                const recommendedDataset = result[0]
+                res.status(200).json({ recommendedDataset })
+            })
+        }
 
-    [
-        check('name', 'Name must not be empty').notEmpty(),
-        check('category', 'Category must not be empty').notEmpty(),
-        check('description', 'Description must not be empty').notEmpty(),
-        check('data', 'data must be an array of object').isArray(),
-        check('price', 'Price must not be empty').isNumeric()
-    ],
+        catch (error) {
+            return res.status(404).json({ msg: statusMessages.connectionError })
+        }
+    }
 
-    async (req, res) => {
+    async createDataset(req, res) {
         const errors = validationResult(req)
 
         if (!errors.isEmpty()) {
@@ -204,27 +164,6 @@ router.post(
             }
         }
     }
-)
+}
 
-router.post(
-    '/viewrecommended',
-
-    async (req, res) => {
-        try {
-            DatasetModel.aggregate([
-                { $match: { $expr: { $gt: [{ $strLenCP: "$description" }, 300] } } },
-                { $project: { data: 0 } },
-                { $sample: { size: 1 } }
-            ]).exec((err, result) => {
-                const recommendedDataset = result[0]
-                res.status(200).json({ recommendedDataset })
-            });
-        }
-
-        catch (error) {
-            return res.status(404).json({ msg: statusMessages.connectionError })
-        }
-    }
-)
-
-module.exports = router
+module.exports = DatasetController

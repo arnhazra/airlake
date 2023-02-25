@@ -8,7 +8,7 @@ const useViewSubscriptions = () => {
     const [state, setState] = useState({ subscribedDatasets: [], isLoaded: false })
     const navigate = useNavigate()
 
-    const getDataSetLibraryData = async () => {
+    const getDatasetLibraryData = async () => {
         try {
             axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`
             const response = await axios.post(endPoints.datasetSubscriptionEndpoint)
@@ -29,7 +29,7 @@ const useViewSubscriptions = () => {
     }
 
     useEffect(() => {
-        getDataSetLibraryData()
+        getDatasetLibraryData()
     }, [])
 
     return state
