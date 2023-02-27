@@ -2,7 +2,7 @@ const statusMessages = {
     connectionError: 'Connection Error',
     transactionCreationSuccess: 'New Transaction Created',
     transactionCreationError: 'Error Creating ERC20 Transaction',
-    signOutSuccess: 'Sign Out Successful',
+    signOutSuccess: 'You are now signed out. Thanks for using the app',
     unauthorized: 'Unauthorized',
     invalidAuthCode: 'Invalid Auth Code',
     authCodeEmail: 'Check Auth Code in Email',
