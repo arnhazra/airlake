@@ -14,7 +14,12 @@
 
 <body>
 	<noscript>You need to enable JavaScript to run this app.</noscript>
-	<script>window.location.reload(true)</script>
+	<script>
+		if (!sessionStorage.getItem('isReloaded')) {
+			sessionStorage.setItem('isReloaded', true);
+			window.location.reload(true);
+		}
+	</script>
 	<div id="root"></div>
 </body>
 
