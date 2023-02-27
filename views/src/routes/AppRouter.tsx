@@ -9,7 +9,6 @@ import { AccountPage } from '../pages/Account'
 import ProtectedRoute from './ProtectedRoute'
 import GlobalStateProvider from '../context/globalStateProvider'
 import Layout from '../layout/Layout'
-import { NotificationsPage } from '../pages/Notifications'
 
 const AppRouter: FC = () => {
 	return (
@@ -28,7 +27,6 @@ const AppRouter: FC = () => {
 								<Route path='/wallet/buy' element={<BuyCoin />} />
 								<Route path='/wallet/sell' element={<SellCoin />} />
 								<Route path='/account' element={<AccountPage />} />
-								<Route path='/notifications' element={<NotificationsPage />} />
 							</Route>
 							<Route path='*' element={<Error />} />
 						</Route>
