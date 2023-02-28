@@ -10,10 +10,10 @@ const AccountPage = () => {
     const signOut = () => {
         try {
             signOutService()
-            dispatch('setUserState', { isLoaded: true, isAuthorized: false })
+            dispatch('setUserState', { isLoaded: true })
             navigate('/')
         } catch (error) {
-            dispatch('setUserState', { isLoaded: true, isAuthorized: false })
+            dispatch('setUserState', { isLoaded: true })
             navigate('/')
         }
     }

@@ -11,7 +11,6 @@ const initialState = {
         userid: '',
         name: '',
         isLoaded: false,
-        isAuthorized: false,
     },
 
     datasetRequestState: {

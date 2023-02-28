@@ -10,7 +10,7 @@ const NavBar: FC = () => {
 
     return (
         <Fragment>
-            <ReactIf condition={userState.isAuthorized}>
+            <ReactIf condition={localStorage.hasOwnProperty('accessToken')}>
                 <Navbar className='navbar-authorized' variant='dark' expand='lg' style={{ zoom: 0.8 }}>
                     <Container>
                         <Link to='/dataset/library'><Navbar.Brand>Lenstack</Navbar.Brand></Link>
@@ -35,7 +35,7 @@ const NavBar: FC = () => {
                     </Container>
                 </Navbar>
             </ReactIf>
-            <ReactIf condition={!userState.isAuthorized}>
+            <ReactIf condition={!localStorage.hasOwnProperty('accessToken')}>
                 <Navbar className='navbar-unauthorized' variant='dark' expand='lg'>
                     <Container>
                         <Link to='/'>

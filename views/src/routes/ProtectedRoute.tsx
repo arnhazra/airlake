@@ -17,14 +17,14 @@ const ProtectedRoute: FC = () => {
             try {
                 axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`
                 const response = await axios.post(endPoints.verifyAuthEndpoint)
-                dispatch('setUserState', { userid: response.data.user._id, name: response.data.user.name, isLoaded: true, isAuthorized: true })
+                dispatch('setUserState', { userid: response.data.user._id, name: response.data.user.name, isLoaded: true })
             }
 
             catch (error: any) {
                 if (error.response) {
                     if (error.response.status === 401) {
                         localStorage.removeItem('accessToken')
-                        dispatch('setUserState', { isLoaded: true, isAuthorized: false })
+                        dispatch('setUserState', { isLoaded: true })
                         navigate('/')
                     }
 
@@ -36,7 +36,7 @@ const ProtectedRoute: FC = () => {
 
                 else {
                     localStorage.removeItem('accessToken')
-                    dispatch('setUserState', { isLoaded: true, isAuthorized: false })
+                    dispatch('setUserState', { isLoaded: true })
                     navigate('/')
                 }
             }
