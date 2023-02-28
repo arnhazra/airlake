@@ -1,5 +1,5 @@
 import { FC, Fragment, useContext, useEffect } from 'react'
-import { Outlet, Navigate, useLocation, useNavigate } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import Loading from '../components/Loading'
 import ReactIf from '../components/ReactIf'
 import { GlobalContext } from '../context/globalStateProvider'
@@ -47,12 +47,7 @@ const ProtectedRoute: FC = () => {
     return (
         <Fragment>
             <ReactIf condition={userState.isLoaded}>
-                <ReactIf condition={userState.isAuthorized}>
-                    <Outlet />
-                </ReactIf>
-                <ReactIf condition={!userState.isAuthorized}>
-                    <Navigate to='/' />
-                </ReactIf>
+                <Outlet />
             </ReactIf>
             <ReactIf condition={!userState.isLoaded}>
                 <Loading />

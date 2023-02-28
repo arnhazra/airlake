@@ -1,6 +1,6 @@
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useContext, useState } from 'react'
-import { Container, FloatingLabel, Row } from 'react-bootstrap'
+import { Container, Row } from 'react-bootstrap'
 import { Fragment, FC } from 'react'
 import Web3 from 'web3'
 import Loading from '../components/Loading'

@@ -1,5 +1,5 @@
 import { FC, Fragment, useContext } from 'react'
-import { Container, Navbar, Nav, Form, InputGroup } from 'react-bootstrap'
+import { Container, Navbar, Nav, Form } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import { GlobalContext } from '../context/globalStateProvider'
 import ReactIf from './ReactIf'
