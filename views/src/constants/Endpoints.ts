@@ -16,7 +16,6 @@ const endPoints = {
     etherScanEndpoint: `https://goerli.etherscan.io/tx`,
     subscribeEndpoint: `/api/subscription/subscribe`,
     checkSubscriptionEndpoint: `/api/subscription/issubscribed`,
-    getRecommendedDatasetEndpoint: `/api/dataset/viewrecommended`
 }
 
 export default endPoints

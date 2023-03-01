@@ -19,7 +19,6 @@ class DatasetRouter {
         this.router.post('/findsimilar/:datasetId', authorize, this.datasetController.findSimilarDatasets.bind(this.datasetController))
         this.router.get('/data/preview/:datasetId', this.datasetController.previewData.bind(this.datasetController))
         this.router.get('/data/view/:datasetId/:subscriptionId', this.datasetController.viewData.bind(this.datasetController))
-        this.router.post('/viewrecommended', authorize, this.datasetController.viewRecommendedDataset.bind(this.datasetController))
         this.router.post('/create',
             [
                 check('name', 'Name must not be empty').notEmpty(),

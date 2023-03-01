@@ -11,15 +11,15 @@ const NavBar: FC = () => {
     return (
         <Fragment>
             <ReactIf condition={localStorage.hasOwnProperty('accessToken')}>
-                <Navbar className='navbar-authorized' variant='dark' expand='lg' style={{ zoom: 0.8 }}>
+                <Navbar className='navbar-authorized' variant='dark' expand='lg' style={{ zoom: 0.85 }}>
                     <Container>
                         <Link to='/dataset/library'><Navbar.Brand>Lenstack</Navbar.Brand></Link>
                         <Navbar.Toggle aria-controls='navbarScroll' />
                         <Navbar.Collapse id='navbarScroll'>
                             <Nav className='me-auto my-2 my-lg-0' style={{ maxHeight: '8rem' }} navbarScroll>
-                                <Link to='/dataset/subscriptions'><Navbar.Brand><i className='fa-solid fa-thumbtack'></i>Subscriptions</Navbar.Brand></Link>
-                                <Link to='/wallet/transactions'><Navbar.Brand><i className='fa-solid fa-wallet'></i>Wallet</Navbar.Brand></Link>
-                                <Link to='/account'><Navbar.Brand><i className='fa-solid fa-circle-user'></i>Account</Navbar.Brand></Link>
+                                <Link to='/dataset/subscriptions'><Navbar.Brand>Subscriptions</Navbar.Brand></Link>
+                                <Link to='/wallet/transactions'><Navbar.Brand>Wallet</Navbar.Brand></Link>
+                                <Link to='/account'><Navbar.Brand>Account</Navbar.Brand></Link>
                             </Nav>
                             <Form className='d-flex'>
                                 <Form.Control

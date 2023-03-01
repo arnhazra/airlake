@@ -3,7 +3,7 @@ const endPoints = require('../constants/Endpoints')
 const dotenv = require('dotenv').config()
 const jwt = require('jsonwebtoken')
 const otptool = require('otp-without-db')
-const crypto = require('crypto')
+const otpGenerator = require('otp-generator')
 const { validationResult } = require('express-validator')
 const UserModel = require('../models/UserModel')
 const sendmail = require('../functions/SendMail')
@@ -26,7 +26,7 @@ class AuthController {
 
             try {
                 let user = await UserModel.findOne({ email })
-                const otp = crypto.randomBytes(4).toString('hex')
+                const otp = otpGenerator.generate(8, { upperCaseAlphabets: false, specialChars: false, lowerCaseAlphabets: false })
                 const hash = otptool.createNewOTP(email, otp, this.otpKey, 5, 'sha256')
                 await sendmail(email, otp)
                 if (user) {
