@@ -16,7 +16,7 @@ const ProtectedRoute: FC = () => {
         (async () => {
             try {
                 axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`
-                const response = await axios.post(endPoints.verifyAuthEndpoint)
+                const response = await axios.post(endPoints.checkAuthEndpoint)
                 dispatch('setUserState', { userid: response.data.user._id, name: response.data.user.name, isLoaded: true })
             }
 

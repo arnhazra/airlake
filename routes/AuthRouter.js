@@ -29,7 +29,7 @@ class AuthRouter {
             this.authController.verifyAuthCode.bind(this.authController),
         )
 
-        this.router.post('/verifyauth', authorize, this.authController.verifyAuth.bind(this.authController))
+        this.router.post('/checkauth', authorize, this.authController.checkAuth.bind(this.authController))
         this.router.post('/signout', authorize, this.authController.signOut.bind(this.authController))
     }
 

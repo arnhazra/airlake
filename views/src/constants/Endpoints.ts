@@ -5,7 +5,7 @@ const endPoints = {
     generateAuthCodeEndpoint: `/api/auth/generateauthcode`,
     verifyAuthCodeEndpoint: `/api/auth/verifyauthcode`,
     signOutEndpoint: `/api/auth/signout`,
-    verifyAuthEndpoint: `/api/auth/verifyauth`,
+    checkAuthEndpoint: `/api/auth/checkauth`,
     createTxEndpoint: `/api/wallet/createtx`,
     datasetLibraryEndpoint: `/api/dataset/library`,
     datasetSubscriptionEndpoint: `/api/dataset/mysubscriptions`,

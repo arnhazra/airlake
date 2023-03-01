@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.5f1d69e9.css",
-    "main.js": "/static/js/main.33a68c22.js",
+    "main.css": "/static/css/main.556fde8e.css",
+    "main.js": "/static/js/main.d411fecb.js",
     "static/media/hero.jpg": "/static/media/hero.5796100dc3dbf34a7315.jpg",
     "static/media/generic.jpg": "/static/media/generic.df594895f29b794579b2.jpg",
     "static/media/geography.jpg": "/static/media/geography.6edaba0a1636f3c8db91.jpg",
@@ -11,7 +11,7 @@
     "index.html": "/index.html"
   },
   "entrypoints": [
-    "static/css/main.5f1d69e9.css",
-    "static/js/main.33a68c22.js"
+    "static/css/main.556fde8e.css",
+    "static/js/main.d411fecb.js"
   ]
 }

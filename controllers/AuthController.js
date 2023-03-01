@@ -97,7 +97,7 @@ class AuthController {
         }
     }
 
-    async verifyAuth(req, res) {
+    async checkAuth(req, res) {
         try {
             const user = await UserModel.findById(req.id).select('-password').select('-date')
 
