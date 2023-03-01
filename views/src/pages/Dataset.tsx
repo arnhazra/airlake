@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { useContext, useState } from 'react'
-import { Container, Row } from 'react-bootstrap'
+import { Col, Container, Row } from 'react-bootstrap'
 import { Fragment, FC } from 'react'
 import Web3 from 'web3'
 import Loading from '../components/Loading'
@@ -126,8 +126,8 @@ const ViewOneDatasetPage: FC = () => {
                 <ReactIf condition={!dataset.hasError}>
                     <Container className='mt-4'>
                         <div className='jumbotron'>
-                            <p className='display-6 fw-bold text-capitalize'>{dataset.name}</p>
-                            <p className='lead'>{dataset.description}</p>
+                            <p className='display-4 text-capitalize'>{dataset.name}</p>
+                            <p className='smalltext'>{dataset.description}</p>
                             <div className='chip-grid'>
                                 <button className='chip me-3'>{dataset.category}</button>
                                 <button className='chip me-3'>{dataset.price === 0 ? 'FREE' : `${dataset.price} LST`}</button>
@@ -141,7 +141,7 @@ const ViewOneDatasetPage: FC = () => {
                             {subscriptionStatus.isSubscribed && <a target='_blank' rel='noreferrer' href={window.location.hostname === 'localhost' ? `http://localhost:7000/api/dataset/data/view/${datasetId}/${subscriptionStatus.subscriptionId}` : `/api/dataset/data/view/${datasetId}/${subscriptionStatus.subscriptionId}`} className='btn'>View Data<i className='fa-solid fa-circle-arrow-right'></i></a>}
                         </div>
                         <Row>
-                            <p className='lead text-center fw-bold text-white mb-4'>Similar Datasets</p>
+                            <p className='lead text-center text-white mb-4'>Similar Datasets</p>
                             {similarDatasetsToDisplay}
                         </Row>
                     </Container>

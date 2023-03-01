@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap')
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css')
+@import url('https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap')
 
 $mainColor: #121212
 $white: #ffffff
@@ -22,7 +23,7 @@ body
     -o-background-size: cover
     background-size: cover
     background-attachment: fixed
-    font-family: 'Quicksand', sans-serif
+    font-family: 'Tilt Neon', cursive
     -webkit-font-smoothing: antialiased
     -moz-osx-font-smoothing: grayscale
     -webkit-font-smoothing: antialiased
@@ -34,6 +35,7 @@ body
     vertical-align: middle
     display: table-cell
     padding-left: 1.5rem
+    letter-spacing: 0.05rem
     animation: transitionIn 0.4s forwards
 
 .jumbotron
@@ -44,16 +46,15 @@ body
     color: $white
     border-radius: 1rem
     backdrop-filter: blur(0.4rem)
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px
 
 .card
     background: transparent
     color: $white
     border-radius: 1rem !important
     border: none
-    font-weight: bold
     animation: transitionIn 0.7s forwards
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px
 
 .card-header
     background: $mainColor !important
@@ -68,7 +69,7 @@ body
 
 .lead
     font-size: 100%
-    font-weight: bold
+    color: silver
 
 .smalltext
     font-size: 80%
@@ -86,7 +87,6 @@ body
     width: 22rem
     border-radius: 1rem
     text-align: left
-    font-weight: bold
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px
 
 .branding
@@ -110,7 +110,6 @@ body
     margin-right: 1rem
     margin-bottom: 1rem
     color: $white !important
-    font-weight: bold
     letter-spacing: 0.05rem
     font-size: 0.8rem
 
@@ -153,20 +152,14 @@ a:active
     margin: 0.3rem 0 1rem
     padding-left: 1.9rem !important
     font-size: 0.94rem
-    font-weight: bold
     letter-spacing: 0.02rem
 
 .form-select
-    font-weight: bold
     border-radius: 3rem
     padding-left: 1.75rem
 
 .form-floating
-    font-weight: bold
     border-radius: 3rem
-
-.options
-    font-weight: bold
 
 label
     padding-left: 2rem !important
@@ -184,12 +177,10 @@ input[type=number]
     cursor: pointer
     text-align: center
     font-size: 1rem
-    font-weight: bold
 
 .navbar-unauthorized
     background: $mainColor
     z-index: 2
-    font-weight: bold
     padding-top: 1rem !important
     padding-bottom: 1rem !important
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px
@@ -198,7 +189,6 @@ input[type=number]
 .navbar
     background: $mainColor
     z-index: 2
-    font-weight: bold
     padding-top: 1rem !important
     padding-bottom: 1rem !important
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px
@@ -221,7 +211,6 @@ input[type=number]
     min-width: 23.75rem !important
     background-color: $searchBoxColor !important
     color: $white !important
-    font-weight: bold
     border: none
     margin-bottom: 0.2rem !important
     border-radius: 4rem
@@ -250,7 +239,6 @@ th,td,tr
     height: 3.75rem
     border: none
     vertical-align: middle
-    font-weight: bold
     text-align: center
 
 .fa-solid
@@ -272,7 +260,6 @@ th,td,tr
     margin-left: 0.5rem
 
 .toaster
-    font-weight: bold
     font-family: inherit
 
 @media only screen and (max-width: 62rem)
