@@ -4,8 +4,8 @@
 $mainColor: #121212
 $white: #ffffff
 $inputColor: #f8f8f8
-$blurColor: #12121298
-$searchBoxColor: #222225
+$blurColor: #12121275
+$searchBoxColor: #272727
 $green: #1ed760
 $red: #d71e62
 
@@ -43,6 +43,7 @@ body
     background: $blurColor !important
     color: $white
     border-radius: 1rem
+    backdrop-filter: blur(0.4rem)
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px
 
 .card
@@ -128,7 +129,7 @@ body
     padding: 0.5rem 1.7rem
     border-radius: 3rem
     font-size: 0.75rem
-    margin-top: 0.65rem
+    margin-top: 0.3rem
     margin-bottom: 1rem
 
 .btn:hover,
@@ -223,7 +224,7 @@ input[type=number]
     font-weight: bold
     border: none
     margin-bottom: 0.2rem !important
-    border-radius: 0.5rem
+    border-radius: 4rem
     text-align: left
 
 .searchbar-navbar::placeholder
