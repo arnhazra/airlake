@@ -15,10 +15,18 @@
 <body>
 	<noscript>You need to enable JavaScript to run this app.</noscript>
 	<script>
-		if (!sessionStorage.getItem('isReloaded')) {
+		try {
+			if (!sessionStorage.getItem('isReloaded')) {
+				location.reload(true);
+				sessionStorage.setItem('isReloaded', true);
+			}
+		} catch (error) {
+			sessionStorage.removeItem('isReloaded')
+			window.location.reload(true);
 			location.reload(true);
 			sessionStorage.setItem('isReloaded', true);
 		}
+
 	</script>
 	<div id="root"></div>
 </body>
