@@ -1,10 +1,10 @@
 import { Container, Row } from 'react-bootstrap'
 import { Fragment, FC } from 'react'
-import Loading from '../components/Loading'
-import Error from '../components/Error'
-import ReactIf from '../components/ReactIf'
+import Loading from '../components/LoadingComponent'
+import Error from '../components/ErrorComponent'
+import ReactIf from '../components/ReactIfComponent'
 import useViewSubscriptions from '../hooks/useViewSubscriptions'
-import DatasetCard from '../components/DatasetCard'
+import DatasetCard from '../components/DatasetCardComponent'
 
 const ViewSubscriptionsPage: FC = () => {
     const datasetSubscriptions = useViewSubscriptions()

@@ -1,10 +1,10 @@
 import { FC, Fragment, lazy, Suspense } from 'react'
 import { Routes, Route, BrowserRouter } from 'react-router-dom'
-import Error from '../components/Error'
+import Error from '../components/ErrorComponent'
 import ProtectedRoute from './ProtectedRoute'
 import GlobalStateProvider from '../context/globalStateProvider'
 import Layout from '../layout/Layout'
-import SuspenseLoading from '../components/SuspenseLoading'
+import SuspenseLoading from '../components/SuspenseLoadingComponent'
 const AccountPage = lazy(() => import('../pages/AccountPage'))
 const HomePage = lazy(() => import('../pages/HomePage'))
 const AuthPage = lazy(() => import('../pages/AuthPage'))

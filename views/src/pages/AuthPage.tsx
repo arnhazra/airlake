@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { FloatingLabel, Form } from 'react-bootstrap'
 import Constants from '../constants/Constants'
-import ReactIf from '../components/ReactIf'
+import ReactIf from '../components/ReactIfComponent'
 import endPoints from '../constants/Endpoints'
 
 const AuthPage = () => {

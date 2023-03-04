@@ -1,5 +1,5 @@
 import { FC, Fragment } from 'react'
-import NavBar from './NavBar'
+import NavBar from './NavBarComponent'
 
 const SuspenseLoading: FC = () => {
     return (

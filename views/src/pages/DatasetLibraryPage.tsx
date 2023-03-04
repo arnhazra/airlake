@@ -1,12 +1,12 @@
 import { useContext } from 'react'
 import { Container, Row } from 'react-bootstrap'
 import { Fragment, FC } from 'react'
-import Loading from '../components/Loading'
-import ReactIf from '../components/ReactIf'
+import Loading from '../components/LoadingComponent'
+import ReactIf from '../components/ReactIfComponent'
 import useDatasetLibrary from '../hooks/useDatasetLibrary'
 import { GlobalContext } from '../context/globalStateProvider'
-import DatasetLibraryNav from '../components/DatasetLibraryNav'
-import DatasetCard from '../components/DatasetCard'
+import DatasetLibraryNav from '../components/DatasetLibraryNavComponent'
+import DatasetCard from '../components/DatasetCardComponent'
 
 const DatasetLibraryPage: FC = () => {
     const [{ datasetRequestState }] = useContext(GlobalContext)

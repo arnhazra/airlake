@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import { Outlet } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
-import NavBar from '../components/NavBar'
+import NavBar from '../components/NavBarComponent'
 
 const Layout = () => {
     return (

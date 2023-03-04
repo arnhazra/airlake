@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { FloatingLabel, Form } from 'react-bootstrap'
 import { Fragment } from 'react'
-import ReactIf from '../components/ReactIf'
+import ReactIf from '../components/ReactIfComponent'
 import { vendorABI } from '../contracts/VendorABI'
 import Web3 from 'web3'
 import axios from 'axios'

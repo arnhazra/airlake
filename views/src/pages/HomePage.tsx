@@ -2,7 +2,7 @@ import { Navigate, Link } from 'react-router-dom'
 import { Container } from 'react-bootstrap'
 import { Fragment } from 'react'
 import Constants from '../constants/Constants'
-import ReactIf from '../components/ReactIf'
+import ReactIf from '../components/ReactIfComponent'
 
 const HomePage = () => {
     return (
