@@ -30,4 +30,4 @@ const AccountPage = () => {
     )
 }
 
-export { AccountPage }
+export default AccountPage

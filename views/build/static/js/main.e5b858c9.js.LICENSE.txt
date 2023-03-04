@@ -4,8 +4,6 @@
 	http://jedwatson.github.io/classnames
 */
 
-/*! For license information please see web3.min.js.LICENSE.txt */
-
 /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
 
 /**
@@ -80,5 +78,3 @@
  *
  * @license MIT
  */
-
-//! moment.js

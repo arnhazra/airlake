@@ -1,79 +1,22 @@
 import { useParams } from 'react-router-dom'
-import { useContext, useState } from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
+import { useState } from 'react'
+import { Container, Row } from 'react-bootstrap'
 import { Fragment, FC } from 'react'
 import Web3 from 'web3'
 import Loading from '../components/Loading'
 import Error from '../components/Error'
 import ReactIf from '../components/ReactIf'
-import useDatasetLibrary from '../hooks/useDatasetLibrary'
 import useViewDataset from '../hooks/useViewDataset'
 import useIsSubscribed from '../hooks/useIsSubscribed'
 import axios from 'axios'
-import useViewSubscriptions from '../hooks/useViewSubscriptions'
 import useFindSimilarDatasets from '../hooks/useFindSimilarDatasets'
 import { tokenABI } from '../contracts/TokenABI'
 import contractAddress from '../constants/Address'
 import endPoints from '../constants/Endpoints'
-import { GlobalContext } from '../context/globalStateProvider'
 import { toast } from 'react-hot-toast'
-import DatasetLibraryNav from '../components/DatasetLibraryNav'
 import DatasetCard from '../components/DatasetCard'
 declare const window: any
 const web3 = new Web3(Web3.givenProvider)
-
-const DatasetLibraryPage: FC = () => {
-    const [{ datasetRequestState }] = useContext(GlobalContext)
-    const datasetLibrary = useDatasetLibrary(datasetRequestState)
-
-    const datasetsToDisplay = datasetLibrary.datasets.map((dataset: any) => {
-        return <DatasetCard key={dataset._id} id={dataset._id} category={dataset.category} name={dataset.name} price={dataset.price} />
-    })
-
-    return (
-        <Fragment>
-            <ReactIf condition={datasetLibrary.isLoaded}>
-                <Container>
-                    <DatasetLibraryNav datasetCount={datasetLibrary.datasets.length} />
-                    <Row className='mt-4 mb-4'>
-                        {datasetsToDisplay}
-                    </Row>
-                </Container>
-            </ReactIf>
-            <ReactIf condition={!datasetLibrary.isLoaded}>
-                <Loading />
-            </ReactIf>
-        </Fragment>
-    )
-}
-
-const ViewSubscriptionsPage: FC = () => {
-    const datasetSubscriptions = useViewSubscriptions()
-
-    const datasetsToDisplay = datasetSubscriptions.subscribedDatasets.map((dataset: any) => {
-        return <DatasetCard key={dataset._id} id={dataset._id} category={dataset.category} name={dataset.name} price={dataset.price} />
-    })
-
-    return (
-        <Fragment>
-            <ReactIf condition={datasetSubscriptions.isLoaded}>
-                <Container>
-                    <ReactIf condition={datasetSubscriptions.subscribedDatasets.length > 0}>
-                        <Row className='mt-4 mb-4'>
-                            {datasetsToDisplay}
-                        </Row>
-                    </ReactIf>
-                    <ReactIf condition={datasetSubscriptions.subscribedDatasets.length === 0}>
-                        <Error customMessage='No Subscriptions' />
-                    </ReactIf>
-                </Container>
-            </ReactIf>
-            <ReactIf condition={!datasetSubscriptions.isLoaded}>
-                <Loading />
-            </ReactIf>
-        </Fragment>
-    )
-}
 
 const ViewOneDatasetPage: FC = () => {
     const [hasClickedSubscribed, setClickedSubscribed] = useState(false)
@@ -157,4 +100,4 @@ const ViewOneDatasetPage: FC = () => {
     )
 }
 
-export { DatasetLibraryPage, ViewSubscriptionsPage, ViewOneDatasetPage } 
+export default ViewOneDatasetPage
