@@ -13,7 +13,7 @@ const HomePage = () => {
             <ReactIf condition={!localStorage.hasOwnProperty('accessToken')}>
                 <Container>
                     <div className='cover'>
-                        <p className="lead">{Constants.HomeTop}</p>
+                        <p className='lead'>{Constants.HomeTop}</p>
                         <p className='display-5'>
                             {Constants.HomeHeader1}<br />
                             {Constants.HomeHeader2}<br />
@@ -23,7 +23,7 @@ const HomePage = () => {
                             {Constants.HomeIntro1} <br />
                             {Constants.HomeIntro2} <br />
                         </p>
-                        <p className="lead">{Constants.HomeFooter}</p>
+                        <p className='lead'>{Constants.HomeFooter}</p>
                         <Link to='/auth' className='btn'>Get Started<i className='fa-solid fa-circle-arrow-right'></i></Link>
                     </div>
                 </Container>
