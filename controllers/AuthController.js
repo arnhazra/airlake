@@ -26,7 +26,7 @@ class AuthController {
 
             try {
                 let user = await UserModel.findOne({ email })
-                const otp = otpGenerator.generate(8, { upperCaseAlphabets: false, specialChars: false, lowerCaseAlphabets: false })
+                const otp = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false, lowerCaseAlphabets: false })
                 const hash = otptool.createNewOTP(email, otp, this.otpKey, 5, 'sha256')
                 await sendmail(email, otp)
                 if (user) {

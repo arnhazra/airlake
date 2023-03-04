@@ -86,7 +86,7 @@ const AuthPage = () => {
                             </FloatingLabel>
                         </ReactIf>
                         <FloatingLabel controlId='floatingPassword' label='Enter Auth Code'>
-                            <Form.Control type='password' name='otp' placeholder='Enter Auth Code' onChange={(e) => setState({ ...state, otp: e.target.value })} required autoComplete={'off'} minLength={8} maxLength={8} />
+                            <Form.Control type='password' name='otp' placeholder='Enter Auth Code' onChange={(e) => setState({ ...state, otp: e.target.value })} required autoComplete={'off'} minLength={6} maxLength={6} />
                         </FloatingLabel>
                         <p id='alert'>{alert}</p>
                         <button type='submit' className='mt-2 btn btnbox'>{state.newuser ? 'Set up the account' : 'Continue to the app'} {isLoading ? <i className='fas fa-circle-notch fa-spin'></i> : <i className='fa-solid fa-circle-arrow-right'></i>}</button>
