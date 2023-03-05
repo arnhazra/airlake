@@ -40,7 +40,6 @@ module.exports = async function (req, res, next) {
         }
 
         catch (error) {
-            console.log(error)
             if (error.name) {
                 if (error.name === 'JsonWebTokenError' || error.name === 'SyntaxError') {
                     return res.status(401).json({ msg: statusMessages.invalidToken })

@@ -114,7 +114,6 @@ class AuthController {
         }
 
         catch (error) {
-            console.log(error)
             return res.status(500).json({ msg: statusMessages.connectionError })
         }
     }
@@ -126,7 +125,6 @@ class AuthController {
         }
 
         catch (error) {
-            console.log(error)
             return res.status(500).json({ msg: statusMessages.connectionError })
         }
     }

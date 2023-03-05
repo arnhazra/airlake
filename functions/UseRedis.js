@@ -1,10 +1,11 @@
 const { createClient } = require('redis')
 const dotenv = require('dotenv')
+const statusMessages = require('../constants/Messages')
 const redis = createClient({ url: process.env.REDIS_URI })
 
 const connectRedis = async () => {
     await redis.connect()
-    console.log('Redis Connected')
+    console.log(statusMessages.redisConnected)
 }
 
 const setTokenInRedis = async (userId, accessToken) => {

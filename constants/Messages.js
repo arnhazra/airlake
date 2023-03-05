@@ -9,7 +9,8 @@ const statusMessages = {
     invalidToken: 'Invalid Token',
     invalidUser: 'Invalid User',
     mongoDbConnected: 'Mongo DB Connected',
-    mongoDbConnectionErr: 'Mongo DB Connection Error'
+    mongoDbConnectionErr: 'Mongo DB Connection Error',
+    redisConnected: 'Redis Connected'
 }
 
 module.exports = statusMessages
