@@ -4,7 +4,7 @@ const dotenv = require('dotenv').config()
 
 const MONGO_URI = process.env.MONGO_URI
 
-const Connection = async () => {
+const connectMongo = async () => {
     mongoose.connect(MONGO_URI, {
         useNewUrlParser: true,
         useUnifiedTopology: true
@@ -19,4 +19,4 @@ const Connection = async () => {
     })
 }
 
-module.exports = Connection
+module.exports = connectMongo

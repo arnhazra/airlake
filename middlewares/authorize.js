@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 const statusMessages = require('../constants/Messages')
+const { getTokenFromRedis } = require('../functions/UseRedis')
 const UserModel = require('../models/UserModel')
 const dotenv = require('dotenv').config()
 
@@ -19,11 +20,12 @@ module.exports = async function (req, res, next) {
             const user = await UserModel.findById(decoded.id)
 
             if (user) {
-                if (user.accessToken === '') {
+                const redisAccessToken = await getTokenFromRedis(user.id)
+                if (!redisAccessToken) {
                     return res.status(401).json({ msg: statusMessages.invalidToken })
                 }
 
-                else if (user.accessToken === accessToken) {
+                else if (redisAccessToken === accessToken) {
                     next()
                 }
 
@@ -38,12 +40,14 @@ module.exports = async function (req, res, next) {
         }
 
         catch (error) {
+            console.log(error)
             if (error.name) {
                 if (error.name === 'JsonWebTokenError' || error.name === 'SyntaxError') {
                     return res.status(401).json({ msg: statusMessages.invalidToken })
                 }
 
                 else {
+
                     return res.status(500).json({ msg: statusMessages.connectionError })
                 }
             }

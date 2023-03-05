@@ -12,10 +12,6 @@ const UserSchema = new mongoose.Schema({
         unique: true
     },
 
-    accessToken: {
-        type: String
-    },
-
     date: {
         type: Date,
         default: Date.now

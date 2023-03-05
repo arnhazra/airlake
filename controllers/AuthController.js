@@ -7,6 +7,7 @@ const otpGenerator = require('otp-generator')
 const { validationResult } = require('express-validator')
 const UserModel = require('../models/UserModel')
 const sendmail = require('../functions/SendMail')
+const { setTokenInRedis, getTokenFromRedis, removeTokenFromRedis } = require('../functions/UseRedis')
 
 class AuthController {
     constructor() {
@@ -61,15 +62,17 @@ class AuthController {
                     let user = await UserModel.findOne({ email })
 
                     if (user) {
-                        if (user.accessToken) {
-                            const accessToken = user.accessToken
+                        const redisAccessToken = await getTokenFromRedis(user.id)
+
+                        if (redisAccessToken) {
+                            const accessToken = redisAccessToken
                             return res.status(200).json({ authenticated: true, accessToken })
                         }
 
                         else {
                             const payload = { id: user.id, iss: endPoints.tokenIssuer }
                             const accessToken = jwt.sign(payload, this.jwtSecret)
-                            user.accessToken = accessToken
+                            await setTokenInRedis(user.id, accessToken)
                             await user.save()
                             return res.status(200).json({ authenticated: true, accessToken })
                         }
@@ -80,7 +83,7 @@ class AuthController {
                         user = new UserModel({ name, email })
                         const payload = { id: user.id, iss: endPoints.tokenIssuer }
                         const accessToken = jwt.sign(payload, this.jwtSecret)
-                        user.accessToken = accessToken
+                        await setTokenInRedis(user.id, accessToken)
                         await user.save()
                         return res.status(200).json({ authenticated: true, accessToken, user })
                     }
@@ -111,19 +114,19 @@ class AuthController {
         }
 
         catch (error) {
+            console.log(error)
             return res.status(500).json({ msg: statusMessages.connectionError })
         }
     }
 
     async signOut(req, res) {
         try {
-            const user = await UserModel.findById(req.id)
-            user.accessToken = ''
-            await user.save()
+            await removeTokenFromRedis(req.id)
             return res.status(200).json({ msg: statusMessages.signOutSuccess })
         }
 
         catch (error) {
+            console.log(error)
             return res.status(500).json({ msg: statusMessages.connectionError })
         }
     }
