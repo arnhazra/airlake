@@ -22,6 +22,7 @@ async function sendmail(email, otp) {
         let subject = 'Lenstack Authcode'
         let content = `Use ${otp} as your Authcode. Do not share with anyone.`
         transporter.sendMail({ from: user, to: email, subject: subject, html: content })
+        return true
     }
 
     catch (error) {
