@@ -4,16 +4,16 @@ import { useNavigate } from 'react-router-dom'
 import endPoints from '../constants/Endpoints'
 import toast from 'react-hot-toast'
 
-const useFilterCategories = () => {
-    const [state, setState] = useState({ categories: [], isLoaded: false })
+const useSortAndFilters = () => {
+    const [state, setState] = useState({ sortOptions: [], filterCategories: [], isLoaded: false })
     const navigate = useNavigate()
 
     useEffect(() => {
         (async () => {
             try {
                 axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`
-                const response = await axios.post(endPoints.datasetFilterCategoriesEndpoint)
-                setState({ ...state, categories: response.data.categories, isLoaded: true })
+                const response = await axios.post(endPoints.datasetSortAndFilterOptionsEndpoint)
+                setState({ ...state, sortOptions: response.data.sortOptions, filterCategories: response.data.filterCategories, isLoaded: true })
             }
 
             catch (error: any) {
@@ -33,4 +33,4 @@ const useFilterCategories = () => {
     return state
 }
 
-export default useFilterCategories
+export default useSortAndFilters

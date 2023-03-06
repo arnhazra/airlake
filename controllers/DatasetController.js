@@ -2,25 +2,15 @@ const statusMessages = require('../constants/Messages')
 const { validationResult } = require('express-validator')
 const DatasetModel = require('../models/DatasetModel')
 const SubscriptionModel = require('../models/SubscriptionModel')
-const sortObjects = require('../utils/sortObjects')
+const { sopt } = require('../utils/sortAndFilterOptions')
 
 class DatasetController {
-    async filterCategories(req, res) {
+    async getSortAndFilterOptions(req, res) {
         try {
-            const categories = await DatasetModel.find().distinct('category')
-            categories.push('All')
-            return res.status(200).json({ categories })
-        }
-
-        catch (error) {
-            return res.status(500).json({ msg: statusMessages.connectionError })
-        }
-    }
-
-    async getSortOptions(req, res) {
-        try {
-            const options = Object.keys(sortObjects)
-            return res.status(200).json({ options })
+            const sortOptions = Object.keys(sopt)
+            const filterCategories = await DatasetModel.find().distinct('category')
+            filterCategories.push('All')
+            return res.status(200).json({ sortOptions, filterCategories })
         }
 
         catch (error) {
@@ -30,7 +20,7 @@ class DatasetController {
 
     async getLibrary(req, res) {
         const selectedFilterCategory = req.body.selectedFilter === 'All' ? {} : { category: req.body.selectedFilter }
-        const selectedSortOption = sortObjects[req.body.selectedSortOption]
+        const selectedSortOption = sopt[req.body.selectedSortOption]
         const searchInput = req.body.searchInput.length > 0 && req.body.searchInput
 
         try {

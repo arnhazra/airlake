@@ -66,7 +66,7 @@ class AuthController {
 
                         if (redisAccessToken) {
                             const accessToken = redisAccessToken
-                            return res.status(200).json({ authenticated: true, accessToken })
+                            return res.status(200).json({ accessToken })
                         }
 
                         else {
@@ -74,7 +74,7 @@ class AuthController {
                             const accessToken = jwt.sign(payload, this.jwtSecret)
                             await setTokenInRedis(user.id, accessToken)
                             await user.save()
-                            return res.status(200).json({ authenticated: true, accessToken })
+                            return res.status(200).json({ accessToken })
                         }
                     }
 
@@ -85,17 +85,17 @@ class AuthController {
                         const accessToken = jwt.sign(payload, this.jwtSecret)
                         await setTokenInRedis(user.id, accessToken)
                         await user.save()
-                        return res.status(200).json({ authenticated: true, accessToken, user })
+                        return res.status(200).json({ accessToken, user })
                     }
                 }
 
                 else {
-                    return res.status(400).json({ authenticated: false, msg: statusMessages.invalidAuthCode })
+                    return res.status(400).json({ msg: statusMessages.invalidAuthCode })
                 }
             }
 
             catch (error) {
-                return res.status(500).json({ authenticated: false, msg: statusMessages.connectionError })
+                return res.status(500).json({ msg: statusMessages.connectionError })
             }
         }
     }

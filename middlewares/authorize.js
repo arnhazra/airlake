@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken')
 const statusMessages = require('../constants/Messages')
 const { getTokenFromRedis } = require('../functions/UseRedis')
 const dotenv = require('dotenv').config()
-
 const JWT_SECRET = process.env.JWT_SECRET
 
 module.exports = async function (req, res, next) {

@@ -1,11 +1,5 @@
 import { ReactNode } from 'react'
 
-export type CardProps = {
-    header: ReactNode,
-    body: ReactNode,
-    footer: ReactNode
-}
-
 export type DatasetCardProps = {
     id: string
     category: string,
@@ -20,8 +14,4 @@ export type ReactIfProps = {
 
 export type ErrorProps = {
     customMessage?: string
-}
-
-export type DatasetLibraryHeaderProps = {
-    datasetCount: number
 }

@@ -20,7 +20,7 @@ const DatasetLibraryPage: FC = () => {
         <Fragment>
             <ReactIf condition={datasetLibrary.isLoaded}>
                 <Container>
-                    <DatasetLibraryNav datasetCount={datasetLibrary.datasets.length} />
+                    <DatasetLibraryNav />
                     <Row className='mt-4 mb-4'>
                         {datasetsToDisplay}
                     </Row>

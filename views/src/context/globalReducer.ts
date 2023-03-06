@@ -1,12 +1,8 @@
-import { UserState } from '../types/States'
+import { UserState, DatasetRequestState } from '../types/States'
 
 export type GlobalState = {
     userState: UserState
-    datasetRequestState: {
-        searchInput: string,
-        selectedFilter: string,
-        selectedSortOption: string
-    }
+    datasetRequestState: DatasetRequestState
 }
 
 export type ActionsMap = {

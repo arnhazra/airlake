@@ -4,6 +4,12 @@ export type UserState = {
     isLoaded: boolean,
 }
 
+export type DatasetRequestState = {
+    searchInput: string,
+    selectedFilter: string,
+    selectedSortOption: string
+}
+
 export type LivePriceState = {
     inr: number,
     usd: number,

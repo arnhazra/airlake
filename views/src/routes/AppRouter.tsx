@@ -5,9 +5,9 @@ import ProtectedRoute from './ProtectedRoute'
 import GlobalStateProvider from '../context/globalStateProvider'
 import Layout from '../layout/Layout'
 import SuspenseLoading from '../components/SuspenseLoadingComponent'
-const AccountPage = lazy(() => import('../pages/AccountPage'))
 const HomePage = lazy(() => import('../pages/HomePage'))
 const AuthPage = lazy(() => import('../pages/AuthPage'))
+const AccountPage = lazy(() => import('../pages/AccountPage'))
 const WalletTransactionsPage = lazy(() => import('../pages/WalletTransactionsPage'))
 const BuyCoinPage = lazy(() => import('../pages/BuyCoinPage'))
 const SellCoinPage = lazy(() => import('../pages/SellCoinPage'))

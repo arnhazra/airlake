@@ -11,8 +11,7 @@ class DatasetRouter {
     }
 
     registerRoutes() {
-        this.router.post('/filtercategories', authorize, this.datasetController.filterCategories.bind(this.datasetController))
-        this.router.post('/sortoptions', authorize, this.datasetController.getSortOptions.bind(this.datasetController))
+        this.router.post('/getsortandfilteroptions', authorize, this.datasetController.getSortAndFilterOptions.bind(this.datasetController))
         this.router.post('/library', authorize, this.datasetController.getLibrary.bind(this.datasetController))
         this.router.post('/mysubscriptions', authorize, this.datasetController.getMySubscriptions.bind(this.datasetController))
         this.router.post('/viewone/:datasetId', authorize, this.datasetController.viewOneDataset.bind(this.datasetController))

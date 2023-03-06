@@ -1,4 +1,4 @@
-const sortObjects = {
+const sopt = {
     'Name Ascending': { name: 1 },
     'Name Descending': { name: -1 },
     'Price Ascending': { price: 1 },
@@ -6,4 +6,4 @@ const sortObjects = {
     'Freshness': { _id: - 1 }
 }
 
-module.exports = sortObjects
+module.exports = { sopt }
