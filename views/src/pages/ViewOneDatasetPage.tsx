@@ -34,7 +34,6 @@ const ViewOneDatasetPage: FC = () => {
             } catch (error) {
                 toast.error('Something went wrong')
             }
-
         }
 
         else {

@@ -12,7 +12,6 @@ const useIsSubscribed = ({ id, hasClickedSubscribed }: UseIsSubscribed) => {
     useEffect(() => {
         (async () => {
             try {
-                axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`
                 const response = await axios.post(`${endPoints.checkSubscriptionEndpoint}/${id}`)
                 setState({ isSubscribed: response.data.isSubscribed, subscriptionId: response.data.subscriptionId, isLoaded: true })
             }

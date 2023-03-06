@@ -11,7 +11,6 @@ const useFindSimilarDatasets = ({ id }: GenericIdType) => {
 
     const findSimilarDatasets = async () => {
         try {
-            axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`
             const response = await axios.post(`${endPoints.findsimilarDatasets}/${id}`)
             setState({ ...state, similarDatasets: response.data.similarDatasets, isLoaded: true })
         }

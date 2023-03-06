@@ -11,7 +11,6 @@ const useSortAndFilters = () => {
     useEffect(() => {
         (async () => {
             try {
-                axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`
                 const response = await axios.post(endPoints.datasetSortAndFilterOptionsEndpoint)
                 setState({ ...state, sortOptions: response.data.sortOptions, filterCategories: response.data.filterCategories, isLoaded: true })
             }

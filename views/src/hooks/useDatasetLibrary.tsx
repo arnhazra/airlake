@@ -12,7 +12,6 @@ const useDatasetLibrary = ({ searchInput, selectedFilter, selectedSortOption }: 
     useEffect(() => {
         (async () => {
             try {
-                axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`
                 const response = await axios.post(endPoints.datasetLibraryEndpoint, { selectedSortOption, selectedFilter, searchInput })
                 setState({ datasets: response.data.datasets, isLoaded: true })
             }

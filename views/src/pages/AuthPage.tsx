@@ -39,7 +39,6 @@ const AuthPage = () => {
 
         try {
             const response = await axios.post(endPoints.verifyAuthCodeEndpoint, state)
-            axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`
             localStorage.setItem('accessToken', response.data.accessToken)
             setAlert('Successfully authenticated')
             setLoading(false)

@@ -11,7 +11,6 @@ const useTransactionData = () => {
     useEffect(() => {
         (async () => {
             try {
-                axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`
                 const response = await axios.post(endPoints.walletTransactionEndpoint)
                 setState({ ...state, transactions: response.data.transactions, isLoaded: true })
             }

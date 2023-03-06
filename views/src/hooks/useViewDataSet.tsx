@@ -10,7 +10,6 @@ const useViewDataset = ({ id }: GenericIdType) => {
 
     const getDatasetView = async () => {
         try {
-            axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`
             const response = await axios.post(`${endPoints.datasetViewEndpoint}/${id}`)
             const { _id, name, description, category, price } = response.data.metadata
             setState({ ...state, id: _id, name: name, description: description, category: category, price: price, dataLength: response.data.dataLength, isLoaded: true })

@@ -10,7 +10,6 @@ const useViewSubscriptions = () => {
 
     const getDatasetLibraryData = async () => {
         try {
-            axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`
             const response = await axios.post(endPoints.datasetSubscriptionEndpoint)
             setState({ ...state, subscribedDatasets: response.data.subscribedDatasets, isLoaded: true })
         }

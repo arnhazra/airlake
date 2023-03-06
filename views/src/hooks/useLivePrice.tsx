@@ -11,7 +11,6 @@ const useLivePrice = () => {
 
     const getLivePrice = async () => {
         try {
-            axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`
             const response = await axios.post(endPoints.walletLivePriceEndpoint)
             setState({ inr: response.data.ethereum.inr, usd: response.data.ethereum.usd, eur: response.data.ethereum.eur, isLoaded: true })
         }
