@@ -19,10 +19,9 @@ async function sendmail(email, otp) {
             service: 'gmail',
             auth: { type: 'OAuth2', user, clientId, clientSecret, refreshToken, accessToken }
         })
-        let subject = 'Lenstack Authcode'
-        let content = `Use ${otp} as your Authcode. Do not share with anyone.`
-        transporter.sendMail({ from: user, to: email, subject: subject, html: content })
-        return true
+        const subject = 'Lenstack Authcode'
+        const content = `Use ${otp} as your Authcode. Do not share with anyone.`
+        await transporter.sendMail({ from: user, to: email, subject: subject, html: content })
     }
 
     catch (error) {
