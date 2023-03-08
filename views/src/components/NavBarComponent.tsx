@@ -36,6 +36,7 @@ const NavBar: FC = () => {
                                     type='text'
                                     placeholder='Search Library'
                                     className='searchbar-navbar'
+                                    maxLength={40}
                                     aria-label='Search'
                                     onClick={(): void => navigate('/dataset/library')}
                                     onChange={debouncedChangeHandler}

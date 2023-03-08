@@ -11,8 +11,8 @@ const { setTokenInRedis, getTokenFromRedis, removeTokenFromRedis } = require('..
 
 class AuthController {
     constructor() {
-        this.jwtSecret = process.env.JWT_SECRET
         this.otpKey = process.env.OTP_KEY
+        this.rsaPrivateKey = process.env.RSA_PRIVATE_KEY
     }
 
     async generateAuthCode(req, res) {
@@ -70,8 +70,8 @@ class AuthController {
                         }
 
                         else {
-                            const payload = { id: user.id, iss: endPoints.tokenIssuer }
-                            const accessToken = jwt.sign(payload, this.jwtSecret)
+                            const payload = { id: user.id, email: user.email, iss: endPoints.tokenIssuer }
+                            const accessToken = jwt.sign(payload, this.rsaPrivateKey, { algorithm: 'RS512' })
                             await setTokenInRedis(user.id, accessToken)
                             await user.save()
                             return res.status(200).json({ accessToken })
@@ -81,8 +81,8 @@ class AuthController {
                     else {
                         const { name } = req.body || 'No Name'
                         user = new UserModel({ name, email })
-                        const payload = { id: user.id, iss: endPoints.tokenIssuer }
-                        const accessToken = jwt.sign(payload, this.jwtSecret)
+                        const payload = { id: user.id, email: user.email, iss: endPoints.tokenIssuer }
+                        const accessToken = jwt.sign(payload, this.rsaPrivateKey, { algorithm: 'RS512' })
                         await setTokenInRedis(user.id, accessToken)
                         await user.save()
                         return res.status(200).json({ accessToken, user })
@@ -102,7 +102,7 @@ class AuthController {
 
     async checkAuth(req, res) {
         try {
-            const user = await UserModel.findById(req.id).select('-password').select('-date')
+            const user = await UserModel.findById(req.id).select('-date')
 
             if (user) {
                 return res.status(200).json({ user })
