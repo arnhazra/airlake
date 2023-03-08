@@ -1,12 +1,22 @@
-import { FC, Fragment, useContext } from 'react'
+import debounce from 'lodash.debounce'
+import { ChangeEvent, FC, Fragment, useContext, useMemo } from 'react'
 import { Container, Navbar, Nav, Form } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import { GlobalContext } from '../context/globalStateProvider'
 import ReactIf from './ReactIfComponent'
 
 const NavBar: FC = () => {
-    const [{ userState }, dispatch] = useContext(GlobalContext)
+    const [, dispatch] = useContext(GlobalContext)
     const navigate = useNavigate()
+
+    const searchChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
+        dispatch('setDatasetRequestState', { searchInput: event.target.value })
+    }
+
+    const debouncedChangeHandler = useMemo(() =>
+        debounce(searchChangeHandler, 1000),
+        []
+    )
 
     return (
         <Fragment>
@@ -28,7 +38,7 @@ const NavBar: FC = () => {
                                     className='searchbar-navbar'
                                     aria-label='Search'
                                     onClick={(): void => navigate('/dataset/library')}
-                                    onChange={(e): void => dispatch('setDatasetRequestState', { searchInput: e.target.value })}
+                                    onChange={debouncedChangeHandler}
                                 />
                             </Form>
                         </Navbar.Collapse>
