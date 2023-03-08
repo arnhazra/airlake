@@ -2,10 +2,14 @@
   "files": {
     "main.css": "/static/css/main.54210969.css",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "main.js": "/static/js/main.9d2de8c0.js",
 =======
     "main.js": "/static/js/main.7ced8449.js",
 >>>>>>> parent of 5958ef9 (autodeploy)
+=======
+    "main.js": "/static/js/main.2b1c88ee.js",
+>>>>>>> parent of 308d51f (autodeploy)
     "static/js/290.15cb63be.chunk.js": "/static/js/290.15cb63be.chunk.js",
     "static/js/892.cc920f5d.chunk.js": "/static/js/892.cc920f5d.chunk.js",
     "static/js/961.22d43f71.chunk.js": "/static/js/961.22d43f71.chunk.js",
@@ -28,9 +32,13 @@
   "entrypoints": [
     "static/css/main.54210969.css",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "static/js/main.9d2de8c0.js"
 =======
     "static/js/main.7ced8449.js"
 >>>>>>> parent of 5958ef9 (autodeploy)
+=======
+    "static/js/main.2b1c88ee.js"
+>>>>>>> parent of 308d51f (autodeploy)
   ]
 }
