@@ -8,6 +8,7 @@ const DatasetRouter = require('./routes/DatasetRouter')
 const WalletRouter = require('./routes/WalletRouter')
 const AuthRouter = require('./routes/AuthRouter')
 const { connectRedis } = require('./functions/UseRedis')
+const { developmentOrigin, productionOrigin } = require('./constants/Origins')
 
 const subscriptionRouter = new SubscriptionRouter()
 const datasetRouter = new DatasetRouter()
@@ -15,7 +16,18 @@ const walletRouter = new WalletRouter()
 const authRouter = new AuthRouter()
 const app = express()
 app.listen(process.env.PORT)
-app.use(cors())
+const allowedOrigins = [developmentOrigin, productionOrigin]
+
+app.use(cors({
+    origin: function (origin, callback) {
+        if (allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    }
+}))
+
 app.use(express.json({ extended: false, limit: '5mb' }))
 connectMongo()
 connectRedis()
