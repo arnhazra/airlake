@@ -27,7 +27,6 @@ module.exports = async function (req, res, next) {
         }
 
         catch (error) {
-            console.log(error)
             if (error instanceof jwt.JsonWebTokenError || error instanceof SyntaxError || error instanceof jwt.TokenExpiredError) {
                 return res.status(401).json({ msg: statusMessages.invalidToken })
             }
