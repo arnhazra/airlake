@@ -1,3 +1,5 @@
+# Lenstack Dependencies
+
 * cors - Enables Cross-Origin Resource Sharing for Express middleware.
 * dotenv - Loads environment variables from a .env file.
 * express - Fast and minimalist web framework for Node.js to build APIs.
