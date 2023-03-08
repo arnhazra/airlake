@@ -3,7 +3,6 @@
 ## [Current - v1.1 - Lenstack]
 * Debounced search for better performance.
 * Integrated Redis for faster authorization checks, storing auth tokens for which MongoDB was the earlier option.
-* Replaced HS256 with RS512 JWT which uses Public & Private key for better security
 * Single & Multi device signouts
 
 ## [v1.0 - Lenstack]
