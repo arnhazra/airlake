@@ -5,7 +5,7 @@
             "use": "@vercel/node"
         },
         {
-            "src": "./client/.next/server/pages",
+            "src": "./views/build",
             "use": "@vercel/static"
         }
     ],
