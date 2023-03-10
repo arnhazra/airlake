@@ -23,7 +23,7 @@ const NavBar: FC = () => {
             <ReactIf condition={localStorage.hasOwnProperty('accessToken')}>
                 <Navbar className='navbar-authorized' variant='dark' expand='lg' style={{ zoom: 0.85 }}>
                     <Container>
-                        <Link to='/dataset/library'><Navbar.Brand>Lenstack</Navbar.Brand></Link>
+                        <Link to='/dataset/library'><Navbar.Brand style={{ fontSize: '1.3rem' }}>Lenstack</Navbar.Brand></Link>
                         <Navbar.Toggle aria-controls='navbarScroll' />
                         <Navbar.Collapse id='navbarScroll'>
                             <Nav className='me-auto my-2 my-lg-0' style={{ maxHeight: '8rem' }} navbarScroll>
@@ -34,6 +34,7 @@ const NavBar: FC = () => {
                             <Form className='d-flex'>
                                 <Form.Control
                                     type='text'
+                                    disabled={window.location.pathname !== '/dataset/library'}
                                     placeholder='Search Library'
                                     className='searchbar-navbar'
                                     maxLength={40}
@@ -50,7 +51,7 @@ const NavBar: FC = () => {
                 <Navbar className='navbar-unauthorized' variant='dark' expand='lg'>
                     <Container>
                         <Link to='/'>
-                            <Navbar.Brand>Lenstack</Navbar.Brand>
+                            <Navbar.Brand style={{ fontSize: '1.3rem' }}>Lenstack</Navbar.Brand>
                         </Link>
                         <Navbar.Toggle></Navbar.Toggle>
                         <Navbar.Collapse>
