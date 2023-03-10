@@ -1,5 +1,6 @@
 const statusMessages = require('../constants/Messages')
 const { validationResult } = require('express-validator')
+const Fuse = require('fuse.js')
 const DatasetModel = require('../models/DatasetModel')
 const SubscriptionModel = require('../models/SubscriptionModel')
 const { sopt } = require('../utils/sortAndFilterOptions')
@@ -21,16 +22,21 @@ class DatasetController {
     async getLibrary(req, res) {
         const selectedFilterCategory = req.body.selectedFilter === 'All' ? {} : { category: req.body.selectedFilter }
         const selectedSortOption = sopt[req.body.selectedSortOption]
-        const searchInput = req.body.searchInput.length > 0 && req.body.searchInput
+        const searchQuery = req.body.searchInput.length > 0 && req.body.searchInput
 
         try {
             const datasets = await DatasetModel.find(selectedFilterCategory).select('-data').select('-description').sort(selectedSortOption)
 
             if (req.body.searchInput.length > 0) {
-                const filteredDatasets = datasets.filter((dataset) => {
-                    return dataset.name.toLowerCase().includes(searchInput)
-                })
-                return res.status(200).json({ datasets: filteredDatasets })
+                const searchOptions = {
+                    keys: ['name', 'category'],
+                    includeScore: true,
+                    threshold: 0.4,
+                }
+                const fuse = new Fuse(datasets, searchOptions)
+                const filteredDatasets = fuse.search(searchQuery)
+                const convertedFilteredDatasets = filteredDatasets.map(result => result.item)
+                return res.status(200).json({ datasets: convertedFilteredDatasets })
             }
 
             else {
@@ -39,6 +45,7 @@ class DatasetController {
         }
 
         catch (error) {
+            console.log(error)
             return res.status(500).json({ msg: statusMessages.connectionError })
         }
     }

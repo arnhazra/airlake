@@ -1,12 +1,16 @@
 # Lenstack Changelog
 
-## [Current - v1.2 - Lenstack]
+## [Current - v1.3 - Lenstack]
+* Integrated Fuzzy search algorithm for better user experience.
+* Replaced HS256 with RS512 JWT which uses Public & Private key for better security.
+
+## [v1.2 - Lenstack]
 * Debounced search for better performance.
-* Replaced HS256 with RS512 JWT which uses Public & Private key for better security
+* Integrated React suspense for high performance initial load.
 
 ## [v1.1 - Lenstack]
 * Integrated Redis for faster authorization checks, storing auth tokens for which MongoDB was the earlier option.
-* Single & Multi device signouts
+* Single & Multi device signouts.
 
 ## [v1.0 - Lenstack]
 * All the major functionalities.

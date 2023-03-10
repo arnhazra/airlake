@@ -25,3 +25,4 @@
 * typescript - Typed superset of JavaScript that compiles to plain JavaScript.
 * web-vitals - Library for measuring vital performance metrics of a web page.
 * web3 - Ethereum JavaScript API for interacting with the Ethereum blockchain.
+* fuse.js - Fuzzy searching - more formally known as approximate string matching is the technique of finding approx values
