@@ -4,12 +4,10 @@
   "description": "Project Lenstack",
   "main": "app.js",
   "scripts": {
-    "initialize": "npm install && npm install --prefix views",
     "start": "node app",
     "api": "nodemon app",
     "views": "npm start --prefix views",
-    "client": "npm run dev --prefix client",
-    "dev": "concurrently \"npm run api\" \"npm run client\"",
+    "dev": "concurrently \"npm run api\" \"npm run views\"",
     "deploy": "npm run build --prefix views && git fetch -a && git checkout master && git add . && git commit -m autodeploy && git push origin master"
   },
   "keywords": [],

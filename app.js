@@ -25,7 +25,9 @@ app.use('/api/dataset', datasetRouter.getRouter())
 app.use('/api/wallet', walletRouter.getRouter())
 app.use('/api/auth', authRouter.getRouter())
 
-app.use(express.static(path.join(__dirname, 'views', 'build'), { maxAge: 60000 }))
-app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'build', 'index.html'))
-})
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, 'views', 'build'), { maxAge: 60000 }))
+    app.get('/*', (req, res) => {
+        res.sendFile(path.join(__dirname, 'views', 'build', 'index.html'))
+    })
+}
