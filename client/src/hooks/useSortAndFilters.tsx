@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
 import endPoints from '../constants/Endpoints'
 import toast from 'react-hot-toast'
+import { useRouter } from 'next/router'
 
 const useSortAndFilters = () => {
     const [state, setState] = useState({ sortOptions: [], filterCategories: [], isLoaded: false })
-    const navigate = useNavigate()
+    const router = useRouter()
 
     useEffect(() => {
         (async () => {
@@ -18,7 +18,7 @@ const useSortAndFilters = () => {
             catch (error: any) {
                 if (error.response.status === 401) {
                     localStorage.removeItem('accessToken')
-                    navigate('/')
+                    router.push('/')
                 }
 
                 else {

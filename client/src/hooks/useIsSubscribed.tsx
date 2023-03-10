@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { useRouter } from 'next/router'
 import endPoints from '../constants/Endpoints'
 import { UseIsSubscribed } from '../types/States'
 import { toast } from 'react-hot-toast'
 
 const useIsSubscribed = ({ id, hasClickedSubscribed }: UseIsSubscribed) => {
     const [state, setState] = useState({ isSubscribed: false, subscriptionId: '', isLoaded: false })
-    const navigate = useNavigate()
+    const router = useRouter()
 
     useEffect(() => {
         (async () => {
@@ -19,7 +19,7 @@ const useIsSubscribed = ({ id, hasClickedSubscribed }: UseIsSubscribed) => {
             catch (error: any) {
                 if (error.response.status === 401) {
                     localStorage.removeItem('accessToken')
-                    navigate('/')
+                    router.push('/')
                 }
 
                 else {

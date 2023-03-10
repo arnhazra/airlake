@@ -1,9 +1,9 @@
 import debounce from 'lodash.debounce'
 import { ChangeEvent, FC, Fragment, useContext, useEffect, useMemo, useState } from 'react'
 import { Container, Navbar, Nav, Form } from 'react-bootstrap'
-import { GlobalContext } from '../context/globalStateProvider'
 import ReactIf from './ReactIfComponent'
 import Link from 'next/link'
+import { GlobalContext } from '@/context/globalStateProvider'
 
 const NavBar: FC = () => {
     const [, dispatch] = useContext(GlobalContext)
@@ -28,7 +28,7 @@ const NavBar: FC = () => {
             <ReactIf condition={isAuthorized}>
                 <Navbar className='navbar-authorized' variant='dark' expand='lg' style={{ zoom: 0.85 }}>
                     <Container>
-                        <Link href='/dataset/library'>
+                        <Link href='/datasetlibrary'>
                             <Navbar.Brand style={{ fontSize: '1.3rem' }}>
                                 Lenstack
                             </Navbar.Brand>
@@ -36,12 +36,12 @@ const NavBar: FC = () => {
                         <Navbar.Toggle aria-controls='navbarScroll' />
                         <Navbar.Collapse id='navbarScroll'>
                             <Nav className='me-auto my-2 my-lg-0' style={{ maxHeight: '8rem' }} navbarScroll>
-                                <Link href='/dataset/subscriptions'>
+                                <Link href='/subscriptions'>
                                     <Navbar.Brand>
                                         Subscriptions
                                     </Navbar.Brand>
                                 </Link>
-                                <Link href='/wallet/transactions'>
+                                <Link href='/transactions'>
                                     <Navbar.Brand>
                                         Wallet
                                     </Navbar.Brand>
@@ -69,7 +69,7 @@ const NavBar: FC = () => {
             <ReactIf condition={!isAuthorized}>
                 <Navbar className='navbar-unauthorized' variant='dark' expand='lg'>
                     <Container>
-                        <Link href='/'>
+                        <Link href="/" >
                             <Navbar.Brand style={{ fontSize: '1.3rem' }}>
                                 Lenstack
                             </Navbar.Brand>

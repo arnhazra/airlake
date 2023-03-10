@@ -1,2 +1,4 @@
 node_modules
 .env
+client\.next\cache
+client\.next\static

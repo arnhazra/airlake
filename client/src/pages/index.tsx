@@ -3,6 +3,7 @@ import { Fragment, useEffect, useState } from 'react'
 import Constants from '../constants/Constants'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import NavBar from '@/components/NavBarComponent'
 
 const HomePage = () => {
 	const router = useRouter()

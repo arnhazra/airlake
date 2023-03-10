@@ -3,11 +3,11 @@ import axios from 'axios'
 import endPoints from '../constants/Endpoints'
 import { LivePriceState } from '../types/States'
 import { toast } from 'react-hot-toast'
-import { useNavigate } from 'react-router-dom'
+import { useRouter } from 'next/router'
 
 const useLivePrice = () => {
     const [state, setState] = useState<LivePriceState>({ inr: 0, usd: 0, eur: 0, isLoaded: false })
-    const navigate = useNavigate()
+    const router = useRouter()
 
     const getLivePrice = async () => {
         try {
@@ -18,7 +18,7 @@ const useLivePrice = () => {
         catch (error: any) {
             if (error.response.status === 401) {
                 localStorage.removeItem('accessToken')
-                navigate('/')
+                router.push('/')
             }
 
             else {

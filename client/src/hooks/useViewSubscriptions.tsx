@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
 import endPoints from '../constants/Endpoints'
 import { toast } from 'react-hot-toast'
+import { useRouter } from 'next/router'
 
 const useViewSubscriptions = () => {
     const [state, setState] = useState({ subscribedDatasets: [], isLoaded: false })
-    const navigate = useNavigate()
+    const router = useRouter()
 
     const getDatasetLibraryData = async () => {
         try {
@@ -17,7 +17,7 @@ const useViewSubscriptions = () => {
         catch (error: any) {
             if (error.response.status === 401) {
                 localStorage.removeItem('accessToken')
-                navigate('/')
+                router.push('/')
             }
 
             else {

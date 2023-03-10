@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { useRouter } from 'next/router'
 import endPoints from '../constants/Endpoints'
 import { toast } from 'react-hot-toast'
 
 const useTransactionData = () => {
     const [state, setState] = useState({ transactions: [], isLoaded: false })
-    const navigate = useNavigate()
+    const router = useRouter()
 
     useEffect(() => {
         (async () => {
@@ -18,7 +18,7 @@ const useTransactionData = () => {
             catch (error: any) {
                 if (error.response.status === 401) {
                     localStorage.removeItem('accessToken')
-                    navigate('/')
+                    router.push('/')
                 }
 
                 else {

@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import toast from 'react-hot-toast'
-import { useNavigate } from 'react-router-dom'
 import endPoints from '../constants/Endpoints'
 import { UseDatasetLibrary } from '../types/States'
+import { useRouter } from 'next/router'
 
 const useDatasetLibrary = ({ searchInput, selectedFilter, selectedSortOption }: UseDatasetLibrary) => {
     const [state, setState] = useState({ datasets: [], isLoaded: false })
-    const navigate = useNavigate()
+    const router = useRouter()
 
     useEffect(() => {
         (async () => {
@@ -19,7 +19,7 @@ const useDatasetLibrary = ({ searchInput, selectedFilter, selectedSortOption }: 
             catch (error: any) {
                 if (error.response.status === 401) {
                     localStorage.removeItem('accessToken')
-                    navigate('/')
+                    router.push('/')
                 }
 
                 else {
