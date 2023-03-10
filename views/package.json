@@ -54,5 +54,6 @@
   },
   "overrides": {
     "@svgr/webpack": "$@svgr/webpack"
-  }
+  },
+  "proxy": "http://localhost:7000"
 }
