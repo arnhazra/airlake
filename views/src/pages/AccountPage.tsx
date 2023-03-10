@@ -28,7 +28,7 @@ const AccountPage = () => {
     return (
         <Fragment>
             <div className='box'>
-                <p className='branding'>Account</p>
+                <p className='branding'>Account Page</p>
                 <p className='boxtext'>Access your account information and manage your preference</p>
                 <p className='boxtext'>Signed in as {userState.name}</p>
                 <button className='mt-2 btn btnbox' onClick={signOut}>Sign Out<i className='fa-solid fa-circle-arrow-right'></i></button><br />
