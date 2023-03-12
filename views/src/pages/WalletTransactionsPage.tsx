@@ -20,7 +20,7 @@ const WalletTransactionsPage = () => {
                 <td>{tx.lstAmount} LST</td>
                 <td>{tx.ethAmount} ETH</td>
                 <td>{moment(tx.date).format('MMM, Do YYYY, h:mm a')}</td>
-                <td><a href={`${endPoints.etherScanEndpoint}/${tx.txHash}`} target='_blank' rel='noopener noreferrer'>View on EtherScan</a></td>
+                <td><a href={`${endPoints.etherScanEndpoint}/${tx.txHash}`} target='_blank' rel='noopener noreferrer' className='link-table'>View on EtherScan</a></td>
             </tr>
         )
     })
@@ -32,7 +32,7 @@ const WalletTransactionsPage = () => {
                     <div className='jumbotron mt-4 pl-5'>
                         <p className='display-4'>Wallet</p>
                         <div key={'liveprice'}>
-                            <Table responsive hover variant='light'>
+                            <Table responsive hover variant='dark'>
                                 <thead>
                                     <tr>
                                         <th>Crypto</th>
@@ -65,7 +65,7 @@ const WalletTransactionsPage = () => {
                         </div>
                     </div>
                     <ReactIf condition={transactions.transactions.length > 0}>
-                        <Table responsive hover variant='light'>
+                        <Table responsive hover variant='dark'>
                             <thead>
                                 <tr>
                                     <th>Event</th>

@@ -22,12 +22,12 @@ class DatasetController {
     async getLibrary(req, res) {
         const selectedFilterCategory = req.body.selectedFilter === 'All' ? {} : { category: req.body.selectedFilter }
         const selectedSortOption = sopt[req.body.selectedSortOption]
-        const searchQuery = req.body.searchInput.length > 0 && req.body.searchInput
+        const searchQuery = req.body.searchQuery.length > 0 && req.body.searchQuery
 
         try {
             const datasets = await DatasetModel.find(selectedFilterCategory).select('-data').select('-description').sort(selectedSortOption)
 
-            if (req.body.searchInput.length > 0) {
+            if (req.body.searchQuery.length > 0) {
                 const searchOptions = {
                     keys: ['name', 'category'],
                     includeScore: true,
@@ -45,7 +45,6 @@ class DatasetController {
         }
 
         catch (error) {
-            console.log(error)
             return res.status(500).json({ msg: statusMessages.connectionError })
         }
     }

@@ -10,7 +10,8 @@ const NavBar: FC = () => {
     const navigate = useNavigate()
 
     const searchChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
-        dispatch('setDatasetRequestState', { searchInput: event.target.value })
+        dispatch('setDatasetRequestState', { searchQuery: event.target.value })
+        navigate('/dataset/library')
     }
 
     const debouncedChangeHandler = useMemo(() =>
@@ -34,12 +35,10 @@ const NavBar: FC = () => {
                             <Form className='d-flex'>
                                 <Form.Control
                                     type='text'
-                                    disabled={window.location.pathname !== '/dataset/library'}
                                     placeholder='Search Library'
                                     className='searchbar-navbar'
                                     maxLength={40}
                                     aria-label='Search'
-                                    onClick={(): void => navigate('/dataset/library')}
                                     onChange={debouncedChangeHandler}
                                 />
                             </Form>

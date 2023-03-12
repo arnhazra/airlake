@@ -5,7 +5,7 @@ export type UserState = {
 }
 
 export type DatasetRequestState = {
-    searchInput: string,
+    searchQuery: string,
     selectedFilter: string,
     selectedSortOption: string
 }
@@ -18,7 +18,7 @@ export type LivePriceState = {
 }
 
 export type UseDatasetLibrary = {
-    searchInput: string,
+    searchQuery: string,
     selectedFilter: string,
     selectedSortOption: string
 }

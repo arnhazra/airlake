@@ -5,14 +5,14 @@ import { useNavigate } from 'react-router-dom'
 import endPoints from '../constants/Endpoints'
 import { UseDatasetLibrary } from '../types/States'
 
-const useDatasetLibrary = ({ searchInput, selectedFilter, selectedSortOption }: UseDatasetLibrary) => {
+const useDatasetLibrary = ({ searchQuery, selectedFilter, selectedSortOption }: UseDatasetLibrary) => {
     const [state, setState] = useState({ datasets: [], isLoaded: false })
     const navigate = useNavigate()
 
     useEffect(() => {
         (async () => {
             try {
-                const response = await axios.post(endPoints.datasetLibraryEndpoint, { selectedSortOption, selectedFilter, searchInput })
+                const response = await axios.post(endPoints.datasetLibraryEndpoint, { selectedSortOption, selectedFilter, searchQuery })
                 setState({ datasets: response.data.datasets, isLoaded: true })
             }
 
@@ -28,7 +28,7 @@ const useDatasetLibrary = ({ searchInput, selectedFilter, selectedSortOption }: 
                 }
             }
         })()
-    }, [selectedSortOption, selectedFilter, searchInput])
+    }, [selectedSortOption, selectedFilter, searchQuery])
 
     return state
 }

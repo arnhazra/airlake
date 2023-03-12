@@ -14,7 +14,7 @@ const initialState = {
     },
 
     datasetRequestState: {
-        searchInput: '',
+        searchQuery: '',
         selectedFilter: 'All',
         selectedSortOption: 'Freshness'
     },
