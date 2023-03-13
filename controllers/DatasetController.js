@@ -3,15 +3,14 @@ const { validationResult } = require('express-validator')
 const Fuse = require('fuse.js')
 const DatasetModel = require('../models/DatasetModel')
 const SubscriptionModel = require('../models/SubscriptionModel')
-const { sopt } = require('../utils/sortAndFilterOptions')
+const sortOptions = require('../utils/sortOptions')
 
 class DatasetController {
     async getSortAndFilterOptions(req, res) {
         try {
-            const sortOptions = Object.keys(sopt)
             const filterCategories = await DatasetModel.find().distinct('category')
             filterCategories.push('All')
-            return res.status(200).json({ sortOptions, filterCategories })
+            return res.status(200).json({ sortOptions: Object.keys(sortOptions), filterCategories })
         }
 
         catch (error) {
@@ -21,7 +20,7 @@ class DatasetController {
 
     async getLibrary(req, res) {
         const selectedFilterCategory = req.body.selectedFilter === 'All' ? {} : { category: req.body.selectedFilter }
-        const selectedSortOption = sopt[req.body.selectedSortOption]
+        const selectedSortOption = sortOptions[req.body.selectedSortOption]
         const searchQuery = req.body.searchQuery.length > 0 && req.body.searchQuery
 
         try {

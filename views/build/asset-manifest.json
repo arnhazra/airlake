@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/static/css/main.f7ac4ea0.css",
+    "main.css": "/static/css/main.676b1abd.css",
     "main.js": "/static/js/main.48330ecf.js",
     "static/js/290.15cb63be.chunk.js": "/static/js/290.15cb63be.chunk.js",
     "static/js/892.c906eb2f.chunk.js": "/static/js/892.c906eb2f.chunk.js",
@@ -14,17 +14,17 @@
     "static/js/372.b1af9a5f.chunk.js": "/static/js/372.b1af9a5f.chunk.js",
     "static/js/230.4cb9debf.chunk.js": "/static/js/230.4cb9debf.chunk.js",
     "static/media/hero.jpg": "/static/media/hero.5796100dc3dbf34a7315.jpg",
-    "static/media/books.jpg": "/static/media/books.a1923cee58a864fd958b.jpg",
-    "static/media/sports.jpg": "/static/media/sports.bf477818369aea2b0d17.jpg",
     "static/media/generic.jpg": "/static/media/generic.df594895f29b794579b2.jpg",
     "static/media/geography.jpg": "/static/media/geography.6edaba0a1636f3c8db91.jpg",
+    "static/media/sports.jpg": "/static/media/sports.0d3780a41e532f9f20cf.jpg",
+    "static/media/books.jpg": "/static/media/books.1d96b441b0b9cc01aaea.jpg",
     "static/media/finance.jpg": "/static/media/finance.4518d5cbd02554aa7675.jpg",
     "static/media/entertainment.jpg": "/static/media/entertainment.e39770db63a85eb88d8c.jpg",
     "static/media/science.jpg": "/static/media/science.317bbfa4fd9c1da6f49f.jpg",
     "index.html": "/index.html"
   },
   "entrypoints": [
-    "static/css/main.f7ac4ea0.css",
+    "static/css/main.676b1abd.css",
     "static/js/main.48330ecf.js"
   ]
 }
