@@ -26,8 +26,8 @@ app.use('/api/wallet', walletRouter.getRouter())
 app.use('/api/auth', authRouter.getRouter())
 
 if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, 'views', 'build'), { maxAge: 60000 }))
+    app.use(express.static(path.join(__dirname, 'view', 'out')))
     app.get('/*', (req, res) => {
-        res.sendFile(path.join(__dirname, 'views', 'build', 'index.html'))
+        res.sendFile(path.join(__dirname, 'view', 'out', 'index.html'))
     })
 }

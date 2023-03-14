@@ -5,7 +5,7 @@
             "use": "@vercel/node"
         },
         {
-            "src": "./views/build",
+            "src": "./view/out",
             "use": "@vercel/static"
         }
     ],
