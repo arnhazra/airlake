@@ -1,10 +1,6 @@
 node_modules
 .env
-/view/.next/cache
-/view/.next/static
-/view/.next/*.json
-/view/.next/trace
-/view/out/
+/view/.next
 /view/build
 /view/.vercel
 /view/*.tsbuildinfo

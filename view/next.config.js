@@ -3,7 +3,7 @@ const nextConfig = {
 	images: {
 		unoptimized: true
 	},
-	optimizeFonts: false
+	output: 'export'
 }
 
 module.exports = nextConfig
