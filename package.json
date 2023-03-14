@@ -8,7 +8,7 @@
     "api": "nodemon app",
     "views": "npm start --prefix views",
     "dev": "concurrently \"npm run api\" \"npm run views\"",
-    "deploy": "winpty bash -c 'read -p \"Enter commit message: \" commitmsg && npm run build --prefix views && git fetch -a && git checkout master && git add . && git commit -m \"$commitmsg\" && git push'"
+    "deploy": "npm run build --prefix views && git fetch -a && git checkout master && git add . && git commit -m autodeploy && git push origin master"
   },
   "keywords": [],
   "author": "Arnab Hazra",
