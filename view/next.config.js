@@ -1,5 +1,5 @@
 const nextConfig = {
-	reactStrictMode: true,
+	reactStrictMode: false,
 	output: 'export',
 	images: {
 		unoptimized: true
