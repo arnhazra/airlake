@@ -61,8 +61,8 @@ const WalletTransactionsPage: NextPage = () => {
                         <div className='info'>
                             <p className='lead'>{Constants.Info}</p>
                             <p className='lead'>{Constants.Warning}</p>
-                            <Link href='/buycoin' className='btn'>Buy LST<i className='fa-solid fa-circle-arrow-right'></i></Link>
-                            <Link href='/sellcoin' className='btn'>Sell LST<i className='fa-solid fa-circle-arrow-right'></i></Link>
+                            <Link href='/exchange/buycoin' className='btn'>Buy LST<i className='fa-solid fa-circle-arrow-right'></i></Link>
+                            <Link href='/exchange/sellcoin' className='btn'>Sell LST<i className='fa-solid fa-circle-arrow-right'></i></Link>
                         </div>
                     </div>
                     <ReactIf condition={transactions.transactions.length > 0}>

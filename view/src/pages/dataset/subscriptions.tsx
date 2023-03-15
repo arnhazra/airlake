@@ -1,11 +1,11 @@
 import { Container, Row } from 'react-bootstrap'
 import { Fragment } from 'react'
 import { NextPage } from 'next'
-import Loading from '../components/LoadingComponent'
-import Error from '../components/ErrorComponent'
-import ReactIf from '../components/ReactIfComponent'
-import useViewSubscriptions from '../hooks/useViewSubscriptions'
-import DatasetCard from '../components/DatasetCardComponent'
+import Loading from '@/components/LoadingComponent'
+import Error from '@/components/ErrorComponent'
+import ReactIf from '@/components/ReactIfComponent'
+import useViewSubscriptions from '@/hooks/useViewSubscriptions'
+import DatasetCard from '@/components/DatasetCardComponent'
 
 const ViewSubscriptionsPage: NextPage = () => {
     const datasetSubscriptions = useViewSubscriptions()

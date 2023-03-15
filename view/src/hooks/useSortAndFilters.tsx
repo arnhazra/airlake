@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import endPoints from '../constants/Endpoints'
+import endPoints from '@/constants/Endpoints'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/router'
 

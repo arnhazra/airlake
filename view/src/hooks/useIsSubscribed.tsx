@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
-import endPoints from '../constants/Endpoints'
-import { UseIsSubscribed } from '../types/States'
+import endPoints from '@/constants/Endpoints'
+import { UseIsSubscribed } from '@/types/States'
 import { toast } from 'react-hot-toast'
 
 const useIsSubscribed = ({ id, hasClickedSubscribed }: UseIsSubscribed) => {

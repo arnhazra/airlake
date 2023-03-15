@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/router'
-import { UseDatasetLibrary } from '../types/States'
+import { UseDatasetLibrary } from '@/types/States'
 import endPoints from '@/constants/Endpoints'
 
 const useDatasetLibrary = ({ searchQuery, selectedFilter, selectedSortOption }: UseDatasetLibrary) => {

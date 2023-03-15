@@ -1,10 +1,19 @@
 import { Container } from 'react-bootstrap'
-import { Fragment } from 'react'
+import { Fragment, useEffect } from 'react'
 import { NextPage } from 'next'
 import Constants from '@/constants/Constants'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 const HomePage: NextPage = () => {
+	const router = useRouter()
+
+	useEffect(() => {
+		if (localStorage.hasOwnProperty('accessToken')) {
+			router.push('/dataset/library')
+		}
+	}, [])
+
 	return (
 		<Fragment>
 			<Container>

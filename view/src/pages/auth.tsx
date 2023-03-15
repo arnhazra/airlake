@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useState, useEffect } from 'react'
 import axios from 'axios'
 import { FloatingLabel, Form } from 'react-bootstrap'
 import Constants from '@/constants/Constants'
@@ -13,6 +13,12 @@ const AuthPage: NextPage = () => {
     const [alert, setAlert] = useState('')
     const [isLoading, setLoading] = useState(false)
     const router = useRouter()
+
+    useEffect(() => {
+        if (localStorage.hasOwnProperty('accessToken')) {
+            router.push('/dataset/library')
+        }
+    }, [])
 
     const generateAuthcode = async (event: any) => {
         event.preventDefault()
@@ -43,7 +49,7 @@ const AuthPage: NextPage = () => {
             localStorage.setItem('accessToken', response.data.accessToken)
             setAlert('Successfully authenticated')
             setLoading(false)
-            router.push('/datasetlibrary')
+            router.push('/dataset/library')
         }
 
         catch (error: any) {

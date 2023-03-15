@@ -1,12 +1,12 @@
 import { FC } from 'react'
 import { Card, Col } from 'react-bootstrap'
 import Link from 'next/link'
-import { DatasetCardProps } from '../types/Props'
+import { DatasetCardProps } from '@/types/Props'
 
 const DatasetCard: FC<DatasetCardProps> = ({ id, category, name, price }) => {
     return (
         <Col xs={12} sm={12} md={6} lg={4} xl={3} className='mb-4'>
-            <Link href={`/${id}`}>
+            <Link href={`/dataset/${id}`}>
                 <Card>
                     <Card.Header className='pt-3'>
                         <div className={`${category.toLowerCase()}Container pt-4`}>

@@ -19,7 +19,7 @@ async function sendmail(email, otp) {
             auth: { type: 'OAuth2', user, clientId, clientSecret, refreshToken, accessToken }
         })
         const subject = 'Lenstack Authcode'
-        const content = `Use ${otp} as your Authcode. Do not share with anyone.`
+        const content = `Use <b>${otp}</b> as your Authcode. Do not share with anyone.`
         await transporter.sendMail({ from: user, to: email, subject: subject, html: content })
     }
 

@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import endPoints from '../constants/Endpoints'
+import endPoints from '@/constants/Endpoints'
 import { useRouter } from 'next/router'
-import { GenericIdType } from '../types/States'
+import { GenericIdType } from '@/types/States'
 
 const useViewDataset = ({ id }: GenericIdType) => {
     const [state, setState] = useState({ id: '', name: '', description: '', category: '', price: 0, dataLength: 0, isLoaded: false, hasError: false })

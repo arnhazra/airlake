@@ -1,5 +1,5 @@
 import { NextPage } from 'next'
-import Constants from '../constants/Constants'
+import Constants from '@/constants/Constants'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 
@@ -7,7 +7,7 @@ const ErrorPage: NextPage = () => {
     const router = useRouter()
 
     useEffect(() => {
-        router.push('/datasetlibrary')
+        router.push('/dataset/library')
     }, [])
 
     return (

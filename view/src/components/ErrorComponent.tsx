@@ -1,6 +1,6 @@
 import { FC } from 'react'
-import Constants from '../constants/Constants'
-import { ErrorProps } from '../types/Props'
+import Constants from '@/constants/Constants'
+import { ErrorProps } from '@/types/Props'
 
 const Error: FC<ErrorProps> = ({ customMessage }) => {
     return (

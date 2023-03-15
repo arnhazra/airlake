@@ -1,6 +1,6 @@
 import { Fragment, useContext } from 'react'
-import signOutService from '../services/signOutService'
-import { GlobalContext } from '../context/globalStateProvider'
+import signOutService from '@/services/signOutService'
+import { GlobalContext } from '@/context/globalStateProvider'
 import { toast } from 'react-hot-toast'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
