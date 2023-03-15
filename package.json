@@ -6,9 +6,8 @@
   "scripts": {
     "start": "node app",
     "api": "nodemon app",
-    "views": "npm start --prefix views",
-    "view": "npm run dev --prefix view",
-    "dev": "concurrently \"npm run api\" \"npm run views\" \"npm run view\"",
+    "views": "npm run dev --prefix views",
+    "dev": "concurrently \"npm run api\" \"npm run views\"",
     "deploy": "npm run build --prefix view && git fetch -a && git checkout master && git add . && git commit -m autodeploy && git push origin master"
   },
   "keywords": [],

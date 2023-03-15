@@ -1,7 +1,6 @@
 export type UserState = {
     userid: string,
     name: string,
-    isLoaded: boolean,
 }
 
 export type DatasetRequestState = {
@@ -24,7 +23,7 @@ export type UseDatasetLibrary = {
 }
 
 export type GenericIdType = {
-    id: string | undefined
+    id: string | undefined | string[]
 }
 
 export type UseIsSubscribed = {

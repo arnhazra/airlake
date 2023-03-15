@@ -26,8 +26,8 @@ app.use('/api/wallet', walletRouter.getRouter())
 app.use('/api/auth', authRouter.getRouter())
 
 if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, 'view', 'out')))
+    app.use(express.static(path.join(__dirname, 'views', 'out')))
     app.get('/*', (req, res) => {
-        res.sendFile(path.join(__dirname, 'view', 'out', 'index.html'))
+        res.sendFile(path.join(__dirname, 'views', 'out', 'index.html'))
     })
 }

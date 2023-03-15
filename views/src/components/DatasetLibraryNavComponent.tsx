@@ -2,8 +2,8 @@ import { FC, Fragment, useContext } from 'react'
 import { Col, FloatingLabel, Row, Form } from 'react-bootstrap'
 import Loading from './LoadingComponent'
 import ReactIf from './ReactIfComponent'
-import { GlobalContext } from '../context/globalStateProvider'
-import useSortAndFilters from '../hooks/useSortAndFilters'
+import { GlobalContext } from '@/context/globalStateProvider'
+import useSortAndFilters from '@/hooks/useSortAndFilters'
 
 const DatasetLibraryNav: FC = () => {
     const sortAndFilters = useSortAndFilters()

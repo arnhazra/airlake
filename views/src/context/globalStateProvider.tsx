@@ -10,7 +10,6 @@ const initialState = {
     userState: {
         userid: '',
         name: '',
-        isLoaded: false,
     },
 
     datasetRequestState: {

@@ -1,17 +1,19 @@
+import { GlobalContext } from '@/context/globalStateProvider'
 import debounce from 'lodash.debounce'
-import { ChangeEvent, FC, Fragment, useContext, useMemo } from 'react'
+import { ChangeEvent, FC, Fragment, useContext, useMemo, useEffect, useState } from 'react'
 import { Container, Navbar, Nav, Form } from 'react-bootstrap'
-import { Link, useNavigate } from 'react-router-dom'
-import { GlobalContext } from '../context/globalStateProvider'
+import Link from 'next/link'
 import ReactIf from './ReactIfComponent'
+import { useRouter } from 'next/router'
 
 const NavBar: FC = () => {
     const [, dispatch] = useContext(GlobalContext)
-    const navigate = useNavigate()
+    const router = useRouter()
+    const [isAuthenticated, setAuthenticated] = useState(false)
 
     const searchChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
         dispatch('setDatasetRequestState', { searchQuery: event.target.value })
-        navigate('/dataset/library')
+        router.push('/dataset/library')
     }
 
     const debouncedChangeHandler = useMemo(() =>
@@ -19,18 +21,29 @@ const NavBar: FC = () => {
         []
     )
 
+    useEffect(() => {
+        console.log('hello')
+        if (localStorage.hasOwnProperty('accessToken')) {
+            setAuthenticated(true)
+        }
+
+        else {
+            setAuthenticated(false)
+        }
+    }, [router.pathname])
+
     return (
         <Fragment>
-            <ReactIf condition={localStorage.hasOwnProperty('accessToken')}>
+            <ReactIf condition={isAuthenticated}>
                 <Navbar className='navbar-authorized' variant='dark' expand='lg' style={{ zoom: 0.85 }}>
                     <Container>
-                        <Link to='/dataset/library'><Navbar.Brand style={{ fontSize: '1.3rem' }}>Lenstack</Navbar.Brand></Link>
+                        <Link href='/dataset/library'><Navbar.Brand style={{ fontSize: '1.3rem' }}>Lenstack</Navbar.Brand></Link>
                         <Navbar.Toggle aria-controls='navbarScroll' />
                         <Navbar.Collapse id='navbarScroll'>
                             <Nav className='me-auto my-2 my-lg-0' style={{ maxHeight: '8rem' }} navbarScroll>
-                                <Link to='/dataset/subscriptions'><Navbar.Brand>Subscriptions</Navbar.Brand></Link>
-                                <Link to='/wallet/transactions'><Navbar.Brand>Wallet</Navbar.Brand></Link>
-                                <Link to='/account'><Navbar.Brand>Account</Navbar.Brand></Link>
+                                <Link href='/dataset/subscriptions'><Navbar.Brand>Subscriptions</Navbar.Brand></Link>
+                                <Link href='/exchange/transactions'><Navbar.Brand>Wallet</Navbar.Brand></Link>
+                                <Link href='/account'><Navbar.Brand>Account</Navbar.Brand></Link>
                             </Nav>
                             <Form className='d-flex'>
                                 <Form.Control
@@ -46,16 +59,16 @@ const NavBar: FC = () => {
                     </Container>
                 </Navbar>
             </ReactIf>
-            <ReactIf condition={!localStorage.hasOwnProperty('accessToken')}>
+            <ReactIf condition={!isAuthenticated}>
                 <Navbar className='navbar-unauthorized' variant='dark' expand='lg'>
                     <Container>
-                        <Link to='/'>
+                        <Link href='/'>
                             <Navbar.Brand style={{ fontSize: '1.3rem' }}>Lenstack</Navbar.Brand>
                         </Link>
                         <Navbar.Toggle></Navbar.Toggle>
                         <Navbar.Collapse>
                             <Nav className='ms-auto'>
-                                <Link to='/auth'><Navbar.Brand>Get Started</Navbar.Brand></Link>
+                                <Link href='/auth'><Navbar.Brand>Get Started</Navbar.Brand></Link>
                                 <a target='_blank' rel='noopener noreferrer' href='https://www.linkedin.com/in/arnhazra/'><Navbar.Brand>Creator</Navbar.Brand></a>
                             </Nav>
                         </Navbar.Collapse>

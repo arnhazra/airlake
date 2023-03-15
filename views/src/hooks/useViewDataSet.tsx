@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import endPoints from '../constants/Endpoints'
-import { useNavigate } from 'react-router-dom'
-import { GenericIdType } from '../types/States'
+import endPoints from '@/constants/Endpoints'
+import { useRouter } from 'next/router'
+import { GenericIdType } from '@/types/States'
 
 const useViewDataset = ({ id }: GenericIdType) => {
     const [state, setState] = useState({ id: '', name: '', description: '', category: '', price: 0, dataLength: 0, isLoaded: false, hasError: false })
-    const navigate = useNavigate()
+    const router = useRouter()
 
     const getDatasetView = async () => {
         try {
@@ -18,7 +18,7 @@ const useViewDataset = ({ id }: GenericIdType) => {
         catch (error: any) {
             if (error.response.status === 401) {
                 localStorage.removeItem('accessToken')
-                navigate('/')
+                router.push('/')
             }
 
             else {

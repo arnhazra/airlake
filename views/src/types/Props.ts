@@ -1,5 +1,9 @@
 import { ReactNode } from 'react'
 
+export type LayoutProps = {
+    children: ReactNode
+}
+
 export type DatasetCardProps = {
     id: string
     category: string,
