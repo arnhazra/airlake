@@ -20,7 +20,8 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 		}
 
 		if (!sessionStorage.hasOwnProperty('hasReloaded')) {
-			router.reload()
+			window.location.reload()
+			location.reload()
 			sessionStorage.setItem('hasReloaded', 'yes')
 		}
 	}, [router.pathname])
