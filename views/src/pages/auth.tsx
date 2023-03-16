@@ -14,12 +14,6 @@ const AuthPage: NextPage = () => {
     const [isLoading, setLoading] = useState(false)
     const router = useRouter()
 
-    useEffect(() => {
-        if (localStorage.hasOwnProperty('accessToken')) {
-            router.push('/dataset/library')
-        }
-    }, [])
-
     const generateAuthcode = async (event: any) => {
         event.preventDefault()
         setAlert(Constants.AuthMessage)

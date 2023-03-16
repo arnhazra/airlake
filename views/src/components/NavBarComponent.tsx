@@ -22,7 +22,6 @@ const NavBar: FC = () => {
     )
 
     useEffect(() => {
-        console.log('hello')
         if (localStorage.hasOwnProperty('accessToken')) {
             setAuthenticated(true)
         }
