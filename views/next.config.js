@@ -3,7 +3,10 @@ const nextConfig = {
 	images: {
 		unoptimized: true
 	},
-	output: 'export'
+	output: 'export',
+	generateBuildId: async () => {
+		return 'none'
+	},
 }
 
 module.exports = nextConfig

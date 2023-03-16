@@ -18,14 +18,15 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 				router.push('/dataset/library')
 			}
 		}
+	}, [router.pathname])
 
+	useEffect(() => {
 		if (!sessionStorage.hasOwnProperty('hasReloaded')) {
 			window.location.reload()
 			location.reload()
 			sessionStorage.setItem('hasReloaded', 'yes')
 		}
-	}, [router.pathname])
-
+	}, [])
 
 	return (
 		<Fragment>
