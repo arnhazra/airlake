@@ -1,6 +1,5 @@
 node_modules
 .env
 /views/.next
-/views/build
 /views/.vercel
 /views/*.tsbuildinfo
