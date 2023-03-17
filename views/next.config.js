@@ -4,9 +4,6 @@ const nextConfig = {
 		unoptimized: true
 	},
 	output: 'export',
-	generateBuildId: async () => {
-		return 'none'
-	},
 }
 
 module.exports = nextConfig

@@ -1,6 +1,10 @@
 # Lenstack Changelog
 
-## [Current - v1.3 - Lenstack]
+## [Current v1.4 - Lenstack]
+* Next JS Migration from Create React App.
+* Changed some hooks for better performance optimizations.
+
+## [v1.3 - Lenstack]
 * Integrated Fuzzy search algorithm for better user experience.
 * Replaced HS256 with RS512 JWT which uses Public & Private key for better security.
 
