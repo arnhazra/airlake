@@ -17,7 +17,7 @@ const useDatasetLibrary = ({ searchQuery, selectedFilter, selectedSortOption }: 
             }
 
             catch (error: any) {
-                if (error.response.status === 401) {
+                if (error.response && error.response.status === 401) {
                     localStorage.removeItem('accessToken')
                     router.push('/')
                 }
