@@ -11,7 +11,7 @@ const useFindSimilarDatasets = ({ id }: GenericIdType) => {
 
     const findSimilarDatasets = async () => {
         try {
-            const response = await axios.post(`${endPoints.findsimilarDatasets}/${id}`)
+            const response = await axios.post(`${endPoints.findsimilarDatasets}`, { datasetId: id })
             setState({ ...state, similarDatasets: response.data.similarDatasets, isLoaded: true })
         }
 

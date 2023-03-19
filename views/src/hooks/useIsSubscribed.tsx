@@ -12,7 +12,7 @@ const useIsSubscribed = ({ id, hasClickedSubscribed }: UseIsSubscribed) => {
     useEffect(() => {
         (async () => {
             try {
-                const response = await axios.post(`${endPoints.checkSubscriptionEndpoint}/${id}`)
+                const response = await axios.post(`${endPoints.checkSubscriptionEndpoint}`, { datasetId: id })
                 setState({ isSubscribed: response.data.isSubscribed, subscriptionId: response.data.subscriptionId, isLoaded: true })
             }
 

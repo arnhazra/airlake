@@ -10,7 +10,7 @@ const useViewDataset = ({ id }: GenericIdType) => {
 
     const getDatasetView = async () => {
         try {
-            const response = await axios.post(`${endPoints.datasetViewEndpoint}/${id}`)
+            const response = await axios.post(`${endPoints.datasetViewEndpoint}`, { datasetId: id })
             const { _id, name, description, category, price } = response.data.metadata
             setState({ ...state, id: _id, name: name, description: description, category: category, price: price, dataLength: response.data.dataLength, isLoaded: true })
         }

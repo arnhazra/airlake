@@ -11,14 +11,14 @@ class DatasetRouter {
     }
 
     registerRoutes() {
-        this.router.post('/getsortandfilteroptions', authorize, this.datasetController.getSortAndFilterOptions.bind(this.datasetController))
-        this.router.post('/library', authorize, this.datasetController.getLibrary.bind(this.datasetController))
-        this.router.post('/mysubscriptions', authorize, this.datasetController.getMySubscriptions.bind(this.datasetController))
-        this.router.post('/viewone/:datasetId', authorize, this.datasetController.viewOneDataset.bind(this.datasetController))
-        this.router.post('/findsimilar/:datasetId', authorize, this.datasetController.findSimilarDatasets.bind(this.datasetController))
-        this.router.get('/data/preview/:datasetId', this.datasetController.previewData.bind(this.datasetController))
-        this.router.get('/data/view/:datasetId/:subscriptionId', this.datasetController.viewData.bind(this.datasetController))
-        this.router.post('/create',
+        this.router.post('/getdatasetsortandfilters', authorize, this.datasetController.getDatasetSortAndFilters.bind(this.datasetController))
+        this.router.post('/getdatasetlibrary', authorize, this.datasetController.getDatasetLibrary.bind(this.datasetController))
+        this.router.post('/getmysubscriptions', authorize, this.datasetController.getMySubscriptions.bind(this.datasetController))
+        this.router.post('/viewdataset', authorize, this.datasetController.viewDataset.bind(this.datasetController))
+        this.router.post('/findsimilardatasets', authorize, this.datasetController.findSimilarDatasets.bind(this.datasetController))
+        this.router.get('/datasetpreview/:datasetId', this.datasetController.datasetPreview.bind(this.datasetController))
+        this.router.get('/datasetfullview/:datasetId/:subscriptionId', this.datasetController.datasetFullview.bind(this.datasetController))
+        this.router.post('/createdataset',
             [
                 check('name', 'Name must not be empty').notEmpty(),
                 check('category', 'Category must not be empty').notEmpty(),

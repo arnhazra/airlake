@@ -17,7 +17,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 	useLayoutEffect(() => {
 		if (localStorage.hasOwnProperty('accessToken')) {
 			if (unprotectedRoutes.includes(router.pathname)) {
-				router.push('/dataset/library')
+				router.push('/datasetlibrary')
 			}
 		}
 	}, [router.pathname])

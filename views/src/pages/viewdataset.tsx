@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { Container, Row } from 'react-bootstrap'
 import { Fragment } from 'react'
@@ -21,8 +20,7 @@ const web3 = new Web3(Web3.givenProvider)
 
 const ViewOneDatasetPage: NextPage = () => {
     const [hasClickedSubscribed, setClickedSubscribed] = useState(false)
-    let router = useRouter()
-    const { datasetId } = router.query
+    const datasetId = localStorage.getItem('currentDataset') || '63dde6b1ef40d3df73fde562'
     const dataset = useViewDataset({ id: datasetId })
     const subscriptionStatus = useIsSubscribed({ id: datasetId, hasClickedSubscribed })
     const similarDatasets = useFindSimilarDatasets({ id: datasetId })
@@ -31,7 +29,7 @@ const ViewOneDatasetPage: NextPage = () => {
     const subscribe = async () => {
         if (dataset.price === 0) {
             try {
-                await axios.post(`${endPoints.subscribeEndpoint}/${datasetId}`)
+                await axios.post(`${endPoints.subscribeEndpoint}`, { datasetId })
                 setClickedSubscribed(true)
             } catch (error) {
                 toast.error('Something went wrong')

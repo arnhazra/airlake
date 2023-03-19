@@ -20,8 +20,8 @@ app.use(express.json({ extended: false, limit: '5mb' }))
 connectMongo()
 connectRedis()
 
-app.use('/api/subscription', subscriptionRouter.getRouter())
-app.use('/api/dataset', datasetRouter.getRouter())
+app.use('/api', subscriptionRouter.getRouter())
+app.use('/api', datasetRouter.getRouter())
 app.use('/api', walletRouter.getRouter())
 app.use('/api/auth', authRouter.getRouter())
 

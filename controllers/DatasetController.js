@@ -6,7 +6,7 @@ const SubscriptionModel = require('../models/SubscriptionModel')
 const sortOptions = require('../utils/sortOptions')
 
 class DatasetController {
-    async getSortAndFilterOptions(req, res) {
+    async getDatasetSortAndFilters(req, res) {
         try {
             const filterCategories = await DatasetModel.find().distinct('category')
             filterCategories.push('All')
@@ -18,7 +18,7 @@ class DatasetController {
         }
     }
 
-    async getLibrary(req, res) {
+    async getDatasetLibrary(req, res) {
         const selectedFilterCategory = req.body.selectedFilter === 'All' ? {} : { category: req.body.selectedFilter }
         const selectedSortOption = sortOptions[req.body.selectedSortOption]
         const searchQuery = req.body.searchQuery.length > 0 && req.body.searchQuery
@@ -64,9 +64,10 @@ class DatasetController {
         }
     }
 
-    async viewOneDataset(req, res) {
+    async viewDataset(req, res) {
         try {
-            const totalData = await DatasetModel.findById(req.params.datasetId)
+            const { datasetId } = req.body || '63dde6b1ef40d3df73fde562'
+            const totalData = await DatasetModel.findById(datasetId)
             const dataLength = totalData.data.length
             const metadata = { name: totalData.name, category: totalData.category, description: totalData.description, price: totalData.price }
             return res.status(200).json({ metadata, dataLength })
@@ -79,7 +80,8 @@ class DatasetController {
 
     async findSimilarDatasets(req, res) {
         try {
-            const { category } = await DatasetModel.findById(req.params.datasetId).select('-data')
+            const { datasetId } = req.body || '63dde6b1ef40d3df73fde562'
+            const { category } = await DatasetModel.findById(datasetId).select('-data')
             const similarDatasets = await DatasetModel.find({ category: category }).select('-data')
             return res.status(200).json({ similarDatasets })
         }
@@ -89,7 +91,7 @@ class DatasetController {
         }
     }
 
-    async previewData(req, res) {
+    async datasetPreview(req, res) {
         try {
             const data = await DatasetModel.findById(req.params.datasetId).select('data')
             const previewdata = data.data[0]
@@ -101,7 +103,7 @@ class DatasetController {
         }
     }
 
-    async viewData(req, res) {
+    async datasetFullview(req, res) {
         try {
             const subscriptionId = req.params.subscriptionId
             const datasetId = req.params.datasetId

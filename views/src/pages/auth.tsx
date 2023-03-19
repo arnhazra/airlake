@@ -43,7 +43,7 @@ const AuthPage: NextPage = () => {
             localStorage.setItem('accessToken', response.data.accessToken)
             setAlert('Successfully authenticated')
             setLoading(false)
-            router.push('/dataset/library')
+            router.push('/datasetlibrary')
         }
 
         catch (error: any) {

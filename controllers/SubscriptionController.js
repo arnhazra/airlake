@@ -3,7 +3,7 @@ const SubscriptionModel = require('../models/SubscriptionModel')
 
 class SubscriptionController {
     async subscribe(req, res) {
-        const datasetId = req.params.datasetId
+        const { datasetId } = req.body || '63dde6b1ef40d3df73fde562'
         const userId = req.id
 
         try {
@@ -17,8 +17,8 @@ class SubscriptionController {
         }
     }
 
-    async isSubscribed(req, res) {
-        const datasetId = req.params.datasetId
+    async checkSubscriptionStatus(req, res) {
+        const { datasetId } = req.body || '63dde6b1ef40d3df73fde562'
         const userId = req.id
 
         try {

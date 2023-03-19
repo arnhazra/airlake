@@ -13,7 +13,7 @@ const NavBar: FC = () => {
 
     const searchChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
         dispatch('setDatasetRequestState', { searchQuery: event.target.value })
-        router.push('/dataset/library')
+        router.push('/datasetlibrary')
     }
 
     const debouncedChangeHandler = useMemo(() =>
@@ -36,11 +36,11 @@ const NavBar: FC = () => {
             <ReactIf condition={isAuthenticated}>
                 <Navbar className='navbar-authorized' variant='dark' expand='lg' style={{ zoom: 0.85 }}>
                     <Container>
-                        <Link href='/dataset/library'><Navbar.Brand style={{ fontSize: '1.3rem' }}>Lenstack</Navbar.Brand></Link>
+                        <Link href='/datasetlibrary'><Navbar.Brand style={{ fontSize: '1.3rem' }}>Lenstack</Navbar.Brand></Link>
                         <Navbar.Toggle aria-controls='navbarScroll' />
                         <Navbar.Collapse id='navbarScroll'>
                             <Nav className='me-auto my-2 my-lg-0' style={{ maxHeight: '8rem' }} navbarScroll>
-                                <Link href='/dataset/subscriptions'><Navbar.Brand>Subscriptions</Navbar.Brand></Link>
+                                <Link href='/mysubscriptions'><Navbar.Brand>Subscriptions</Navbar.Brand></Link>
                                 <Link href='/wallet'><Navbar.Brand>Wallet</Navbar.Brand></Link>
                                 <Link href='/account'><Navbar.Brand>Account</Navbar.Brand></Link>
                             </Nav>

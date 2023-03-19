@@ -10,8 +10,8 @@ class SubscriptionRouter {
     }
 
     registerRoutes() {
-        this.router.post('/subscribe/:datasetId', authorize, this.subscriptionController.subscribe.bind(this.subscriptionController))
-        this.router.post('/issubscribed/:datasetId', authorize, this.subscriptionController.isSubscribed.bind(this.subscriptionController))
+        this.router.post('/subscribe', authorize, this.subscriptionController.subscribe.bind(this.subscriptionController))
+        this.router.post('/checksubscriptionstatus', authorize, this.subscriptionController.checkSubscriptionStatus.bind(this.subscriptionController))
     }
 
     getRouter() {

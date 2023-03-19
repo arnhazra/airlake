@@ -7,7 +7,7 @@ const ErrorPage: NextPage = () => {
     const router = useRouter()
 
     useEffect(() => {
-        router.push('/dataset/library')
+        router.push('/datasetlibrary')
     }, [])
 
     return (
