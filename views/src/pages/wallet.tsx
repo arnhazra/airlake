@@ -33,7 +33,7 @@ const WalletTransactionsPage: NextPage = () => {
                     <div className='jumbotron mt-4 pl-5'>
                         <p className='display-4'>Wallet</p>
                         <div key={'liveprice'}>
-                            <Table responsive hover variant='dark'>
+                            <Table responsive hover variant='light'>
                                 <thead>
                                     <tr>
                                         <th>Crypto</th>
@@ -66,7 +66,7 @@ const WalletTransactionsPage: NextPage = () => {
                         </div>
                     </div>
                     <ReactIf condition={transactions.transactions.length > 0}>
-                        <Table responsive hover variant='dark'>
+                        <Table responsive hover variant='light'>
                             <thead>
                                 <tr>
                                     <th>Event</th>
