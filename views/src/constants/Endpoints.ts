@@ -13,6 +13,8 @@ const endPoints = {
     datasetSubscriptionEndpoint: `${apiHost}/api/getmysubscriptions`,
     datasetViewEndpoint: `${apiHost}/api/viewdataset`,
     findsimilarDatasets: `${apiHost}/api/findsimilardatasets`,
+    datasetPreview: `${apiHost}/api/datasetpreview`,
+    datasetFullview: `${apiHost}/api/datasetfullview`,
     subscribeEndpoint: `${apiHost}/api/subscribe`,
     checkSubscriptionEndpoint: `${apiHost}/api/checksubscriptionstatus`,
     etherScanEndpoint: `https://goerli.etherscan.io/tx`,

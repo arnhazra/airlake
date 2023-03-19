@@ -79,8 +79,8 @@ const ViewOneDatasetPage: NextPage = () => {
                                 {subscriptionStatus.isSubscribed ? 'Subscribed' : 'Subscribe'}
                                 {subscriptionStatus.isSubscribed ? <i className='fa-solid fa-circle-check fa-white'></i> : <i className='fa-solid fa-circle-plus'></i>}
                             </button>
-                            {!subscriptionStatus.isSubscribed && <a target='_blank' rel='noreferrer' href={window.location.hostname === 'localhost' ? `http://localhost:7000/api/dataset/data/preview/${datasetId}` : `/api/dataset/data/preview/${datasetId}`} className='btn'>Preview Data<i className='fa-solid fa-circle-arrow-right'></i></a>}
-                            {subscriptionStatus.isSubscribed && <a target='_blank' rel='noreferrer' href={window.location.hostname === 'localhost' ? `http://localhost:7000/api/dataset/data/view/${datasetId}/${subscriptionStatus.subscriptionId}` : `/api/dataset/data/view/${datasetId}/${subscriptionStatus.subscriptionId}`} className='btn'>View Data<i className='fa-solid fa-circle-arrow-right'></i></a>}
+                            {!subscriptionStatus.isSubscribed && <a target='_blank' rel='noreferrer' href={`${endPoints.datasetPreview}/${datasetId}`} className='btn'>Preview Data<i className='fa-solid fa-circle-arrow-right'></i></a>}
+                            {subscriptionStatus.isSubscribed && <a target='_blank' rel='noreferrer' href={`${endPoints.datasetFullview}/${datasetId}/${subscriptionStatus.subscriptionId}`} className='btn'>View Data - Full<i className='fa-solid fa-circle-arrow-right'></i></a>}
                         </div>
                         <Row>
                             <p className='lead text-center text-white mb-4'>Similar Datasets</p>

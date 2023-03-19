@@ -16,14 +16,12 @@ const useViewDataset = ({ id }: GenericIdType) => {
         }
 
         catch (error: any) {
-            if (error.response.status === 401) {
+            if (error.response && error.response.status === 401) {
                 localStorage.removeItem('accessToken')
                 router.push('/')
             }
 
-            else {
-                setState({ ...state, isLoaded: true, hasError: true })
-            }
+            setState({ ...state, isLoaded: true, hasError: true })
         }
     }
 

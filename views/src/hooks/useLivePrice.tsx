@@ -16,16 +16,13 @@ const useLivePrice = () => {
         }
 
         catch (error: any) {
-            if (error.response.status === 401) {
+            if (error.response && error.response.status === 401) {
                 localStorage.removeItem('accessToken')
                 router.push('/')
             }
 
-            else {
-                setState({ inr: 0, usd: 0, eur: 0, isLoaded: true })
-                toast.error('Something went wrong')
-            }
-
+            setState({ inr: 0, usd: 0, eur: 0, isLoaded: true })
+            toast.error('Something went wrong')
         }
     }
 

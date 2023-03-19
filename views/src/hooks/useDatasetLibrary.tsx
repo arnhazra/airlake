@@ -22,10 +22,8 @@ const useDatasetLibrary = ({ searchQuery, selectedFilter, selectedSortOption }: 
                     router.push('/')
                 }
 
-                else {
-                    setState({ ...state, isLoaded: true })
-                    toast.error('Something went wrong')
-                }
+                setState({ ...state, isLoaded: true })
+                toast.error('Something went wrong')
             }
         })()
     }, [selectedSortOption, selectedFilter, searchQuery])

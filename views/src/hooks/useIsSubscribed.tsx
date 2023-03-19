@@ -17,15 +17,13 @@ const useIsSubscribed = ({ id, hasClickedSubscribed }: UseIsSubscribed) => {
             }
 
             catch (error: any) {
-                if (error.response.status === 401) {
+                if (error.response && error.response.status === 401) {
                     localStorage.removeItem('accessToken')
                     router.push('/')
                 }
 
-                else {
-                    setState({ ...state, isLoaded: true })
-                    toast.error('Something went wrong')
-                }
+                setState({ ...state, isLoaded: true })
+                toast.error('Something went wrong')
             }
         })()
     }, [id, hasClickedSubscribed])
