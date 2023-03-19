@@ -22,7 +22,7 @@ connectRedis()
 
 app.use('/api/subscription', subscriptionRouter.getRouter())
 app.use('/api/dataset', datasetRouter.getRouter())
-app.use('/api/wallet', walletRouter.getRouter())
+app.use('/api', walletRouter.getRouter())
 app.use('/api/auth', authRouter.getRouter())
 
 if (process.env.NODE_ENV === 'production') {

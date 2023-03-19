@@ -12,7 +12,7 @@ class WalletRouter {
 
     registerRoutes() {
         this.router.post(
-            '/createtx',
+            '/createwallettx',
             authorize,
             [
                 check('transactionType', 'Transaction Type must not be empty').notEmpty(),
@@ -24,8 +24,8 @@ class WalletRouter {
             this.walletController.createTransaction.bind(this.walletController)
         )
 
-        this.router.post('/transactions', authorize, this.walletController.getTransactions.bind(this.walletController))
-        this.router.post('/getliveprice', authorize, this.walletController.getLivePrice.bind(this.walletController))
+        this.router.post('/getwallettx', authorize, this.walletController.getTransactions.bind(this.walletController))
+        this.router.post('/getethliveprice', authorize, this.walletController.getLivePrice.bind(this.walletController))
     }
 
     getRouter() {
