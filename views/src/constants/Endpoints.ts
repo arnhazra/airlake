@@ -1,10 +1,10 @@
 const apiHost = process.env.NODE_ENV === 'development' ? 'http://localhost:7000' : 'https://lenstack.vercel.app'
 
 const endPoints = {
-    generateAuthCodeEndpoint: `${apiHost}/api/auth/generateauthcode`,
-    verifyAuthCodeEndpoint: `${apiHost}/api/auth/verifyauthcode`,
-    signOutEndpoint: `${apiHost}/api/auth/signout`,
-    checkAuthEndpoint: `${apiHost}/api/auth/checkauth`,
+    generateAuthCodeEndpoint: `${apiHost}/api/generateauthcode`,
+    verifyAuthCodeEndpoint: `${apiHost}/api/verifyauthcode`,
+    signOutEndpoint: `${apiHost}/api/signout`,
+    checkAuthEndpoint: `${apiHost}/api/checkauth`,
     createTxEndpoint: `${apiHost}/api/createwallettx`,
     walletTransactionEndpoint: `${apiHost}/api/getwallettx`,
     walletLivePriceEndpoint: `${apiHost}/api/getethliveprice`,

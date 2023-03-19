@@ -23,7 +23,7 @@ connectRedis()
 app.use('/api', subscriptionRouter.getRouter())
 app.use('/api', datasetRouter.getRouter())
 app.use('/api', walletRouter.getRouter())
-app.use('/api/auth', authRouter.getRouter())
+app.use('/api', authRouter.getRouter())
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, 'views', 'out')))

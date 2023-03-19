@@ -1,6 +1,9 @@
 # Lenstack Changelog
 
-## [Current v1.4 - Lenstack]
+## [Current v1.5 - Lenstack]
+* New API endpoint URIs and UI routes for new architecture.
+
+## [v1.4 - Lenstack]
 * Next JS Migration from Create React App - Beta Stage.
 * Changed some hooks for better performance optimizations.
 
