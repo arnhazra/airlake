@@ -1,7 +1,7 @@
 # Lenstack Changelog
 
 ## [Current v1.4 - Lenstack]
-* Next JS Migration from Create React App.
+* Next JS Migration from Create React App - Beta Stage.
 * Changed some hooks for better performance optimizations.
 
 ## [v1.3 - Lenstack]
