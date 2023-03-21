@@ -66,7 +66,7 @@ class DatasetController {
 
     async viewDataset(req, res) {
         try {
-            const { datasetId } = req.body || '63dde6b1ef40d3df73fde562'
+            const { datasetId } = req.body
             const totalData = await DatasetModel.findById(datasetId)
             const dataLength = totalData.data.length
             const metadata = { name: totalData.name, category: totalData.category, description: totalData.description, price: totalData.price }
@@ -80,7 +80,7 @@ class DatasetController {
 
     async findSimilarDatasets(req, res) {
         try {
-            const { datasetId } = req.body || '63dde6b1ef40d3df73fde562'
+            const { datasetId } = req.body
             const { category } = await DatasetModel.findById(datasetId).select('-data')
             const similarDatasets = await DatasetModel.find({ category: category }).select('-data')
             return res.status(200).json({ similarDatasets })

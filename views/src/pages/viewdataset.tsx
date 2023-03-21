@@ -15,21 +15,23 @@ import endPoints from '@/constants/Endpoints'
 import { toast } from 'react-hot-toast'
 import DatasetCard from '@/components/DatasetCardComponent'
 import { NextPage } from 'next'
+import { useRouter } from 'next/router'
 declare const window: any
 const web3 = new Web3(Web3.givenProvider)
 
 const ViewOneDatasetPage: NextPage = () => {
     const [hasClickedSubscribed, setClickedSubscribed] = useState(false)
-    const datasetId = localStorage.getItem('currentDataset') || '63dde6b1ef40d3df73fde562'
-    const dataset = useViewDataset({ id: datasetId })
-    const subscriptionStatus = useIsSubscribed({ id: datasetId, hasClickedSubscribed })
-    const similarDatasets = useFindSimilarDatasets({ id: datasetId })
+    const router = useRouter()
+    const { id } = router.query
+    const dataset = useViewDataset({ id })
+    const subscriptionStatus = useIsSubscribed({ id, hasClickedSubscribed })
+    const similarDatasets = useFindSimilarDatasets({ id })
     const [account, setAccount] = useState('')
 
     const subscribe = async () => {
         if (dataset.price === 0) {
             try {
-                await axios.post(`${endPoints.subscribeEndpoint}`, { datasetId })
+                await axios.post(`${endPoints.subscribeEndpoint}`, { id })
                 setClickedSubscribed(true)
             } catch (error) {
                 toast.error('Something went wrong')
@@ -44,7 +46,7 @@ const ViewOneDatasetPage: NextPage = () => {
                         setAccount(accounts[0])
                         const contract = new web3.eth.Contract(tokenABI as any, contractAddress.tokenContractAddress)
                         await contract.methods.transfer(contractAddress.tokenContractAddress, web3.utils.toWei(dataset.price.toString(), 'ether')).send({ from: account })
-                        await axios.post(`${endPoints.subscribeEndpoint}/${datasetId}`)
+                        await axios.post(`${endPoints.subscribeEndpoint}/${id}`)
                         setClickedSubscribed(true)
                     } catch (err) {
                         toast.error('Unable to connect to metamask')
@@ -79,8 +81,8 @@ const ViewOneDatasetPage: NextPage = () => {
                                 {subscriptionStatus.isSubscribed ? 'Subscribed' : 'Subscribe'}
                                 {subscriptionStatus.isSubscribed ? <i className='fa-solid fa-circle-check fa-white'></i> : <i className='fa-solid fa-circle-plus'></i>}
                             </button>
-                            {!subscriptionStatus.isSubscribed && <a target='_blank' rel='noreferrer' href={`${endPoints.datasetPreview}/${datasetId}`} className='btn'>Preview Data<i className='fa-solid fa-circle-arrow-right'></i></a>}
-                            {subscriptionStatus.isSubscribed && <a target='_blank' rel='noreferrer' href={`${endPoints.datasetFullview}/${datasetId}/${subscriptionStatus.subscriptionId}`} className='btn'>View Data - Full<i className='fa-solid fa-circle-arrow-right'></i></a>}
+                            {!subscriptionStatus.isSubscribed && <a target='_blank' rel='noreferrer' href={`${endPoints.datasetPreview}/${id}`} className='btn'>Preview Data<i className='fa-solid fa-circle-arrow-right'></i></a>}
+                            {subscriptionStatus.isSubscribed && <a target='_blank' rel='noreferrer' href={`${endPoints.datasetFullview}/${id}/${subscriptionStatus.subscriptionId}`} className='btn'>View Data - Full<i className='fa-solid fa-circle-arrow-right'></i></a>}
                         </div>
                         <Row>
                             <p className='lead text-center text-white mb-4'>Similar Datasets</p>
