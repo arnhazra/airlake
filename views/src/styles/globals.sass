@@ -38,38 +38,34 @@ body
     zoom: 0.95
     padding: 1.5rem 2.2rem
     margin-bottom: 2rem
-    background: $blurColor !important
-    color: $white
+    background: $white !important
     border-radius: 1rem
     backdrop-filter: blur(0.4rem)
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px
 
 .card
     background: transparent
-    color: $white
     border-radius: 1rem !important
     border: none
     animation: transitionIn 0.7s forwards
-    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px
+    box-shadow: 0 .1875rem .4375rem 0 rgba(0,0,0,.13),0 .0625rem .125rem 0 rgba(0,0,0,.11)
 
 .card-header
-    background: $mainColor !important
+    background: $white !important
     border-radius: 1rem 1rem 0 0 !important
     border: none
     text-align: center
 
 .card-footer
-    background: $mainColor !important
+    background: $white !important
     border-radius: 0 0 1rem 1rem !important
     border: none
 
 .lead
     font-size: 100%
-    color: silver
 
 .smalltext
     font-size: 80%
-    color: silver
 
 .box
     top: 54%
@@ -83,7 +79,7 @@ body
     width: 22rem
     border-radius: 1rem
     text-align: left
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px
+    box-shadow: 0 .1875rem .4375rem 0 rgba(0,0,0,.13),0 .0625rem .125rem 0 rgba(0,0,0,.11)
 
 .branding
     font-size: 170%
@@ -97,7 +93,6 @@ body
     padding-left: 0.8rem
 
 .btn
-    border: 0.06rem solid transparent !important
     background: $mainColor
     border-radius: 3.1rem
     padding: 0.8rem
@@ -116,8 +111,8 @@ body
 .chip
     font-size: 0.6rem !important
     border: none
-    background: $white
-    color: $mainColor
+    background: $mainColor
+    color: $white
     font-weight: bold
     text-transform: uppercase
     letter-spacing: 0.15rem
@@ -281,9 +276,9 @@ th,td,tr
         transform: rotateX(0)
 
 @mixin categoryContainer
-    height: 12rem
+    height: 3rem
     width: 100%
-    border-radius: 1rem
+    border-radius: 3rem
     transition: transform 0.5s ease
     box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, .2), 0 0.2rem 0.2rem 0 rgba(0, 0, 0, .2)
     background-size: cover
