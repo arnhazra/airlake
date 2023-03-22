@@ -46,7 +46,7 @@ const NavBar: FC = () => {
                             </Nav>
                             <Form className='d-flex'>
                                 <Form.Control
-                                    type='text'
+                                    type='search'
                                     placeholder='Search Library'
                                     className='searchbar-navbar'
                                     maxLength={40}
