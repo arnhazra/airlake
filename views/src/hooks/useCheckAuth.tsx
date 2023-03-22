@@ -5,6 +5,7 @@ import toast from 'react-hot-toast'
 import { useRouter } from 'next/router'
 import { GlobalContext } from '@/context/globalStateProvider'
 import { unprotectedRoutes } from '@/constants/UnprotectedRoutes'
+import Constants from '@/constants/Constants'
 
 const useChcekAuth = () => {
     const [, dispatch] = useContext(GlobalContext)
@@ -31,13 +32,13 @@ const useChcekAuth = () => {
 
                         else {
                             setState({ isLoaded: true })
-                            toast.error('Something went wrong')
+                            toast.error(Constants.ToastError)
                         }
                     }
 
                     else {
                         localStorage.removeItem('accessToken')
-                        toast.error('Something went wrong')
+                        toast.error(Constants.ToastError)
                         setState({ isLoaded: true })
                         router.push('/')
                     }

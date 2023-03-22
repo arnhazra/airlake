@@ -4,6 +4,7 @@ import toast from 'react-hot-toast'
 import { useRouter } from 'next/router'
 import { UseDatasetLibrary } from '@/types/States'
 import endPoints from '@/constants/Endpoints'
+import Constants from '@/constants/Constants'
 
 const useDatasetLibrary = ({ searchQuery, selectedFilter, selectedSortOption }: UseDatasetLibrary) => {
     const [state, setState] = useState({ datasets: [], isLoaded: false })
@@ -23,7 +24,7 @@ const useDatasetLibrary = ({ searchQuery, selectedFilter, selectedSortOption }: 
                 }
 
                 setState({ ...state, isLoaded: true })
-                toast.error('Something went wrong')
+                toast.error(Constants.ToastError)
             }
         })()
     }, [selectedSortOption, selectedFilter, searchQuery])

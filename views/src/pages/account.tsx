@@ -4,6 +4,7 @@ import { GlobalContext } from '@/context/globalStateProvider'
 import { toast } from 'react-hot-toast'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
+import Constants from '@/constants/Constants'
 
 const AccountPage: NextPage = () => {
     const router = useRouter()
@@ -22,7 +23,7 @@ const AccountPage: NextPage = () => {
             localStorage.removeItem('accessToken')
             router.push('/')
         } catch (error) {
-            toast.error('Please try again')
+            toast.error(Constants.ToastError)
         }
     }
 

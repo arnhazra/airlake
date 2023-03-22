@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import endPoints from '@/constants/Endpoints'
 import { toast } from 'react-hot-toast'
+import Constants from '@/constants/Constants'
 
 const useViewSubscriptions = () => {
     const [state, setState] = useState({ subscribedDatasets: [], isLoaded: false })
@@ -21,7 +22,7 @@ const useViewSubscriptions = () => {
             }
 
             setState({ ...state, isLoaded: true })
-            toast.error('Something went wrong')
+            toast.error(Constants.ToastError)
         }
     }
 

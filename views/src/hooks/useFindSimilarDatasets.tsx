@@ -4,6 +4,7 @@ import endPoints from '@/constants/Endpoints'
 import { useRouter } from 'next/router'
 import { GenericIdType } from '@/types/States'
 import toast from 'react-hot-toast'
+import Constants from '@/constants/Constants'
 
 const useFindSimilarDatasets = ({ id }: GenericIdType) => {
     const [state, setState] = useState({ similarDatasets: [], isLoaded: false })
@@ -22,7 +23,7 @@ const useFindSimilarDatasets = ({ id }: GenericIdType) => {
             }
 
             setState({ ...state, isLoaded: true })
-            toast.error('Something went wrong')
+            toast.error(Constants.ToastError)
         }
     }
 

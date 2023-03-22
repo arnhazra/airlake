@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import endPoints from '@/constants/Endpoints'
 import { UseIsSubscribed } from '@/types/States'
 import { toast } from 'react-hot-toast'
+import Constants from '@/constants/Constants'
 
 const useIsSubscribed = ({ id, hasClickedSubscribed }: UseIsSubscribed) => {
     const [state, setState] = useState({ isSubscribed: false, subscriptionId: '', isLoaded: false })
@@ -23,7 +24,7 @@ const useIsSubscribed = ({ id, hasClickedSubscribed }: UseIsSubscribed) => {
                 }
 
                 setState({ ...state, isLoaded: true })
-                toast.error('Something went wrong')
+                toast.error(Constants.ToastError)
             }
         })()
     }, [id, hasClickedSubscribed])

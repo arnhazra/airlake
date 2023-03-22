@@ -10,7 +10,8 @@ enum Constants {
     Warning = 'Do not use mainnet ethers to buy LST, it is just an implementation POC for ERC-20 standard.',
     ConnectionErrorMessage = `Connection Error`,
     AuthMessage = `Securely Authenticating`,
-    ErrorMessage = '404, Lost'
+    ErrorMessage = '404, Lost',
+    ToastError = 'Something went wrong'
 }
 
 export default Constants

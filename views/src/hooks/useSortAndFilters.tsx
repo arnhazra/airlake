@@ -3,6 +3,7 @@ import axios from 'axios'
 import endPoints from '@/constants/Endpoints'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/router'
+import Constants from '@/constants/Constants'
 
 const useSortAndFilters = () => {
     const [state, setState] = useState({ sortOptions: [], filterCategories: [], isLoaded: false })
@@ -22,7 +23,7 @@ const useSortAndFilters = () => {
                 }
 
                 setState({ ...state, isLoaded: true })
-                toast.error('Something went wrong')
+                toast.error(Constants.ToastError)
             }
         })()
     }, [])

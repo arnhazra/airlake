@@ -16,9 +16,6 @@ export default function App({ Component, pageProps }: AppProps) {
 	return (
 		<GlobalStateProvider>
 			<Layout>
-				<header>
-					<title>Lenstack</title>
-				</header>
 				<Component {...pageProps} />
 			</Layout>
 		</GlobalStateProvider>

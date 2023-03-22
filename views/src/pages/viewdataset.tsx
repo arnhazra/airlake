@@ -16,6 +16,7 @@ import { toast } from 'react-hot-toast'
 import DatasetCard from '@/components/DatasetCardComponent'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
+import Constants from '@/constants/Constants'
 declare const window: any
 const web3 = new Web3(Web3.givenProvider)
 
@@ -34,7 +35,7 @@ const ViewOneDatasetPage: NextPage = () => {
                 await axios.post(`${endPoints.subscribeEndpoint}`, { id })
                 setClickedSubscribed(true)
             } catch (error) {
-                toast.error('Something went wrong')
+                toast.error(Constants.ToastError)
             }
         }
 

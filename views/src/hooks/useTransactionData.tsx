@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import endPoints from '@/constants/Endpoints'
 import { toast } from 'react-hot-toast'
+import Constants from '@/constants/Constants'
 
 const useTransactionData = () => {
     const [state, setState] = useState({ transactions: [], isLoaded: false })
@@ -22,7 +23,7 @@ const useTransactionData = () => {
                 }
 
                 setState({ ...state, isLoaded: true })
-                toast.error('Something went wrong')
+                toast.error(Constants.ToastError)
             }
         })()
     }, [])

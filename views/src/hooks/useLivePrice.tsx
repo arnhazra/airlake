@@ -4,6 +4,7 @@ import endPoints from '@/constants/Endpoints'
 import { LivePriceState } from '@/types/States'
 import { toast } from 'react-hot-toast'
 import { useRouter } from 'next/router'
+import Constants from '@/constants/Constants'
 
 const useLivePrice = () => {
     const [state, setState] = useState<LivePriceState>({ inr: 0, usd: 0, eur: 0, isLoaded: false })
@@ -22,7 +23,7 @@ const useLivePrice = () => {
             }
 
             setState({ inr: 0, usd: 0, eur: 0, isLoaded: true })
-            toast.error('Something went wrong')
+            toast.error(Constants.ToastError)
         }
     }
 
