@@ -12,13 +12,11 @@ import useReload from '@/hooks/useReload'
 const Layout: FC<LayoutProps> = ({ children }) => {
 	const checkAuth = useChcekAuth()
 	const router = useRouter()
-	useReload()
+	// useReload()
 
 	useLayoutEffect(() => {
-		if (localStorage.hasOwnProperty('accessToken')) {
-			if (unprotectedRoutes.includes(router.pathname)) {
-				router.push('/datasetlibrary')
-			}
+		if (localStorage.hasOwnProperty('accessToken') && unprotectedRoutes.includes(router.pathname)) {
+			router.push('/datasetlibrary')
 		}
 	}, [router.pathname])
 

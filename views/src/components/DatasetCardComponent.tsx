@@ -9,11 +9,10 @@ const DatasetCard: FC<DatasetCardProps> = ({ id, category, name, price }) => {
             <Link href={`/viewdataset?id=${id}`}>
                 <Card>
                     <Card.Header className='pt-3'>
-                        <div className={`${category.toLowerCase()}Container pt-4`}>
-                        </div>
+                        <div className={`${category.toLowerCase()}Container pt-4`} />
                     </Card.Header>
                     <Card.Footer className='pt-4 pb-2 ps-4'>
-                        <p className="lead">{name}</p>
+                        <p className='lead'>{name}</p>
                         <p className='smalltext'>{category}</p>
                         <button className='chip'>{price === 0 ? 'FREE' : price + ' FLG'}</button><br />
                     </Card.Footer>

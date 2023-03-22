@@ -20,17 +20,17 @@ const DatasetLibraryNav: FC = () => {
     return (
         <Fragment>
             <ReactIf condition={sortAndFilters.isLoaded}>
-                <Row className="g-2 mt-4">
+                <Row className='g-2 mt-4'>
                     <Col xs={12} sm={12} md={6} lg={4} xl={3}>
-                        <FloatingLabel controlId="floatingSelectGrid" label="Select Category">
-                            <Form.Select defaultValue={datasetRequestState.selectedFilter} aria-label="Floating label select example" onChange={(e): void => dispatch('setDatasetRequestState', { selectedFilter: e.target.value })}>
+                        <FloatingLabel controlId='floatingSelectGrid' label='Select Category'>
+                            <Form.Select defaultValue={datasetRequestState.selectedFilter} aria-label='Floating label select example' onChange={(e): void => dispatch('setDatasetRequestState', { selectedFilter: e.target.value })}>
                                 {filterCategoriesToDisplay}
                             </Form.Select>
                         </FloatingLabel>
                     </Col>
                     <Col xs={12} sm={12} md={6} lg={4} xl={3}>
-                        <FloatingLabel controlId="floatingSelectGrid" label="Sort By">
-                            <Form.Select defaultValue={datasetRequestState.selectedSortOption} aria-label="Floating label select example" onChange={(e): void => dispatch('setDatasetRequestState', { selectedSortOption: e.target.value })}>
+                        <FloatingLabel controlId='floatingSelectGrid' label='Sort By'>
+                            <Form.Select defaultValue={datasetRequestState.selectedSortOption} aria-label='Floating label select example' onChange={(e): void => dispatch('setDatasetRequestState', { selectedSortOption: e.target.value })}>
                                 {sortOptionsToDisplay}
                             </Form.Select>
                         </FloatingLabel>
