@@ -13,7 +13,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 	const router = useRouter()
 
 	useEffect(() => {
-		if (unprotectedRoutes.includes(router.pathname)) {
+		if (unprotectedRoutes.includes(router.pathname) && localStorage.hasOwnProperty('accessToken')) {
 			router.replace('/datasetlibrary')
 		}
 	}, [router.pathname])
