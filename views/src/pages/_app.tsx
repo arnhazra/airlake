@@ -15,6 +15,7 @@ axios.interceptors.request.use(
 export default function App({ Component, pageProps }: AppProps) {
 	return (
 		<GlobalStateProvider>
+			<title>Lenstack</title>
 			<Layout>
 				<Component {...pageProps} />
 			</Layout>

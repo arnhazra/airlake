@@ -50,17 +50,13 @@ class DatasetController {
 
     async getMySubscriptions(req, res) {
         try {
-            const subscriptions = await SubscriptionModel.find({ userId: req.id })
-            const subscribedDatasetPromises = subscriptions.map(async (sub) => {
-                const subscribedDataset = await DatasetModel.findById(sub.datasetId).select('-data').select('-description')
-                return subscribedDataset
-            })
-            const subscribedDatasets = await Promise.all(subscribedDatasetPromises)
-            return res.status(200).json({ subscribedDatasets })
+            const subscribedDatasetIds = await SubscriptionModel.find({ userId: req.id }).distinct('datasetId');
+            const subscribedDatasets = await DatasetModel.find({ _id: { $in: subscribedDatasetIds } }).select('-data -description');
+            return res.status(200).json({ subscribedDatasets });
         }
 
         catch (error) {
-            return res.status(500).json({ msg: statusMessages.connectionError })
+            return res.status(500).json({ msg: statusMessages.connectionError });
         }
     }
 
