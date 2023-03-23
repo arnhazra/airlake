@@ -4,7 +4,7 @@
   "description": "Project Lenstack",
   "main": "app.js",
   "scripts": {
-    "start": "node app",
+    "start": "npm run build --prefix views && node app",
     "api": "nodemon app",
     "views": "npm run dev --prefix views",
     "dev": "concurrently \"npm run api\" \"npm run views\"",
