@@ -1,6 +1,10 @@
 # Lenstack Changelog
 
-## [Current v1.5 - Lenstack]
+## [Current v1.6 - Lenstack]
+* New API architecture on deploy for production to serve static assets better.
+* New query params for dataset view.
+
+## [v1.5 - Lenstack]
 * New API endpoint URIs and UI routes for new architecture.
 
 ## [v1.4 - Lenstack]
