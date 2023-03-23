@@ -25,9 +25,7 @@ app.use('/api', datasetRouter.getRouter())
 app.use('/api', walletRouter.getRouter())
 app.use('/api', authRouter.getRouter())
 
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, 'views', 'out')))
-    app.get('/*', (req, res) => {
-        res.sendFile(path.join(__dirname, 'views', 'out', 'index.html'))
-    })
-}
+app.use(express.static(path.join(__dirname, 'views', 'out')))
+app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'out', 'index.html'))
+})
