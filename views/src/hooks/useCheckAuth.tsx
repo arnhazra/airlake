@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useLayoutEffect, useState } from 'react'
 import axios from 'axios'
 import endPoints from '@/constants/Endpoints'
 import toast from 'react-hot-toast'
@@ -12,7 +12,7 @@ const useChcekAuth = () => {
     const [state, setState] = useState({ isLoaded: false })
     const router = useRouter()
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (!unprotectedRoutes.includes(router.pathname)) {
             (async () => {
                 try {
