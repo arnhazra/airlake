@@ -26,6 +26,7 @@ app.use('/api', walletRouter.getRouter())
 app.use('/api', authRouter.getRouter())
 
 app.use(express.static(path.join(__dirname, 'views', 'out')))
-app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'out', 'index.html'))
+
+app.use('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'out', `${req.originalUrl.split('?')[0]}.html`))
 })
