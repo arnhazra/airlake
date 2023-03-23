@@ -1,5 +1,5 @@
-const statusMessages = require('../constants/Messages')
-const endPoints = require('../constants/Endpoints')
+const statusMessages = require('../constants/statusMessages')
+const endPoints = require('../constants/endPoints')
 const { validationResult } = require('express-validator')
 const superagent = require('superagent')
 const TransactionModel = require('../models/TransactionModel')

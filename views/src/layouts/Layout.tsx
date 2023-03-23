@@ -5,9 +5,18 @@ import ReactIf from '@/components/ReactIfComponent'
 import Loading from '@/components/LoadingComponent'
 import useChcekAuth from '@/hooks/useCheckAuth'
 import { Toaster } from 'react-hot-toast'
+import { unprotectedRoutes } from '@/constants/UnprotectedRoutes'
+import { useRouter } from 'next/router'
 
 const Layout: FC<LayoutProps> = ({ children }) => {
 	const checkAuth = useChcekAuth()
+	const router = useRouter()
+
+	useEffect(() => {
+		if (unprotectedRoutes.includes(router.pathname)) {
+			router.replace('/datasetlibrary')
+		}
+	}, [router.pathname])
 
 	return (
 		<Fragment>

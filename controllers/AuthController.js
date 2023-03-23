@@ -1,5 +1,5 @@
-const statusMessages = require('../constants/Messages')
-const endPoints = require('../constants/Endpoints')
+const statusMessages = require('../constants/statusMessages')
+const endPoints = require('../constants/endPoints')
 const dotenv = require('dotenv').config()
 const jwt = require('jsonwebtoken')
 const otptool = require('otp-without-db')

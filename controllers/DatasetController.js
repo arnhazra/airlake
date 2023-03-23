@@ -1,4 +1,4 @@
-const statusMessages = require('../constants/Messages')
+const statusMessages = require('../constants/statusMessages')
 const { validationResult } = require('express-validator')
 const Fuse = require('fuse.js')
 const DatasetModel = require('../models/DatasetModel')

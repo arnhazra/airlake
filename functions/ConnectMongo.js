@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const statusMessages = require('../constants/Messages')
+const statusMessages = require('../constants/statusMessages')
 const dotenv = require('dotenv').config()
 const MONGO_URI = process.env.MONGO_URI
 

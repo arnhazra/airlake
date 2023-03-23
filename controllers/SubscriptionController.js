@@ -1,4 +1,4 @@
-const statusMessages = require('../constants/Messages')
+const statusMessages = require('../constants/statusMessages')
 const SubscriptionModel = require('../models/SubscriptionModel')
 
 class SubscriptionController {
