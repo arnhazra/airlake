@@ -1,6 +1,10 @@
 # Lenstack Changelog
 
-## [Current v1.6 - Lenstack]
+## [Current v1.7 - Lenstack]
+* New Dataset query model replacing Fuzzy search for better performance.
+* New pagination mechanism for faster initial load.
+
+## [v1.6 - Lenstack]
 * New API architecture on deploy for production to serve static assets better.
 * New query params for dataset view.
 
