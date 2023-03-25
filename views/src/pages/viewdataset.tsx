@@ -47,7 +47,7 @@ const ViewOneDatasetPage: NextPage = () => {
                         setAccount(accounts[0])
                         const contract = new web3.eth.Contract(tokenABI as any, contractAddress.tokenContractAddress)
                         await contract.methods.transfer(contractAddress.tokenContractAddress, web3.utils.toWei(dataset.price.toString(), 'ether')).send({ from: account })
-                        await axios.post(`${endPoints.subscribeEndpoint}/${id}`)
+                        await axios.post(`${endPoints.subscribeEndpoint}`, { datasetId: id })
                         setClickedSubscribed(true)
                     } catch (err) {
                         toast.error('Unable to connect to metamask')

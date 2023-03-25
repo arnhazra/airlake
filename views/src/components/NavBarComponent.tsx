@@ -54,7 +54,7 @@ const NavBar: FC = () => {
                                     onChange={debouncedChangeHandler}
                                 />
                             </Form>
-                            <button className='user-btn'><Link href='/account'>{userState.name[0]}</Link></button>
+                            <Link href='/account'><button className='user-btn'>{userState.name[0]}</button></Link>
                         </Navbar.Collapse>
                     </Container>
                 </Navbar>
