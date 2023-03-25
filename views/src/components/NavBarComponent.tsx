@@ -12,7 +12,7 @@ const NavBar: FC = () => {
     const [isAuthenticated, setAuthenticated] = useState(false)
 
     const searchChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
-        dispatch('setDatasetRequestState', { searchQuery: event.target.value })
+        dispatch('setDatasetRequestState', { searchQuery: event.target.value, datasetRequestNumber: 1 })
         router.push('/datasetlibrary')
     }
 

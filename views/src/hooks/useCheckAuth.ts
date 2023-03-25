@@ -37,10 +37,8 @@ const useChcekAuth = () => {
                     }
 
                     else {
-                        localStorage.removeItem('accessToken')
-                        toast.error(Constants.ToastError)
                         setState({ isLoaded: true })
-                        router.push('/')
+                        toast.error(Constants.ToastError)
                     }
                 }
             })()

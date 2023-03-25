@@ -2,18 +2,18 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/router'
-import { UseDatasetLibrary } from '@/types/States'
+import { DatasetRequestState } from '@/types/States'
 import endPoints from '@/constants/Endpoints'
 import Constants from '@/constants/Constants'
 
-const useDatasetLibrary = ({ searchQuery, selectedFilter, selectedSortOption }: UseDatasetLibrary) => {
+const useDatasetLibrary = ({ searchQuery, selectedFilter, selectedSortOption, datasetRequestNumber }: DatasetRequestState) => {
     const [state, setState] = useState({ datasets: [], isLoaded: false })
     const router = useRouter()
 
     useEffect(() => {
         (async () => {
             try {
-                const response = await axios.post(endPoints.datasetLibraryEndpoint, { selectedSortOption, selectedFilter, searchQuery })
+                const response = await axios.post(endPoints.datasetLibraryEndpoint, { selectedSortOption, selectedFilter, searchQuery, datasetRequestNumber })
                 setState({ datasets: response.data.datasets, isLoaded: true })
             }
 
@@ -27,7 +27,7 @@ const useDatasetLibrary = ({ searchQuery, selectedFilter, selectedSortOption }: 
                 toast.error(Constants.ToastError)
             }
         })()
-    }, [selectedSortOption, selectedFilter, searchQuery])
+    }, [selectedSortOption, selectedFilter, searchQuery, datasetRequestNumber])
 
     return state
 }

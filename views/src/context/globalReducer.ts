@@ -7,7 +7,7 @@ export type GlobalState = {
 
 export type ActionsMap = {
     setUserState: { [key: string]: string | boolean }
-    setDatasetRequestState: { [key: string]: string }
+    setDatasetRequestState: { [key: string]: string | number }
 }
 
 export type Actions = {

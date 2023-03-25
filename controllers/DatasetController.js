@@ -1,6 +1,5 @@
 const statusMessages = require('../constants/statusMessages')
 const { validationResult } = require('express-validator')
-const Fuse = require('fuse.js')
 const DatasetModel = require('../models/DatasetModel')
 const SubscriptionModel = require('../models/SubscriptionModel')
 const sortOptions = require('../utils/sortOptions')
@@ -19,28 +18,18 @@ class DatasetController {
     }
 
     async getDatasetLibrary(req, res) {
-        const selectedFilterCategory = req.body.selectedFilter === 'All' ? {} : { category: req.body.selectedFilter }
+        const selectedFilterCategory = req.body.selectedFilter === 'All' ? '' : req.body.selectedFilter
         const selectedSortOption = sortOptions[req.body.selectedSortOption]
-        const searchQuery = req.body.searchQuery.length > 0 && req.body.searchQuery
+        const searchQuery = req.body.searchQuery || ''
+        const datasetRequestNumber = req.body.datasetRequestNumber || 1
+        const itemsPerRequest = 12
 
         try {
-            const datasets = await DatasetModel.find(selectedFilterCategory).select('-data').select('-description').sort(selectedSortOption)
-
-            if (req.body.searchQuery.length > 0) {
-                const searchOptions = {
-                    keys: ['name', 'category'],
-                    includeScore: true,
-                    threshold: 0.4,
-                }
-                const fuse = new Fuse(datasets, searchOptions)
-                const filteredDatasets = fuse.search(searchQuery)
-                const convertedFilteredDatasets = filteredDatasets.map(result => result.item)
-                return res.status(200).json({ datasets: convertedFilteredDatasets })
-            }
-
-            else {
-                return res.status(200).json({ datasets })
-            }
+            const datasets = await DatasetModel.find({ name: { $regex: searchQuery, $options: 'i' }, category: { $regex: selectedFilterCategory } })
+                .sort(selectedSortOption)
+                .limit(itemsPerRequest * datasetRequestNumber)
+                .select('-data -description')
+            return res.status(200).json({ datasets })
         }
 
         catch (error) {

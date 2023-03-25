@@ -7,6 +7,7 @@ export type DatasetRequestState = {
     searchQuery: string,
     selectedFilter: string,
     selectedSortOption: string
+    datasetRequestNumber: number
 }
 
 export type LivePriceState = {
@@ -14,12 +15,6 @@ export type LivePriceState = {
     usd: number,
     eur: number,
     isLoaded: boolean
-}
-
-export type UseDatasetLibrary = {
-    searchQuery: string,
-    selectedFilter: string,
-    selectedSortOption: string
 }
 
 export type GenericIdType = {

@@ -4,7 +4,6 @@
 * dotenv - Loads environment variables from a .env file.
 * express - Fast and minimalist web framework for Node.js to build APIs.
 * express-validator - Validates incoming HTTP requests.
-* fuse.js - Fuzzy searching - more formally known as approximate string matching is the technique of finding approx values
 * googleapis - Official Google library for interacting with Google APIs, including OAuth2.
 * jsonwebtoken - Generates and validates JSON Web Tokens (JWTs) for user authentication and authorization.
 * mongoose - Elegant MongoDB object modeling for Node.js.
