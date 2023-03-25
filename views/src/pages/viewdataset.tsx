@@ -32,7 +32,7 @@ const ViewOneDatasetPage: NextPage = () => {
     const subscribe = async () => {
         if (dataset.price === 0) {
             try {
-                await axios.post(`${endPoints.subscribeEndpoint}`, { id })
+                await axios.post(`${endPoints.subscribeEndpoint}`, { datasetId: id })
                 setClickedSubscribed(true)
             } catch (error) {
                 toast.error(Constants.ToastError)
