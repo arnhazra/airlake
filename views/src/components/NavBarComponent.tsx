@@ -7,7 +7,7 @@ import ReactIf from './ReactIfComponent'
 import { useRouter } from 'next/router'
 
 const NavBar: FC = () => {
-    const [, dispatch] = useContext(GlobalContext)
+    const [{ userState }, dispatch] = useContext(GlobalContext)
     const router = useRouter()
     const [isAuthenticated, setAuthenticated] = useState(false)
 
@@ -42,7 +42,7 @@ const NavBar: FC = () => {
                             <Nav className='me-auto my-2 my-lg-0' style={{ maxHeight: '8rem' }} navbarScroll>
                                 <Link href='/mysubscriptions'><Navbar.Brand>My Subscriptions</Navbar.Brand></Link>
                                 <Link href='/wallet'><Navbar.Brand>Wallet</Navbar.Brand></Link>
-                                <Link href='/account'><Navbar.Brand>Account</Navbar.Brand></Link>
+                                <Link href='/account' className='user-link'><Navbar.Brand>Account</Navbar.Brand></Link>
                             </Nav>
                             <Form className='d-flex'>
                                 <Form.Control
@@ -54,6 +54,7 @@ const NavBar: FC = () => {
                                     onChange={debouncedChangeHandler}
                                 />
                             </Form>
+                            <button className='user-btn'><Link href='/account'>{userState.name[0]}</Link></button>
                         </Navbar.Collapse>
                     </Container>
                 </Navbar>
