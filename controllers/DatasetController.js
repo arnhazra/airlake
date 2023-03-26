@@ -21,13 +21,14 @@ class DatasetController {
         const selectedFilterCategory = req.body.selectedFilter === 'All' ? '' : req.body.selectedFilter
         const selectedSortOption = sortOptions[req.body.selectedSortOption]
         const searchQuery = req.body.searchQuery || ''
-        const datasetRequestNumber = req.body.datasetRequestNumber || 1
+        const datasetRequestNumber = req.body.datasetRequestNumber || 0
         const itemsPerRequest = 12
 
         try {
             const datasets = await DatasetModel.find({ name: { $regex: searchQuery, $options: 'i' }, category: { $regex: selectedFilterCategory } })
                 .sort(selectedSortOption)
-                .limit(itemsPerRequest * datasetRequestNumber)
+                .skip(itemsPerRequest * datasetRequestNumber)
+                .limit(itemsPerRequest)
                 .select('-data -description')
             return res.status(200).json({ datasets })
         }

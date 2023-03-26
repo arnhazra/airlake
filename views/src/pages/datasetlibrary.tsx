@@ -17,7 +17,12 @@ const DatasetLibraryPage: NextPage = () => {
         return <DatasetCard key={dataset._id} id={dataset._id} category={dataset.category} name={dataset.name} price={dataset.price} />
     })
 
-    const loadMoreDatasets = () => {
+    const prevPage = () => {
+        const prevDatasetReqNumber = datasetRequestState.datasetRequestNumber - 1
+        dispatch('setDatasetRequestState', { datasetRequestNumber: prevDatasetReqNumber })
+    }
+
+    const nextPage = () => {
         const nextDatasetReqNumber = datasetRequestState.datasetRequestNumber + 1
         dispatch('setDatasetRequestState', { datasetRequestNumber: nextDatasetReqNumber })
     }
@@ -31,7 +36,8 @@ const DatasetLibraryPage: NextPage = () => {
                         {datasetsToDisplay}
                     </Row>
                     <div className='text-center'>
-                        <button className="btn" onClick={loadMoreDatasets}>Load More Datasets <i className='fa-solid fa-circle-arrow-down'></i></button>
+                        <button className="btn" onClick={prevPage} disabled={datasetRequestState.datasetRequestNumber === 0}><i className='fa-solid fa-circle-arrow-left'></i>Prev Page</button>
+                        <button className="btn" onClick={nextPage} disabled={datasetLibrary.datasets.length !== 12}>Next Page <i className='fa-solid fa-circle-arrow-right'></i></button>
                     </div>
                 </Container>
             </ReactIf>
