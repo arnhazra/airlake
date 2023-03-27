@@ -1,6 +1,10 @@
 # Lenstack Changelog
 
-## [Current v1.8 - Lenstack]
+## [Current v1.9 - Lenstack]
+* New UI Dark Beta
+* Removed liveprice API
+
+## [v1.8 - Lenstack]
 * Added limit and offset to new datasetlibrary api
 * New Dataset datasetlibrary api for better performance.
 
