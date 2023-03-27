@@ -18,13 +18,13 @@ const DatasetLibraryPage: NextPage = () => {
     })
 
     const prevPage = () => {
-        const prevDatasetReqNumber = datasetRequestState.datasetRequestNumber - 1
-        dispatch('setDatasetRequestState', { datasetRequestNumber: prevDatasetReqNumber })
+        const prevDatasetReqNumber = datasetRequestState.offset - 1
+        dispatch('setDatasetRequestState', { offset: prevDatasetReqNumber })
     }
 
     const nextPage = () => {
-        const nextDatasetReqNumber = datasetRequestState.datasetRequestNumber + 1
-        dispatch('setDatasetRequestState', { datasetRequestNumber: nextDatasetReqNumber })
+        const nextOffset = datasetRequestState.offset + 1
+        dispatch('setDatasetRequestState', { offset: nextOffset })
     }
 
     return (
@@ -36,8 +36,8 @@ const DatasetLibraryPage: NextPage = () => {
                         {datasetsToDisplay}
                     </Row>
                     <div className='text-center'>
-                        <button className="btn" onClick={prevPage} disabled={datasetRequestState.datasetRequestNumber === 0}><i className='fa-solid fa-circle-arrow-left'></i>Prev Page</button>
-                        <button className="btn" onClick={nextPage} disabled={datasetLibrary.datasets.length !== 12}>Next Page <i className='fa-solid fa-circle-arrow-right'></i></button>
+                        <button className='btn' onClick={prevPage} disabled={datasetRequestState.offset === 0}><i className='fa-solid fa-circle-arrow-left'></i></button>
+                        <button className='btn' onClick={nextPage} disabled={datasetLibrary.datasets.length !== 12}><i className='fa-solid fa-circle-arrow-right'></i></button>
                     </div>
                 </Container>
             </ReactIf>

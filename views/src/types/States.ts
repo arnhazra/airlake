@@ -7,7 +7,7 @@ export type DatasetRequestState = {
     searchQuery: string,
     selectedFilter: string,
     selectedSortOption: string
-    datasetRequestNumber: number
+    offset: number
 }
 
 export type LivePriceState = {

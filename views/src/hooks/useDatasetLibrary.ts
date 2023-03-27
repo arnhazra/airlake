@@ -6,14 +6,14 @@ import { DatasetRequestState } from '@/types/States'
 import endPoints from '@/constants/Endpoints'
 import Constants from '@/constants/Constants'
 
-const useDatasetLibrary = ({ searchQuery, selectedFilter, selectedSortOption, datasetRequestNumber }: DatasetRequestState) => {
+const useDatasetLibrary = ({ searchQuery, selectedFilter, selectedSortOption, offset }: DatasetRequestState) => {
     const [state, setState] = useState({ datasets: [], isLoaded: false })
     const router = useRouter()
 
     useEffect(() => {
         (async () => {
             try {
-                const response = await axios.post(endPoints.datasetLibraryEndpoint, { selectedSortOption, selectedFilter, searchQuery, datasetRequestNumber })
+                const response = await axios.post(endPoints.datasetLibraryEndpoint, { selectedSortOption, selectedFilter, searchQuery, offset })
                 setState({ datasets: response.data.datasets, isLoaded: true })
             }
 
@@ -27,7 +27,7 @@ const useDatasetLibrary = ({ searchQuery, selectedFilter, selectedSortOption, da
                 toast.error(Constants.ToastError)
             }
         })()
-    }, [selectedSortOption, selectedFilter, searchQuery, datasetRequestNumber])
+    }, [selectedSortOption, selectedFilter, searchQuery, offset])
 
     return state
 }
