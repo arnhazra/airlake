@@ -1,7 +1,6 @@
 const statusMessages = require('../constants/statusMessages')
 const endPoints = require('../constants/endPoints')
 const { validationResult } = require('express-validator')
-const superagent = require('superagent')
 const TransactionModel = require('../models/TransactionModel')
 
 class WalletController {
@@ -31,17 +30,6 @@ class WalletController {
         try {
             const transactions = await TransactionModel.find({ owner: req.id }).sort({ date: -1 })
             return res.status(200).json({ transactions })
-        }
-
-        catch (error) {
-            return res.status(500).json({ msg: statusMessages.connectionError })
-        }
-    }
-
-    async getLivePrice(req, res) {
-        try {
-            const livePrice = await superagent.get(endPoints.liveEthPriceEndPoint)
-            return res.status(200).json(JSON.parse(livePrice.text))
         }
 
         catch (error) {

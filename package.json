@@ -24,8 +24,7 @@
     "nodemailer": "^6.9.1",
     "otp-generator": "^4.0.1",
     "otp-without-db": "^1.0.4",
-    "redis": "^4.6.5",
-    "superagent": "^8.0.9"
+    "redis": "^4.6.5"
   },
   "devDependencies": {
     "@openzeppelin/contracts": "^4.8.1",

@@ -7,7 +7,6 @@ const endPoints = {
     checkAuthEndpoint: `${apiHost}/api/checkauth`,
     createTxEndpoint: `${apiHost}/api/createwallettx`,
     walletTransactionEndpoint: `${apiHost}/api/getwallettx`,
-    walletLivePriceEndpoint: `${apiHost}/api/getethliveprice`,
     datasetSortAndFilterOptionsEndpoint: `${apiHost}/api/getdatasetsortandfilters`,
     datasetLibraryEndpoint: `${apiHost}/api/getdatasetlibrary`,
     datasetSubscriptionEndpoint: `${apiHost}/api/getmysubscriptions`,

@@ -11,7 +11,6 @@
 * otp-generator - Generates OTPs for two-factor authentication (2FA) and other use cases.
 * otp-without-db - Generates and verifies one-time passwords (OTPs) without a database.
 * redis - In-memory data store for caching and session management.
-* superagent - Lightweight HTTP client for Node.js.
 * axios - Promise-based HTTP client for the browser and Node.js.
 * bootstrap - Popular CSS framework for building responsive, mobile-first websites.
 * lodash.debounce - Debounced search mechanism.

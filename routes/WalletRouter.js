@@ -25,7 +25,6 @@ class WalletRouter {
         )
 
         this.router.post('/getwallettx', authorize, this.walletController.getTransactions.bind(this.walletController))
-        this.router.post('/getethliveprice', authorize, this.walletController.getLivePrice.bind(this.walletController))
     }
 
     getRouter() {

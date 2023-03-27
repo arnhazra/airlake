@@ -7,12 +7,10 @@ import ReactIf from '@/components/ReactIfComponent'
 import moment from 'moment'
 import endPoints from '@/constants/Endpoints'
 import useTransactionData from '@/hooks/useTransactionData'
-import useLivePrice from '@/hooks/useLivePrice'
 import Constants from '@/constants/Constants'
 
 const WalletTransactionsPage: NextPage = () => {
     const transactions = useTransactionData()
-    const liveprice = useLivePrice()
 
     const transactionsToDisplay = transactions.transactions.map((tx: any) => {
         return (
@@ -28,36 +26,10 @@ const WalletTransactionsPage: NextPage = () => {
 
     return (
         <Fragment>
-            <ReactIf condition={transactions.isLoaded && liveprice.isLoaded}>
+            <ReactIf condition={transactions.isLoaded}>
                 <Container>
                     <div className='jumbotron mt-4 pl-5'>
                         <p className='display-4'>Wallet</p>
-                        <div key={'liveprice'}>
-                            <Table responsive hover variant='light'>
-                                <thead>
-                                    <tr>
-                                        <th>Crypto</th>
-                                        <th>INR</th>
-                                        <th>USD</th>
-                                        <th>EUR</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>ETH</td>
-                                        <td>{liveprice.inr}</td>
-                                        <td>{liveprice.usd}</td>
-                                        <td>{liveprice.eur}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>LST</td>
-                                        <td>{(liveprice.inr / 10000).toFixed(3)}</td>
-                                        <td>{(liveprice.usd / 10000).toFixed(3)}</td>
-                                        <td>{(liveprice.eur / 10000).toFixed(3)}</td>
-                                    </tr>
-                                </tbody>
-                            </Table>
-                        </div>
                         <div className='info'>
                             <p className='lead'>{Constants.Info}</p>
                             <p className='lead'>{Constants.Warning}</p>
@@ -66,7 +38,7 @@ const WalletTransactionsPage: NextPage = () => {
                         </div>
                     </div>
                     <ReactIf condition={transactions.transactions.length > 0}>
-                        <Table responsive hover variant='light'>
+                        <Table responsive hover variant='dark'>
                             <thead>
                                 <tr>
                                     <th>Event</th>
@@ -83,7 +55,7 @@ const WalletTransactionsPage: NextPage = () => {
                     </ReactIf>
                 </Container>
             </ReactIf>
-            <ReactIf condition={!transactions.isLoaded || !liveprice.isLoaded}>
+            <ReactIf condition={!transactions.isLoaded}>
                 <Loading />
             </ReactIf>
         </Fragment >
