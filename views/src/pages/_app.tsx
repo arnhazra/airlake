@@ -1,6 +1,7 @@
 import Layout from '@/layouts/Layout'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '@/styles/globals.sass'
+import '@/styles/media.sass'
 import type { AppProps } from 'next/app'
 import axios from 'axios'
 import GlobalStateProvider from '@/context/globalStateProvider'

@@ -5,16 +5,17 @@ import Link from 'next/link'
 
 const DatasetCard: FC<DatasetCardProps> = ({ id, category, name, price }) => {
     return (
-        <Col xs={12} sm={12} md={6} lg={4} xl={3} className='mb-4'>
+        <Col xs={6} sm={6} md={4} lg={3} xl={2} className='mb-4'>
             <Link href={`/viewdataset?id=${id}`}>
                 <Card>
                     <Card.Header className='pt-3'>
                         <div className={`${category.toLowerCase()}Container pt-4`} />
                     </Card.Header>
                     <Card.Footer className='pt-4 pb-2 ps-4'>
-                        <p className='lead'>{name}</p>
+                        <div className='nameContainer'>
+                            <p className="lead">{name}</p>
+                        </div>
                         <p className='smalltext'>{category}</p>
-                        <button className='chip'>{price === 0 ? 'FREE' : price + ' LST'}</button><br />
                     </Card.Footer>
                 </Card>
             </Link>

@@ -2,7 +2,7 @@ $mainColor: #121212
 $white: #ffffff
 $inputColor: #f8f8f8
 $blurColor: #12121275
-$searchBoxColor: #f7f7f7
+$searchBoxColor: #222222be
 $green: #1ed760
 $red: #d71e62
 
@@ -45,19 +45,21 @@ body
 
 .card
     background: transparent
+    color: $white
     border-radius: 1rem !important
     border: none
     animation: transitionIn 0.7s forwards
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px
 
 .card-header
-    background: $white !important
+    background: $mainColor !important
     border-radius: 1rem 1rem 0 0 !important
     border: none !important
     text-align: center
+    padding: 0 !important
 
 .card-footer
-    background: $white !important
+    background: $mainColor !important
     border-radius: 0 0 1rem 1rem !important
     border: none !important
 
@@ -67,8 +69,13 @@ body
 .lead
     font-size: 100%
 
+.nameContainer
+    white-space: nowrap
+    overflow: hidden
+
 .smalltext
     font-size: 80%
+    color: gray
 
 .box
     top: 54%
@@ -174,7 +181,7 @@ input[type=number]
     font-size: 1rem
 
 .navbar-unauthorized
-    background: $white
+    background: $mainColor
     z-index: 2
     padding-top: 1rem !important
     padding-bottom: 1rem !important
@@ -182,7 +189,7 @@ input[type=number]
     min-height: 4.5rem
 
 .navbar
-    background: $white
+    background: $mainColor
     z-index: 2
     padding-top: 1rem !important
     padding-bottom: 1rem !important
@@ -193,7 +200,7 @@ input[type=number]
     letter-spacing: 0.1rem
     margin-right: 1.5rem
     cursor: pointer
-    color: $mainColor !important
+    color: $white !important
 
 .navbar-toggler:focus,
 .navbar-toggler:active,
@@ -205,14 +212,14 @@ input[type=number]
     height: 3rem
     min-width: 22rem !important
     background-color: $searchBoxColor !important
-    color: $mainColor !important
+    color: $white !important
     border: none
     margin-bottom: 0.2rem !important
     border-radius: 4rem
     text-align: left
 
 .searchbar-navbar::placeholder
-    color: $mainColor !important
+    color: $white !important
 
 .container
     min-width: 90%
@@ -242,13 +249,13 @@ th,td,tr
     width: 3.2rem
     border: none
     background: $searchBoxColor
-    color: $mainColor
+    color: $white
     font-size: 1.4rem
     border-radius: 3rem
 
 .link-table,
 .link-table:hover
-    color: $mainColor
+    color: $white
 
 .fa-solid
     padding-left: 0.6rem
@@ -279,16 +286,6 @@ th,td,tr
 .user-link
     display: none
 
-@media only screen and (max-width: 61.95rem)
-    .lead
-        font-size: 80%
-
-    .user-btn
-        display: none
-
-    .user-link
-        display: block
-
 @keyframes transitionIn
     from
         opacity: 0
@@ -301,50 +298,40 @@ th,td,tr
 @mixin categoryContainer
     height: 10rem
     width: 100%
-    border-radius: 1rem
+    border-radius: 1rem 1rem 0 0
     transition: transform 0.5s ease
     box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, .2), 0 0.2rem 0.2rem 0 rgba(0, 0, 0, .2)
     background-size: cover
     background-position: center
 
 .scienceContainer
-    background: linear-gradient(to right, #12121280, #12121280), url(../assets/images/science.jpg)
+    background: linear-gradient(to top, #121212ff, #12121230), url(../assets/images/science.jpg)
     @include categoryContainer
 
 .financeContainer
-    background: linear-gradient(to right, #12121280, #12121280), url(../assets/images/finance.jpg)
+    background: linear-gradient(to top, #121212ff, #12121230), url(../assets/images/finance.jpg)
     @include categoryContainer
 
 .entertainmentContainer
-    background: linear-gradient(to right, #12121280, #12121280), url(../assets/images/entertainment.jpg)
+    background: linear-gradient(to top, #121212ff, #12121230), url(../assets/images/entertainment.jpg)
     @include categoryContainer
 
 .geographyContainer
-    background: linear-gradient(to right, #12121280, #12121280), url(../assets/images/geography.jpg)
+    background: linear-gradient(to top, #121212ff, #12121230), url(../assets/images/geography.jpg)
     @include categoryContainer
 
 .genericContainer
-    background: linear-gradient(to right, #12121280, #12121280), url(../assets/images/generic.jpg)
+    background: linear-gradient(to top, #121212ff, #12121230), url(../assets/images/generic.jpg)
     @include categoryContainer
 
 .usersContainer
-    background: linear-gradient(to right, #12121280, #12121280), url(../assets/images/users.jpg)
+    background: linear-gradient(to top, #121212ff, #12121230), url(../assets/images/users.jpg)
     @include categoryContainer
 
 .booksContainer
-    background: linear-gradient(to right, #12121280, #12121280), url(../assets/images/books.jpg)
+    background: linear-gradient(to top, #121212ff, #12121230), url(../assets/images/books.jpg)
     @include categoryContainer
 
 .sportsContainer
-    background: linear-gradient(to right, #12121280, #12121280), url(../assets/images/sports.jpg)
+    background: linear-gradient(to top, #121212ff, #12121230), url(../assets/images/sports.jpg)
     @include categoryContainer
-
-.scienceContainer:hover,
-.financeContainer:hover,
-.entertainmentContainer:hover,
-.geographyContainer:hover,
-.usersContainer:hover,
-.genericContainer:hover,
-.booksContainer:hover,
-.sportsContainer:hover
-    transform: scale(1.05)
