@@ -22,12 +22,12 @@ class DatasetController {
         const selectedSortOption = sortOptions[req.body.selectedSortOption]
         const searchQuery = req.body.searchQuery || ''
         const offset = req.body.offset || 0
-        const limit = 12
+        const limit = 24
 
         try {
             const datasets = await DatasetModel.find({ name: { $regex: searchQuery, $options: 'i' }, category: { $regex: selectedFilterCategory } })
                 .sort(selectedSortOption)
-                .skip(limit * offset)
+                .skip(offset)
                 .limit(limit)
                 .select('-data -description')
             return res.status(200).json({ datasets })
