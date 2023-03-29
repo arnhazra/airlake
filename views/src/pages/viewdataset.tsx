@@ -72,19 +72,23 @@ const ViewOneDatasetPage: NextPage = () => {
                     <Container className='mt-4'>
                         <div className='jumbotron'>
                             <p className='display-4 text-capitalize'>{dataset.name}</p>
+                            <p className='smalltext'>{dataset.description}</p>
                             <div className='chip-grid'>
                                 <button className='chip me-3'>{dataset.category}</button>
                                 <button className='chip me-3'>{dataset.price === 0 ? 'FREE' : `${dataset.price} LST`}</button>
                                 <button className='chip'>{dataset.dataLength} Datapoints</button><br />
                             </div>
-                            <p className='smalltext'>{dataset.description}</p>
-
-                            <button disabled={subscriptionStatus.isSubscribed} className='btn' onClick={subscribe}>
-                                {subscriptionStatus.isSubscribed ? 'Subscribed' : 'Subscribe'}
-                                {subscriptionStatus.isSubscribed ? <i className='fa-solid fa-circle-check fa-white'></i> : <i className='fa-solid fa-circle-plus'></i>}
-                            </button>
-                            {!subscriptionStatus.isSubscribed && <a target='_blank' rel='noreferrer' href={`${endPoints.datasetPreview}/${id}`} className='btn'>Preview Data<i className='fa-solid fa-circle-arrow-right'></i></a>}
-                            {subscriptionStatus.isSubscribed && <a target='_blank' rel='noreferrer' href={`${endPoints.datasetFullview}/${id}/${subscriptionStatus.subscriptionId}`} className='btn'>View Data - Full<i className='fa-solid fa-circle-arrow-right'></i></a>}
+                            <ReactIf condition={!subscriptionStatus.isSubscribed}>
+                                <button className='chip me-3' onClick={subscribe}>
+                                    Subscribe<i className='fa-solid fa-circle-plus'></i>
+                                </button>
+                            </ReactIf>
+                            <ReactIf condition={!subscriptionStatus.isSubscribed}>
+                                <a target='_blank' rel='noreferrer' href={`${endPoints.datasetPreview}/${id}`} className='chip me-3'>Data Preview</a>
+                            </ReactIf>
+                            <ReactIf condition={subscriptionStatus.isSubscribed}>
+                                <a target='_blank' rel='noreferrer' href={`${endPoints.datasetFullview}/${id}/${subscriptionStatus.subscriptionId}`} className='chip me-3'>Data Fullview</a>
+                            </ReactIf>
                         </div>
                         <Row>
                             <p className='lead text-center text-white mb-4'>Similar Datasets</p>

@@ -1,6 +1,13 @@
 # Lenstack Changelog
 
-## [Current v1.9 - Lenstack]
+## [Current v2.0 - Lenstack - Full Release]
+* New UI Dark Full
+* Added full datasets
+* Fixed offset with actual offset values
+* Added 24 items per page instead of 12
+* Auto scroll to top when paginated
+
+## [v1.9 - Lenstack]
 * New UI Dark Beta
 * Removed liveprice API
 

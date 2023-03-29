@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useRef } from 'react'
 import { Container, Row } from 'react-bootstrap'
 import { Fragment } from 'react'
 import Loading from '@/components/LoadingComponent'
@@ -20,11 +20,13 @@ const DatasetLibraryPage: NextPage = () => {
     const prevPage = () => {
         const prevDatasetReqNumber = datasetRequestState.offset - 24
         dispatch('setDatasetRequestState', { offset: prevDatasetReqNumber })
+        window.scrollTo(0, 0)
     }
 
     const nextPage = () => {
         const nextOffset = datasetRequestState.offset + 24
         dispatch('setDatasetRequestState', { offset: nextOffset })
+        window.scrollTo(0, 0)
     }
 
     return (
