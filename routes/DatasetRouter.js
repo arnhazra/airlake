@@ -11,7 +11,7 @@ class DatasetRouter {
     }
 
     registerRoutes() {
-        this.router.post('/getdatasetsortandfilters', authorize, this.datasetController.getDatasetSortAndFilters.bind(this.datasetController))
+        this.router.post('/getdatasetfilters', authorize, this.datasetController.getDatasetFilters.bind(this.datasetController))
         this.router.post('/getdatasetlibrary', authorize, this.datasetController.getDatasetLibrary.bind(this.datasetController))
         this.router.post('/getmysubscriptions', authorize, this.datasetController.getMySubscriptions.bind(this.datasetController))
         this.router.post('/viewdataset', authorize, this.datasetController.viewDataset.bind(this.datasetController))

@@ -5,14 +5,14 @@ import toast from 'react-hot-toast'
 import { useRouter } from 'next/router'
 import Constants from '@/constants/Constants'
 
-const useSortAndFilters = () => {
+const useFilters = () => {
     const [state, setState] = useState({ sortOptions: [], filterCategories: [], isLoaded: false })
     const router = useRouter()
 
     useEffect(() => {
         (async () => {
             try {
-                const response = await axios.post(endPoints.datasetSortAndFilterOptionsEndpoint)
+                const response = await axios.post(endPoints.datasetFiltersEndpoint)
                 setState({ ...state, sortOptions: response.data.sortOptions, filterCategories: response.data.filterCategories, isLoaded: true })
             }
 
@@ -31,4 +31,4 @@ const useSortAndFilters = () => {
     return state
 }
 
-export default useSortAndFilters
+export default useFilters

@@ -2,14 +2,13 @@ const statusMessages = require('../constants/statusMessages')
 const { validationResult } = require('express-validator')
 const DatasetModel = require('../models/DatasetModel')
 const SubscriptionModel = require('../models/SubscriptionModel')
-const sortOptions = require('../utils/sortOptions')
 
 class DatasetController {
-    async getDatasetSortAndFilters(req, res) {
+    async getDatasetFilters(req, res) {
         try {
             const filterCategories = await DatasetModel.find().distinct('category')
             filterCategories.push('All')
-            return res.status(200).json({ sortOptions: Object.keys(sortOptions), filterCategories })
+            return res.status(200).json({ filterCategories })
         }
 
         catch (error) {
@@ -19,7 +18,7 @@ class DatasetController {
 
     async getDatasetLibrary(req, res) {
         const selectedFilterCategory = req.body.selectedFilter === 'All' ? '' : req.body.selectedFilter
-        const selectedSortOption = sortOptions[req.body.selectedSortOption]
+        const selectedSortOption = req.body.selectedSortOption || '-_id'
         const searchQuery = req.body.searchQuery || ''
         const offset = req.body.offset || 0
         const limit = 24
@@ -30,6 +29,8 @@ class DatasetController {
                 .skip(offset)
                 .limit(limit)
                 .select('-data -description')
+                .allowDiskUse(true)
+                .exec()
             return res.status(200).json({ datasets })
         }
 
