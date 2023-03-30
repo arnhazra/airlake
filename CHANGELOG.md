@@ -6,6 +6,7 @@
 * Fixed offset with actual offset values
 * Added 24 items per page instead of 12
 * Auto scroll to top when paginated
+* New sorting algorithm
 
 ## [v1.9 - Lenstack]
 * New UI Dark Beta
