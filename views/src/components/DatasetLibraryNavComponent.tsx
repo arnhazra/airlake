@@ -27,9 +27,11 @@ const DatasetLibraryNav: FC = () => {
                     <Col xs={12} sm={12} md={6} lg={4} xl={3}>
                         <FloatingLabel controlId='floatingSelectGrid' label='Sort By'>
                             <Form.Select defaultValue={datasetRequestState.selectedSortOption} onChange={(e): void => dispatch('setDatasetRequestState', { selectedSortOption: e.target.value })}>
-                                <option className='options' key={'name'} value={'name'}>Dataset Name</option>
-                                <option className='options' key={'price'} value={'price'}>Dataset Price</option>
-                                <option className='options' key={'freshness'} value={'-_id'}>Dataset Freshness</option>
+                                <option className='options' key={'nameAscending'} value={'nameAscending'}>Name Ascending</option>
+                                <option className='options' key={'nameDescending'} value={'nameDescending'}>Name Descending</option>
+                                <option className='options' key={'priceAscending'} value={'priceAscending'}>Price Ascending</option>
+                                <option className='options' key={'priceDescending'} value={'priceDescending'}>Price Descending</option>
+                                <option className='options' key={'freshness'} value={'freshness'}>Dataset Freshness</option>
                             </Form.Select>
                         </FloatingLabel>
                     </Col>
