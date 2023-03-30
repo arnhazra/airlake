@@ -1,7 +1,7 @@
 {
-  "name": "project-lenstack",
+  "name": "project-evolake",
   "version": "2.0",
-  "description": "Project Lenstack",
+  "description": "Project Evolake",
   "main": "app.js",
   "scripts": {
     "start": "node app",

@@ -1,6 +1,6 @@
-# Lenstack Changelog
+# Evolake Changelog
 
-## [Current v2.0 - Lenstack - Full Release]
+## [Current v2.0 - Evolake - Full Release]
 * New UI Dark Full
 * Added full datasets
 * Fixed offset with actual offset values
@@ -8,44 +8,44 @@
 * Auto scroll to top when paginated
 * New sorting algorithm
 
-## [v1.9 - Lenstack]
+## [v1.9 - Evolake]
 * New UI Dark Beta
 * Removed liveprice API
 
-## [v1.8 - Lenstack]
+## [v1.8 - Evolake]
 * Added limit and offset to new datasetlibrary api
 * New Dataset datasetlibrary api for better performance.
 
-## [v1.7 - Lenstack]
+## [v1.7 - Evolake]
 * New Dataset query model replacing Fuzzy search for better performance.
 * New pagination mechanism for faster initial load.
 
-## [v1.6 - Lenstack]
+## [v1.6 - Evolake]
 * New API architecture on deploy for production to serve static assets better.
 * New query params for dataset view.
 
-## [v1.5 - Lenstack]
+## [v1.5 - Evolake]
 * New API endpoint URIs and UI routes for new architecture.
 
-## [v1.4 - Lenstack]
+## [v1.4 - Evolake]
 * Next JS Migration from Create React App - Beta Stage.
 * Changed some hooks for better performance optimizations.
 
-## [v1.3 - Lenstack]
+## [v1.3 - Evolake]
 * Integrated Fuzzy search algorithm for better user experience.
 * Replaced HS256 with RS512 JWT which uses Public & Private key for better security.
 
-## [v1.2 - Lenstack]
+## [v1.2 - Evolake]
 * Debounced search for better performance.
 * Integrated React suspense for high performance initial load.
 
-## [v1.1 - Lenstack]
+## [v1.1 - Evolake]
 * Integrated Redis for faster authorization checks, storing auth tokens for which MongoDB was the earlier option.
 * Single & Multi device signouts.
 
-## [v1.0 - Lenstack]
+## [v1.0 - Evolake]
 * All the major functionalities.
-* Lenstack is a dataset library that offers free and premium data sets to users. 
+* Evolake is a dataset library that offers free and premium data sets to users. 
 * Mongo DB For Users, Transactions Datasets Management.
 * Web3 JS - Ethereum blockchain for Web3 transactions.
 * Express JS as a framework on top of Node JS for API - Microservices.
