@@ -16,7 +16,7 @@ const TransactionSchema = new mongoose.Schema({
         required: true
     },
 
-    lstAmount: {
+    eltAmount: {
         type: String,
         required: true
     },

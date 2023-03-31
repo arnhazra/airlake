@@ -16,7 +16,7 @@ const endPoints = {
     datasetFullview: `${apiHost}/api/datasetfullview`,
     subscribeEndpoint: `${apiHost}/api/subscribe`,
     checkSubscriptionEndpoint: `${apiHost}/api/checksubscriptionstatus`,
-    etherScanEndpoint: `https://goerli.etherscan.io/tx`,
+    etherScanEndpoint: `https://sepolia.etherscan.io/tx`,
 }
 
 export default endPoints

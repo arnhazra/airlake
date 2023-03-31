@@ -4,7 +4,7 @@ $inputColor: #f8f8f8
 $blurColor: #12121275
 $searchBoxColor: #222222be
 $green: #1ed760
-$red: #b30048
+$red: #FF0066
 
 html
     scrollbar-width: none
@@ -43,29 +43,6 @@ body
     border-radius: 1rem
     backdrop-filter: blur(0.4rem)
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px
-
-.card
-    background: transparent
-    color: $white
-    border-radius: 1rem !important
-    border: none
-    animation: transitionIn 0.7s forwards
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px
-
-.card-header
-    background: $mainColor !important
-    border-radius: 1rem 1rem 0 0 !important
-    border: none !important
-    text-align: center
-    padding: 0 !important
-
-.card-footer
-    background: $mainColor !important
-    border-radius: 0 0 1rem 1rem !important
-    border: none !important
-
-.card-body
-    border: none !important
 
 .lead
     font-size: 100%
@@ -113,7 +90,7 @@ body
     margin-bottom: 1rem
     color: $white !important
     letter-spacing: 0.05rem
-    font-size: 0.9rem
+    font-size: 1rem
     border: none
 
     &:disabled
@@ -123,11 +100,11 @@ body
 .chip
     font-size: 0.7rem !important
     border: none
-    background: $red
+    background-image: linear-gradient(to right, #D41872 0%, #FF0066 100%)
     color: $white
     font-weight: bold
     text-transform: uppercase
-    letter-spacing: 0.05rem
+    letter-spacing: 0.1rem
     padding: 0.7rem 1.2rem
     border-radius: 3rem
     font-size: 0.75rem
@@ -295,44 +272,3 @@ th,td,tr
     to
         opacity: 1
         transform: rotateX(0)
-
-@mixin categoryContainer
-    height: 10rem
-    width: 100%
-    border-radius: 1rem 1rem 0 0
-    transition: transform 0.5s ease
-    box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, .2), 0 0.2rem 0.2rem 0 rgba(0, 0, 0, .2)
-    background-size: cover
-    background-position: center
-
-.scienceContainer
-    background: linear-gradient(to top, #121212ff, #12121230), url(../assets/images/science.jpg)
-    @include categoryContainer
-
-.financeContainer
-    background: linear-gradient(to top, #121212ff, #12121230), url(../assets/images/finance.jpg)
-    @include categoryContainer
-
-.entertainmentContainer
-    background: linear-gradient(to top, #121212ff, #12121230), url(../assets/images/entertainment.jpg)
-    @include categoryContainer
-
-.geographyContainer
-    background: linear-gradient(to top, #121212ff, #12121230), url(../assets/images/geography.jpg)
-    @include categoryContainer
-
-.genericContainer
-    background: linear-gradient(to top, #121212ff, #12121230), url(../assets/images/generic.jpg)
-    @include categoryContainer
-
-.usersContainer
-    background: linear-gradient(to top, #121212ff, #12121230), url(../assets/images/users.jpg)
-    @include categoryContainer
-
-.booksContainer
-    background: linear-gradient(to top, #121212ff, #12121230), url(../assets/images/books.jpg)
-    @include categoryContainer
-
-.sportsContainer
-    background: linear-gradient(to top, #121212ff, #12121230), url(../assets/images/sports.jpg)
-    @include categoryContainer

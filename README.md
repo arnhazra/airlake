@@ -22,16 +22,16 @@ To access the datasets offered by Evolake, users can subscribe to a plan that be
 
 ## Subscribing to premium datasets
 
-Accessing Evolake's premium datasets requires the use of LST, an ERC-20 standard token developed on the Ethereum blockchain. Users must hold LST tokens in their cryptocurrency wallet in order to subscribe to the premium plans and unlock the full potential of the platform. This innovative use of blockchain technology ensures secure and transparent transactions, providing users with a seamless and trustworthy experience.
+Accessing Evolake's premium datasets requires the use of ELT, an ERC-20 standard token developed on the Ethereum blockchain. Users must hold ELT tokens in their cryptocurrency wallet in order to subscribe to the premium plans and unlock the full potential of the platform. This innovative use of blockchain technology ensures secure and transparent transactions, providing users with a seamless and trustworthy experience.
 
-## Add LST to Metamask
+## Add ELT to Metamask
 
-To add LST to your MetaMask wallet, you can import the token by following these steps:
+To add ELT to your MetaMask wallet, you can import the token by following these steps:
 * Open the MetaMask wallet extension in your browser and log in to your account.
 * Click on the three dots in the top right corner and select "Add Token".
 * Click on the "Custom Token" tab.
-* Enter the LST contract address '0x9d46e816e10c6353Fcf7381343b053117641d472', which is a unique identifier for the token. The LST contract address is provided by Evolake.
-* MetaMask will automatically fill in the Token Symbol and Decimal fields. If not, the Token Symbol is LST and the Decimals is 18.
+* Enter the ELT contract address '0x9d46e816e10c6353Fcf7381343b053117641d472', which is a unique identifier for the token. The ELT contract address is provided by Evolake.
+* MetaMask will automatically fill in the Token Symbol and Decimal fields. If not, the Token Symbol is ELT and the Decimals is 18.
 Click "Next".
 * On the next screen, you can review the details of the token you are adding. Click "Add Tokens" to complete the import process.
-* Once you have imported LST to your MetaMask wallet, you will be able to use the token to access Evolake's premium datasets.
+* Once you have imported ELT to your MetaMask wallet, you will be able to use the token to access Evolake's premium datasets.

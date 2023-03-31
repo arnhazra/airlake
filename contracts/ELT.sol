@@ -2,8 +2,8 @@
 pragma solidity ^0.8.4;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-contract Lenstack is ERC20 {
-    constructor() ERC20("LenstackToken", "LST") {
-        _mint(msg.sender, 1000000 * 10**18);
+contract ELT is ERC20 {
+    constructor() ERC20("EvolakeToken", "ELT") {
+        _mint(msg.sender, 1000000 * 10 ** 18);
     }
 }

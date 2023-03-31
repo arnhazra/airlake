@@ -75,7 +75,7 @@ const ViewOneDatasetPage: NextPage = () => {
                             <p className='smalltext'>{dataset.description}</p>
                             <div className='chip-grid'>
                                 <button className='chip me-3'>{dataset.category}</button>
-                                <button className='chip me-3'>{dataset.price === 0 ? 'FREE' : `${dataset.price} LST`}</button>
+                                <button className='chip me-3'>{dataset.price === 0 ? 'FREE' : `${dataset.price} ELT`}</button>
                                 <button className='chip'>{dataset.dataLength} Datapoints</button><br />
                             </div>
                             <ReactIf condition={!subscriptionStatus.isSubscribed}>

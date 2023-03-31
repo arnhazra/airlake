@@ -51,17 +51,17 @@ const BuyCoinPage: NextPage = () => {
             const obj = {
                 fromAddress: request.from || '0x',
                 transactionType: 'Buy',
-                lstAmount: tokens,
+                eltAmount: tokens,
                 ethAmount: ether,
                 txHash: request.transactionHash
             }
             await axios.post(endPoints.createTxEndpoint, obj)
             setStep(3)
-            toast.success('You have successfully bought LST tokens!')
+            toast.success('You have successfully bought ELT tokens!')
         } catch (err) {
             setTxError(true)
             setStep(3)
-            toast.error('Error purchasing LST tokens')
+            toast.error('Error purchasing ELT tokens')
         }
     }
 
@@ -70,7 +70,7 @@ const BuyCoinPage: NextPage = () => {
             <div className='box'>
                 <ReactIf condition={account !== ''}>
                     <ReactIf condition={step === 1}>
-                        <p className='branding'>Buy LST</p>
+                        <p className='branding'>Buy ELT</p>
                         <FloatingLabel controlId='floatingAmount' label='Amount of tokens'>
                             <Form.Control autoFocus type='email' placeholder='Amount of tokens' onChange={(e: any) => setTokens(e.target.value)} required />
                         </FloatingLabel>

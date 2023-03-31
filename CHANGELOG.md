@@ -1,6 +1,11 @@
 # Evolake Changelog
 
-## [Current v2.0 - Evolake - Full Release]
+## [Current v2.1]
+* Rebranding
+* New architecture & restructure
+* Migration to Sepolia testnet on Ethereum Blockchain
+
+## [v2.0]
 * New UI Dark Full
 * Added full datasets
 * Fixed offset with actual offset values
@@ -8,42 +13,42 @@
 * Auto scroll to top when paginated
 * New sorting algorithm
 
-## [v1.9 - Evolake]
+## [v1.9]
 * New UI Dark Beta
 * Removed liveprice API
 
-## [v1.8 - Evolake]
+## [v1.8]
 * Added limit and offset to new datasetlibrary api
 * New Dataset datasetlibrary api for better performance.
 
-## [v1.7 - Evolake]
+## [v1.7]
 * New Dataset query model replacing Fuzzy search for better performance.
 * New pagination mechanism for faster initial load.
 
-## [v1.6 - Evolake]
+## [v1.6]
 * New API architecture on deploy for production to serve static assets better.
 * New query params for dataset view.
 
-## [v1.5 - Evolake]
+## [v1.5]
 * New API endpoint URIs and UI routes for new architecture.
 
-## [v1.4 - Evolake]
+## [v1.4]
 * Next JS Migration from Create React App - Beta Stage.
 * Changed some hooks for better performance optimizations.
 
-## [v1.3 - Evolake]
+## [v1.3]
 * Integrated Fuzzy search algorithm for better user experience.
 * Replaced HS256 with RS512 JWT which uses Public & Private key for better security.
 
-## [v1.2 - Evolake]
+## [v1.2]
 * Debounced search for better performance.
 * Integrated React suspense for high performance initial load.
 
-## [v1.1 - Evolake]
+## [v1.1]
 * Integrated Redis for faster authorization checks, storing auth tokens for which MongoDB was the earlier option.
 * Single & Multi device signouts.
 
-## [v1.0 - Evolake]
+## [v1.0]
 * All the major functionalities.
 * Evolake is a dataset library that offers free and premium data sets to users. 
 * Mongo DB For Users, Transactions Datasets Management.

@@ -2,7 +2,6 @@ const statusMessages = require('../constants/statusMessages')
 const { validationResult } = require('express-validator')
 const DatasetModel = require('../models/DatasetModel')
 const SubscriptionModel = require('../models/SubscriptionModel')
-const sortDatasets = require('../functions/SortDatasets')
 
 class DatasetController {
     async getDatasetFilters(req, res) {
@@ -19,19 +18,20 @@ class DatasetController {
 
     async getDatasetLibrary(req, res) {
         const selectedFilterCategory = req.body.selectedFilter === 'All' ? '' : req.body.selectedFilter
-        const selectedSortOption = req.body.selectedSortOption || 'freshness'
+        const selectedSortOption = req.body.selectedSortOption || '-_id'
         const searchQuery = req.body.searchQuery || ''
         const offset = req.body.offset || 0
         const limit = 24
 
         try {
-            let unsortedDatasets = await DatasetModel.find({ name: { $regex: searchQuery, $options: 'i' }, category: { $regex: selectedFilterCategory } })
+            const datasets = await DatasetModel.find({ name: { $regex: searchQuery, $options: 'i' }, category: { $regex: selectedFilterCategory } })
                 .skip(offset)
                 .limit(limit)
                 .select('-data -description')
                 .allowDiskUse(true)
+                .sort(selectedSortOption)
+                .allowDiskUse(true)
                 .exec()
-            const datasets = sortDatasets(unsortedDatasets, selectedSortOption)
             return res.status(200).json({ datasets })
         }
 

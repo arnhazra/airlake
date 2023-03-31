@@ -1,0 +1,81 @@
+$mainColor: #121212
+$white: #ffffff
+
+.card
+    background: transparent
+    color: $white
+    border-radius: 1rem !important
+    border: none
+    animation: transitionIn 0.7s forwards
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px
+
+.card-header
+    border-radius: 1rem 1rem 0 0 !important
+    border: none !important
+    text-align: center
+    padding: 0 !important
+
+.card-footer
+    border-radius: 0 0 1rem 1rem !important
+    border: none !important
+
+.card-body
+    border: none !important
+
+@mixin categoryContainer
+    height: 10rem
+    width: 100%
+    border-radius: 1rem 1rem 0 0
+    transition: transform 0.5s ease
+    box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, .2), 0 0.2rem 0.2rem 0 rgba(0, 0, 0, .2)
+    background-size: cover
+    background-position: center
+
+.scienceContainer
+    background: linear-gradient(to top, #1a1a1aff, #1a1a1a30), url(../assets/images/science.jpg)
+    @include categoryContainer
+
+.scienceColor
+    background: #1a1a1a
+
+.financeContainer
+    background: linear-gradient(to top, #272010ff, #27201030), url(../assets/images/finance.jpg)
+    @include categoryContainer
+
+.financeColor
+    background: #272010
+
+.entertainmentContainer
+    background: linear-gradient(to top, #060105ff, #06010530), url(../assets/images/entertainment.jpg)
+    @include categoryContainer
+
+.entertainmentColor
+    background: #060105
+
+.genericContainer
+    background: linear-gradient(to top, #42546cff, #42546c30), url(../assets/images/generic.jpg)
+    @include categoryContainer
+
+.genericColor
+    background: #42546c
+
+.usersContainer
+    background: linear-gradient(to top, #000000ff, #00000030), url(../assets/images/users.jpg)
+    @include categoryContainer
+
+.usersColor
+    background: #000000
+
+.booksContainer
+    background: linear-gradient(to top, #263033ff, #26303330), url(../assets/images/books.jpg)
+    @include categoryContainer
+
+.booksColor
+    background: #263033
+
+.sportsContainer
+    background: linear-gradient(to top, #012e45ff, #012e4530), url(../assets/images/sports.jpg)
+    @include categoryContainer
+
+.sportsColor
+    background: #012e45
