@@ -5,7 +5,7 @@ const { removeTokenFromRedis } = require('../functions/UseRedis')
 const { validationResult } = require('express-validator')
 
 class AccountController {
-    async verifyCurrentAccount(req, res) {
+    async checkAuth(req, res) {
         try {
             const user = await UserModel.findById(req.id).select('-date')
 

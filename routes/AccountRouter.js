@@ -11,7 +11,7 @@ class AccountRouter {
     }
 
     registerRoutes() {
-        this.router.post('/verifycurrentaccount', authorize, this.accountController.verifyCurrentAccount.bind(this.accountController))
+        this.router.post('/checkauth', authorize, this.accountController.checkAuth.bind(this.accountController))
         this.router.post('/signout', authorize, this.accountController.signOut.bind(this.accountController))
         this.router.post(
             '/createtransaction',

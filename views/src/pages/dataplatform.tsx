@@ -3,17 +3,17 @@ import { Container, Row } from 'react-bootstrap'
 import { Fragment } from 'react'
 import Loading from '@/components/LoadingComponent'
 import ReactIf from '@/components/ReactIfComponent'
-import useDatasetLibrary from '@/hooks/useDatasetLibrary'
+import useDataPlatform from '@/hooks/useDataPlatform'
 import { GlobalContext } from '@/context/globalStateProvider'
-import DatasetLibraryNav from '@/components/DatasetLibraryNavComponent'
+import DataPlatformNav from '@/components/DataPlatformNavComponent'
 import DatasetCard from '@/components/DatasetCardComponent'
 import { NextPage } from 'next'
 
-const DatasetLibraryPage: NextPage = () => {
+const DataPlatformPage: NextPage = () => {
     const [{ datasetRequestState }, dispatch] = useContext(GlobalContext)
-    const datasetLibrary = useDatasetLibrary(datasetRequestState)
+    const dataPlatform = useDataPlatform(datasetRequestState)
 
-    const datasetsToDisplay = datasetLibrary.datasets.map((dataset: any) => {
+    const datasetsToDisplay = dataPlatform.datasets.map((dataset: any) => {
         return <DatasetCard key={dataset._id} id={dataset._id} category={dataset.category} name={dataset.name} price={dataset.price} />
     })
 
@@ -31,23 +31,23 @@ const DatasetLibraryPage: NextPage = () => {
 
     return (
         <Fragment>
-            <ReactIf condition={datasetLibrary.isLoaded}>
+            <ReactIf condition={dataPlatform.isLoaded}>
                 <Container>
-                    <DatasetLibraryNav />
+                    <DataPlatformNav />
                     <Row className='mt-4 mb-4'>
                         {datasetsToDisplay}
                     </Row>
                     <div className='text-center'>
                         <button className='btn' onClick={prevPage} disabled={datasetRequestState.offset === 0}><i className='fa-solid fa-circle-arrow-left'></i></button>
-                        <button className='btn' onClick={nextPage} disabled={datasetLibrary.datasets.length !== 24}><i className='fa-solid fa-circle-arrow-right'></i></button>
+                        <button className='btn' onClick={nextPage} disabled={dataPlatform.datasets.length !== 24}><i className='fa-solid fa-circle-arrow-right'></i></button>
                     </div>
                 </Container>
             </ReactIf>
-            <ReactIf condition={!datasetLibrary.isLoaded}>
+            <ReactIf condition={!dataPlatform.isLoaded}>
                 <Loading />
             </ReactIf>
         </Fragment>
     )
 }
 
-export default DatasetLibraryPage
+export default DataPlatformPage

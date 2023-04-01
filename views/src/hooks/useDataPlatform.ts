@@ -6,14 +6,14 @@ import { DatasetRequestState } from '@/types/States'
 import endPoints from '@/constants/Endpoints'
 import Constants from '@/constants/Constants'
 
-const useDatasetLibrary = ({ searchQuery, selectedFilter, selectedSortOption, offset }: DatasetRequestState) => {
+const useDataPlatform = ({ searchQuery, selectedFilter, selectedSortOption, offset }: DatasetRequestState) => {
     const [state, setState] = useState({ datasets: [], isLoaded: false })
     const router = useRouter()
 
     useEffect(() => {
         (async () => {
             try {
-                const response = await axios.post(endPoints.datasetLibraryEndpoint, { selectedSortOption, selectedFilter, searchQuery, offset })
+                const response = await axios.post(endPoints.dataplatformEndpoint, { selectedSortOption, selectedFilter, searchQuery, offset })
                 setState({ datasets: response.data.datasets, isLoaded: true })
             }
 
@@ -32,4 +32,4 @@ const useDatasetLibrary = ({ searchQuery, selectedFilter, selectedSortOption, of
     return state
 }
 
-export default useDatasetLibrary
+export default useDataPlatform

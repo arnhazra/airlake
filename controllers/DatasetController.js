@@ -16,7 +16,7 @@ class DatasetController {
         }
     }
 
-    async getDatasetLibrary(req, res) {
+    async getDataPlatform(req, res) {
         const selectedFilterCategory = req.body.selectedFilter === 'All' ? '' : req.body.selectedFilter
         const selectedSortOption = req.body.selectedSortOption || '-_id'
         const searchQuery = req.body.searchQuery || ''

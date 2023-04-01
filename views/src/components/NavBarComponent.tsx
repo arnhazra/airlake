@@ -13,7 +13,7 @@ const NavBar: FC = () => {
 
     const searchChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
         dispatch('setDatasetRequestState', { searchQuery: event.target.value, offset: 0 })
-        router.push('/datasetlibrary')
+        router.push('/dataplatform')
     }
 
     const debouncedChangeHandler = useMemo(() =>
@@ -36,17 +36,17 @@ const NavBar: FC = () => {
             <ReactIf condition={isAuthenticated}>
                 <Navbar className='navbar-authorized' variant='dark' expand='lg' style={{ zoom: 0.85 }}>
                     <Container>
-                        <Link href='/datasetlibrary'><Navbar.Brand style={{ fontSize: '1.3rem' }}>Evolake</Navbar.Brand></Link>
+                        <Link href='/dataplatform'><Navbar.Brand style={{ fontSize: '1.3rem' }}>Evolake</Navbar.Brand></Link>
                         <Navbar.Toggle aria-controls='navbarScroll' />
                         <Navbar.Collapse id='navbarScroll'>
                             <Nav className='me-auto my-2 my-lg-0' style={{ maxHeight: '8rem' }} navbarScroll>
                                 <Link href='/mysubscriptions'><Navbar.Brand>My Subscriptions</Navbar.Brand></Link>
                                 <Link href='/account' className='user-link'><Navbar.Brand>Account</Navbar.Brand></Link>
                             </Nav>
-                            <Form className='d-flex'>
+                            <Form className='d-flex' onSubmit={(e) => e.preventDefault()}>
                                 <Form.Control
                                     type='search'
-                                    placeholder='Search Library'
+                                    placeholder='Search Data Platform'
                                     className='searchbar-navbar'
                                     maxLength={40}
                                     aria-label='Search'

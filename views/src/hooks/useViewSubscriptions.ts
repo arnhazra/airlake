@@ -9,7 +9,7 @@ const useViewSubscriptions = () => {
     const [state, setState] = useState({ subscribedDatasets: [], isLoaded: false })
     const router = useRouter()
 
-    const getDatasetLibraryData = async () => {
+    const getSubscriptionsData = async () => {
         try {
             const response = await axios.post(endPoints.datasetSubscriptionEndpoint)
             setState({ ...state, subscribedDatasets: response.data.subscribedDatasets, isLoaded: true })
@@ -27,7 +27,7 @@ const useViewSubscriptions = () => {
     }
 
     useEffect(() => {
-        getDatasetLibraryData()
+        getSubscriptionsData()
     }, [])
 
     return state

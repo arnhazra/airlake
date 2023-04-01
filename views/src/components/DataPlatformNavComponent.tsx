@@ -5,7 +5,7 @@ import ReactIf from './ReactIfComponent'
 import { GlobalContext } from '@/context/globalStateProvider'
 import useFilters from '@/hooks/useFilters'
 
-const DatasetLibraryNav: FC = () => {
+const DataPlatformNav: FC = () => {
     const filters = useFilters()
     const [{ datasetRequestState }, dispatch] = useContext(GlobalContext)
 
@@ -44,4 +44,4 @@ const DatasetLibraryNav: FC = () => {
     )
 }
 
-export default DatasetLibraryNav
+export default DataPlatformNav
