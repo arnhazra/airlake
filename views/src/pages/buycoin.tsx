@@ -55,7 +55,7 @@ const BuyCoinPage: NextPage = () => {
                 ethAmount: ether,
                 txHash: request.transactionHash
             }
-            await axios.post(endPoints.createTxEndpoint, obj)
+            await axios.post(endPoints.createTransactionEndpoint, obj)
             setStep(3)
             toast.success('You have successfully bought ELT tokens!')
         } catch (err) {

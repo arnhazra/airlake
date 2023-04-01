@@ -4,9 +4,9 @@
 * New Account Controller & Router.
 * New Verifycurrentaccount route replacing legacy Checkauth route.
 * Verifycurrentaccount & Signout methods moved to Account controller from Auth controller.
-* Introduced new roles - Consumer & Governance.
 * Deprecated wallet router, moved methods to account router.
 * Merged Walletpage content with new Accountpage, transactions will now be listed in accountpage.
+* Code Refactoring.
 
 ## [v2.1]
 * Rebranding.
@@ -58,7 +58,7 @@
 
 ## [v1.0]
 * All the major functionalities.
-* Evolake is a dataset library that offers free and premium data sets to users. 
+* Evolake is a data platform that offers free and premium data sets to users. 
 * Mongo DB For Users, Transactions Datasets Management.
 * Web3 JS - Ethereum blockchain for Web3 transactions.
 * Express JS as a framework on top of Node JS for API - Microservices.

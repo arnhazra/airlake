@@ -25,7 +25,6 @@ const useChcekAuth = () => {
                     if (error.response) {
                         if (error.response.status === 401) {
                             localStorage.removeItem('accessToken')
-                            dispatch('setUserState', { isLoaded: true })
                             setState({ isLoaded: true })
                             router.push('/')
                         }

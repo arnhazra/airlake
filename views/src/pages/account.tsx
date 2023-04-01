@@ -33,7 +33,7 @@ const AccountPage: NextPage = () => {
             <ReactIf condition={transactions.isLoaded}>
                 <Container>
                     <div className='jumbotron mt-4 pl-5'>
-                        <p className='display-4'>Account</p>
+                        <p className='display-6'>Account</p>
                         <div className='info'>
                             <p className='lead'>Signed in as {userState.name}</p>
                             <p className='lead'>{Constants.Info}</p>
@@ -45,6 +45,7 @@ const AccountPage: NextPage = () => {
                         </div>
                     </div>
                     <ReactIf condition={transactions.transactions.length > 0}>
+                        <p className='lead text-center text-white mb-4'>Transactions</p>
                         <Table responsive hover variant='dark'>
                             <thead>
                                 <tr>

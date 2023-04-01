@@ -71,7 +71,7 @@ const ViewOneDatasetPage: NextPage = () => {
                 <ReactIf condition={!dataset.hasError}>
                     <Container className='mt-4'>
                         <div className='jumbotron'>
-                            <p className='display-4 text-capitalize'>{dataset.name}</p>
+                            <p className='display-6 text-capitalize'>{dataset.name}</p>
                             <p className='smalltext'>{dataset.description}</p>
                             <div className='chip-grid'>
                                 <button className='btn chip'>{dataset.category}</button>

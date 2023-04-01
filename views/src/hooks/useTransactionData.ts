@@ -12,7 +12,7 @@ const useTransactionData = () => {
     useEffect(() => {
         (async () => {
             try {
-                const response = await axios.post(endPoints.walletTransactionEndpoint)
+                const response = await axios.post(endPoints.getTransactionsEndpoint)
                 setState({ ...state, transactions: response.data.transactions, isLoaded: true })
             }
 

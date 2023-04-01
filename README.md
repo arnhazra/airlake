@@ -1,6 +1,6 @@
 # Evolake
 
-Evolake is a dataset library that offers free and premium data sets to users. With its user-friendly interface and advanced search capabilities, Evolake enables individuals and businesses to discover and utilize valuable data to drive informed decision-making.
+Evolake is a Data Platform that offers free and premium data sets to users. With its user-friendly interface and advanced search capabilities, Evolake enables individuals and businesses to discover and utilize valuable data to drive informed decision-making.
 
 ## Tech Stack
 
