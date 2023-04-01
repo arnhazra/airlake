@@ -1,9 +1,39 @@
 const statusMessages = require('../constants/statusMessages')
-const endPoints = require('../constants/endPoints')
-const { validationResult } = require('express-validator')
+const UserModel = require('../models/UserModel')
 const TransactionModel = require('../models/TransactionModel')
+const { removeTokenFromRedis } = require('../functions/UseRedis')
+const { validationResult } = require('express-validator')
 
-class WalletController {
+class AccountController {
+    async verifyCurrentAccount(req, res) {
+        try {
+            const user = await UserModel.findById(req.id).select('-date')
+
+            if (user) {
+                return res.status(200).json({ user })
+            }
+
+            else {
+                return res.status(401).json({ msg: statusMessages.unauthorized })
+            }
+        }
+
+        catch (error) {
+            return res.status(500).json({ msg: statusMessages.connectionError })
+        }
+    }
+
+    async signOut(req, res) {
+        try {
+            await removeTokenFromRedis(req.id)
+            return res.status(200).json({ msg: statusMessages.signOutSuccess })
+        }
+
+        catch (error) {
+            return res.status(500).json({ msg: statusMessages.connectionError })
+        }
+    }
+
     async createTransaction(req, res) {
         const errors = validationResult(req)
 
@@ -38,4 +68,4 @@ class WalletController {
     }
 }
 
-module.exports = WalletController
+module.exports = AccountController

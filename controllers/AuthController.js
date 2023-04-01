@@ -99,35 +99,6 @@ class AuthController {
             }
         }
     }
-
-    async checkAuth(req, res) {
-        try {
-            const user = await UserModel.findById(req.id).select('-date')
-
-            if (user) {
-                return res.status(200).json({ user })
-            }
-
-            else {
-                return res.status(401).json({ msg: statusMessages.unauthorized })
-            }
-        }
-
-        catch (error) {
-            return res.status(500).json({ msg: statusMessages.connectionError })
-        }
-    }
-
-    async signOut(req, res) {
-        try {
-            await removeTokenFromRedis(req.id)
-            return res.status(200).json({ msg: statusMessages.signOutSuccess })
-        }
-
-        catch (error) {
-            return res.status(500).json({ msg: statusMessages.connectionError })
-        }
-    }
 }
 
 module.exports = AuthController

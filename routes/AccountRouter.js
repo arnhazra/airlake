@@ -1,18 +1,20 @@
 const express = require('express')
-const { check } = require('express-validator')
 const authorize = require('../middlewares/authorize')
-const WalletController = require('../controllers/WalletController')
+const AccountController = require('../controllers/AccountController')
+const { check } = require('express-validator')
 
-class WalletRouter {
+class AccountRouter {
     constructor() {
         this.router = express.Router()
-        this.walletController = new WalletController()
+        this.accountController = new AccountController()
         this.registerRoutes()
     }
 
     registerRoutes() {
+        this.router.post('/verifycurrentaccount', authorize, this.accountController.verifyCurrentAccount.bind(this.accountController))
+        this.router.post('/signout', authorize, this.accountController.signOut.bind(this.accountController))
         this.router.post(
-            '/createwallettx',
+            '/createtransaction',
             authorize,
             [
                 check('transactionType', 'Transaction Type must not be empty').notEmpty(),
@@ -21,10 +23,10 @@ class WalletRouter {
                 check('ethAmount', 'ethAmount must not be empty').notEmpty(),
                 check('txHash', 'txHash must not be empty').notEmpty(),
             ],
-            this.walletController.createTransaction.bind(this.walletController)
+            this.accountController.createTransaction.bind(this.accountController)
         )
 
-        this.router.post('/getwallettx', authorize, this.walletController.getTransactions.bind(this.walletController))
+        this.router.post('/gettransactions', authorize, this.accountController.getTransactions.bind(this.accountController))
     }
 
     getRouter() {
@@ -32,4 +34,4 @@ class WalletRouter {
     }
 }
 
-module.exports = WalletRouter
+module.exports = AccountRouter

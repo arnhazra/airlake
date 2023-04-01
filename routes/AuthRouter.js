@@ -1,6 +1,5 @@
 const express = require('express')
 const { check } = require('express-validator')
-const authorize = require('../middlewares/authorize')
 const AuthController = require('../controllers/AuthController')
 
 class AuthRouter {
@@ -28,9 +27,6 @@ class AuthRouter {
             ],
             this.authController.verifyAuthCode.bind(this.authController),
         )
-
-        this.router.post('/checkauth', authorize, this.authController.checkAuth.bind(this.authController))
-        this.router.post('/signout', authorize, this.authController.signOut.bind(this.authController))
     }
 
     getRouter() {

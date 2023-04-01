@@ -1,24 +1,32 @@
 # Evolake Changelog
 
-## [Current v2.1]
-* Rebranding
-* New architecture & restructure
-* Migration to Sepolia testnet on Ethereum Blockchain
+## [Current v2.2]
+* New Account Controller & Router.
+* New Verifycurrentaccount route replacing legacy Checkauth route.
+* Verifycurrentaccount & Signout methods moved to Account controller from Auth controller.
+* Introduced new roles - Consumer & Governance.
+* Deprecated wallet router, moved methods to account router.
+* Merged Walletpage content with new Accountpage, transactions will now be listed in accountpage.
+
+## [v2.1]
+* Rebranding.
+* New architecture & restructure.
+* Migration to Sepolia testnet on Ethereum Blockchain.
 
 ## [v2.0]
-* New UI Dark Full
-* Added full datasets
-* Fixed offset with actual offset values
-* Added 24 items per page instead of 12
-* Auto scroll to top when paginated
-* New sorting algorithm
+* New UI Dark Full.
+* Added full datasets.
+* Fixed offset with actual offset values.
+* Added 24 items per page instead of 12.
+* Auto scroll to top when paginated.
+* New sorting algorithm.
 
 ## [v1.9]
-* New UI Dark Beta
-* Removed liveprice API
+* New UI Dark Beta.
+* Removed liveprice API.
 
 ## [v1.8]
-* Added limit and offset to new datasetlibrary api
+* Added limit and offset to new datasetlibrary api.
 * New Dataset datasetlibrary api for better performance.
 
 ## [v1.7]
@@ -33,7 +41,7 @@
 * New API endpoint URIs and UI routes for new architecture.
 
 ## [v1.4]
-* Next JS Migration from Create React App - Beta Stage.
+* Next JS Migration from Create React App.
 * Changed some hooks for better performance optimizations.
 
 ## [v1.3]

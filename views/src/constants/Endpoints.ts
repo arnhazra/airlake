@@ -3,10 +3,10 @@ const apiHost = process.env.NODE_ENV === 'development' ? 'http://localhost:7000'
 const endPoints = {
     generateAuthCodeEndpoint: `${apiHost}/api/generateauthcode`,
     verifyAuthCodeEndpoint: `${apiHost}/api/verifyauthcode`,
+    checkAuthEndpoint: `${apiHost}/api/verifycurrentaccount`,
     signOutEndpoint: `${apiHost}/api/signout`,
-    checkAuthEndpoint: `${apiHost}/api/checkauth`,
-    createTxEndpoint: `${apiHost}/api/createwallettx`,
-    walletTransactionEndpoint: `${apiHost}/api/getwallettx`,
+    createTxEndpoint: `${apiHost}/api/createtransaction`,
+    walletTransactionEndpoint: `${apiHost}/api/gettransactions`,
     datasetFiltersEndpoint: `${apiHost}/api/getdatasetfilters`,
     datasetLibraryEndpoint: `${apiHost}/api/getdatasetlibrary`,
     datasetSubscriptionEndpoint: `${apiHost}/api/getmysubscriptions`,
