@@ -1,6 +1,9 @@
 # Evolake Changelog
 
-## [Current v2.2]
+## [Current v2.3]
+* ELT Swap Protocol replacing buycoin & sellcoin page
+
+## [v2.2]
 * New Account Controller & Router.
 * New Verifycurrentaccount route replacing legacy Checkauth route.
 * Verifycurrentaccount & Signout methods moved to Account controller from Auth controller.

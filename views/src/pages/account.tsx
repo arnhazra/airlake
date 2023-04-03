@@ -38,8 +38,7 @@ const AccountPage: NextPage = () => {
                             <p className='lead'>Signed in as {userState.name}</p>
                             <p className='lead'>{Constants.Info}</p>
                             <p className='lead'>{Constants.Warning}</p>
-                            <Link href='/buycoin' className='btn chip'>Buy ELT<i className='fa-solid fa-circle-arrow-right'></i></Link>
-                            <Link href='/sellcoin' className='btn chip'>Sell ELT<i className='fa-solid fa-circle-arrow-right'></i></Link>
+                            <Link href='/eltswap' className='btn chip'>Swap ELT<i className='fa-solid fa-circle-arrow-right'></i></Link>
                             <button className='btn chip ' onClick={signout.signOutFromThisDevice}>Sign Out<i className='fa-solid fa-circle-arrow-right'></i></button><br />
                             <button className='btn chip ' onClick={signout.signOutFromAllDevices}>Sign Out From All Devices<i className='fa-solid fa-circle-arrow-right'></i></button>
                         </div>
