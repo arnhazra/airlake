@@ -1,4 +1,4 @@
-import { ReactIfProps } from '@/types/Props'
+import { ReactIfProps } from '@/types/Types'
 import { FC, Fragment } from 'react'
 
 const ReactIf: FC<ReactIfProps> = ({ condition, children }) => {

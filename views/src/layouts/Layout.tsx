@@ -1,5 +1,5 @@
 import NavBar from '@/components/NavBarComponent'
-import { LayoutProps } from '@/types/Props'
+import { LayoutProps } from '@/types/Types'
 import { Fragment, FC, useEffect } from 'react'
 import ReactIf from '@/components/ReactIfComponent'
 import Loading from '@/components/LoadingComponent'

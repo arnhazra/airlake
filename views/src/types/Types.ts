@@ -1,3 +1,4 @@
+import { Method } from 'axios'
 import { ReactNode } from 'react'
 
 export type LayoutProps = {
@@ -18,4 +19,16 @@ export type ReactIfProps = {
 
 export type ErrorProps = {
     customMessage?: string
+}
+
+export type DatasetRequestState = {
+    searchQuery: string,
+    selectedFilter: string,
+    selectedSortOption: string
+    offset: number
+}
+
+export type UserState = {
+    userid: string,
+    name: string,
 }

@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { Card, Col } from 'react-bootstrap'
-import { DatasetCardProps } from '@/types/Props'
+import { DatasetCardProps } from '@/types/Types'
 import Link from 'next/link'
 
 const DatasetCard: FC<DatasetCardProps> = ({ id, category, name, price }) => {
