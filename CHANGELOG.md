@@ -4,6 +4,7 @@
 * Introduced ELT Swap Protocol to replace the buycoin and sellcoin page.
 * Integrated React query for realtime data fetching & advanced mechanisms.
 * Introduced new useFetch & useFetchRealtime hook to replace other hooks.
+* Conducted code refactoring for better performance.
 
 ## [v2.2]
 * Created a new Account Controller and Router.
