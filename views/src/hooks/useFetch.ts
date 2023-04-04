@@ -12,7 +12,7 @@ function useFetch(queryKey: string, queryUrl: string, method: Method, requestBod
         return data
     }
 
-    const { data, isLoading } = useQuery(
+    const { error, data, isLoading } = useQuery(
         [queryKey, requestBody],
         () => fetchDataFunction(),
         {
@@ -31,7 +31,7 @@ function useFetch(queryKey: string, queryUrl: string, method: Method, requestBod
         },
     )
 
-    return { data, isLoading }
+    return { error, data, isLoading }
 }
 
 export default useFetch

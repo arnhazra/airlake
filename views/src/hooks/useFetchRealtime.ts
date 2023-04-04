@@ -12,7 +12,7 @@ function useFetchRealtime(queryKey: string, queryUrl: string, method: Method, re
         return data
     }
 
-    const { data, isLoading } = useQuery(
+    const { error, data, isLoading } = useQuery(
         queryKey,
         () => fetchDataFunction(),
         {
@@ -32,7 +32,7 @@ function useFetchRealtime(queryKey: string, queryUrl: string, method: Method, re
         }
     )
 
-    return { data, isLoading }
+    return { error, data, isLoading }
 }
 
 export default useFetchRealtime

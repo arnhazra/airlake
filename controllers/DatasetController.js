@@ -56,10 +56,8 @@ class DatasetController {
     async viewDataset(req, res) {
         try {
             const { datasetId } = req.body
-            const totalData = await DatasetModel.findById(datasetId)
-            const dataLength = totalData.data.length
-            const metadata = { name: totalData.name, category: totalData.category, description: totalData.description, price: totalData.price }
-            return res.status(200).json({ metadata, dataLength })
+            const totalData = await DatasetModel.findById(datasetId).select('-data')
+            return res.status(200).json({ name: totalData.name, category: totalData.category, description: totalData.description, price: totalData.price })
         }
 
         catch (error) {

@@ -1,7 +1,6 @@
 import { Fragment, useContext } from 'react'
 import { GlobalContext } from '@/context/globalStateProvider'
 import { NextPage } from 'next'
-import useSignOut from '@/hooks/useSignOut'
 import moment from 'moment'
 import endPoints from '@/constants/Endpoints'
 import ReactIf from '@/components/ReactIfComponent'
@@ -11,11 +10,29 @@ import Link from 'next/link'
 import Loading from '@/components/LoadingComponent'
 import useFetchRealtime from '@/hooks/useFetchRealtime'
 import HTTPMethods from '@/constants/HTTPMethods'
+import { useRouter } from 'next/router'
+import axios from 'axios'
+import { toast } from 'react-hot-toast'
 
 const AccountPage: NextPage = () => {
     const [{ userState }] = useContext(GlobalContext)
-    const signout = useSignOut()
+    const router = useRouter()
     const transactions = useFetchRealtime('transactions', endPoints.getTransactionsEndpoint, HTTPMethods.POST)
+
+    const signOutFromThisDevice = () => {
+        localStorage.removeItem('accessToken')
+        router.push('/')
+    }
+
+    const signOutFromAllDevices = async () => {
+        try {
+            await axios.post(endPoints.signOutEndpoint)
+            localStorage.removeItem('accessToken')
+            router.push('/')
+        } catch (error) {
+            toast.error(Constants.ToastError)
+        }
+    }
 
     const transactionsToDisplay = transactions?.data?.transactions?.map((tx: any) => {
         return (
@@ -40,8 +57,8 @@ const AccountPage: NextPage = () => {
                             <p className='lead'>{Constants.Info}</p>
                             <p className='lead'>{Constants.Warning}</p>
                             <Link href='/eltswap' className='btn chip'>Swap ELT<i className='fa-solid fa-circle-arrow-right'></i></Link>
-                            <button className='btn chip ' onClick={signout.signOutFromThisDevice}>Sign Out<i className='fa-solid fa-circle-arrow-right'></i></button><br />
-                            <button className='btn chip ' onClick={signout.signOutFromAllDevices}>Sign Out From All Devices<i className='fa-solid fa-circle-arrow-right'></i></button>
+                            <button className='btn chip ' onClick={signOutFromThisDevice}>Sign Out<i className='fa-solid fa-circle-arrow-right'></i></button><br />
+                            <button className='btn chip ' onClick={signOutFromAllDevices}>Sign Out From All Devices<i className='fa-solid fa-circle-arrow-right'></i></button>
                         </div>
                     </div>
                     <ReactIf condition={transactions?.data?.transactions?.length > 0}>

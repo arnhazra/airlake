@@ -18,10 +18,10 @@ export type LivePriceState = {
 }
 
 export type GenericIdType = {
-    id: string | undefined | string[]
+    datasetId: string | undefined | string[]
 }
 
 export type UseIsSubscribed = {
-    id: any,
+    datasetId: any,
     hasClickedSubscribed: boolean
 }

@@ -6,14 +6,14 @@ import { UseIsSubscribed } from '@/types/States'
 import { toast } from 'react-hot-toast'
 import Constants from '@/constants/Constants'
 
-const useIsSubscribed = ({ id, hasClickedSubscribed }: UseIsSubscribed) => {
+const useIsSubscribed = ({ datasetId, hasClickedSubscribed }: UseIsSubscribed) => {
     const [state, setState] = useState({ isSubscribed: false, subscriptionId: '', isLoaded: false })
     const router = useRouter()
 
     useEffect(() => {
         (async () => {
             try {
-                const response = await axios.post(`${endPoints.checkSubscriptionEndpoint}`, { datasetId: id })
+                const response = await axios.post(`${endPoints.checkSubscriptionEndpoint}`, { datasetId })
                 setState({ isSubscribed: response.data.isSubscribed, subscriptionId: response.data.subscriptionId, isLoaded: true })
             }
 
@@ -27,7 +27,7 @@ const useIsSubscribed = ({ id, hasClickedSubscribed }: UseIsSubscribed) => {
                 toast.error(Constants.ToastError)
             }
         })()
-    }, [id, hasClickedSubscribed])
+    }, [datasetId, hasClickedSubscribed])
 
     return state
 }
