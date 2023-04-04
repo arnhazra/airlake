@@ -4,7 +4,6 @@ import { Fragment } from 'react'
 import Web3 from 'web3'
 import Loading from '@/components/LoadingComponent'
 import ReactIf from '@/components/ReactIfComponent'
-import useIsSubscribed from '@/hooks/useIsSubscribed'
 import axios from 'axios'
 import { tokenABI } from '@/contracts/TokenABI'
 import contractAddress from '@/constants/Address'
@@ -21,19 +20,19 @@ declare const window: any
 const web3 = new Web3(Web3.givenProvider)
 
 const ViewOneDatasetPage: NextPage = () => {
-    const [hasClickedSubscribed, setClickedSubscribed] = useState(false)
     const router = useRouter()
     const { id: datasetId } = router.query
+    const [eventId, setEventId] = useState(Math.random().toString())
     const dataset = useFetch('view dataset', endPoints.datasetViewEndpoint, HTTPMethods.POST, { datasetId })
     const similarDatasets = useFetch('similar datasets', endPoints.findsimilarDatasets, HTTPMethods.POST, { datasetId })
-    const subscriptionStatus = useIsSubscribed({ datasetId, hasClickedSubscribed })
+    const subscriptionStatus = useFetch('subscription status', endPoints.checkSubscriptionEndpoint, HTTPMethods.POST, { datasetId }, eventId)
     const [account, setAccount] = useState('')
 
     const subscribe = async () => {
         if (dataset.data.price === 0) {
             try {
                 await axios.post(`${endPoints.subscribeEndpoint}`, { datasetId })
-                setClickedSubscribed(true)
+                setEventId(Math.random().toString())
             } catch (error) {
                 toast.error(Constants.ToastError)
             }
@@ -48,7 +47,7 @@ const ViewOneDatasetPage: NextPage = () => {
                         const contract = new web3.eth.Contract(tokenABI as any, contractAddress.tokenContractAddress)
                         await contract.methods.transfer(contractAddress.tokenContractAddress, web3.utils.toWei(dataset.data.price.toString(), 'ether')).send({ from: account })
                         await axios.post(`${endPoints.subscribeEndpoint}`, { datasetId })
-                        setClickedSubscribed(true)
+                        setEventId(Math.random().toString())
                     } catch (err) {
                         toast.error('Unable to connect to metamask')
                     }
@@ -67,7 +66,7 @@ const ViewOneDatasetPage: NextPage = () => {
 
     return (
         <Fragment>
-            <ReactIf condition={!dataset?.isLoading && !similarDatasets?.isLoading}>
+            <ReactIf condition={!subscriptionStatus?.isLoading && !dataset?.isLoading && !similarDatasets?.isLoading}>
                 <ReactIf condition={!dataset.error}>
                     <Container className='mt-4'>
                         <div className='jumbotron'>
@@ -77,16 +76,14 @@ const ViewOneDatasetPage: NextPage = () => {
                                 <button className='btn chip'>{dataset?.data?.category}</button>
                                 <button className='btn chip'>{dataset?.data?.price === 0 ? 'FREE' : `${dataset?.data?.price} ELT`}</button>
                             </div>
-                            <ReactIf condition={!subscriptionStatus.isSubscribed}>
+                            <ReactIf condition={!subscriptionStatus?.data?.isSubscribed}>
                                 <button className='btn chip' onClick={subscribe}>
                                     Subscribe<i className='fa-solid fa-circle-plus'></i>
                                 </button>
-                            </ReactIf>
-                            <ReactIf condition={!subscriptionStatus.isSubscribed}>
                                 <a target='_blank' rel='noreferrer' href={`${endPoints.datasetPreview}/${datasetId}`} className='btn chip'>Data Preview</a>
                             </ReactIf>
-                            <ReactIf condition={subscriptionStatus.isSubscribed}>
-                                <a target='_blank' rel='noreferrer' href={`${endPoints.datasetFullview}/${datasetId}/${subscriptionStatus.subscriptionId}`} className='btn chip'>Data Fullview</a>
+                            <ReactIf condition={subscriptionStatus?.data?.isSubscribed}>
+                                <a target='_blank' rel='noreferrer' href={`${endPoints.datasetFullview}/${datasetId}/${subscriptionStatus?.data?.subscriptionId}`} className='btn chip'>Data Fullview</a>
                             </ReactIf>
                         </div>
                         <Row>
@@ -99,7 +96,7 @@ const ViewOneDatasetPage: NextPage = () => {
                     <Error />
                 </ReactIf>
             </ReactIf>
-            <ReactIf condition={dataset?.isLoading || similarDatasets?.isLoading}>
+            <ReactIf condition={subscriptionStatus?.isLoading || dataset?.isLoading || similarDatasets?.isLoading}>
                 <Loading />
             </ReactIf>
         </Fragment >

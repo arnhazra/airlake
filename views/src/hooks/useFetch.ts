@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { toast } from 'react-hot-toast'
 import Constants from '@/constants/Constants'
 
-function useFetch(queryKey: string, queryUrl: string, method: Method, requestBody?: object) {
+function useFetch(queryKey: string, queryUrl: string, method: Method, requestBody?: object, eventId?: string) {
     const router = useRouter()
 
     const fetchDataFunction = async () => {
@@ -13,7 +13,7 @@ function useFetch(queryKey: string, queryUrl: string, method: Method, requestBod
     }
 
     const { error, data, isLoading } = useQuery(
-        [queryKey, requestBody],
+        [queryKey, requestBody, eventId],
         () => fetchDataFunction(),
         {
             enabled: true,
