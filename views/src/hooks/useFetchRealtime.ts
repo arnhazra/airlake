@@ -4,11 +4,11 @@ import { useRouter } from 'next/router'
 import { toast } from 'react-hot-toast'
 import Constants from '@/constants/Constants'
 
-function useFetchRealtime(queryKey: string, queryUrl: string, method: Method, params?: object) {
+function useFetchRealtime(queryKey: string, queryUrl: string, method: Method, requestBody?: object) {
     const router = useRouter()
 
     const fetchDataFunction = async () => {
-        const { data } = await axios(queryUrl, { method, params })
+        const { data } = await axios({ method, url: queryUrl, data: requestBody })
         return data
     }
 
