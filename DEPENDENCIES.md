@@ -23,3 +23,4 @@
 * sass - CSS preprocessor that adds power and elegance to traditional CSS.
 * typescript - Typed superset of JavaScript that compiles to plain JavaScript.
 * web3 - Ethereum JavaScript API for interacting with the Ethereum blockchain.
+* react-query - Query client for react data fetching.

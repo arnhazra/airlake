@@ -2,7 +2,6 @@ import { Fragment, useContext } from 'react'
 import { GlobalContext } from '@/context/globalStateProvider'
 import { NextPage } from 'next'
 import useSignOut from '@/hooks/useSignOut'
-import useTransactionData from '@/hooks/useTransactionData'
 import moment from 'moment'
 import endPoints from '@/constants/Endpoints'
 import ReactIf from '@/components/ReactIfComponent'
@@ -10,13 +9,14 @@ import { Container, Table } from 'react-bootstrap'
 import Constants from '@/constants/Constants'
 import Link from 'next/link'
 import Loading from '@/components/LoadingComponent'
+import useFetchRealtime from '@/hooks/useFetchRealtime'
 
 const AccountPage: NextPage = () => {
     const [{ userState }] = useContext(GlobalContext)
     const signout = useSignOut()
-    const transactions = useTransactionData()
+    const transactions = useFetchRealtime('transactions', endPoints.getTransactionsEndpoint, 'POST')
 
-    const transactionsToDisplay = transactions.transactions.map((tx: any) => {
+    const transactionsToDisplay = transactions?.data?.transactions?.map((tx: any) => {
         return (
             <tr key={tx._id}>
                 <td>{tx.transactionType} ELT</td>
@@ -30,7 +30,7 @@ const AccountPage: NextPage = () => {
 
     return (
         <Fragment>
-            <ReactIf condition={transactions.isLoaded}>
+            <ReactIf condition={!transactions.isLoading}>
                 <Container>
                     <div className='jumbotron mt-4 pl-5'>
                         <p className='display-6'>Account</p>
@@ -43,7 +43,7 @@ const AccountPage: NextPage = () => {
                             <button className='btn chip ' onClick={signout.signOutFromAllDevices}>Sign Out From All Devices<i className='fa-solid fa-circle-arrow-right'></i></button>
                         </div>
                     </div>
-                    <ReactIf condition={transactions.transactions.length > 0}>
+                    <ReactIf condition={transactions?.data?.transactions?.length > 0}>
                         <p className='lead text-center text-white mb-4'>Transactions</p>
                         <Table responsive hover variant='dark'>
                             <thead>
@@ -62,7 +62,7 @@ const AccountPage: NextPage = () => {
                     </ReactIf>
                 </Container>
             </ReactIf>
-            <ReactIf condition={!transactions.isLoaded}>
+            <ReactIf condition={transactions.isLoading}>
                 <Loading />
             </ReactIf>
         </Fragment >

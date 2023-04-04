@@ -3,19 +3,20 @@ import { Col, FloatingLabel, Row, Form } from 'react-bootstrap'
 import Loading from './LoadingComponent'
 import ReactIf from './ReactIfComponent'
 import { GlobalContext } from '@/context/globalStateProvider'
-import useFilters from '@/hooks/useFilters'
+import useFetch from '@/hooks/useFetch'
+import endPoints from '@/constants/Endpoints'
 
 const DataPlatformNav: FC = () => {
-    const filters = useFilters()
+    const filters = useFetch('filters', endPoints.datasetFiltersEndpoint, 'POST')
     const [{ datasetRequestState }, dispatch] = useContext(GlobalContext)
 
-    const filterCategoriesToDisplay = filters.filterCategories.map((category: string) => {
+    const filterCategoriesToDisplay = filters?.data?.filterCategories?.map((category: string) => {
         return <option className='options' key={category} value={category}>{category}</option>
     })
 
     return (
         <Fragment>
-            <ReactIf condition={filters.isLoaded}>
+            <ReactIf condition={!filters?.isLoading}>
                 <Row className='g-2 mt-4'>
                     <Col xs={12} sm={12} md={6} lg={4} xl={3}>
                         <FloatingLabel controlId='floatingSelectGrid' label='Select Filter Category'>
@@ -37,7 +38,7 @@ const DataPlatformNav: FC = () => {
                     </Col>
                 </Row>
             </ReactIf>
-            <ReactIf condition={!filters.isLoaded}>
+            <ReactIf condition={filters?.isLoading}>
                 <Loading />
             </ReactIf>
         </Fragment>
