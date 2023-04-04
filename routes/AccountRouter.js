@@ -26,7 +26,7 @@ class AccountRouter {
             this.accountController.createTransaction.bind(this.accountController)
         )
 
-        this.router.post('/gettransactions', authorize, this.accountController.getTransactions.bind(this.accountController))
+        this.router.post('/transactions', authorize, this.accountController.getTransactions.bind(this.accountController))
     }
 
     getRouter() {

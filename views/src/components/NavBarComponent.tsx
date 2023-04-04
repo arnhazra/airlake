@@ -40,7 +40,7 @@ const NavBar: FC = () => {
                         <Navbar.Toggle aria-controls='navbarScroll' />
                         <Navbar.Collapse id='navbarScroll'>
                             <Nav className='me-auto my-2 my-lg-0' style={{ maxHeight: '8rem' }} navbarScroll>
-                                <Link href='/mysubscriptions'><Navbar.Brand>My Subscriptions</Navbar.Brand></Link>
+                                <Link href='/subscriptions'><Navbar.Brand>Subscriptions</Navbar.Brand></Link>
                                 <Link href='/account' className='user-link'><Navbar.Brand>Account</Navbar.Brand></Link>
                             </Nav>
                             <Form className='d-flex' onSubmit={(e) => e.preventDefault()}>
