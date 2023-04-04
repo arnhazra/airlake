@@ -3,17 +3,19 @@ import { Container, Row } from 'react-bootstrap'
 import { Fragment } from 'react'
 import Loading from '@/components/LoadingComponent'
 import ReactIf from '@/components/ReactIfComponent'
-import useDataPlatform from '@/hooks/useDataPlatform'
 import { GlobalContext } from '@/context/globalStateProvider'
 import DataPlatformNav from '@/components/DataPlatformNavComponent'
 import DatasetCard from '@/components/DatasetCardComponent'
 import { NextPage } from 'next'
+import useFetch from '@/hooks/useFetch'
+import endPoints from '@/constants/Endpoints'
+import HTTPMethods from '@/constants/HTTPMethods'
 
 const DataPlatformPage: NextPage = () => {
     const [{ datasetRequestState }, dispatch] = useContext(GlobalContext)
-    const dataPlatform = useDataPlatform(datasetRequestState)
+    const dataPlatform = useFetch('data platform', endPoints.dataplatformEndpoint, HTTPMethods.POST, datasetRequestState)
 
-    const datasetsToDisplay = dataPlatform.datasets.map((dataset: any) => {
+    const datasetsToDisplay = dataPlatform?.data?.datasets?.map((dataset: any) => {
         return <DatasetCard key={dataset._id} id={dataset._id} category={dataset.category} name={dataset.name} price={dataset.price} />
     })
 
@@ -31,7 +33,7 @@ const DataPlatformPage: NextPage = () => {
 
     return (
         <Fragment>
-            <ReactIf condition={dataPlatform.isLoaded}>
+            <ReactIf condition={!dataPlatform.isLoading}>
                 <Container>
                     <DataPlatformNav />
                     <Row className='mt-4 mb-4'>
@@ -39,11 +41,11 @@ const DataPlatformPage: NextPage = () => {
                     </Row>
                     <div className='text-center'>
                         <button className='btn' onClick={prevPage} disabled={datasetRequestState.offset === 0}><i className='fa-solid fa-circle-arrow-left'></i></button>
-                        <button className='btn' onClick={nextPage} disabled={dataPlatform.datasets.length !== 24}><i className='fa-solid fa-circle-arrow-right'></i></button>
+                        <button className='btn' onClick={nextPage} disabled={dataPlatform?.data?.datasets?.length !== 24}><i className='fa-solid fa-circle-arrow-right'></i></button>
                     </div>
                 </Container>
             </ReactIf>
-            <ReactIf condition={!dataPlatform.isLoaded}>
+            <ReactIf condition={dataPlatform.isLoading}>
                 <Loading />
             </ReactIf>
         </Fragment>

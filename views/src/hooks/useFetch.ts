@@ -13,12 +13,12 @@ function useFetch(queryKey: string, queryUrl: string, method: Method, requestBod
     }
 
     const { data, isLoading } = useQuery(
-        queryKey,
+        [queryKey, requestBody],
         () => fetchDataFunction(),
         {
             enabled: true,
-            retry: 3,
             refetchOnWindowFocus: false,
+            retry: 3,
             retryDelay: 2500,
             onError(err: any) {
                 if (err.response && err.response.status === 401) {
@@ -28,7 +28,7 @@ function useFetch(queryKey: string, queryUrl: string, method: Method, requestBod
 
                 toast.error(`${Constants.ToastError} fetching ${queryKey}`)
             },
-        }
+        },
     )
 
     return { data, isLoading }

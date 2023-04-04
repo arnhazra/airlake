@@ -17,9 +17,9 @@ function useFetchRealtime(queryKey: string, queryUrl: string, method: Method, re
         () => fetchDataFunction(),
         {
             enabled: true,
-            retry: 3,
             refetchOnWindowFocus: true,
-            refetchInterval: 30000,
+            refetchInterval: 60000,
+            retry: 3,
             retryDelay: 2500,
             onError(err: any) {
                 if (err.response && err.response.status === 401) {

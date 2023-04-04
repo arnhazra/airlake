@@ -5,9 +5,10 @@ import ReactIf from './ReactIfComponent'
 import { GlobalContext } from '@/context/globalStateProvider'
 import useFetch from '@/hooks/useFetch'
 import endPoints from '@/constants/Endpoints'
+import HTTPMethods from '@/constants/HTTPMethods'
 
 const DataPlatformNav: FC = () => {
-    const filters = useFetch('filters', endPoints.datasetFiltersEndpoint, 'POST')
+    const filters = useFetch('filters', endPoints.datasetFiltersEndpoint, HTTPMethods.POST)
     const [{ datasetRequestState }, dispatch] = useContext(GlobalContext)
 
     const filterCategoriesToDisplay = filters?.data?.filterCategories?.map((category: string) => {

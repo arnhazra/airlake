@@ -10,11 +10,12 @@ import Constants from '@/constants/Constants'
 import Link from 'next/link'
 import Loading from '@/components/LoadingComponent'
 import useFetchRealtime from '@/hooks/useFetchRealtime'
+import HTTPMethods from '@/constants/HTTPMethods'
 
 const AccountPage: NextPage = () => {
     const [{ userState }] = useContext(GlobalContext)
     const signout = useSignOut()
-    const transactions = useFetchRealtime('transactions', endPoints.getTransactionsEndpoint, 'POST')
+    const transactions = useFetchRealtime('transactions', endPoints.getTransactionsEndpoint, HTTPMethods.POST)
 
     const transactionsToDisplay = transactions?.data?.transactions?.map((tx: any) => {
         return (

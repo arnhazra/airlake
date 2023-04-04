@@ -7,9 +7,10 @@ import ReactIf from '@/components/ReactIfComponent'
 import DatasetCard from '@/components/DatasetCardComponent'
 import useFetchRealtime from '@/hooks/useFetchRealtime'
 import endPoints from '@/constants/Endpoints'
+import HTTPMethods from '@/constants/HTTPMethods'
 
 const ViewSubscriptionsPage: NextPage = () => {
-    const datasetSubscriptions = useFetchRealtime('subscriptions', endPoints.datasetSubscriptionEndpoint, 'POST')
+    const datasetSubscriptions = useFetchRealtime('subscriptions', endPoints.datasetSubscriptionEndpoint, HTTPMethods.POST)
 
     const datasetsToDisplay = datasetSubscriptions?.data?.subscribedDatasets?.map((dataset: any) => {
         return <DatasetCard key={dataset._id} id={dataset._id} category={dataset.category} name={dataset.name} price={dataset.price} />
