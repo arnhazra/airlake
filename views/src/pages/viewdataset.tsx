@@ -83,8 +83,8 @@ const ViewOneDatasetPage: NextPage = () => {
                             <p className='display-6 text-capitalize'>{dataset?.data?.name}</p>
                             <p className='lead'>{dataset?.data?.description}</p>
                             <div>
-                                <button className='btn'>{dataset?.data?.category}</button>
-                                <button className='btn'>{dataset?.data?.price === 0 ? 'FREE' : `${dataset?.data?.price} ELT`}</button>
+                                <button className='btn'>{dataset?.data?.category} <i className="fa-solid fa-layer-group"></i></button>
+                                <button className='btn'>{dataset?.data?.price === 0 ? 'FREE' : `${dataset?.data?.price} ELT`} <i className="fa-brands fa-connectdevelop"></i></button>
                             </div>
                             <ReactIf condition={!subscriptionStatus?.data?.isSubscribed}>
                                 <button className='btn' onClick={subscribe}>

@@ -20,7 +20,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
 	return (
 		<Fragment>
-			<nav>
+			<nav className='header'>
 				<NavBar />
 			</nav>
 			<main>

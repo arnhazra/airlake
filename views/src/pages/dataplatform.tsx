@@ -14,6 +14,7 @@ import HTTPMethods from '@/constants/HTTPMethods'
 const DataPlatformPage: NextPage = () => {
     const [{ datasetRequestState }, dispatch] = useContext(GlobalContext)
     const dataPlatform = useFetch('data platform', endPoints.dataplatformEndpoint, HTTPMethods.POST, datasetRequestState)
+    console.log(dataPlatform)
 
     const datasetsToDisplay = dataPlatform?.data?.datasets?.map((dataset: any) => {
         return <DatasetCard key={dataset._id} id={dataset._id} category={dataset.category} name={dataset.name} price={dataset.price} />

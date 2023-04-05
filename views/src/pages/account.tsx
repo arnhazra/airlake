@@ -56,9 +56,9 @@ const AccountPage: NextPage = () => {
                             <p className='lead'>Signed in as {userState.name}</p>
                             <p className='lead'>{Constants.Info}</p>
                             <p className='lead'>{Constants.Warning}</p>
-                            <Link href='/eltswap' className='btn'>Swap ELT<i className='fa-solid fa-circle-arrow-right'></i></Link>
+                            <Link href='/eltswap' className='btn'>Swap ELT<i className="fa-solid fa-shuffle"></i></Link>
                             <button className='btn' onClick={signOutFromThisDevice}>Sign Out<i className='fa-solid fa-circle-arrow-right'></i></button><br />
-                            <button className='btn' onClick={signOutFromAllDevices}>Sign Out From All Devices<i className='fa-solid fa-circle-arrow-right'></i></button>
+                            <button className='btn' onClick={signOutFromAllDevices}>Sign Out From All Devices<i className="fa-solid fa-square-arrow-up-right"></i></button>
                         </div>
                     </div>
                     <ReactIf condition={transactions?.data?.transactions?.length > 0}>

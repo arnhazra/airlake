@@ -4,7 +4,7 @@ const Loading: FC = () => {
     return (
         <Fragment>
             <div className='cover text-center'>
-                <i className='fas fa-spinner fa-pulse fa-6x'></i>
+                <i className='fas fa-spinner fa-pulse fa-4x'></i>
             </div>
         </Fragment>
     )

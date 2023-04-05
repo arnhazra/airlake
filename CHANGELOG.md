@@ -1,6 +1,11 @@
 # Evolake Changelog
 
-## [Current v2.3]
+## [Currrent v2.4]
+* Redesign
+* Minor Bug Fixes and Performance Improvements
+* Exposed Data Preview & Fullview API instead of redirection
+
+## [v2.3]
 * Introduced ELT Swap Protocol to replace the buycoin and sellcoin page.
 * Integrated React query for realtime data fetching & advanced mechanisms.
 * Introduced new useFetch & useFetchRealtime hook to replace other hooks.

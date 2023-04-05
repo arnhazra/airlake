@@ -34,7 +34,7 @@ const NavBar: FC = () => {
     return (
         <Fragment>
             <ReactIf condition={isAuthenticated}>
-                <Navbar className='navbar-authorized' expand='lg' style={{ zoom: 0.85 }}>
+                <Navbar expand='lg' style={{ zoom: 0.85 }} fixed='top'>
                     <Container>
                         <Link href='/dataplatform'><Navbar.Brand style={{ fontSize: '1.3rem' }}>Evolake</Navbar.Brand></Link>
                         <Navbar.Toggle aria-controls='navbarScroll' />

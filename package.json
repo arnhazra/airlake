@@ -1,6 +1,6 @@
 {
   "name": "project-evolake",
-  "version": "2.3",
+  "version": "2.4",
   "description": "Project Evolake",
   "main": "app.js",
   "scripts": {
