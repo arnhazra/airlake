@@ -56,14 +56,14 @@ const AccountPage: NextPage = () => {
                             <p className='lead'>Signed in as {userState.name}</p>
                             <p className='lead'>{Constants.Info}</p>
                             <p className='lead'>{Constants.Warning}</p>
-                            <Link href='/eltswap' className='btn chip'>Swap ELT<i className='fa-solid fa-circle-arrow-right'></i></Link>
-                            <button className='btn chip ' onClick={signOutFromThisDevice}>Sign Out<i className='fa-solid fa-circle-arrow-right'></i></button><br />
-                            <button className='btn chip ' onClick={signOutFromAllDevices}>Sign Out From All Devices<i className='fa-solid fa-circle-arrow-right'></i></button>
+                            <Link href='/eltswap' className='btn'>Swap ELT<i className='fa-solid fa-circle-arrow-right'></i></Link>
+                            <button className='btn' onClick={signOutFromThisDevice}>Sign Out<i className='fa-solid fa-circle-arrow-right'></i></button><br />
+                            <button className='btn' onClick={signOutFromAllDevices}>Sign Out From All Devices<i className='fa-solid fa-circle-arrow-right'></i></button>
                         </div>
                     </div>
                     <ReactIf condition={transactions?.data?.transactions?.length > 0}>
                         <p className='lead text-center text-white mb-4'>Transactions</p>
-                        <Table responsive hover variant='dark'>
+                        <Table responsive hover variant='light'>
                             <thead>
                                 <tr>
                                     <th>Event</th>

@@ -34,7 +34,7 @@ const NavBar: FC = () => {
     return (
         <Fragment>
             <ReactIf condition={isAuthenticated}>
-                <Navbar className='navbar-authorized' variant='dark' expand='lg' style={{ zoom: 0.85 }}>
+                <Navbar className='navbar-authorized' expand='lg' style={{ zoom: 0.85 }}>
                     <Container>
                         <Link href='/dataplatform'><Navbar.Brand style={{ fontSize: '1.3rem' }}>Evolake</Navbar.Brand></Link>
                         <Navbar.Toggle aria-controls='navbarScroll' />
@@ -59,7 +59,7 @@ const NavBar: FC = () => {
                 </Navbar>
             </ReactIf>
             <ReactIf condition={!isAuthenticated}>
-                <Navbar className='navbar-unauthorized' variant='dark' expand='lg'>
+                <Navbar className='navbar-unauthorized' expand='lg'>
                     <Container>
                         <Link href='/'>
                             <Navbar.Brand style={{ fontSize: '1.3rem' }}>Evolake</Navbar.Brand>

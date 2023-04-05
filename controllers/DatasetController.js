@@ -8,6 +8,7 @@ class DatasetController {
         try {
             const filterCategories = await DatasetModel.find().distinct('category')
             filterCategories.push('All')
+            filterCategories.sort()
             return res.status(200).json({ filterCategories })
         }
 

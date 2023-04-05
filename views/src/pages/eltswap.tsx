@@ -103,8 +103,8 @@ const ELTSwapPage: NextPage = () => {
             <div className='box'>
                 <ReactIf condition={account === ''}>
                     <p className='branding'>Swap ELT</p>
-                    <button className='btn btnbox' onClick={() => connectWallet('buy')}>Buy Evolake Token<i className='fa-solid fa-circle-arrow-up'></i></button>
-                    <button className='btn btnbox' onClick={() => connectWallet('sell')}>Sell Evolake Token<i className='fa-solid fa-circle-arrow-down'></i></button>
+                    <button className='btn' onClick={() => connectWallet('buy')}>Buy Evolake Token<i className='fa-solid fa-circle-arrow-up'></i></button>
+                    <button className='btn' onClick={() => connectWallet('sell')}>Sell Evolake Token<i className='fa-solid fa-circle-arrow-down'></i></button>
                 </ReactIf>
                 <ReactIf condition={account !== ''}>
                     <ReactIf condition={type === 'buy'}>
@@ -114,7 +114,7 @@ const ELTSwapPage: NextPage = () => {
                                 <Form.Control autoFocus type='email' placeholder='Amount of tokens' onChange={(e: any) => setTokens(e.target.value)} required />
                             </FloatingLabel>
                             <p id='alert'>ETH equivalent: {ether}</p>
-                            <button className='btn btnbox' onClick={buyCoin}>Buy<i className='fa-solid fa-circle-arrow-right'></i></button>
+                            <button className='btn' onClick={buyCoin}>Buy<i className='fa-solid fa-circle-arrow-right'></i></button>
                         </ReactIf>
                         <ReactIf condition={step === 2}>
                             <p className='branding'>Transaction Status</p>
@@ -146,7 +146,7 @@ const ELTSwapPage: NextPage = () => {
                                 <Form.Control autoFocus type='email' placeholder='Amount of tokens' onChange={(e: any) => setTokens(e.target.value)} required />
                             </FloatingLabel>
                             <p id='alert'>ETH equivalent: {ether}</p>
-                            <button className='btn btnbox' onClick={sellCoin}>Sell<i className='fa-solid fa-circle-arrow-right'></i></button>
+                            <button className='btn' onClick={sellCoin}>Sell<i className='fa-solid fa-circle-arrow-right'></i></button>
                         </ReactIf>
                         <ReactIf condition={step === 2}>
                             <p className='branding'>Transaction Status</p>

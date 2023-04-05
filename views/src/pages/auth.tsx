@@ -69,7 +69,7 @@ const AuthPage: NextPage = () => {
                         <Form.Control autoFocus type='email' placeholder='Your Email' onChange={(e) => setState({ ...state, email: e.target.value })} required autoComplete={'off'} minLength={4} maxLength={40} />
                     </FloatingLabel>
                     <p id='alert'>{alert}</p>
-                    <button type='submit' className='mt-2 btn btnbox'>Continue to Evolake {isLoading ? <i className='fas fa-circle-notch fa-spin'></i> : <i className='fa-solid fa-circle-arrow-right'></i>}</button><br />
+                    <button type='submit' className='mt-2 btn'>Continue {isLoading ? <i className='fas fa-circle-notch fa-spin'></i> : <i className='fa-solid fa-circle-arrow-right'></i>}</button><br />
                 </form>
             </ReactIf>
             <ReactIf condition={authstep.secondstep}>
@@ -85,7 +85,7 @@ const AuthPage: NextPage = () => {
                         <Form.Control type='password' name='otp' placeholder='Enter Auth Code' onChange={(e) => setState({ ...state, otp: e.target.value })} required autoComplete={'off'} minLength={6} maxLength={6} />
                     </FloatingLabel>
                     <p id='alert'>{alert}</p>
-                    <button type='submit' className='mt-2 btn btnbox'>{state.newuser ? 'Set up the account' : 'Continue to the app'} {isLoading ? <i className='fas fa-circle-notch fa-spin'></i> : <i className='fa-solid fa-circle-arrow-right'></i>}</button>
+                    <button type='submit' className='mt-2 btn'>{state.newuser ? 'Sign Up' : 'Sign In'} {isLoading ? <i className='fas fa-circle-notch fa-spin'></i> : <i className='fa-solid fa-circle-arrow-right'></i>}</button>
                 </form>
             </ReactIf>
         </Fragment >

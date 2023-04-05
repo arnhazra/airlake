@@ -1,0 +1,33 @@
+$btnColor: #1a1a1f
+$textColor: #fafafb
+$gradient: linear-gradient(to right, #D41872 0%, #FF0066 100%)
+
+.btn
+    background: $btnColor
+    border-radius: 3rem
+    padding: 0.9rem
+    padding-left: 1.4rem
+    padding-right: 1.2rem
+    margin-right: 1rem
+    margin-bottom: 1rem
+    color: $textColor !important
+    letter-spacing: 0.08rem
+    font-size: 1rem
+    border: none
+    text-transform: uppercase
+
+    &:disabled
+        background: $btnColor
+        color: $textColor !important
+
+.btn:hover,
+.btn:focus
+    background-color: $btnColor !important
+
+a,
+a:hover,
+a:focus,
+a:active
+    color: $btnColor
+    text-decoration: none
+    cursor: pointer

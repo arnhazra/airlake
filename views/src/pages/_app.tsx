@@ -3,18 +3,18 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import '@/styles/globals.sass'
 import '@/styles/media.sass'
 import '@/styles/cards.sass'
+import '@/styles/navbar.sass'
+import '@/styles/button.sass'
 import type { AppProps } from 'next/app'
 import axios from 'axios'
 import GlobalStateProvider from '@/context/globalStateProvider'
 import Head from 'next/head'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
-axios.interceptors.request.use(
-	(request) => {
-		request.headers.Authorization = `Bearer ${localStorage.getItem('accessToken')}`
-		return request
-	}
-)
+axios.interceptors.request.use((request) => {
+	request.headers.Authorization = `Bearer ${localStorage.getItem('accessToken')}`
+	return request
+})
 
 const queryClient = new QueryClient()
 

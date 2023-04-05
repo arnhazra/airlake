@@ -81,19 +81,19 @@ const ViewOneDatasetPage: NextPage = () => {
                     <Container className='mt-4'>
                         <div className='jumbotron'>
                             <p className='display-6 text-capitalize'>{dataset?.data?.name}</p>
-                            <p className='smalltext'>{dataset?.data?.description}</p>
-                            <div className='chip-grid'>
-                                <button className='btn chip'>{dataset?.data?.category}</button>
-                                <button className='btn chip'>{dataset?.data?.price === 0 ? 'FREE' : `${dataset?.data?.price} ELT`}</button>
+                            <p className='lead'>{dataset?.data?.description}</p>
+                            <div>
+                                <button className='btn'>{dataset?.data?.category}</button>
+                                <button className='btn'>{dataset?.data?.price === 0 ? 'FREE' : `${dataset?.data?.price} ELT`}</button>
                             </div>
                             <ReactIf condition={!subscriptionStatus?.data?.isSubscribed}>
-                                <button className='btn chip' onClick={subscribe}>
+                                <button className='btn' onClick={subscribe}>
                                     Subscribe<i className='fa-solid fa-circle-plus'></i>
                                 </button>
-                                <button className='btn chip' onClick={copyPreviewAPI}>Data Preview API <i className="fa-solid fa-copy"></i></button>
+                                <button className='btn' onClick={copyPreviewAPI}>Data Preview API <i className="fa-solid fa-copy"></i></button>
                             </ReactIf>
                             <ReactIf condition={subscriptionStatus?.data?.isSubscribed}>
-                                <button className='btn chip' onClick={copyFullviewAPI}>Data Fullview API <i className="fa-solid fa-copy"></i></button>
+                                <button className='btn' onClick={copyFullviewAPI}>Data Fullview API <i className="fa-solid fa-copy"></i></button>
                             </ReactIf>
                         </div>
                         <Row>
