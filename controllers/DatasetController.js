@@ -4,6 +4,28 @@ const DatasetModel = require('../models/DatasetModel')
 const SubscriptionModel = require('../models/SubscriptionModel')
 
 class DatasetController {
+    async createDataset(req, res) {
+        const errors = validationResult(req)
+
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ msg: errors.array()[0].msg })
+        }
+
+        else {
+            const { name, category, description, data, price } = req.body
+
+            try {
+                const dataset = new DatasetModel({ name, category, description, data, price })
+                await dataset.save()
+                return res.status(200).json({ msg: statusMessages.transactionCreationSuccess })
+            }
+
+            catch (error) {
+                return res.status(500).json({ msg: statusMessages.connectionError })
+            }
+        }
+    }
+
     async getDatasetFilters(req, res) {
         try {
             const filterCategories = await DatasetModel.find().distinct('category')
@@ -79,7 +101,7 @@ class DatasetController {
         }
     }
 
-    async datasetPreview(req, res) {
+    async getMetadata(req, res) {
         try {
             const data = await DatasetModel.findById(req.params.datasetId).select('data')
             const previewdata = data.data[0]
@@ -91,7 +113,7 @@ class DatasetController {
         }
     }
 
-    async datasetFullview(req, res) {
+    async getData(req, res) {
         try {
             const subscriptionId = req.params.subscriptionId
             const datasetId = req.params.datasetId
@@ -108,28 +130,6 @@ class DatasetController {
 
         catch (error) {
             return res.status(404).json({ msg: statusMessages.connectionError })
-        }
-    }
-
-    async createDataset(req, res) {
-        const errors = validationResult(req)
-
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ msg: errors.array()[0].msg })
-        }
-
-        else {
-            const { name, category, description, data, price } = req.body
-
-            try {
-                const dataset = new DatasetModel({ name, category, description, data, price })
-                await dataset.save()
-                return res.status(200).json({ msg: statusMessages.transactionCreationSuccess })
-            }
-
-            catch (error) {
-                return res.status(500).json({ msg: statusMessages.connectionError })
-            }
         }
     }
 }

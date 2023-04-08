@@ -1,9 +1,13 @@
 # Evolake Changelog
 
+## [Currrent v2.5]
+* Renamed Preview Datasets & Fullview datasets API to Metadata & Data API.
+* Restructured home page.
+
 ## [Currrent v2.4]
-* Redesign
-* Minor Bug Fixes and Performance Improvements
-* Exposed Data Preview & Fullview API instead of redirection
+* Redesign.
+* Minor Bug Fixes and Performance Improvements.
+* Exposed Data Preview & Fullview API instead of redirection.
 
 ## [v2.3]
 * Introduced ELT Swap Protocol to replace the buycoin and sellcoin page.

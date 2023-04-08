@@ -15,12 +15,12 @@ const HomePage: NextPage = () => {
 						{Constants.HomeHeader2}<br />
 						{Constants.HomeHeader3}
 					</p>
-					<p className='smalltext my-4'>
+					<p className='lead my-4'>
 						{Constants.HomeIntro1} <br />
 						{Constants.HomeIntro2} <br />
 					</p>
 					<p className='lead'>{Constants.HomeFooter}</p>
-					<Link href='/auth' className='btn'>Get Started<i className='fa-solid fa-circle-arrow-right'></i></Link>
+					<Link href='/auth' className='btn'>Start<i className='fa-solid fa-circle-arrow-right'></i></Link>
 				</div>
 			</Container>
 		</Fragment >

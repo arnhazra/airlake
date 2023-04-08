@@ -64,13 +64,13 @@ const ViewOneDatasetPage: NextPage = () => {
         return <DatasetCard key={dataset._id} id={dataset._id} category={dataset.category} name={dataset?.name} price={dataset?.price} />
     })
 
-    const copyPreviewAPI = (): void => {
-        navigator.clipboard.writeText(`${endPoints.datasetPreview}/${datasetId}`)
+    const copyMetadataAPI = (): void => {
+        navigator.clipboard.writeText(`${endPoints.metadataapi}/${datasetId}`)
         toast.success('Copied to Clipboard')
     }
 
-    const copyFullviewAPI = (): void => {
-        navigator.clipboard.writeText(`${endPoints.datasetFullview}/${datasetId}/${subscriptionStatus?.data?.subscriptionId}`)
+    const copyDataAPI = (): void => {
+        navigator.clipboard.writeText(`${endPoints.dataapi}/${datasetId}/${subscriptionStatus?.data?.subscriptionId}`)
         toast.success('Copied to Clipboard')
     }
 
@@ -90,10 +90,10 @@ const ViewOneDatasetPage: NextPage = () => {
                                 <button className='btn' onClick={subscribe}>
                                     Subscribe<i className='fa-solid fa-circle-plus'></i>
                                 </button>
-                                <button className='btn' onClick={copyPreviewAPI}>Data Preview API <i className="fa-solid fa-copy"></i></button>
+                                <button className='btn' onClick={copyMetadataAPI}>Metadata API <i className="fa-solid fa-copy"></i></button>
                             </ReactIf>
                             <ReactIf condition={subscriptionStatus?.data?.isSubscribed}>
-                                <button className='btn' onClick={copyFullviewAPI}>Data Fullview API <i className="fa-solid fa-copy"></i></button>
+                                <button className='btn' onClick={copyDataAPI}>Data API <i className="fa-solid fa-copy"></i></button>
                             </ReactIf>
                         </div>
                         <Row>
