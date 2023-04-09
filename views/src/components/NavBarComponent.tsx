@@ -68,7 +68,7 @@ const NavBar: FC = () => {
                         <Navbar.Collapse>
                             <Nav className='ms-auto'>
                                 <Link href='/auth'><Navbar.Brand>Get Started</Navbar.Brand></Link>
-                                <Link target='_blank' rel='noopener noreferrer' href='https://www.linkedin.com/in/arnhazra/' prefetch={true}><Navbar.Brand>Developer</Navbar.Brand></Link>
+                                <Link target='_blank' rel='noopener noreferrer' href='https://www.linkedin.com/in/arnhazra/'><Navbar.Brand>Developer</Navbar.Brand></Link>
                             </Nav>
                         </Navbar.Collapse>
                     </Container>

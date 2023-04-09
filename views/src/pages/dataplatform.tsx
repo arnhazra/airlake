@@ -9,35 +9,30 @@ import { NextPage } from 'next'
 import useFetch from '@/hooks/useFetch'
 import endPoints from '@/constants/Endpoints'
 import HTTPMethods from '@/constants/HTTPMethods'
+import useDataplatform from '@/hooks/useDataplatform'
 
 const DataPlatformPage: NextPage = () => {
     const [{ datasetRequestState }, dispatch] = useContext(GlobalContext)
     const filters = useFetch('filters', endPoints.datasetFiltersEndpoint, HTTPMethods.POST)
-    const dataPlatform = useFetch('data platform', endPoints.dataplatformEndpoint, HTTPMethods.POST, datasetRequestState)
+    const dataplatform = useDataplatform()
 
     const filterCategoriesToDisplay = filters?.data?.filterCategories?.map((category: string) => {
         return <option className='options' key={category} value={category}>{category}</option>
     })
 
-    const datasetsToDisplay = dataPlatform?.data?.datasets?.map((dataset: any) => {
+    const datasetsToDisplay = dataplatform?.datasets?.map((dataset: any) => {
         return <DatasetCard key={dataset._id} id={dataset._id} category={dataset.category} name={dataset.name} price={dataset.price} />
     })
 
-    const prevPage = () => {
-        const prevDatasetReqNumber = datasetRequestState.offset - 24
-        dispatch('setDatasetRequestState', { offset: prevDatasetReqNumber })
-        window.scrollTo(0, 0)
-    }
-
-    const nextPage = () => {
+    const loadMore = () => {
         const nextOffset = datasetRequestState.offset + 24
         dispatch('setDatasetRequestState', { offset: nextOffset })
-        window.scrollTo(0, 0)
+        window.scrollTo(0, document.body.scrollHeight)
     }
 
     return (
         <Fragment>
-            <ReactIf condition={!dataPlatform.isLoading && !filters.isLoading}>
+            <ReactIf condition={!filters?.isLoading && dataplatform.isLoaded}>
                 <Container>
                     <Row className='g-2 mt-4'>
                         <Col xs={12} sm={12} md={6} lg={4} xl={3}>
@@ -62,16 +57,17 @@ const DataPlatformPage: NextPage = () => {
                     <Row className='mt-4 mb-4'>
                         {datasetsToDisplay}
                     </Row>
-                    <div className='text-center'>
-                        <button className='btn' onClick={prevPage} disabled={datasetRequestState.offset === 0}><i className='fa-solid fa-circle-arrow-left'></i></button>
-                        <button className='btn' onClick={nextPage} disabled={dataPlatform?.data?.datasets?.length !== 24}><i className='fa-solid fa-circle-arrow-right'></i></button>
-                    </div>
+                    <ReactIf condition={dataplatform.datasets.length % 24 === 0}>
+                        <div className='text-center'>
+                            <button className='btn' onClick={loadMore}>Load More<i className='fa-solid fa-circle-arrow-down'></i></button>
+                        </div>
+                    </ReactIf>
                 </Container>
             </ReactIf>
-            <ReactIf condition={dataPlatform.isLoading || filters.isLoading}>
+            <ReactIf condition={filters.isLoading || !dataplatform.isLoaded}>
                 <Loading />
             </ReactIf>
-        </Fragment>
+        </Fragment >
     )
 }
 
