@@ -3,7 +3,6 @@
 ## [Currrent v2.5]
 * Renamed Preview Datasets & Fullview datasets API to Metadata & Data API.
 * Restructured home page.
-* Lazy Loading replacing Pagination in Data Platform (beta).
 * Minor Performance optimizations on dataplatform page.
 
 ## [Currrent v2.4]

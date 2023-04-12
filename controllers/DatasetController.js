@@ -51,7 +51,6 @@ class DatasetController {
                 .skip(offset)
                 .limit(limit)
                 .select('-data -description')
-                .allowDiskUse(true)
                 .sort(selectedSortOption)
                 .allowDiskUse(true)
                 .exec()
