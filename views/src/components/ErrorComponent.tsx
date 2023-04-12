@@ -4,9 +4,11 @@ import { ErrorProps } from '@/types/Types'
 
 const Error: FC<ErrorProps> = ({ customMessage }) => {
     return (
-        <div className='box text-center'>
+        <div className='box'>
             <p className='branding mb-4'>{customMessage ? customMessage : Constants.ErrorMessage}</p>
-            <i className='fa-solid fa-circle-exclamation fa-4x'></i><br /><br />
+            <div className="text-center">
+                <i className='fa-solid fa-circle-exclamation fa-4x '></i><br /><br />
+            </div>
             <button onClick={() => window.history.back()} className='btn mt-2'><i className='fa-solid fa-circle-arrow-left'></i>Go Back</button>
         </div>
     )

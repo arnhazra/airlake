@@ -9,6 +9,7 @@ import { NextPage } from 'next'
 import useFetch from '@/hooks/useFetch'
 import endPoints from '@/constants/Endpoints'
 import HTTPMethods from '@/constants/HTTPMethods'
+import Error from '@/components/ErrorComponent'
 
 const DataPlatformPage: NextPage = () => {
     const [{ datasetRequestState }, dispatch] = useContext(GlobalContext)
@@ -22,6 +23,8 @@ const DataPlatformPage: NextPage = () => {
     const datasetsToDisplay = dataPlatform?.data?.datasets?.map((dataset: any) => {
         return <DatasetCard key={dataset._id} id={dataset._id} category={dataset.category} name={dataset.name} price={dataset.price} />
     })
+
+    const noDatasetsToDisplay = <Error customMessage='No Datasets' />
 
     const prevPage = () => {
         const prevDatasetReqNumber = datasetRequestState.offset - 24
@@ -57,18 +60,18 @@ const DataPlatformPage: NextPage = () => {
                         </Col>
                     </Row>
                     <Row className='mt-4 mb-4'>
-                        {datasetsToDisplay}
+                        {dataPlatform?.data?.datasets?.length ? datasetsToDisplay : noDatasetsToDisplay}
                     </Row>
                     <div className='text-center'>
-                        <button className='btn' onClick={prevPage} disabled={datasetRequestState.offset === 0}>Show Prev<i className='fa-solid fa-circle-arrow-left'></i></button>
-                        <button className='btn' onClick={nextPage} disabled={dataPlatform?.data?.datasets?.length !== 24}>Show Next<i className='fa-solid fa-circle-arrow-right'></i></button>
+                        {datasetRequestState.offset !== 0 && <button className='btn' onClick={prevPage}>Show Prev<i className='fa-solid fa-circle-arrow-left'></i></button>}
+                        {dataPlatform?.data?.datasets?.length === 24 && <button className='btn' onClick={nextPage}>Show Next<i className='fa-solid fa-circle-arrow-right'></i></button>}
                     </div>
                 </Container>
             </ReactIf>
             <ReactIf condition={dataPlatform.isLoading || filters.isLoading}>
                 <Loading />
             </ReactIf>
-        </Fragment>
+        </Fragment >
     )
 }
 
