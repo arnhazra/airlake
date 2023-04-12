@@ -23,10 +23,10 @@ const ViewOneDatasetPage: NextPage = () => {
     const router = useRouter()
     const { id: datasetId } = router.query
     const [eventId, setEventId] = useState(Math.random().toString())
+    const [account, setAccount] = useState('')
     const dataset = useFetch('view dataset', endPoints.datasetViewEndpoint, HTTPMethods.POST, { datasetId })
     const similarDatasets = useFetch('similar datasets', endPoints.findsimilarDatasets, HTTPMethods.POST, { datasetId })
     const subscriptionStatus = useFetch('subscription status', endPoints.checkSubscriptionEndpoint, HTTPMethods.POST, { datasetId }, eventId)
-    const [account, setAccount] = useState('')
 
     const subscribe = async () => {
         if (dataset.data.price === 0) {
