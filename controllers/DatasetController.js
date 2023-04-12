@@ -41,19 +41,20 @@ class DatasetController {
 
     async getDataPlatform(req, res) {
         const selectedFilterCategory = req.body.selectedFilter === 'All' ? '' : req.body.selectedFilter
-        const selectedSortOption = req.body.selectedSortOption || '-_id'
+        const selectedSortOption = req.body.selectedSortOption === '-name' ? { name: -1 } : { name: 1 }
         const searchQuery = req.body.searchQuery || ''
         const offset = req.body.offset || 0
         const limit = 24
 
         try {
-            const datasets = await DatasetModel.find({ name: { $regex: searchQuery, $options: 'i' }, category: { $regex: selectedFilterCategory } })
-                .skip(offset)
-                .limit(limit)
-                .select('-data -description')
-                .sort(selectedSortOption)
-                .allowDiskUse(true)
-                .exec()
+            const datasets = await DatasetModel.aggregate([
+                { $match: { name: { $regex: searchQuery, $options: 'i' }, category: { $regex: selectedFilterCategory } } },
+                { $project: { data: 0, description: 0 } },
+                { $skip: offset },
+                { $limit: limit },
+                { $sort: selectedSortOption }
+            ], { allowDiskUse: true }).exec();
+
             return res.status(200).json({ datasets })
         }
 

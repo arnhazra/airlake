@@ -15,7 +15,7 @@ const initialState = {
     datasetRequestState: {
         searchQuery: '',
         selectedFilter: 'All',
-        selectedSortOption: '-_id',
+        selectedSortOption: 'name',
         offset: 0
     },
 }

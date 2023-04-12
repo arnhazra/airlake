@@ -1,11 +1,15 @@
 # Evolake Changelog
 
-## [Currrent v2.5]
+## [Currrent v2.6]
+* New aggregated query for sorting.
+* Fixed issues.
+
+## [v2.5]
 * Renamed Preview Datasets & Fullview datasets API to Metadata & Data API.
 * Restructured home page.
 * Minor Performance optimizations on dataplatform page.
 
-## [Currrent v2.4]
+## [v2.4]
 * Redesign.
 * Minor Bug Fixes and Performance Improvements.
 * Exposed Data Preview & Fullview API instead of redirection.

@@ -50,11 +50,8 @@ const DataPlatformPage: NextPage = () => {
                         <Col xs={12} sm={12} md={6} lg={4} xl={3}>
                             <FloatingLabel controlId='floatingSelectGrid' label='Sort By'>
                                 <Form.Select defaultValue={datasetRequestState.selectedSortOption} onChange={(e): void => dispatch('setDatasetRequestState', { selectedSortOption: e.target.value })}>
-                                    <option className='options' key={'freshness'} value={'-_id'}>Dataset Freshness</option>
                                     <option className='options' key={'nameAscending'} value={'name'}>Name Ascending</option>
                                     <option className='options' key={'nameDescending'} value={'-name'}>Name Descending</option>
-                                    <option className='options' key={'priceAscending'} value={'price'}>Price Ascending</option>
-                                    <option className='options' key={'priceDescending'} value={'-price'}>Price Descending</option>
                                 </Form.Select>
                             </FloatingLabel>
                         </Col>
