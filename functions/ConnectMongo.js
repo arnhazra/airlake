@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
-const statusMessages = require('../constants/statusMessages')
 const dotenv = require('dotenv').config()
+const statusMessages = require('../constants/statusMessages')
 const MONGO_URI = process.env.MONGO_URI
 
 const connectMongo = async () => {

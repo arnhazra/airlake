@@ -1,13 +1,13 @@
-const statusMessages = require('../constants/statusMessages')
-const endPoints = require('../constants/endPoints')
 const dotenv = require('dotenv').config()
 const jwt = require('jsonwebtoken')
 const otptool = require('otp-without-db')
 const otpGenerator = require('otp-generator')
 const { validationResult } = require('express-validator')
+const statusMessages = require('../constants/statusMessages')
+const endPoints = require('../constants/endPoints')
 const UserModel = require('../models/UserModel')
 const sendmail = require('../functions/SendMail')
-const { setTokenInRedis, getTokenFromRedis, removeTokenFromRedis } = require('../functions/UseRedis')
+const { setTokenInRedis, getTokenFromRedis } = require('../functions/UseRedis')
 
 class AuthController {
     constructor() {

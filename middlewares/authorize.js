@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
+const dotenv = require('dotenv').config()
 const statusMessages = require('../constants/statusMessages')
 const { getTokenFromRedis } = require('../functions/UseRedis')
-const dotenv = require('dotenv').config()
 const rsaPublicKey = process.env.RSA_PUBLIC_KEY
 
 module.exports = async function (req, res, next) {

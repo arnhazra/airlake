@@ -1,7 +1,7 @@
 const express = require('express')
+const { check } = require('express-validator')
 const authorize = require('../middlewares/authorize')
 const AccountController = require('../controllers/AccountController')
-const { check } = require('express-validator')
 
 class AccountRouter {
     constructor() {

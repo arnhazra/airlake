@@ -1,5 +1,6 @@
-const statusMessages = require('../constants/statusMessages')
 const { validationResult } = require('express-validator')
+const arraySort = require('array-sort')
+const statusMessages = require('../constants/statusMessages')
 const DatasetModel = require('../models/DatasetModel')
 const SubscriptionModel = require('../models/SubscriptionModel')
 
@@ -41,20 +42,19 @@ class DatasetController {
 
     async getDataPlatform(req, res) {
         const selectedFilterCategory = req.body.selectedFilter === 'All' ? '' : req.body.selectedFilter
-        const selectedSortOption = req.body.selectedSortOption === '-name' ? { name: -1 } : { name: 1 }
+        const selectedSortOption = req.body.selectedSortOption === '-name' ? { reverse: true } : { reverse: false }
         const searchQuery = req.body.searchQuery || ''
         const offset = req.body.offset || 0
         const limit = 24
 
         try {
-            const datasets = await DatasetModel.aggregate([
-                { $match: { name: { $regex: searchQuery, $options: 'i' }, category: { $regex: selectedFilterCategory } } },
-                { $project: { data: 0, description: 0 } },
-                { $skip: offset },
-                { $limit: limit },
-                { $sort: selectedSortOption }
-            ], { allowDiskUse: true }).exec();
+            let datasets = await DatasetModel.find({ name: { $regex: searchQuery, $options: 'i' }, category: { $regex: selectedFilterCategory } })
+                .select('-data -description')
+                .skip(offset)
+                .limit(limit)
+                .exec()
 
+            datasets = arraySort(datasets, 'name', selectedSortOption)
             return res.status(200).json({ datasets })
         }
 
