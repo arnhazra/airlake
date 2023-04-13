@@ -52,7 +52,6 @@ class DatasetController {
                 .select('-data -description')
                 .skip(offset)
                 .limit(limit)
-                .exec()
 
             datasets = arraySort(datasets, 'name', selectedSortOption)
             return res.status(200).json({ datasets })

@@ -3,7 +3,7 @@ import debounce from 'lodash.debounce'
 import { ChangeEvent, FC, Fragment, useContext, useMemo, useEffect, useState } from 'react'
 import { Container, Navbar, Nav, Form } from 'react-bootstrap'
 import Link from 'next/link'
-import ReactIf from './ReactIfComponent'
+import ReactIf from './ReactIf'
 import { useRouter } from 'next/router'
 
 const NavBar: FC = () => {

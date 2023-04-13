@@ -1,15 +1,15 @@
 import { useContext } from 'react'
 import { Col, Container, FloatingLabel, Form, Row } from 'react-bootstrap'
 import { Fragment } from 'react'
-import Loading from '@/components/LoadingComponent'
-import ReactIf from '@/components/ReactIfComponent'
+import Loading from '@/components/Loading'
+import ReactIf from '@/components/ReactIf'
 import { GlobalContext } from '@/context/globalStateProvider'
-import DatasetCard from '@/components/DatasetCardComponent'
+import DatasetCard from '@/components/DatasetCard'
 import { NextPage } from 'next'
 import useFetch from '@/hooks/useFetch'
 import endPoints from '@/constants/Endpoints'
 import HTTPMethods from '@/constants/HTTPMethods'
-import Error from '@/components/ErrorComponent'
+import Error from '@/components/ErrorComp'
 
 const DataPlatformPage: NextPage = () => {
     const [{ datasetRequestState }, dispatch] = useContext(GlobalContext)
