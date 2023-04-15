@@ -13,7 +13,7 @@ import { NextPage } from 'next'
 declare const window: any
 const web3 = new Web3(Web3.givenProvider)
 
-const ELTSwapPage: NextPage = () => {
+const LSTSwapPage: NextPage = () => {
     const [tokens, setTokens] = useState('')
     const [ether, setEther] = useState(0)
     const [account, setAccount] = useState('')
@@ -54,17 +54,17 @@ const ELTSwapPage: NextPage = () => {
             const obj = {
                 fromAddress: request.from || '0x',
                 transactionType: 'Buy',
-                eltAmount: tokens,
+                lstAmount: tokens,
                 ethAmount: ether,
                 txHash: request.transactionHash
             }
             await axios.post(endPoints.createTransactionEndpoint, obj)
             setStep(3)
-            toast.success('You have successfully bought ELT tokens!')
+            toast.success('You have successfully bought LST tokens')
         } catch (err) {
             setTxError(true)
             setStep(3)
-            toast.error('Error purchasing ELT tokens')
+            toast.error('Error purchasing LST tokens')
         }
     }
 
@@ -84,17 +84,17 @@ const ELTSwapPage: NextPage = () => {
             const obj = {
                 fromAddress: request.from || '0x',
                 transactionType: 'Sell',
-                eltAmount: tokens,
+                lstAmount: tokens,
                 ethAmount: ether,
                 txHash: request.transactionHash
             }
             await axios.post(endPoints.createTransactionEndpoint, obj)
             setStep(3)
-            toast.success('You have successfully sold ELT tokens!')
+            toast.success('You have successfully sold LST tokens!')
         } catch (err) {
             setTxError(true)
             setStep(3)
-            toast.error('Error selling ELT tokens')
+            toast.error('Error selling LST tokens')
         }
     }
 
@@ -102,14 +102,14 @@ const ELTSwapPage: NextPage = () => {
         <Fragment>
             <div className='box'>
                 <ReactIf condition={account === ''}>
-                    <p className='branding'>Swap ELT</p>
+                    <p className='branding'>Swap LST</p>
                     <button className='btn' onClick={() => connectWallet('buy')}>Buy Lenstack Token<i className='fa-solid fa-circle-arrow-up'></i></button>
                     <button className='btn' onClick={() => connectWallet('sell')}>Sell Lenstack Token<i className='fa-solid fa-circle-arrow-down'></i></button>
                 </ReactIf>
                 <ReactIf condition={account !== ''}>
                     <ReactIf condition={type === 'buy'}>
                         <ReactIf condition={step === 1}>
-                            <p className='branding'>Buy ELT</p>
+                            <p className='branding'>Buy LST</p>
                             <FloatingLabel controlId='floatingAmount' label='Amount of tokens'>
                                 <Form.Control autoFocus type='email' placeholder='Amount of tokens' onChange={(e: any) => setTokens(e.target.value)} required />
                             </FloatingLabel>
@@ -141,7 +141,7 @@ const ELTSwapPage: NextPage = () => {
                     </ReactIf>
                     <ReactIf condition={type === 'sell'}>
                         <ReactIf condition={step === 1}>
-                            <p className='branding'>Sell ELT</p>
+                            <p className='branding'>Sell LST</p>
                             <FloatingLabel controlId='floatingAmount' label='Amount of tokens'>
                                 <Form.Control autoFocus type='email' placeholder='Amount of tokens' onChange={(e: any) => setTokens(e.target.value)} required />
                             </FloatingLabel>
@@ -177,4 +177,4 @@ const ELTSwapPage: NextPage = () => {
     )
 }
 
-export default ELTSwapPage
+export default LSTSwapPage

@@ -42,10 +42,10 @@ class AccountController {
         }
 
         else {
-            const { transactionType, fromAddress, eltAmount, ethAmount, txHash } = req.body
+            const { transactionType, fromAddress, lstAmount, ethAmount, txHash } = req.body
 
             try {
-                const transaction = new TransactionModel({ owner: req.id, transactionType, fromAddress, eltAmount, ethAmount, txHash })
+                const transaction = new TransactionModel({ owner: req.id, transactionType, fromAddress, lstAmount, ethAmount, txHash })
                 await transaction.save()
                 return res.status(200).json({ msg: statusMessages.transactionCreationSuccess, transaction })
             }

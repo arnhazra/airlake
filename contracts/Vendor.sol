@@ -1,15 +1,15 @@
 // SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.4;
-import "./ELT.sol";
+import "./LST.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract Vendor is Ownable {
-    ELT yourToken;
+    LST yourToken;
     uint256 public tokensPerETH = 10000;
     event BuyTokens(address buyer, uint256 amountOfETH, uint256 amountOfTokens);
 
     constructor(address tokenAddress) {
-        yourToken = ELT(tokenAddress);
+        yourToken = LST(tokenAddress);
     }
 
     function buyTokens() public payable returns (uint256 tokenAmount) {

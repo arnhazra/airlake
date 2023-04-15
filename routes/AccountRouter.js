@@ -19,7 +19,7 @@ class AccountRouter {
             [
                 check('transactionType', 'Transaction Type must not be empty').notEmpty(),
                 check('fromAddress', 'Fromaddress must not be empty').notEmpty(),
-                check('eltAmount', 'ELT Amount must not be empty').notEmpty(),
+                check('lstAmount', 'LST Amount must not be empty').notEmpty(),
                 check('ethAmount', 'ethAmount must not be empty').notEmpty(),
                 check('txHash', 'txHash must not be empty').notEmpty(),
             ],
