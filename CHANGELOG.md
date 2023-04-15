@@ -1,4 +1,4 @@
-# Evolake Changelog
+# Lenstack Changelog
 
 ## [Currrent v2.6]
 * Fixed issues.
@@ -29,7 +29,6 @@
 * Conducted code refactoring for better performance.
 
 ## [v2.1]
-* Rebranded Evolake.
 * Restructured the architecture of the platform.
 * Migrated to the Sepolia testnet on Ethereum Blockchain.
 
@@ -75,7 +74,7 @@
 * Enabled Single and Multi-device signouts.
 
 ## [v1.0]
-* Evolake offers free and premium data sets to users.
+* Lenstack offers free and premium data sets to users.
 * Used MongoDB for Users, Transactions Datasets Management.
 * Employed Web3 JS - Ethereum blockchain for Web3 transactions.
 * Used Express JS as a framework on top of Node JS for API - Microservices.

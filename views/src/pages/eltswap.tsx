@@ -103,8 +103,8 @@ const ELTSwapPage: NextPage = () => {
             <div className='box'>
                 <ReactIf condition={account === ''}>
                     <p className='branding'>Swap ELT</p>
-                    <button className='btn' onClick={() => connectWallet('buy')}>Buy Evolake Token<i className='fa-solid fa-circle-arrow-up'></i></button>
-                    <button className='btn' onClick={() => connectWallet('sell')}>Sell Evolake Token<i className='fa-solid fa-circle-arrow-down'></i></button>
+                    <button className='btn' onClick={() => connectWallet('buy')}>Buy Lenstack Token<i className='fa-solid fa-circle-arrow-up'></i></button>
+                    <button className='btn' onClick={() => connectWallet('sell')}>Sell Lenstack Token<i className='fa-solid fa-circle-arrow-down'></i></button>
                 </ReactIf>
                 <ReactIf condition={account !== ''}>
                     <ReactIf condition={type === 'buy'}>

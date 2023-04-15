@@ -63,7 +63,7 @@ const AuthPage: NextPage = () => {
         <Fragment>
             <ReactIf condition={authstep.firststep}>
                 <form className='box' onSubmit={generateAuthcode}>
-                    <p className='branding'>Evolake Auth</p>
+                    <p className='branding'>Lenstack Auth</p>
                     <p className='boxtext'>Enter the email address where you can be contacted. This email address will be used for authentication.</p>
                     <FloatingLabel controlId='floatingEmail' label='Your Email'>
                         <Form.Control autoFocus type='email' placeholder='Your Email' onChange={(e) => setState({ ...state, email: e.target.value })} required autoComplete={'off'} minLength={4} maxLength={40} />
@@ -74,7 +74,7 @@ const AuthPage: NextPage = () => {
             </ReactIf>
             <ReactIf condition={authstep.secondstep}>
                 <form className='box' onSubmit={verifyAuthcode}>
-                    <p className='branding'>Evolake Auth</p>
+                    <p className='branding'>Lenstack Auth</p>
                     <p className='boxtext'>Please verify your identity by entering the auth code we sent to your inbox. Once you've entered the code, you can continue using our services.</p>
                     <ReactIf condition={state.newuser}>
                         <FloatingLabel controlId='floatingName' label='Your Name'>

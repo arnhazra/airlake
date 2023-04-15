@@ -1,4 +1,4 @@
-const apiHost = process.env.NODE_ENV === 'development' ? 'http://localhost:7000' : 'https://evolake.vercel.app'
+const apiHost = process.env.NODE_ENV === 'development' ? 'http://localhost:7000' : 'https://lenstack.vercel.app'
 
 const endPoints = {
     generateAuthCodeEndpoint: `${apiHost}/api/generateauthcode`,

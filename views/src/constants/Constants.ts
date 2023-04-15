@@ -2,7 +2,7 @@ enum Constants {
     HomeTop = 'INVENT WITH PURPOSE',
     HomeHeader1 = 'Join the age of,',
     HomeHeader2 = `data accelerated`,
-    HomeHeader3 = `with Evolake`,
+    HomeHeader3 = `with Lenstack`,
     HomeIntro1 = `Maximize your data-driven insights with datasets`,
     HomeIntro2 = `Start for free, purchase premium datasets for massive scalability`,
     HomeFooter = '#BuitOnBlockchain',

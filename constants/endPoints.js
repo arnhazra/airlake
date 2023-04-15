@@ -1,5 +1,5 @@
 const endPoints = {
-    tokenIssuer: 'https://evolake.vercel.app'
+    tokenIssuer: 'https://lenstack.vercel.app'
 }
 
 module.exports = endPoints
