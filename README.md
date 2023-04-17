@@ -30,7 +30,7 @@ To add LST to your MetaMask wallet, you can import the token by following these 
 * Open the MetaMask wallet extension in your browser and log in to your account.
 * Click on the three dots in the top right corner and select "Add Token".
 * Click on the "Custom Token" tab.
-* Enter the LST contract address '0x9d46e816e10c6353Fcf7381343b053117641d472', which is a unique identifier for the token. The LST contract address is provided by Lenstack.
+* Enter the LST contract address '0xE7f2cF68e353cB1Fa43846f3F395475267fbFbf0', which is a unique identifier for the token. The LST contract address is provided by Lenstack.
 * MetaMask will automatically fill in the Token Symbol and Decimal fields. If not, the Token Symbol is LST and the Decimals is 18.
 Click "Next".
 * On the next screen, you can review the details of the token you are adding. Click "Add Tokens" to complete the import process.

@@ -48,7 +48,7 @@
 
 ## [v1.7]
 * Implemented a new Dataset query model to replace Fuzzy search for better performance.
-* Created a new pagination mechanism for faster initial load.
+* Created a new lazy loading mechanism for faster initial load.
 
 ## [v1.6]
 * Improved API architecture for production deployment to serve static assets better.
