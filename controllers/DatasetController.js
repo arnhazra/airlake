@@ -48,8 +48,13 @@ class DatasetController {
         const limit = 24
 
         try {
-            let datasets = await DatasetModel.find({ name: { $regex: searchQuery, $options: 'i' }, category: { $regex: selectedFilterCategory } })
-                .select('-data -description')
+            let datasets = await DatasetModel.find({
+                $or: [
+                    { name: { $regex: searchQuery, $options: 'i' } },
+                    { description: { $regex: searchQuery, $options: 'i' } }
+                ],
+                category: { $regex: selectedFilterCategory }
+            }).select('-data -description')
                 .skip(offset)
                 .limit(limit)
 
