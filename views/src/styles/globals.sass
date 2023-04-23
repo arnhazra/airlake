@@ -1,6 +1,6 @@
 $mainColor: #1a1a1f
 $white: #ffffff
-$green: #1ed760
+$green: #39e78d
 $red: #FF0066
 
 html
@@ -10,7 +10,7 @@ html
     width: 0
 
 body
-    background: linear-gradient(to right, #12121266, #12121266), url(../assets/landing.jpg)
+    background: linear-gradient(to right, #12121299, #12121299), url(../assets/landing.jpg)
     -webkit-background-size: cover
     -moz-background-size: cover
     -o-background-size: cover
@@ -35,8 +35,8 @@ body
     zoom: 0.95
     padding: 1.5rem 2.2rem
     margin-bottom: 2rem
-    background: $white !important
-    color: $mainColor
+    background: $mainColor !important
+    color: $white
     border-radius: 1rem
     backdrop-filter: blur(0.4rem)
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px
@@ -68,7 +68,7 @@ table tr:last-child td:last-child
     border-bottom-right-radius: 1rem
 
 th,td,tr
-    background: $white !important
+    background: $mainColor !important
     height: 3.75rem
     border: none
     vertical-align: middle
@@ -76,7 +76,7 @@ th,td,tr
 
 .link-table,
 .link-table:hover
-    color: $mainColor
+    color: $white
 
 .fa-solid
     padding-left: 0.6rem
@@ -97,13 +97,24 @@ th,td,tr
 
 .accordion
     margin-bottom: 1rem
+    border: none !important
+
+.accordion-header,
+.accordion-body
+    border: none !important
 
 .accordion-item
     border-radius: 0.75rem !important
+    border: none !important
+    color: $white
+    background: $mainColor
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px
 
 .accordion-item:last-of-type .accordion-button.collapsed,
 .accordion-item:first-of-type .accordion-button
+    background: $mainColor
+    color: $white
+    border: none !important
     border-radius: 0.75rem !important
 
 @keyframes transitionIn

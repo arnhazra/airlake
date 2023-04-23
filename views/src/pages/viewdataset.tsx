@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Container, Row } from 'react-bootstrap'
+import { Col, Container, Row } from 'react-bootstrap'
 import { Fragment } from 'react'
 import Web3 from 'web3'
 import Loading from '@/components/Loading'
@@ -16,7 +16,7 @@ import Constants from '@/constants/Constants'
 import useFetch from '@/hooks/useFetch'
 import HTTPMethods from '@/constants/HTTPMethods'
 import Error from '@/components/ErrorComp'
-import DataAccordion from '@/components/Accordion'
+import { Rating } from 'react-simple-star-rating'
 declare const window: any
 const web3 = new Web3(Web3.givenProvider)
 
@@ -65,6 +65,12 @@ const ViewOneDatasetPage: NextPage = () => {
         return <DatasetCard key={dataset._id} id={dataset._id} category={dataset.category} name={dataset?.name} price={dataset?.price} />
     })
 
+    const datasetTagsToDisplay = dataset?.data?.description?.split(' ').slice(0, 30).map((item: string) => {
+        if (item.length > 4) {
+            return <button className='btn tag-chip' title='tags'>{item}</button>
+        }
+    })
+
     const copyMetadataAPI = (): void => {
         navigator.clipboard.writeText(`${endPoints.metadataapi}/${datasetId}`)
         toast.success('Copied to Clipboard')
@@ -75,36 +81,39 @@ const ViewOneDatasetPage: NextPage = () => {
         toast.success('Copied to Clipboard')
     }
 
-    const datasetTags = dataset?.data?.description?.split(' ').map((item: string) => {
-        if (item.length > 4) {
-            return <button className='btn tag-chip'>{item}</button>
-        }
-    })
-
     return (
         <Fragment>
             <ReactIf condition={!subscriptionStatus?.isLoading && !dataset?.isLoading && !similarDatasets?.isLoading}>
                 <ReactIf condition={!dataset.error}>
                     <Container className='mt-4'>
                         <div className='jumbotron'>
-                            <p className='display-6 text-capitalize'>{dataset?.data?.name}</p>
-                            <div>
-                                <button className='btn'>{dataset?.data?.category} <i className="fa-solid fa-layer-group"></i></button>
-                                <button className='btn'>{dataset?.data?.price === 0 ? 'FREE' : `${dataset?.data?.price} LST`} <i className="fa-brands fa-connectdevelop"></i></button>
-                            </div>
+                            <Row>
+                                <DatasetCard key={dataset?.data?._id} id={dataset?.data?._id} category={dataset?.data?.category} name={dataset?.data?.name} price={dataset?.data?.price} />
+                                <Col sm={6} md={8} lg={9} xl={10}>
+                                    <p className='display-6 text-capitalize'>{dataset?.data?.name}</p>
+                                    <p className="lead">{dataset?.data?.category}</p>
+                                    <Rating initialValue={dataset?.data?.rating} allowHover={false} allowFraction size={25} readonly />
+                                    <p className="lead mt-3">{dataset?.data?.description}</p>
+                                    <div>{datasetTagsToDisplay}</div>
+                                </Col>
+                            </Row>
                             <ReactIf condition={!subscriptionStatus?.data?.isSubscribed}>
                                 <button className='btn' onClick={subscribe}>
-                                    Subscribe<i className='fa-solid fa-circle-plus'></i>
+                                    Subscribe {dataset?.data?.price === 0 ? 'FREE' : `${dataset?.data?.price} LST`}<i className='fa-solid fa-circle-plus'></i>
                                 </button>
                                 <button className='btn' onClick={copyMetadataAPI}>Metadata API <i className="fa-solid fa-copy"></i></button>
                             </ReactIf>
                             <ReactIf condition={subscriptionStatus?.data?.isSubscribed}>
+                                <button disabled className='btn'>
+                                    Subscribed <i className='fa-solid fa-circle-check'></i>
+                                </button>
                                 <button className='btn' onClick={copyDataAPI}>Data API <i className="fa-solid fa-copy"></i></button>
                             </ReactIf>
                         </div>
-                        <DataAccordion eventKey='0' header='About Dataset' body={dataset?.data?.description} />
-                        <DataAccordion eventKey='1' header='Similar Datasets' body={<Row>{similarDatasetsToDisplay}</Row>} />
-                        <DataAccordion eventKey='2' header='Dataset Tags' body={datasetTags} />
+                        <Row>
+                            <p className='lead text-center text-white mb-4'>Similar Datasets</p>
+                            {similarDatasetsToDisplay}
+                        </Row>
                     </Container>
                 </ReactIf>
                 <ReactIf condition={dataset.error}>

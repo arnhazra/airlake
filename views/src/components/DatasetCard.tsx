@@ -16,6 +16,7 @@ const DatasetCard: FC<DatasetCardProps> = ({ id, category, name, price }) => {
                             <p className="lead">{name}</p>
                         </div>
                         <p className='smalltext'>{category}</p>
+                        <p className='smalltext'>{price === 0 ? 'FREE' : price + ' LST'}</p>
                     </Card.Footer>
                 </Card>
             </Link>

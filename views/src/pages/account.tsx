@@ -64,7 +64,7 @@ const AccountPage: NextPage = () => {
                     </div>
                     <ReactIf condition={transactions?.data?.transactions?.length > 0}>
                         <p className='lead text-center text-white mb-4'>Transactions</p>
-                        <Table responsive hover variant='light'>
+                        <Table responsive hover variant='dark'>
                             <thead>
                                 <tr>
                                     <th>Event</th>

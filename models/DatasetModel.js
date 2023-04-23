@@ -25,6 +25,11 @@ const DatasetSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+
+    rating: {
+        type: Number,
+        required: true
+    }
 }, { versionKey: false })
 
 module.exports = DatasetModel = mongoose.model('dataset', DatasetSchema)

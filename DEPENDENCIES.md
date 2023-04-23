@@ -25,3 +25,4 @@
 * web3 - Ethereum JavaScript API for interacting with the Ethereum blockchain.
 * react-query - Query client for react data fetching.
 * array-sort - Fast and powerful array sorting.
+* react-simple-star-rating- Star Rating UI component.

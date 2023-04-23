@@ -83,7 +83,7 @@ class DatasetController {
         try {
             const { datasetId } = req.body
             const totalData = await DatasetModel.findById(datasetId).select('-data')
-            return res.status(200).json({ name: totalData.name, category: totalData.category, description: totalData.description, price: totalData.price })
+            return res.status(200).json(totalData)
         }
 
         catch (error) {

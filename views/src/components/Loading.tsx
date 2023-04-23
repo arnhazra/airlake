@@ -1,9 +1,10 @@
 import { FC, Fragment } from 'react'
+import { Spinner } from 'react-bootstrap'
 
 const Loading: FC = () => {
     return (
         <div className='cover text-center'>
-            <i className='fas fa-spinner fa-pulse fa-4x'></i>
+            <Spinner animation="grow" />
         </div>
     )
 }
