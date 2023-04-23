@@ -3,7 +3,7 @@
 ## [Currrent v2.7]
 * New UI of view dataset page.
 * Added dataset ratings.
-* Added card in dataset page.
+* Added card in view dataset page.
 
 ## [Currrent v2.6]
 * Fixed issues.
