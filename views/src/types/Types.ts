@@ -1,4 +1,3 @@
-import { Method } from 'axios'
 import { ReactNode } from 'react'
 
 export type LayoutProps = {
@@ -31,4 +30,10 @@ export type DatasetRequestState = {
 export type UserState = {
     userid: string,
     name: string,
+}
+
+export type AccordionProps = {
+    eventKey: string,
+    header: string,
+    body: ReactNode
 }

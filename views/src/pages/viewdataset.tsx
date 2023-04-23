@@ -16,6 +16,7 @@ import Constants from '@/constants/Constants'
 import useFetch from '@/hooks/useFetch'
 import HTTPMethods from '@/constants/HTTPMethods'
 import Error from '@/components/ErrorComp'
+import DataAccordion from '@/components/Accordion'
 declare const window: any
 const web3 = new Web3(Web3.givenProvider)
 
@@ -74,6 +75,12 @@ const ViewOneDatasetPage: NextPage = () => {
         toast.success('Copied to Clipboard')
     }
 
+    const datasetTags = dataset?.data?.description?.split(' ').map((item: string) => {
+        if (item.length > 4) {
+            return <button className='btn tag-chip'>{item}</button>
+        }
+    })
+
     return (
         <Fragment>
             <ReactIf condition={!subscriptionStatus?.isLoading && !dataset?.isLoading && !similarDatasets?.isLoading}>
@@ -81,7 +88,6 @@ const ViewOneDatasetPage: NextPage = () => {
                     <Container className='mt-4'>
                         <div className='jumbotron'>
                             <p className='display-6 text-capitalize'>{dataset?.data?.name}</p>
-                            <p className='lead'>{dataset?.data?.description}</p>
                             <div>
                                 <button className='btn'>{dataset?.data?.category} <i className="fa-solid fa-layer-group"></i></button>
                                 <button className='btn'>{dataset?.data?.price === 0 ? 'FREE' : `${dataset?.data?.price} LST`} <i className="fa-brands fa-connectdevelop"></i></button>
@@ -96,10 +102,9 @@ const ViewOneDatasetPage: NextPage = () => {
                                 <button className='btn' onClick={copyDataAPI}>Data API <i className="fa-solid fa-copy"></i></button>
                             </ReactIf>
                         </div>
-                        <Row>
-                            <p className='lead text-center text-white mb-4'>Similar Datasets</p>
-                            {similarDatasetsToDisplay}
-                        </Row>
+                        <DataAccordion eventKey='0' header='About Dataset' body={dataset?.data?.description} />
+                        <DataAccordion eventKey='1' header='Similar Datasets' body={<Row>{similarDatasetsToDisplay}</Row>} />
+                        <DataAccordion eventKey='2' header='Dataset Tags' body={datasetTags} />
                     </Container>
                 </ReactIf>
                 <ReactIf condition={dataset.error}>
