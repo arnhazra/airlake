@@ -34,8 +34,12 @@ const ViewDatasetPage: NextPage = () => {
 
     useEffect(() => {
         const connectWallet = async () => {
-            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
-            setAccount(accounts[0])
+            try {
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+                setAccount(accounts[0])
+            } catch (error) {
+                toast.error('Please install metamask')
+            }
         }
 
         connectWallet()
@@ -133,7 +137,7 @@ const ViewDatasetPage: NextPage = () => {
                                     <p className="lead">{dataset?.data?.category}</p>
                                     <Rating initialValue={dataset?.data?.rating} allowHover={false} allowFraction size={25} readonly />
                                     <ReactIf condition={subscriptionStatus?.data?.isSubscribed}>
-                                        <Link target='_blank' passHref href={`https://sepolia.etherscan.io/nft/0x08155a0035cd6df53734f1b53026199858b6d6aa/${subscriptionStatus?.data?.tokenId}`}>
+                                        <Link target='_blank' passHref href={`https://sepolia.etherscan.io/nft/${contractAddress.nftContractAddress}/${subscriptionStatus?.data?.tokenId}`}>
                                             <img style={{ marginLeft: '1rem' }} src="https://cdn2.iconfinder.com/data/icons/nft-flat/64/NFT_Cryptocurrency_blockchain-90-256.png" alt="NFT" height={50} width={50} />
                                         </Link>
                                     </ReactIf>
