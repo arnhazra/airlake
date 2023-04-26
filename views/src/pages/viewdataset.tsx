@@ -6,6 +6,7 @@ import Loading from '@/components/Loading'
 import ReactIf from '@/components/ReactIf'
 import axios from 'axios'
 import { tokenABI } from '@/contracts/TokenABI'
+import { lstnftABI } from '@/contracts/LSTNFTABI'
 import contractAddress from '@/constants/Address'
 import endPoints from '@/constants/Endpoints'
 import { toast } from 'react-hot-toast'
@@ -17,10 +18,11 @@ import useFetch from '@/hooks/useFetch'
 import HTTPMethods from '@/constants/HTTPMethods'
 import Error from '@/components/ErrorComp'
 import { Rating } from 'react-simple-star-rating'
+import Link from 'next/link'
 declare const window: any
 const web3 = new Web3(Web3.givenProvider)
 
-const ViewOneDatasetPage: NextPage = () => {
+const ViewDatasetPage: NextPage = () => {
     const router = useRouter()
     const { id: datasetId } = router.query
     const [eventId, setEventId] = useState(Math.random().toString())
@@ -32,22 +34,14 @@ const ViewOneDatasetPage: NextPage = () => {
     const subscribe = async () => {
         if (dataset.data.price === 0) {
             try {
-                await axios.post(`${endPoints.subscribeEndpoint}`, { datasetId })
-                setEventId(Math.random().toString())
-            } catch (error) {
-                toast.error(Constants.ToastError)
-            }
-        }
-
-        else {
-            try {
                 if (typeof window != 'undefined' && typeof window.ethereum != 'undefined') {
                     try {
                         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
                         setAccount(accounts[0])
-                        const contract = new web3.eth.Contract(tokenABI as any, contractAddress.tokenContractAddress)
-                        await contract.methods.transfer(contractAddress.tokenContractAddress, web3.utils.toWei(dataset.data.price.toString(), 'ether')).send({ from: account })
-                        await axios.post(`${endPoints.subscribeEndpoint}`, { datasetId })
+                        const tokenId = Math.floor(1000000 + Math.random() * 9000000)
+                        const nftcontract = new web3.eth.Contract(lstnftABI as any, contractAddress.nftContractAddress)
+                        await nftcontract.methods.createNft(tokenId).send({ from: account, gas: 500000 })
+                        await axios.post(`${endPoints.subscribeEndpoint}`, { datasetId, tokenId })
                         setEventId(Math.random().toString())
                     } catch (err) {
                         toast.error('Unable to connect to metamask')
@@ -59,6 +53,33 @@ const ViewOneDatasetPage: NextPage = () => {
                 toast.error('Please install metamask')
             }
         }
+
+        else {
+            try {
+                if (typeof window != 'undefined' && typeof window.ethereum != 'undefined') {
+                    try {
+                        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+                        setAccount(accounts[0])
+                        const tokenId = Math.floor(1000000 + Math.random() * 9000000)
+                        const contract = new web3.eth.Contract(tokenABI as any, contractAddress.tokenContractAddress)
+                        await contract.methods.transfer(contractAddress.tokenContractAddress, web3.utils.toWei(dataset.data.price.toString(), 'ether')).send({ from: account })
+                        const nftcontract = new web3.eth.Contract(lstnftABI as any, contractAddress.nftContractAddress)
+                        await nftcontract.methods.createNft(tokenId).send({ from: account, gas: 500000 })
+                        await axios.post(`${endPoints.subscribeEndpoint}`, { datasetId, tokenId })
+                        setEventId(Math.random().toString())
+                    } catch (err) {
+                        console.log(err)
+                        toast.error('Unable to connect to metamask')
+                    }
+                } else {
+
+                    toast.error('Please install metamask')
+                }
+            } catch (error) {
+                console.log(error)
+                toast.error('Please install metamask')
+            }
+        }
     }
 
     const similarDatasetsToDisplay = similarDatasets?.data?.similarDatasets?.map((dataset: any) => {
@@ -67,7 +88,7 @@ const ViewOneDatasetPage: NextPage = () => {
 
     const datasetTagsToDisplay = dataset?.data?.description?.split(' ').slice(0, 30).map((item: string) => {
         if (item.length > 4) {
-            return <button className='btn tag-chip' title='tags'>{item}</button>
+            return <button className='btn tag-chip' title='tags' key={Math.random().toString()}>{item}</button>
         }
     })
 
@@ -93,6 +114,11 @@ const ViewOneDatasetPage: NextPage = () => {
                                     <p className='display-6 text-capitalize'>{dataset?.data?.name}</p>
                                     <p className="lead">{dataset?.data?.category}</p>
                                     <Rating initialValue={dataset?.data?.rating} allowHover={false} allowFraction size={25} readonly />
+                                    <ReactIf condition={subscriptionStatus?.data?.isSubscribed}>
+                                        <Link target='_blank' passHref href={`https://sepolia.etherscan.io/nft/0x08155a0035cd6df53734f1b53026199858b6d6aa/${subscriptionStatus?.data?.tokenId}`}>
+                                            <img style={{ marginLeft: '1rem' }} src="https://cdn2.iconfinder.com/data/icons/nft-flat/64/NFT_Cryptocurrency_blockchain-90-256.png" alt="NFT" height={50} width={50} />
+                                        </Link>
+                                    </ReactIf>
                                     <p className="lead mt-3">{dataset?.data?.description}</p>
                                     <div>{datasetTagsToDisplay}</div>
                                 </Col>
@@ -127,4 +153,4 @@ const ViewOneDatasetPage: NextPage = () => {
     )
 }
 
-export default ViewOneDatasetPage
+export default ViewDatasetPage

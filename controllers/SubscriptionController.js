@@ -3,11 +3,11 @@ const SubscriptionModel = require('../models/SubscriptionModel')
 
 class SubscriptionController {
     async subscribe(req, res) {
-        const { datasetId } = req.body
+        const { datasetId, tokenId } = req.body
         const userId = req.id
 
         try {
-            const subscription = new SubscriptionModel({ userId, datasetId })
+            const subscription = new SubscriptionModel({ userId, datasetId, tokenId })
             await subscription.save()
             return res.status(200).json({ msg: statusMessages.subscriptionSuccess, subscription })
         }
@@ -27,7 +27,7 @@ class SubscriptionController {
                 return res.status(200).json({ isSubscribed: false })
             }
             else {
-                return res.status(200).json({ isSubscribed: true, subscriptionId: subscription.id })
+                return res.status(200).json({ isSubscribed: true, subscriptionId: subscription.id, tokenId: subscription.tokenId })
             }
         }
 
