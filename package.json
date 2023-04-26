@@ -1,6 +1,6 @@
 {
   "name": "project-lenstack",
-  "version": "2.7",
+  "version": "2.8",
   "description": "Project Lenstack",
   "main": "app.js",
   "scripts": {

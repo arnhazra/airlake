@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import { Fragment } from 'react'
 import Web3 from 'web3'
@@ -27,15 +27,27 @@ const ViewDatasetPage: NextPage = () => {
     const { id: datasetId } = router.query
     const [eventId, setEventId] = useState(Math.random().toString())
     const [account, setAccount] = useState('')
+    const [isTransactionProcessing, setTransactionProcessing] = useState(false)
     const dataset = useFetch('view dataset', endPoints.datasetViewEndpoint, HTTPMethods.POST, { datasetId })
     const similarDatasets = useFetch('similar datasets', endPoints.findsimilarDatasets, HTTPMethods.POST, { datasetId })
     const subscriptionStatus = useFetch('subscription status', endPoints.checkSubscriptionEndpoint, HTTPMethods.POST, { datasetId }, eventId)
+
+    useEffect(() => {
+        const connectWallet = async () => {
+            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+            setAccount(accounts[0])
+        }
+
+        connectWallet()
+    }, [])
+
 
     const subscribe = async () => {
         if (dataset.data.price === 0) {
             try {
                 if (typeof window != 'undefined' && typeof window.ethereum != 'undefined') {
                     try {
+                        setTransactionProcessing(true)
                         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
                         setAccount(accounts[0])
                         const tokenId = Math.floor(1000000 + Math.random() * 9000000)
@@ -43,13 +55,17 @@ const ViewDatasetPage: NextPage = () => {
                         await nftcontract.methods.createNft(tokenId).send({ from: account, gas: 500000 })
                         await axios.post(`${endPoints.subscribeEndpoint}`, { datasetId, tokenId })
                         setEventId(Math.random().toString())
+                        setTransactionProcessing(false)
                     } catch (err) {
+                        setTransactionProcessing(false)
                         toast.error('Unable to connect to metamask')
                     }
                 } else {
+                    setTransactionProcessing(false)
                     toast.error('Please install metamask')
                 }
             } catch (error) {
+                setTransactionProcessing(false)
                 toast.error('Please install metamask')
             }
         }
@@ -58,6 +74,7 @@ const ViewDatasetPage: NextPage = () => {
             try {
                 if (typeof window != 'undefined' && typeof window.ethereum != 'undefined') {
                     try {
+                        setTransactionProcessing(true)
                         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
                         setAccount(accounts[0])
                         const tokenId = Math.floor(1000000 + Math.random() * 9000000)
@@ -67,16 +84,17 @@ const ViewDatasetPage: NextPage = () => {
                         await nftcontract.methods.createNft(tokenId).send({ from: account, gas: 500000 })
                         await axios.post(`${endPoints.subscribeEndpoint}`, { datasetId, tokenId })
                         setEventId(Math.random().toString())
+                        setTransactionProcessing(false)
                     } catch (err) {
-                        console.log(err)
+                        setTransactionProcessing(false)
                         toast.error('Unable to connect to metamask')
                     }
                 } else {
-
+                    setTransactionProcessing(false)
                     toast.error('Please install metamask')
                 }
             } catch (error) {
-                console.log(error)
+                setTransactionProcessing(false)
                 toast.error('Please install metamask')
             }
         }
@@ -124,9 +142,16 @@ const ViewDatasetPage: NextPage = () => {
                                 </Col>
                             </Row>
                             <ReactIf condition={!subscriptionStatus?.data?.isSubscribed}>
-                                <button className='btn' onClick={subscribe}>
-                                    Subscribe {dataset?.data?.price === 0 ? 'FREE' : `${dataset?.data?.price} LST`}<i className='fa-solid fa-circle-plus'></i>
-                                </button>
+                                <ReactIf condition={!isTransactionProcessing}>
+                                    <button className='btn' onClick={subscribe}>
+                                        Subscribe {dataset?.data?.price === 0 ? 'FREE' : `${dataset?.data?.price} LST`}<i className='fa-solid fa-circle-plus'></i>
+                                    </button>
+                                </ReactIf>
+                                <ReactIf condition={isTransactionProcessing}>
+                                    <button disabled className='btn'>
+                                        Processing Transaction <i className='fas fa-circle-notch fa-spin'></i>
+                                    </button>
+                                </ReactIf>
                                 <button className='btn' onClick={copyMetadataAPI}>Metadata API <i className="fa-solid fa-copy"></i></button>
                             </ReactIf>
                             <ReactIf condition={subscriptionStatus?.data?.isSubscribed}>
