@@ -38,7 +38,7 @@ const ViewDatasetPage: NextPage = () => {
                 const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
                 setAccount(accounts[0])
             } catch (error) {
-                toast.error('Please install metamask')
+                toast.error(Constants.MetamaskInstallNotification)
             }
         }
 
@@ -62,15 +62,15 @@ const ViewDatasetPage: NextPage = () => {
                         setTransactionProcessing(false)
                     } catch (err) {
                         setTransactionProcessing(false)
-                        toast.error('Unable to connect to metamask')
+                        toast.error(Constants.MetaMaskConnectionError)
                     }
                 } else {
                     setTransactionProcessing(false)
-                    toast.error('Please install metamask')
+                    toast.error(Constants.MetamaskInstallNotification)
                 }
             } catch (error) {
                 setTransactionProcessing(false)
-                toast.error('Please install metamask')
+                toast.error(Constants.MetamaskInstallNotification)
             }
         }
 
@@ -91,15 +91,15 @@ const ViewDatasetPage: NextPage = () => {
                         setTransactionProcessing(false)
                     } catch (err) {
                         setTransactionProcessing(false)
-                        toast.error('Unable to connect to metamask')
+                        toast.error(Constants.MetaMaskConnectionError)
                     }
                 } else {
                     setTransactionProcessing(false)
-                    toast.error('Please install metamask')
+                    toast.error(Constants.MetamaskInstallNotification)
                 }
             } catch (error) {
                 setTransactionProcessing(false)
-                toast.error('Please install metamask')
+                toast.error(Constants.MetamaskInstallNotification)
             }
         }
     }

@@ -10,6 +10,7 @@ import contractAddress from '@/constants/Address'
 import endPoints from '@/constants/Endpoints'
 import { toast } from 'react-hot-toast'
 import { NextPage } from 'next'
+import Constants from '@/constants/Constants'
 declare const window: any
 const web3 = new Web3(Web3.givenProvider)
 
@@ -33,13 +34,13 @@ const LSTSwapPage: NextPage = () => {
                     setAccount(accounts[0])
                     setType(type)
                 } catch (err) {
-                    toast.error('Unable to connect to metamask')
+                    toast.error(Constants.MetaMaskConnectionError)
                 }
             } else {
-                toast.error('Please install metamask')
+                toast.error(Constants.MetamaskInstallNotification)
             }
         } catch (error) {
-            toast.error('Please install metamask')
+            toast.error(Constants.MetamaskInstallNotification)
         }
     }
 
@@ -60,11 +61,11 @@ const LSTSwapPage: NextPage = () => {
             }
             await axios.post(endPoints.createTransactionEndpoint, obj)
             setStep(3)
-            toast.success('You have successfully bought LST tokens')
+            toast.success(Constants.TokenPurchaseSuccess)
         } catch (err) {
             setTxError(true)
             setStep(3)
-            toast.error('Error purchasing LST tokens')
+            toast.error(Constants.TokenPurchaseFailure)
         }
     }
 
@@ -90,11 +91,11 @@ const LSTSwapPage: NextPage = () => {
             }
             await axios.post(endPoints.createTransactionEndpoint, obj)
             setStep(3)
-            toast.success('You have successfully sold LST tokens!')
+            toast.success(Constants.TokenSellSuccess)
         } catch (err) {
             setTxError(true)
             setStep(3)
-            toast.error('Error selling LST tokens')
+            toast.error(Constants.TokenSellFailure)
         }
     }
 

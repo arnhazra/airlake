@@ -11,7 +11,13 @@ enum Constants {
     ConnectionErrorMessage = `Connection Error`,
     AuthMessage = `Securely Authenticating`,
     ErrorMessage = '404, Lost',
-    ToastError = 'Something went wrong'
+    ToastError = 'Something went wrong',
+    MetaMaskConnectionError = 'Unable to connect to metamask',
+    MetamaskInstallNotification = 'Please install metamask',
+    TokenPurchaseSuccess = 'You have successfully purchased LST',
+    TokenPurchaseFailure = 'Error purchasing LST',
+    TokenSellSuccess = 'You have successfully sold LST tokens',
+    TokenSellFailure = 'Error selling LST tokens'
 }
 
 export default Constants

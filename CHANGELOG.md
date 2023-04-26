@@ -1,6 +1,9 @@
 # Lenstack Changelog
 
-## [Currrent v2.8]
+## [Currrent v2.9]
+* Code Refactoring
+
+## [v2.8]
 * Added Create NFT functionality when subscribing to a dataset.
 * View NFT feature and added a new field in subscription model.
 * Fixed issue when connecting to metamask on view dataset page.
