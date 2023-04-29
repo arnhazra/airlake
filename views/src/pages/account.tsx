@@ -38,8 +38,8 @@ const AccountPage: NextPage = () => {
     const transactionsToDisplay = transactions?.data?.transactions?.map((tx: any) => {
         return (
             <tr key={tx._id}>
-                <td>{tx.transactionType} LST</td>
-                <td>{tx.lstAmount} LST</td>
+                <td>{tx.transactionType} LFT</td>
+                <td>{tx.lftAmount} LFT</td>
                 <td>{tx.ethAmount} ETH</td>
                 <td>{moment(tx.date).format('MMM, Do YYYY, h:mm a')}</td>
                 <td><a href={`${endPoints.etherScanEndpoint}/${tx.txHash}`} target='_blank' rel='noopener noreferrer' className='link-table'>View on EtherScan</a></td>
@@ -57,7 +57,7 @@ const AccountPage: NextPage = () => {
                             <p className='lead'>Signed in as {userState.name}</p>
                             <p className='lead'>{Constants.Info} {contractAddress.tokenContractAddress}</p>
                             <p className='lead'>{Constants.Warning}</p>
-                            <Link href='/lstswap' className='btn'>Swap LST<i className="fa-solid fa-shuffle"></i></Link>
+                            <Link href='/lftswap' className='btn'>Swap LFT<i className="fa-solid fa-shuffle"></i></Link>
                             <button className='btn' onClick={signOutFromThisDevice}>Sign Out<i className='fa-solid fa-circle-arrow-right'></i></button><br />
                             <button className='btn' onClick={signOutFromAllDevices}>Sign Out From All Devices<i className="fa-solid fa-square-arrow-up-right"></i></button>
                         </div>
@@ -68,7 +68,7 @@ const AccountPage: NextPage = () => {
                             <thead>
                                 <tr>
                                     <th>Event</th>
-                                    <th>LST Amount</th>
+                                    <th>LFT Amount</th>
                                     <th>ETH Amount</th>
                                     <th>Transaction Time</th>
                                     <th>EtherScan Link</th>

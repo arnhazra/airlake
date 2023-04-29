@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { FloatingLabel, Form } from 'react-bootstrap'
 import { Fragment } from 'react'
 import ReactIf from '@/components/ReactIf'
-import { tokenABI } from '@/contracts/TokenABI'
+import { tokenABI } from '@/contracts/LFTABI'
 import { vendorABI } from '@/contracts/VendorABI'
 import Web3 from 'web3'
 import axios from 'axios'
@@ -14,7 +14,7 @@ import Constants from '@/constants/Constants'
 declare const window: any
 const web3 = new Web3(Web3.givenProvider)
 
-const LSTSwapPage: NextPage = () => {
+const LFTSwapPage: NextPage = () => {
     const [tokens, setTokens] = useState('')
     const [ether, setEther] = useState(0)
     const [account, setAccount] = useState('')
@@ -55,7 +55,7 @@ const LSTSwapPage: NextPage = () => {
             const obj = {
                 fromAddress: request.from || '0x',
                 transactionType: 'Buy',
-                lstAmount: tokens,
+                lftAmount: tokens,
                 ethAmount: ether,
                 txHash: request.transactionHash
             }
@@ -85,7 +85,7 @@ const LSTSwapPage: NextPage = () => {
             const obj = {
                 fromAddress: request.from || '0x',
                 transactionType: 'Sell',
-                lstAmount: tokens,
+                lftAmount: tokens,
                 ethAmount: ether,
                 txHash: request.transactionHash
             }
@@ -103,14 +103,14 @@ const LSTSwapPage: NextPage = () => {
         <Fragment>
             <div className='box'>
                 <ReactIf condition={account === ''}>
-                    <p className='branding'>Swap LST</p>
+                    <p className='branding'>Swap LFT</p>
                     <button className='btn' onClick={() => connectWallet('buy')}>Buy Lenstack Token<i className='fa-solid fa-circle-arrow-up'></i></button>
                     <button className='btn' onClick={() => connectWallet('sell')}>Sell Lenstack Token<i className='fa-solid fa-circle-arrow-down'></i></button>
                 </ReactIf>
                 <ReactIf condition={account !== ''}>
                     <ReactIf condition={type === 'buy'}>
                         <ReactIf condition={step === 1}>
-                            <p className='branding'>Buy LST</p>
+                            <p className='branding'>Buy LFT</p>
                             <FloatingLabel controlId='floatingAmount' label='Amount of tokens'>
                                 <Form.Control autoFocus type='email' placeholder='Amount of tokens' onChange={(e: any) => setTokens(e.target.value)} required />
                             </FloatingLabel>
@@ -120,7 +120,7 @@ const LSTSwapPage: NextPage = () => {
                         <ReactIf condition={step === 2}>
                             <p className='branding'>Transaction Status</p>
                             <div className='text-center mt-4'>
-                                <i className='fa-solid fa-circle-notch fa-spin text-center fa-6x'></i>
+                                <i className='fa-solid fa-circle-notch fa-spin text-center fa-4x color-gold'></i>
                                 <p className='lead text-center mt-4'>Processing</p>
                             </div>
                         </ReactIf>
@@ -128,13 +128,13 @@ const LSTSwapPage: NextPage = () => {
                             <p className='branding'>Transaction Status</p>
                             <ReactIf condition={!txError}>
                                 <div className='text-center'>
-                                    <i className='fa-solid fa-circle-check fa-6x'></i>
+                                    <i className='fa-solid fa-circle-check fa-4x'></i>
                                     <p className='lead text-center mt-4'>Success</p>
                                 </div>
                             </ReactIf>
                             <ReactIf condition={txError}>
                                 <div className='text-center'>
-                                    <i className='fa-solid fa-circle-xmark fa-6x'></i>
+                                    <i className='fa-solid fa-circle-xmark fa-4x'></i>
                                     <p className='lead text-center mt-4'>Failed</p>
                                 </div>
                             </ReactIf>
@@ -142,7 +142,7 @@ const LSTSwapPage: NextPage = () => {
                     </ReactIf>
                     <ReactIf condition={type === 'sell'}>
                         <ReactIf condition={step === 1}>
-                            <p className='branding'>Sell LST</p>
+                            <p className='branding'>Sell LFT</p>
                             <FloatingLabel controlId='floatingAmount' label='Amount of tokens'>
                                 <Form.Control autoFocus type='email' placeholder='Amount of tokens' onChange={(e: any) => setTokens(e.target.value)} required />
                             </FloatingLabel>
@@ -152,7 +152,7 @@ const LSTSwapPage: NextPage = () => {
                         <ReactIf condition={step === 2}>
                             <p className='branding'>Transaction Status</p>
                             <div className='text-center mt-4'>
-                                <i className='fa-solid fa-circle-notch fa-spin text-center fa-6x'></i>
+                                <i className='fa-solid fa-circle-notch fa-spin text-center fa-4x color-gold'></i>
                                 <p className='lead text-center mt-4'>Processing</p>
                             </div>
                         </ReactIf>
@@ -160,13 +160,13 @@ const LSTSwapPage: NextPage = () => {
                             <p className='branding'>Transaction Status</p>
                             <ReactIf condition={!txError}>
                                 <div className='text-center'>
-                                    <i className='fa-solid fa-circle-check fa-6x'></i>
+                                    <i className='fa-solid fa-circle-check fa-4x'></i>
                                     <p className='lead text-center mt-4'>Success</p>
                                 </div>
                             </ReactIf>
                             <ReactIf condition={txError}>
                                 <div className='text-center'>
-                                    <i className='fa-solid fa-circle-xmark fa-6x'></i>
+                                    <i className='fa-solid fa-circle-xmark fa-4x'></i>
                                     <p className='lead text-center mt-4'>Failed</p>
                                 </div>
                             </ReactIf>
@@ -178,4 +178,4 @@ const LSTSwapPage: NextPage = () => {
     )
 }
 
-export default LSTSwapPage
+export default LFTSwapPage

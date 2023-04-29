@@ -28,7 +28,7 @@
 * Exposed Data Preview & Fullview API instead of redirection.
 
 ## [v2.3]
-* Introduced LST Swap Protocol to replace the buycoin and sellcoin page.
+* Introduced LFT Swap Protocol to replace the buycoin and sellcoin page.
 * Integrated React query for realtime data fetching & advanced mechanisms.
 * Introduced new useFetch & useFetchRealtime hook to replace other hooks.
 * Conducted code refactoring for better performance.

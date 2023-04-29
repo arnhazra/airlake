@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.4;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "./LST.sol";
+import "./LFT.sol";
 
-contract LSTNFT is ERC721 {
-    LST public fungibleToken;
+contract LFTNFT is ERC721 {
+    LFT public fungibleToken;
 
     struct NFToken {
         uint256 tokenId;
@@ -15,7 +15,7 @@ contract LSTNFT is ERC721 {
 
     mapping(uint256 => NFToken) public nft;
 
-    constructor() ERC721("LST_NFT", "LSTNFT") {}
+    constructor() ERC721("LFT_NFT", "LFTNFT") {}
 
     function createNft(
         uint256 tokenId,
