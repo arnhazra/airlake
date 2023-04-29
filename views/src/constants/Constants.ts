@@ -4,7 +4,7 @@ enum Constants {
     HomeHeader2 = `data accelerated`,
     HomeHeader3 = `with Lenstack`,
     HomeIntro1 = `Maximize your data-driven insights with datasets`,
-    HomeIntro2 = `Start for free, purchase premium datasets for massive scalability`,
+    HomeIntro2 = `Subscribe to premium datasets for massive scalability, unsubscribe anytime`,
     HomeFooter = '#BuitOnBlockchain',
     Info = 'To Add LFT in your Metamask wallet, switch to Sepolia Test Network and Import Token ',
     Warning = 'Do not use mainnet ethers to buy LFT, it is just an implementation POC for ERC-20 standard.',

@@ -89,7 +89,7 @@
 * Enabled Single and Multi-device signouts.
 
 ## [v1.0]
-* Lenstack offers free and premium data sets to users.
+* Lenstack offers premium data sets to users.
 * Used MongoDB for Users, Transactions Datasets Management.
 * Employed Web3 JS - Ethereum blockchain for Web3 transactions.
 * Used Express JS as a framework on top of Node JS for API - Microservices.

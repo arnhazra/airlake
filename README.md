@@ -1,6 +1,6 @@
 # Lenstack
 
-Lenstack is a Data Platform that offers free and premium data sets to users. With its user-friendly interface and advanced search capabilities, Lenstack enables individuals and businesses to discover and utilize valuable data to drive informed decision-making.
+Lenstack is a Data Platform that offers premium data sets to users. With its user-friendly interface and advanced search capabilities, Lenstack enables individuals and businesses to discover and utilize valuable data to drive informed decision-making.
 
 ## Tech Stack
 

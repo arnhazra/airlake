@@ -181,7 +181,7 @@ const ViewDatasetPage: NextPage = () => {
                             <ReactIf condition={!subscriptionStatus?.data?.isSubscribed}>
                                 <ReactIf condition={!isTransactionProcessing}>
                                     <button className='btn' onClick={subscribe}>
-                                        Subscribe {dataset?.data?.price === 0 ? 'FREE' : `${dataset?.data?.price} LFT`}<i className='fa-solid fa-circle-plus'></i>
+                                        Subscribe {`${dataset?.data?.price} LFT`}<i className='fa-solid fa-circle-plus'></i>
                                     </button>
                                 </ReactIf>
                                 <ReactIf condition={isTransactionProcessing}>
@@ -193,7 +193,7 @@ const ViewDatasetPage: NextPage = () => {
                             </ReactIf>
                             <ReactIf condition={subscriptionStatus?.data?.isSubscribed}>
                                 <button className='btn' onClick={unsubscribe}>
-                                    Unsubscribe <i className='fa-solid fa-circle-minus'></i>
+                                    Unsubscribe <i className="fa-solid fa-trash"></i>
                                 </button>
                                 <button className='btn' onClick={copyDataAPI}>Data API <i className="fa-solid fa-copy"></i></button>
                             </ReactIf>

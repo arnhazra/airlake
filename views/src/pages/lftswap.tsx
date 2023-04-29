@@ -104,8 +104,8 @@ const LFTSwapPage: NextPage = () => {
             <div className='box'>
                 <ReactIf condition={account === ''}>
                     <p className='branding'>Swap LFT</p>
-                    <button className='btn' onClick={() => connectWallet('buy')}>Buy Lenstack Token<i className='fa-solid fa-circle-arrow-up'></i></button>
-                    <button className='btn' onClick={() => connectWallet('sell')}>Sell Lenstack Token<i className='fa-solid fa-circle-arrow-down'></i></button>
+                    <button className='btn' onClick={() => connectWallet('buy')}>Buy LFT<i className='fa-solid fa-circle-arrow-up'></i></button>
+                    <button className='btn' onClick={() => connectWallet('sell')}>Sell LFT<i className='fa-solid fa-circle-arrow-down'></i></button>
                 </ReactIf>
                 <ReactIf condition={account !== ''}>
                     <ReactIf condition={type === 'buy'}>
