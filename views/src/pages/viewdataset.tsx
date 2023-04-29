@@ -6,7 +6,7 @@ import Loading from '@/components/Loading'
 import ReactIf from '@/components/ReactIf'
 import axios from 'axios'
 import { tokenABI } from '@/contracts/LFTABI'
-import { lstnftABI } from '@/contracts/LNFTABI'
+import { lnftABI } from '@/contracts/LNFTABI'
 import contractAddress from '@/constants/Address'
 import endPoints from '@/constants/Endpoints'
 import { toast } from 'react-hot-toast'
@@ -55,7 +55,7 @@ const ViewDatasetPage: NextPage = () => {
                         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
                         setAccount(accounts[0])
                         const tokenId = Math.floor(1000000 + Math.random() * 9000000)
-                        const nftcontract = new web3.eth.Contract(lstnftABI as any, contractAddress.nftContractAddress)
+                        const nftcontract = new web3.eth.Contract(lnftABI as any, contractAddress.nftContractAddress)
                         await nftcontract.methods.createNft(tokenId).send({ from: account, gas: 500000 })
                         await axios.post(`${endPoints.subscribeEndpoint}`, { datasetId, tokenId })
                         setEventId(Math.random().toString())
@@ -82,10 +82,15 @@ const ViewDatasetPage: NextPage = () => {
                         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
                         setAccount(accounts[0])
                         const tokenId = Math.floor(1000000 + Math.random() * 9000000)
-                        const contract = new web3.eth.Contract(tokenABI as any, contractAddress.tokenContractAddress)
-                        await contract.methods.transfer(contractAddress.tokenContractAddress, web3.utils.toWei(dataset.data.price.toString(), 'ether')).send({ from: account })
-                        const nftcontract = new web3.eth.Contract(lstnftABI as any, contractAddress.nftContractAddress)
-                        await nftcontract.methods.createNft(tokenId).send({ from: account, gas: 500000 })
+
+                        // Approve the contract to spend the tokens
+                        const tokenContract = new web3.eth.Contract(tokenABI as any, contractAddress.tokenContractAddress)
+                        let request = await tokenContract.methods.approve(contractAddress.nftContractAddress, web3.utils.toWei(dataset?.data?.price.toString(), 'ether')).send({ from: account })
+
+                        // Spend the tokens to buy a NFT
+                        const nftcontract = new web3.eth.Contract(lnftABI as any, contractAddress.nftContractAddress)
+                        request = await nftcontract.methods.mintNft(tokenId, web3.utils.toWei(dataset?.data?.price.toString(), 'ether')).send({ from: account, gas: 500000 })
+
                         await axios.post(`${endPoints.subscribeEndpoint}`, { datasetId, tokenId })
                         setEventId(Math.random().toString())
                         setTransactionProcessing(false)

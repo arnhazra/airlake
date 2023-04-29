@@ -1,7 +1,8 @@
 # Lenstack Changelog
 
 ## [Currrent v2.9]
-* Code Refactoring
+* Code Refactoring.
+* Combined transfer amount inside NFT mint function.
 
 ## [v2.8]
 * Added Create NFT functionality when subscribing to a dataset.

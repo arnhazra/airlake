@@ -73,9 +73,9 @@ const LFTSwapPage: NextPage = () => {
         try {
             setStep(2)
             const accounts = await web3.eth.getAccounts()
-            const tokenContract = new web3.eth.Contract(tokenABI as any, contractAddress.tokenContractAddress)
 
             // Approve the contract to spend the tokens
+            const tokenContract = new web3.eth.Contract(tokenABI as any, contractAddress.tokenContractAddress)
             let request = await tokenContract.methods.approve(contractAddress.vendorContractAddress, web3.utils.toWei(tokens, 'ether')).send({ from: accounts[0] })
 
             // Trigger the selling of tokens
