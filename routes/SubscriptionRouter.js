@@ -11,6 +11,7 @@ class SubscriptionRouter {
 
     registerRoutes() {
         this.router.post('/subscribe', authorize, this.subscriptionController.subscribe.bind(this.subscriptionController))
+        this.router.post('/unsubscribe', authorize, this.subscriptionController.unsubscribe.bind(this.subscriptionController))
         this.router.post('/checksubscriptionstatus', authorize, this.subscriptionController.checkSubscriptionStatus.bind(this.subscriptionController))
     }
 

@@ -3,6 +3,7 @@
 ## [Currrent v2.9]
 * Code Refactoring.
 * Combined transfer amount inside NFT mint function.
+* Dataset Unsubscribe & NFT Transfer.
 
 ## [v2.8]
 * Added Create NFT functionality when subscribing to a dataset.

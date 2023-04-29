@@ -15,6 +15,7 @@ const endPoints = {
     metadataapi: `${apiHost}/api/metadataapi`,
     dataapi: `${apiHost}/api/dataapi`,
     subscribeEndpoint: `${apiHost}/api/subscribe`,
+    unsubscribeEndpoint: `${apiHost}/api/unsubscribe`,
     checkSubscriptionEndpoint: `${apiHost}/api/checksubscriptionstatus`,
     etherScanEndpoint: `https://sepolia.etherscan.io/tx`,
 }

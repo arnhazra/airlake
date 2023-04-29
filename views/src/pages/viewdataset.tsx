@@ -56,7 +56,7 @@ const ViewDatasetPage: NextPage = () => {
                         setAccount(accounts[0])
                         const tokenId = Math.floor(1000000 + Math.random() * 9000000)
                         const nftcontract = new web3.eth.Contract(lnftABI as any, contractAddress.nftContractAddress)
-                        await nftcontract.methods.createNft(tokenId).send({ from: account, gas: 500000 })
+                        await nftcontract.methods.mintNft(tokenId).send({ from: account, gas: 500000 })
                         await axios.post(`${endPoints.subscribeEndpoint}`, { datasetId, tokenId })
                         setEventId(Math.random().toString())
                         setTransactionProcessing(false)
@@ -85,11 +85,12 @@ const ViewDatasetPage: NextPage = () => {
 
                         // Approve the contract to spend the tokens
                         const tokenContract = new web3.eth.Contract(tokenABI as any, contractAddress.tokenContractAddress)
-                        let request = await tokenContract.methods.approve(contractAddress.nftContractAddress, web3.utils.toWei(dataset?.data?.price.toString(), 'ether')).send({ from: account })
+                        await tokenContract.methods.approve(contractAddress.nftContractAddress, web3.utils.toWei(dataset?.data?.price.toString(), 'ether')).send({ from: account })
 
                         // Spend the tokens to buy a NFT
                         const nftcontract = new web3.eth.Contract(lnftABI as any, contractAddress.nftContractAddress)
-                        request = await nftcontract.methods.mintNft(tokenId, web3.utils.toWei(dataset?.data?.price.toString(), 'ether')).send({ from: account, gas: 500000 })
+                        await nftcontract.methods.mintNft(tokenId).send({ from: account, gas: 500000 })
+                        await nftcontract.methods.purchaseNft(tokenId, web3.utils.toWei(dataset?.data?.price.toString(), 'ether')).send({ from: account, gas: 500000 })
 
                         await axios.post(`${endPoints.subscribeEndpoint}`, { datasetId, tokenId })
                         setEventId(Math.random().toString())
@@ -106,6 +107,33 @@ const ViewDatasetPage: NextPage = () => {
                 setTransactionProcessing(false)
                 toast.error(Constants.MetamaskInstallNotification)
             }
+        }
+    }
+
+    const unsubscribe = async () => {
+        try {
+            if (typeof window != 'undefined' && typeof window.ethereum != 'undefined') {
+                try {
+                    setTransactionProcessing(true)
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+                    setAccount(accounts[0])
+                    const tokenId = subscriptionStatus?.data?.tokenId
+                    const nftcontract = new web3.eth.Contract(lnftABI as any, contractAddress.nftContractAddress)
+                    await nftcontract.methods.sellNft(tokenId).send({ from: account, gas: 500000 })
+                    await axios.post(`${endPoints.unsubscribeEndpoint}`, { datasetId, tokenId })
+                    setEventId(Math.random().toString())
+                    setTransactionProcessing(false)
+                } catch (err) {
+                    setTransactionProcessing(false)
+                    toast.error(Constants.MetaMaskConnectionError)
+                }
+            } else {
+                setTransactionProcessing(false)
+                toast.error(Constants.MetamaskInstallNotification)
+            }
+        } catch (error) {
+            setTransactionProcessing(false)
+            toast.error(Constants.MetamaskInstallNotification)
         }
     }
 
@@ -143,7 +171,7 @@ const ViewDatasetPage: NextPage = () => {
                                     <Rating initialValue={dataset?.data?.rating} allowHover={false} allowFraction size={25} readonly />
                                     <ReactIf condition={subscriptionStatus?.data?.isSubscribed}>
                                         <Link target='_blank' passHref href={`https://sepolia.etherscan.io/nft/${contractAddress.nftContractAddress}/${subscriptionStatus?.data?.tokenId}`}>
-                                            <img style={{ marginLeft: '1rem' }} src="https://cdn2.iconfinder.com/data/icons/nft-flat/64/NFT_Cryptocurrency_blockchain-90-256.png" alt="NFT" height={50} width={50} />
+                                            <img style={{ marginLeft: '1rem' }} src="https://cdn2.iconfinder.com/data/icons/nft-flat/64/NFT_Cryptocurrency_blockchain-90-256.png" alt="NFT" height={30} width={30} />
                                         </Link>
                                     </ReactIf>
                                     <p className="lead mt-3">{dataset?.data?.description}</p>
@@ -153,19 +181,19 @@ const ViewDatasetPage: NextPage = () => {
                             <ReactIf condition={!subscriptionStatus?.data?.isSubscribed}>
                                 <ReactIf condition={!isTransactionProcessing}>
                                     <button className='btn' onClick={subscribe}>
-                                        Subscribe {dataset?.data?.price === 0 ? 'FREE' : `${dataset?.data?.price} LST`}<i className='fa-solid fa-circle-plus'></i>
+                                        Subscribe {dataset?.data?.price === 0 ? 'FREE' : `${dataset?.data?.price} LFT`}<i className='fa-solid fa-circle-plus'></i>
                                     </button>
                                 </ReactIf>
                                 <ReactIf condition={isTransactionProcessing}>
                                     <button disabled className='btn'>
-                                        Processing Transaction <i className='fas fa-circle-notch fa-spin'></i>
+                                        Processing <i className='fas fa-circle-notch fa-spin color-gold'></i>
                                     </button>
                                 </ReactIf>
                                 <button className='btn' onClick={copyMetadataAPI}>Metadata API <i className="fa-solid fa-copy"></i></button>
                             </ReactIf>
                             <ReactIf condition={subscriptionStatus?.data?.isSubscribed}>
-                                <button disabled className='btn'>
-                                    Subscribed <i className='fa-solid fa-circle-check'></i>
+                                <button className='btn' onClick={unsubscribe}>
+                                    Unsubscribe <i className='fa-solid fa-circle-minus'></i>
                                 </button>
                                 <button className='btn' onClick={copyDataAPI}>Data API <i className="fa-solid fa-copy"></i></button>
                             </ReactIf>

@@ -17,6 +17,20 @@ class SubscriptionController {
         }
     }
 
+    async unsubscribe(req, res) {
+        const { datasetId } = req.body
+        const userId = req.id
+
+        try {
+            await SubscriptionModel.findOneAndDelete({ datasetId, userId })
+            return res.status(200).json({ msg: statusMessages.subscriptionSuccess })
+        }
+
+        catch (error) {
+            return res.status(500).json({ msg: statusMessages.connectionError })
+        }
+    }
+
     async checkSubscriptionStatus(req, res) {
         const { datasetId } = req.body
         const userId = req.id

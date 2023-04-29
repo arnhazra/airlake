@@ -12,8 +12,23 @@ contract LenstackNFT is ERC721, Ownable {
         tokenContract = IERC20(_tokenAddress);
     }
 
-    function mintNft(uint256 tokenId, uint256 nftPrice) public {
-        tokenContract.transferFrom(msg.sender, address(this), nftPrice);
-        _safeMint(msg.sender, tokenId);
+    function mintNft(uint256 tokenId) public {
+        _mint(address(this), tokenId);
+    }
+
+    function purchaseNft(uint256 tokenId, uint256 nftPrice) public {
+        address nftOwner = ownerOf(tokenId);
+        require(
+            nftOwner != msg.sender,
+            "You are already the owner of this token"
+        );
+        tokenContract.transferFrom(msg.sender, nftOwner, nftPrice);
+        _transfer(nftOwner, msg.sender, tokenId);
+    }
+
+    function sellNft(uint256 tokenId) public {
+        address nftOwner = ownerOf(tokenId);
+        require(msg.sender == nftOwner, "Only owner can sell nft");
+        _transfer(msg.sender, address(this), tokenId);
     }
 }
