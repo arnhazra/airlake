@@ -33,6 +33,10 @@ const ViewDatasetPage: NextPage = () => {
     const subscriptionStatus = useFetch('subscription status', endPoints.checkSubscriptionEndpoint, HTTPMethods.POST, { datasetId }, eventId)
 
     useEffect(() => {
+        if (!datasetId) {
+            router.push('/dataplatform')
+        }
+
         const connectWallet = async () => {
             try {
                 const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
@@ -46,66 +50,37 @@ const ViewDatasetPage: NextPage = () => {
     }, [])
 
     const subscribe = async () => {
-        if (dataset.data.price === 0) {
-            try {
-                if (typeof window != 'undefined' && typeof window.ethereum != 'undefined') {
-                    try {
-                        setTransactionProcessing(true)
-                        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
-                        setAccount(accounts[0])
-                        const tokenId = Math.floor(1000000 + Math.random() * 9000000)
-                        const nftcontract = new web3.eth.Contract(lnftABI as any, contractAddress.nftContractAddress)
-                        await nftcontract.methods.mintNft(tokenId).send({ from: account, gas: 500000 })
-                        await axios.post(`${endPoints.subscribeEndpoint}`, { datasetId, tokenId })
-                        setEventId(Math.random().toString())
-                        setTransactionProcessing(false)
-                    } catch (err) {
-                        setTransactionProcessing(false)
-                        toast.error(Constants.MetaMaskConnectionError)
-                    }
-                } else {
+        try {
+            if (typeof window != 'undefined' && typeof window.ethereum != 'undefined') {
+                try {
+                    setTransactionProcessing(true)
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+                    setAccount(accounts[0])
+                    const tokenId = Math.floor(1000000 + Math.random() * 9000000)
+
+                    // Approve the contract to spend the tokens
+                    const tokenContract = new web3.eth.Contract(tokenABI as any, contractAddress.tokenContractAddress)
+                    await tokenContract.methods.approve(contractAddress.nftContractAddress, web3.utils.toWei(dataset?.data?.price.toString(), 'ether')).send({ from: account })
+
+                    // Spend the tokens to buy a NFT
+                    const nftcontract = new web3.eth.Contract(lnftABI as any, contractAddress.nftContractAddress)
+                    await nftcontract.methods.mintNft(tokenId).send({ from: account, gas: 500000 })
+                    await nftcontract.methods.purchaseNft(tokenId, web3.utils.toWei(dataset?.data?.price.toString(), 'ether')).send({ from: account, gas: 500000 })
+
+                    await axios.post(`${endPoints.subscribeEndpoint}`, { datasetId, tokenId })
+                    setEventId(Math.random().toString())
                     setTransactionProcessing(false)
-                    toast.error(Constants.MetamaskInstallNotification)
+                } catch (err) {
+                    setTransactionProcessing(false)
+                    toast.error(Constants.MetaMaskConnectionError)
                 }
-            } catch (error) {
+            } else {
                 setTransactionProcessing(false)
                 toast.error(Constants.MetamaskInstallNotification)
             }
-        }
-
-        else {
-            try {
-                if (typeof window != 'undefined' && typeof window.ethereum != 'undefined') {
-                    try {
-                        setTransactionProcessing(true)
-                        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
-                        setAccount(accounts[0])
-                        const tokenId = Math.floor(1000000 + Math.random() * 9000000)
-
-                        // Approve the contract to spend the tokens
-                        const tokenContract = new web3.eth.Contract(tokenABI as any, contractAddress.tokenContractAddress)
-                        await tokenContract.methods.approve(contractAddress.nftContractAddress, web3.utils.toWei(dataset?.data?.price.toString(), 'ether')).send({ from: account })
-
-                        // Spend the tokens to buy a NFT
-                        const nftcontract = new web3.eth.Contract(lnftABI as any, contractAddress.nftContractAddress)
-                        await nftcontract.methods.mintNft(tokenId).send({ from: account, gas: 500000 })
-                        await nftcontract.methods.purchaseNft(tokenId, web3.utils.toWei(dataset?.data?.price.toString(), 'ether')).send({ from: account, gas: 500000 })
-
-                        await axios.post(`${endPoints.subscribeEndpoint}`, { datasetId, tokenId })
-                        setEventId(Math.random().toString())
-                        setTransactionProcessing(false)
-                    } catch (err) {
-                        setTransactionProcessing(false)
-                        toast.error(Constants.MetaMaskConnectionError)
-                    }
-                } else {
-                    setTransactionProcessing(false)
-                    toast.error(Constants.MetamaskInstallNotification)
-                }
-            } catch (error) {
-                setTransactionProcessing(false)
-                toast.error(Constants.MetamaskInstallNotification)
-            }
+        } catch (error) {
+            setTransactionProcessing(false)
+            toast.error(Constants.MetamaskInstallNotification)
         }
     }
 
