@@ -45,7 +45,6 @@ const ViewDatasetPage: NextPage = () => {
         connectWallet()
     }, [])
 
-
     const subscribe = async () => {
         if (dataset.data.price === 0) {
             try {
@@ -120,10 +119,13 @@ const ViewDatasetPage: NextPage = () => {
                     const tokenId = subscriptionStatus?.data?.tokenId
                     const nftcontract = new web3.eth.Contract(lnftABI as any, contractAddress.nftContractAddress)
                     await nftcontract.methods.sellNft(tokenId).send({ from: account, gas: 500000 })
+                    const tokenContract = new web3.eth.Contract(tokenABI as any, contractAddress.tokenContractAddress)
+                    await tokenContract.methods.mintCustomAmount(web3.utils.toWei(dataset?.data?.price.toString(), 'ether')).send({ from: account, gas: 500000 })
                     await axios.post(`${endPoints.unsubscribeEndpoint}`, { datasetId, tokenId })
                     setEventId(Math.random().toString())
                     setTransactionProcessing(false)
                 } catch (err) {
+                    console.log(err)
                     setTransactionProcessing(false)
                     toast.error(Constants.MetaMaskConnectionError)
                 }
@@ -181,7 +183,7 @@ const ViewDatasetPage: NextPage = () => {
                             <ReactIf condition={!subscriptionStatus?.data?.isSubscribed}>
                                 <ReactIf condition={!isTransactionProcessing}>
                                     <button className='btn' onClick={subscribe}>
-                                        Subscribe {`${dataset?.data?.price} LFT`}<i className='fa-solid fa-circle-plus'></i>
+                                        Subscribe {`${dataset?.data?.price} LFT`}<i className='fa-solid fa-circle-check'></i>
                                     </button>
                                 </ReactIf>
                                 <ReactIf condition={isTransactionProcessing}>
@@ -193,7 +195,7 @@ const ViewDatasetPage: NextPage = () => {
                             </ReactIf>
                             <ReactIf condition={subscriptionStatus?.data?.isSubscribed}>
                                 <button className='btn' onClick={unsubscribe}>
-                                    Unsubscribe <i className="fa-solid fa-trash"></i>
+                                    Unsubscribe <i className="fa-solid fa-circle-xmark"></i>
                                 </button>
                                 <button className='btn' onClick={copyDataAPI}>Data API <i className="fa-solid fa-copy"></i></button>
                             </ReactIf>

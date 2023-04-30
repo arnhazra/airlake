@@ -30,7 +30,7 @@ To add LFT to your MetaMask wallet, you can import the token by following these 
 * Open the MetaMask wallet extension in your browser and log in to your account.
 * Click on the three dots in the top right corner and select "Add Token".
 * Click on the "Custom Token" tab.
-* Enter the LFT contract address '0x2f018e6C3e4b3bf9C5A06cDd2DFa1e14002C9799', which is a unique identifier for the token. The LFT contract address is provided by Lenstack.
+* Enter the LFT contract address, which is a unique identifier for the token. The LFT contract address is provided by Lenstack.
 * MetaMask will automatically fill in the Token Symbol and Decimal fields. If not, the Token Symbol is LFT and the Decimals is 18.
 Click "Next".
 * On the next screen, you can review the details of the token you are adding. Click "Add Tokens" to complete the import process.

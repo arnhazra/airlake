@@ -1,5 +1,9 @@
 # Lenstack Changelog
 
+## [Current v3.0]
+* Code Refactoring.
+* Refund on sell NFT.
+
 ## [Currrent v2.9]
 * Code Refactoring.
 * Combined transfer amount inside NFT mint function.
