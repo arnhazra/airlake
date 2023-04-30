@@ -15,8 +15,7 @@ const DatasetCard: FC<DatasetCardProps> = ({ id, category, name, price }) => {
                         <div className='nameContainer'>
                             <p className="lead">{name}</p>
                         </div>
-                        <p className='smalltext'>{category}</p>
-                        <p className='smalltext'>{price + ' LFT'}</p>
+                        <p className='smalltext'>{category} • {price + ' LFT'}</p>
                     </Card.Footer>
                 </Card>
             </Link>
