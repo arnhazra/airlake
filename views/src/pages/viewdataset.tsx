@@ -102,7 +102,7 @@ const ViewDatasetPage: NextPage = () => {
                     const tokenId = subscriptionStatus?.data?.tokenId
                     const nftcontract = new web3.eth.Contract(lnftABI as any, contractAddress.nftContractAddress)
                     await nftcontract.methods.sellNft(tokenId).send({ from: account, gas: 500000 })
-                    const refundAmount = (dataset?.data?.price / 2).toString()
+                    const refundAmount = dataset?.data?.price.toString()
                     const tokenContract = new web3.eth.Contract(tokenABI as any, contractAddress.tokenContractAddress)
                     await tokenContract.methods.mintCustomAmount(web3.utils.toWei(refundAmount, 'ether')).send({ from: account, gas: 500000 })
                     await axios.post(`${endPoints.unsubscribeEndpoint}`, { datasetId, tokenId })
@@ -179,7 +179,7 @@ const ViewDatasetPage: NextPage = () => {
                             <ReactIf condition={subscriptionStatus?.data?.isSubscribed}>
                                 <ReactIf condition={!isTransactionProcessing}>
                                     <button className='btn' onClick={unsubscribe}>
-                                        Unsubscribe - Refund {dataset?.data?.price / 2} LFT
+                                        Unsubscribe - Refund {dataset?.data?.price} LFT
                                     </button>
                                 </ReactIf>
                                 <ReactIf condition={isTransactionProcessing}>
