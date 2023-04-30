@@ -8,7 +8,7 @@ import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 
 const AuthPage: NextPage = () => {
-    const [authstep, setAuthStep] = useState({ firststep: true, secondstep: false })
+    const [authstep, setAuthStep] = useState(1)
     const [state, setState] = useState({ name: '', email: '', hash: '', otp: '', newuser: false })
     const [alert, setAlert] = useState('')
     const [isLoading, setLoading] = useState(false)
@@ -23,7 +23,7 @@ const AuthPage: NextPage = () => {
             const response = await axios.post(endPoints.generateAuthCodeEndpoint, state)
             setState({ ...state, hash: response.data.hash, newuser: response.data.newuser })
             setAlert(response.data.msg)
-            setAuthStep({ firststep: false, secondstep: true })
+            setAuthStep(2)
             setLoading(false)
         }
 
@@ -61,7 +61,7 @@ const AuthPage: NextPage = () => {
 
     return (
         <Fragment>
-            <ReactIf condition={authstep.firststep}>
+            <ReactIf condition={authstep === 1}>
                 <form className='box' onSubmit={generateAuthcode}>
                     <p className='branding'>Lenstack Auth</p>
                     <p className='boxtext'>Enter the email address where you can be contacted. This email address will be used for authentication.</p>
@@ -69,10 +69,10 @@ const AuthPage: NextPage = () => {
                         <Form.Control autoFocus type='email' placeholder='Your Email' onChange={(e) => setState({ ...state, email: e.target.value })} required autoComplete={'off'} minLength={4} maxLength={40} />
                     </FloatingLabel>
                     <p id='alert'>{alert}</p>
-                    <button type='submit' className='mt-2 btn'>Continue {isLoading ? <i className='fas fa-circle-notch fa-spin'></i> : <i className='fa-solid fa-circle-arrow-right'></i>}</button><br />
+                    <button type='submit' className='mt-2 btn btn-block'>Continue {isLoading ? <i className='fas fa-circle-notch fa-spin'></i> : <i className='fa-solid fa-circle-arrow-right'></i>}</button><br />
                 </form>
             </ReactIf>
-            <ReactIf condition={authstep.secondstep}>
+            <ReactIf condition={authstep === 2}>
                 <form className='box' onSubmit={verifyAuthcode}>
                     <p className='branding'>Lenstack Auth</p>
                     <p className='boxtext'>Please verify your identity by entering the auth code we sent to your inbox. Once you've entered the code, you can continue using our services.</p>
@@ -85,7 +85,7 @@ const AuthPage: NextPage = () => {
                         <Form.Control type='password' name='otp' placeholder='Enter Auth Code' onChange={(e) => setState({ ...state, otp: e.target.value })} required autoComplete={'off'} minLength={6} maxLength={6} />
                     </FloatingLabel>
                     <p id='alert'>{alert}</p>
-                    <button type='submit' className='mt-2 btn'>{state.newuser ? 'Sign Up' : 'Sign In'} {isLoading ? <i className='fas fa-circle-notch fa-spin'></i> : <i className='fa-solid fa-circle-arrow-right'></i>}</button>
+                    <button type='submit' className='mt-2 btn btn-block'>{state.newuser ? 'Sign Up' : 'Sign In'} {isLoading ? <i className='fas fa-circle-notch fa-spin'></i> : <i className='fa-solid fa-circle-arrow-right'></i>}</button>
                 </form>
             </ReactIf>
         </Fragment >

@@ -39,8 +39,16 @@ const ViewDatasetPage: NextPage = () => {
 
         const connectWallet = async () => {
             try {
-                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
-                setAccount(accounts[0])
+                if (typeof window != 'undefined' && typeof window.ethereum != 'undefined') {
+                    try {
+                        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+                        setAccount(accounts[0])
+                    } catch (err) {
+                        toast.error(Constants.MetaMaskConnectionError)
+                    }
+                } else {
+                    toast.error(Constants.MetamaskInstallNotification)
+                }
             } catch (error) {
                 toast.error(Constants.MetamaskInstallNotification)
             }
@@ -94,13 +102,13 @@ const ViewDatasetPage: NextPage = () => {
                     const tokenId = subscriptionStatus?.data?.tokenId
                     const nftcontract = new web3.eth.Contract(lnftABI as any, contractAddress.nftContractAddress)
                     await nftcontract.methods.sellNft(tokenId).send({ from: account, gas: 500000 })
+                    const refundAmount = (dataset?.data?.price / 2).toString()
                     const tokenContract = new web3.eth.Contract(tokenABI as any, contractAddress.tokenContractAddress)
-                    await tokenContract.methods.mintCustomAmount(web3.utils.toWei(dataset?.data?.price.toString(), 'ether')).send({ from: account, gas: 500000 })
+                    await tokenContract.methods.mintCustomAmount(web3.utils.toWei(refundAmount, 'ether')).send({ from: account, gas: 500000 })
                     await axios.post(`${endPoints.unsubscribeEndpoint}`, { datasetId, tokenId })
                     setEventId(Math.random().toString())
                     setTransactionProcessing(false)
                 } catch (err) {
-                    console.log(err)
                     setTransactionProcessing(false)
                     toast.error(Constants.MetaMaskConnectionError)
                 }
@@ -144,21 +152,21 @@ const ViewDatasetPage: NextPage = () => {
                                 <DatasetCard key={dataset?.data?._id} id={dataset?.data?._id} category={dataset?.data?.category} name={dataset?.data?.name} price={dataset?.data?.price} />
                                 <Col sm={6} md={8} lg={9} xl={10}>
                                     <p className='display-6 text-capitalize'>{dataset?.data?.name}</p>
-                                    <p className="lead">{dataset?.data?.category}</p>
+                                    <p className='lead'>{dataset?.data?.category}</p>
                                     <Rating initialValue={dataset?.data?.rating} allowHover={false} allowFraction size={25} readonly />
                                     <ReactIf condition={subscriptionStatus?.data?.isSubscribed}>
                                         <Link target='_blank' passHref href={`https://sepolia.etherscan.io/nft/${contractAddress.nftContractAddress}/${subscriptionStatus?.data?.tokenId}`}>
-                                            <img style={{ marginLeft: '1rem' }} src="https://cdn2.iconfinder.com/data/icons/nft-flat/64/NFT_Cryptocurrency_blockchain-90-256.png" alt="NFT" height={30} width={30} />
+                                            <img style={{ marginLeft: '1rem' }} src='https://cdn2.iconfinder.com/data/icons/nft-flat/64/NFT_Cryptocurrency_blockchain-90-256.png' alt='NFT' height={30} width={30} />
                                         </Link>
                                     </ReactIf>
-                                    <p className="lead mt-3">{dataset?.data?.description}</p>
+                                    <p className='lead mt-3'>{dataset?.data?.description}</p>
                                     <div>{datasetTagsToDisplay}</div>
                                 </Col>
                             </Row>
                             <ReactIf condition={!subscriptionStatus?.data?.isSubscribed}>
                                 <ReactIf condition={!isTransactionProcessing}>
                                     <button className='btn' onClick={subscribe}>
-                                        Subscribe {`${dataset?.data?.price} LFT`}<i className='fa-solid fa-circle-check'></i>
+                                        Subscribe {`${dataset?.data?.price} LFT`}<i className='fa-solid fa-circle-plus'></i>
                                     </button>
                                 </ReactIf>
                                 <ReactIf condition={isTransactionProcessing}>
@@ -166,13 +174,20 @@ const ViewDatasetPage: NextPage = () => {
                                         Processing <i className='fas fa-circle-notch fa-spin color-gold'></i>
                                     </button>
                                 </ReactIf>
-                                <button className='btn' onClick={copyMetadataAPI}>Metadata API <i className="fa-solid fa-copy"></i></button>
+                                <button className='btn' onClick={copyMetadataAPI}>Metadata API <i className='fa-solid fa-copy'></i></button>
                             </ReactIf>
                             <ReactIf condition={subscriptionStatus?.data?.isSubscribed}>
-                                <button className='btn' onClick={unsubscribe}>
-                                    Unsubscribe <i className="fa-solid fa-circle-xmark"></i>
-                                </button>
-                                <button className='btn' onClick={copyDataAPI}>Data API <i className="fa-solid fa-copy"></i></button>
+                                <ReactIf condition={!isTransactionProcessing}>
+                                    <button className='btn' onClick={unsubscribe}>
+                                        Unsubscribe - Refund {dataset?.data?.price / 2} LFT
+                                    </button>
+                                </ReactIf>
+                                <ReactIf condition={isTransactionProcessing}>
+                                    <button disabled className='btn'>
+                                        Processing <i className='fas fa-circle-notch fa-spin color-gold'></i>
+                                    </button>
+                                </ReactIf>
+                                <button className='btn' onClick={copyDataAPI}>Data API <i className='fa-solid fa-copy'></i></button>
                             </ReactIf>
                         </div>
                         <Row>
