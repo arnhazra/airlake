@@ -1,13 +1,10 @@
-import mongoose from 'mongoose'
-import dotenv from 'dotenv'
-import statusMessages from '../constants/statusMessages'
-
-dotenv.config()
+const mongoose = require('mongoose')
+const dotenv = require('dotenv').config()
+const statusMessages = require('../constants/statusMessages')
 const MONGO_URI = process.env.MONGO_URI
 
 const connectMongo = async () => {
-
-    mongoose.connect(MONGO_URI)
+    mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 
     mongoose.connection.on('connected', () => {
         console.log(statusMessages.mongoDbConnected)
@@ -18,4 +15,4 @@ const connectMongo = async () => {
     })
 }
 
-export default connectMongo
+module.exports = connectMongo

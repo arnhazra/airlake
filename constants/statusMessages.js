@@ -13,4 +13,4 @@ const statusMessages = {
     redisConnected: 'Redis Connected'
 }
 
-export default statusMessages
+module.exports = statusMessages

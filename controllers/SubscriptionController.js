@@ -1,7 +1,7 @@
-import statusMessages from '../constants/statusMessages'
-import SubscriptionModel from '../models/SubscriptionModel'
+const statusMessages = require('../constants/statusMessages')
+const SubscriptionModel = require('../models/SubscriptionModel')
 
-export default class SubscriptionController {
+class SubscriptionController {
     async subscribe(req, res) {
         const { datasetId, tokenId } = req.body
         const userId = req.id
@@ -9,7 +9,7 @@ export default class SubscriptionController {
         try {
             const subscription = new SubscriptionModel({ userId, datasetId, tokenId })
             await subscription.save()
-            return res.status(200).json({ msg: statusMessages.transactionCreationSuccess, subscription })
+            return res.status(200).json({ msg: statusMessages.subscriptionSuccess, subscription })
         }
 
         catch (error) {
@@ -23,7 +23,7 @@ export default class SubscriptionController {
 
         try {
             await SubscriptionModel.findOneAndDelete({ datasetId, userId })
-            return res.status(200).json({ msg: statusMessages.transactionCreationSuccess })
+            return res.status(200).json({ msg: statusMessages.subscriptionSuccess })
         }
 
         catch (error) {
@@ -50,3 +50,5 @@ export default class SubscriptionController {
         }
     }
 }
+
+module.exports = SubscriptionController

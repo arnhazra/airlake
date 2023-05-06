@@ -1,11 +1,8 @@
-import express, { Router } from 'express'
-import SubscriptionController from '../controllers/SubscriptionController'
-import authorize from '../middlewares/authorize'
+const express = require('express')
+const SubscriptionController = require('../controllers/SubscriptionController')
+const authorize = require('../middlewares/authorize')
 
-export default class SubscriptionRouter {
-    public router: Router
-    public subscriptionController: SubscriptionController
-
+class SubscriptionRouter {
     constructor() {
         this.router = express.Router()
         this.subscriptionController = new SubscriptionController()
@@ -22,3 +19,5 @@ export default class SubscriptionRouter {
         return this.router
     }
 }
+
+module.exports = SubscriptionRouter

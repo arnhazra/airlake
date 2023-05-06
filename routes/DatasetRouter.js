@@ -1,12 +1,9 @@
-import express, { Router } from 'express'
-import { check } from 'express-validator'
-import DatasetController from '../controllers/DatasetController'
-import authorize from '../middlewares/authorize'
+const express = require('express')
+const { check } = require('express-validator')
+const DatasetController = require('../controllers/DatasetController')
+const authorize = require('../middlewares/authorize')
 
-export default class DatasetRouter {
-    public router: Router
-    public datasetController: DatasetController
-
+class DatasetRouter {
     constructor() {
         this.router = express.Router()
         this.datasetController = new DatasetController()
@@ -37,3 +34,5 @@ export default class DatasetRouter {
         return this.router
     }
 }
+
+module.exports = DatasetRouter

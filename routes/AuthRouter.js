@@ -1,11 +1,8 @@
-import express, { Router } from 'express'
-import { check } from 'express-validator'
-import AuthController from '../controllers/AuthController'
+const express = require('express')
+const { check } = require('express-validator')
+const AuthController = require('../controllers/AuthController')
 
-export default class AuthRouter {
-    public router: Router
-    public authController: AuthController
-
+class AuthRouter {
     constructor() {
         this.router = express.Router()
         this.authController = new AuthController()
@@ -25,7 +22,7 @@ export default class AuthRouter {
             '/verifyauthcode',
             [
                 check('email', 'Provide valid email').isEmail(),
-                check('otp', 'Invalid OTP format').notEmpty(),
+                check('otp', 'Invalid OTP format').isLength(6),
                 check('hash', 'Invalid Hash').notEmpty(),
             ],
             this.authController.verifyAuthCode.bind(this.authController),
@@ -36,3 +33,5 @@ export default class AuthRouter {
         return this.router
     }
 }
+
+module.exports = AuthRouter

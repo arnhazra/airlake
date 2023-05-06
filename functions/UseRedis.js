@@ -1,8 +1,6 @@
-import { createClient } from 'redis'
-import dotenv from 'dotenv'
-import statusMessages from '../constants/statusMessages'
-
-dotenv.config()
+const { createClient } = require('redis')
+const dotenv = require('dotenv')
+const statusMessages = require('../constants/statusMessages')
 const redis = createClient({ url: process.env.REDIS_URI })
 
 const connectRedis = async () => {
@@ -25,4 +23,4 @@ const removeTokenFromRedis = async (userId) => {
     return response
 }
 
-export { getTokenFromRedis, removeTokenFromRedis, connectRedis, setTokenInRedis }
+module.exports = { connectRedis, setTokenInRedis, getTokenFromRedis, removeTokenFromRedis }

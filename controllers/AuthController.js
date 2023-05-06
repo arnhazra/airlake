@@ -1,20 +1,15 @@
-import dotenv from 'dotenv'
-import jwt from 'jsonwebtoken'
-import otptool from 'otp-without-db'
-import otpGenerator from 'otp-generator'
-import { validationResult } from 'express-validator'
-import statusMessages from '../constants/statusMessages'
-import endPoints from '../constants/endPoints'
-import UserModel from '../models/UserModel'
-import sendmail from '../functions/SendMail'
-import { setTokenInRedis, getTokenFromRedis } from '../functions/UseRedis'
+const dotenv = require('dotenv').config()
+const jwt = require('jsonwebtoken')
+const otptool = require('otp-without-db')
+const otpGenerator = require('otp-generator')
+const { validationResult } = require('express-validator')
+const statusMessages = require('../constants/statusMessages')
+const endPoints = require('../constants/endPoints')
+const UserModel = require('../models/UserModel')
+const sendmail = require('../functions/SendMail')
+const { setTokenInRedis, getTokenFromRedis } = require('../functions/UseRedis')
 
-dotenv.config()
-
-export default class AuthController {
-    public otpKey: string
-    public rsaPrivateKey: string
-
+class AuthController {
     constructor() {
         this.otpKey = process.env.OTP_KEY
         this.rsaPrivateKey = process.env.RSA_PRIVATE_KEY
@@ -105,3 +100,5 @@ export default class AuthController {
         }
     }
 }
+
+module.exports = AuthController

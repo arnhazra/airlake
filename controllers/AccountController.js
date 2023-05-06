@@ -1,10 +1,10 @@
-import { validationResult } from 'express-validator'
-import statusMessages from '../constants/statusMessages'
-import UserModel from '../models/UserModel'
-import TransactionModel from '../models/TransactionModel'
-import { removeTokenFromRedis } from '../functions/UseRedis'
+const { validationResult } = require('express-validator')
+const statusMessages = require('../constants/statusMessages')
+const UserModel = require('../models/UserModel')
+const TransactionModel = require('../models/TransactionModel')
+const { removeTokenFromRedis } = require('../functions/UseRedis')
 
-export default class AccountController {
+class AccountController {
     async checkAuth(req, res) {
         try {
             const user = await UserModel.findById(req.id).select('-date')
@@ -67,3 +67,5 @@ export default class AccountController {
         }
     }
 }
+
+module.exports = AccountController
