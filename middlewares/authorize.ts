@@ -1,10 +1,10 @@
-const jwt = require('jsonwebtoken')
-const dotenv = require('dotenv').config()
-const statusMessages = require('../constants/statusMessages')
-const { getTokenFromRedis } = require('../functions/UseRedis')
+import jwt from 'jsonwebtoken'
+import { config } from 'dotenv'
+import statusMessages from '../constants/statusMessages'
+import { getTokenFromRedis } from '../functions/UseRedis'
 const rsaPublicKey = process.env.RSA_PUBLIC_KEY
 
-module.exports = async function (req, res, next) {
+async function authorize(req, res, next) {
     const accessToken = req.headers['authorization']?.split(' ')[1]
 
     if (!accessToken) {
@@ -37,3 +37,5 @@ module.exports = async function (req, res, next) {
         }
     }
 }
+
+export default authorize

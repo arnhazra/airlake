@@ -4,3 +4,4 @@ node_modules
 /views/.vercel
 /views/*.tsbuildinfo
 .vercel
+/build

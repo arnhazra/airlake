@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
 const SubscriptionSchema = new mongoose.Schema({
     userId: {
@@ -17,4 +17,6 @@ const SubscriptionSchema = new mongoose.Schema({
     },
 }, { versionKey: false })
 
-module.exports = SubscriptionModel = mongoose.model('subscription', SubscriptionSchema)
+const SubscriptionModel = mongoose.model('subscription', SubscriptionSchema)
+
+export default SubscriptionModel

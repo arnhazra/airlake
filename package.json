@@ -7,7 +7,8 @@
     "start": "node app",
     "api": "nodemon app",
     "views": "npm run dev --prefix views",
-    "dev": "concurrently \"npm run api\" \"npm run views\"",
+    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q build/app.js\" \"npm run views\"",
+    "build": " npx tsc",
     "deploy": "git fetch -a && git checkout main && git add . && git commit -m autoaction && git push origin main"
   },
   "keywords": [],
@@ -29,7 +30,12 @@
   },
   "devDependencies": {
     "@openzeppelin/contracts": "^4.8.1",
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.17",
+    "@types/node": "^20.1.0",
+    "@types/nodemailer": "^6.4.7",
     "concurrently": "^7.6.0",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "typescript": "^5.0.4"
   }
 }

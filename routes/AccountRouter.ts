@@ -1,9 +1,12 @@
-const express = require('express')
-const { check } = require('express-validator')
-const authorize = require('../middlewares/authorize')
-const AccountController = require('../controllers/AccountController')
+import express, { Router } from 'express'
+import { check } from 'express-validator'
+import authorize from '../middlewares/authorize'
+import AccountController from '../controllers/AccountController'
 
-class AccountRouter {
+export default class AccountRouter {
+    public router: Router
+    public accountController: AccountController
+
     constructor() {
         this.router = express.Router()
         this.accountController = new AccountController()
@@ -33,5 +36,3 @@ class AccountRouter {
         return this.router
     }
 }
-
-module.exports = AccountRouter
