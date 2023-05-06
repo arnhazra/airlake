@@ -13,8 +13,10 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install Vercel CLI
         run: npm install --global vercel@canary
-      - name: Install FE Dependencies
-        run: npm install --prefix views
+      - name: Install Dependencies
+        run: npm install && npm install --prefix views
+      - name: Run Express App Build
+        run: npx tsc
       - name: Run Next App Build
         run: npm run build --prefix views
       - name: Pull Vercel Environment Information
