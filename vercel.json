@@ -1,8 +1,13 @@
 {
     "builds": [
         {
-            "src": "./app.js",
-            "use": "@vercel/node"
+            "src": "build/app.js",
+            "use": "@vercel/node",
+            "config": {
+                "includeFiles": [
+                    "build/**"
+                ]
+            }
         },
         {
             "src": "./views/out",
@@ -12,7 +17,7 @@
     "routes": [
         {
             "src": "/.*",
-            "dest": "./app.js"
+            "dest": "build/app.js"
         }
     ]
 }
