@@ -11,12 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Install Next.js CLI
-        run: npm install --global next
       - name: Install Vercel CLI
         run: npm install --global vercel@canary
-      - name: Install Next.js CLI
-        run: npm install --save-dev typescript @types/react @types/node
+      - name: Install FE Dependencies
+        run: npm install --prefix views
       - name: Run Next App Build
         run: npm run build --prefix views
       - name: Pull Vercel Environment Information
