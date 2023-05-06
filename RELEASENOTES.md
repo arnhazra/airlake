@@ -4,7 +4,7 @@
 * Code Refactoring.
 * Refund on sell NFT.
 * New UI.
-* Added Github Workflows CI-CD Pipeline.
+* Added Github Actions CI-CD Pipeline.
 
 ## [Currrent v2.9]
 * Code Refactoring.
