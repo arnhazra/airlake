@@ -3,6 +3,7 @@
 ## [Current v3.0]
 * Code Refactoring.
 * Refund on sell NFT.
+* New UI.
 
 ## [Currrent v2.9]
 * Code Refactoring.

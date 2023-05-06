@@ -1,11 +1,8 @@
 enum Constants {
-    HomeTop = 'INVENT WITH PURPOSE',
-    HomeHeader1 = 'Join the age of,',
-    HomeHeader2 = `data accelerated`,
-    HomeHeader3 = `with Blockchain`,
+    HomeHeader1 = 'Join the age of data',
+    HomeHeader2 = `accelerated with Blockchain`,
     HomeIntro1 = `Maximize your data-driven insights with datasets`,
     HomeIntro2 = `Subscribe to datasets with NFT ownership, unsubscribe anytime`,
-    HomeFooter = '#BuitOnBlockchain',
     Info = 'To Add LFT in your Metamask wallet, switch to Sepolia Test Network and Import Token ',
     Warning = 'Do not use mainnet ethers to buy LFT, it is just an implementation POC for ERC-20 standard.',
     ConnectionErrorMessage = `Connection Error`,

@@ -13,7 +13,7 @@ const DatasetCard: FC<DatasetCardProps> = ({ id, category, name, price }) => {
                     </Card.Header>
                     <Card.Footer className={`pt-4 pb-2 ps-4 ${category.toLowerCase()}Color`}>
                         <div className='nameContainer'>
-                            <p className="lead">{name}</p>
+                            <p>{name}</p>
                         </div>
                         <p className='smalltext'>{category} • {price + ' LFT'}</p>
                     </Card.Footer>
