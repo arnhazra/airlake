@@ -6,8 +6,8 @@ const { validationResult } = require('express-validator')
 const statusMessages = require('../constants/statusMessages')
 const endPoints = require('../constants/endPoints')
 const UserModel = require('../models/UserModel')
-const sendmail = require('../functions/SendMail')
-const { setTokenInRedis, getTokenFromRedis } = require('../functions/UseRedis')
+const sendmail = require('../utils/SendMail')
+const { setTokenInRedis, getTokenFromRedis } = require('../utils/UseRedis')
 
 class AuthController {
     constructor() {

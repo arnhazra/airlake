@@ -2,12 +2,12 @@
   "name": "project-lenstack",
   "version": "3.0",
   "description": "Project Lenstack",
-  "main": "app.js",
   "scripts": {
     "start": "node app",
     "api": "npm run dev --prefix api",
     "client": "npm run dev --prefix client",
-    "dev": "concurrently \"npm run api\" \"npm run client\""
+    "dev": "concurrently \"npm run api\" \"npm run client\"",
+    "deploy": "git add . && git commit -m autodeploy && git push"
   },
   "keywords": [],
   "author": "Arnab Hazra",
