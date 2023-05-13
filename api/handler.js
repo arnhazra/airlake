@@ -27,8 +27,8 @@ app.use('/api', datasetRouter.getRouter())
 app.use('/api', subscriptionRouter.getRouter())
 
 if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, 'client', 'out')))
+    app.use(express.static(path.join(__dirname, 'client')))
     app.use('/*', (req, res) => {
-        res.sendFile(path.join(__dirname, 'client', 'out', `${req.originalUrl.split('?')[0]}.html`))
+        res.sendFile(path.join(__dirname, 'client', `${req.originalUrl.split('?')[0]}.html`))
     })
 }
