@@ -6,6 +6,7 @@ on:
   push:
     branches:
       - main
+      - develop
 jobs:
   Deploy-Production:
     runs-on: ubuntu-latest
@@ -20,11 +21,21 @@ jobs:
           npm install
           npm run build
 
-      - name: Copy API to server
+      - name: Build api
+        working-directory: api
         run: |
-          cp -r api dist
+          npm install
+          npm run build
 
-      - name: Copy client build output to server public directory
+      - name: Copy Dependencies to build
+        run: |
+          cp -r api/package.json api/build
+
+      - name: Copy API build output to server dist directory
+        run: |
+          cp -r api/build dist
+
+      - name: Copy client build output to server dist directory
         run: |
           cp -r client/out dist/client
 

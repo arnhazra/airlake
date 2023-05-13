@@ -1,6 +1,7 @@
-const nodemailer = require('nodemailer')
-const { google } = require('googleapis')
-const dotenv = require('dotenv').config()
+//@ts-nocheck
+import nodemailer from 'nodemailer'
+import { google } from 'googleapis'
+import dotenv from 'dotenv'
 const clientId = process.env.CLIENT_ID
 const clientSecret = process.env.CLIENT_SECRET
 const redirectUri = process.env.REDIRECT_URI
@@ -8,6 +9,7 @@ const refreshToken = process.env.REFRESH_TOKEN
 const user = process.env.MAILER_UN
 const oAuth2Client = new google.auth.OAuth2(clientId, clientSecret, redirectUri)
 
+dotenv.config()
 oAuth2Client.setCredentials({ refresh_token: refreshToken })
 
 async function sendmail(email, otp) {
@@ -28,4 +30,4 @@ async function sendmail(email, otp) {
     }
 }
 
-module.exports = sendmail
+export default sendmail
