@@ -1,4 +1,3 @@
-//@ts-nocheck
 import nodemailer from 'nodemailer'
 import { google } from 'googleapis'
 import dotenv from 'dotenv'
@@ -12,13 +11,19 @@ const oAuth2Client = new google.auth.OAuth2(clientId, clientSecret, redirectUri)
 dotenv.config()
 oAuth2Client.setCredentials({ refresh_token: refreshToken })
 
-async function sendmail(email, otp) {
+async function sendmail(email: string, otp: number) {
     try {
         const accessToken = await oAuth2Client.getAccessToken()
 
         const transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: { type: 'OAuth2', user, clientId, clientSecret, refreshToken, accessToken }
+            host: 'smtp.gmail.com',
+            port: 465,
+            secure: true,
+            auth: {
+                type: 'OAuth2',
+                user: user,
+                accessToken: accessToken.token,
+            }
         })
         const subject = 'Lenstack Authcode'
         const content = `Use <b>${otp}</b> as your Authcode. Do not share with anyone.`

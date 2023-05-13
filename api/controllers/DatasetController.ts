@@ -1,3 +1,4 @@
+import { Request, Response } from 'express'
 import { validationResult } from 'express-validator'
 import arraySort from 'array-sort'
 import statusMessages from '../constants/statusMessages'
@@ -5,7 +6,7 @@ import DatasetModel from '../models/DatasetModel'
 import SubscriptionModel from '../models/SubscriptionModel'
 
 export default class DatasetController {
-    async createDataset(req, res) {
+    async createDataset(req: Request, res: Response) {
         const errors = validationResult(req)
 
         if (!errors.isEmpty()) {
@@ -27,7 +28,7 @@ export default class DatasetController {
         }
     }
 
-    async getDatasetFilters(req, res) {
+    async getDatasetFilters(req: Request, res: Response) {
         try {
             const filterCategories = await DatasetModel.find().distinct('category')
             filterCategories.push('All')
@@ -40,7 +41,7 @@ export default class DatasetController {
         }
     }
 
-    async getDataPlatform(req, res) {
+    async getDataPlatform(req: Request, res: Response) {
         const selectedFilterCategory = req.body.selectedFilter === 'All' ? '' : req.body.selectedFilter
         const selectedSortOption = req.body.selectedSortOption === '-name' ? { reverse: true } : { reverse: false }
         const searchQuery = req.body.searchQuery || ''
@@ -67,9 +68,9 @@ export default class DatasetController {
         }
     }
 
-    async getMySubscriptions(req, res) {
+    async getMySubscriptions(req: Request, res: Response) {
         try {
-            const subscribedDatasetIds = await SubscriptionModel.find({ userId: req.id }).distinct('datasetId')
+            const subscribedDatasetIds = await SubscriptionModel.find({ userId: req.headers.id }).distinct('datasetId')
             const subscribedDatasets = await DatasetModel.find({ _id: { $in: subscribedDatasetIds } }).select('-data -description')
             return res.status(200).json({ subscribedDatasets })
         }
@@ -79,7 +80,7 @@ export default class DatasetController {
         }
     }
 
-    async viewDataset(req, res) {
+    async viewDataset(req: Request, res: Response) {
         try {
             const { datasetId } = req.body
             const totalData = await DatasetModel.findById(datasetId).select('-data')
@@ -91,7 +92,7 @@ export default class DatasetController {
         }
     }
 
-    async findSimilarDatasets(req, res) {
+    async findSimilarDatasets(req: Request, res: Response) {
         try {
             const { datasetId } = req.body
             const { category } = await DatasetModel.findById(datasetId).select('-data')
@@ -104,7 +105,7 @@ export default class DatasetController {
         }
     }
 
-    async getMetadata(req, res) {
+    async getMetadata(req: Request, res: Response) {
         try {
             const data = await DatasetModel.findById(req.params.datasetId).select('data')
             const previewdata = data.data[0]
@@ -116,7 +117,7 @@ export default class DatasetController {
         }
     }
 
-    async getData(req, res) {
+    async getData(req: Request, res: Response) {
         try {
             const subscriptionId = req.params.subscriptionId
             const datasetId = req.params.datasetId

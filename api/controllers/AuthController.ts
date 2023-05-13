@@ -1,3 +1,4 @@
+import { Request, Response } from 'express'
 import dotenv from 'dotenv'
 import jwt from 'jsonwebtoken'
 import otptool from 'otp-without-db'
@@ -19,7 +20,7 @@ export default class AuthController {
         this.rsaPrivateKey = process.env.RSA_PRIVATE_KEY
     }
 
-    async generateAuthCode(req, res) {
+    async generateAuthCode(req: Request, res: Response) {
         const errors = validationResult(req)
 
         if (!errors.isEmpty()) {

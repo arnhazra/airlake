@@ -1,3 +1,4 @@
+import { Request, Response } from 'express'
 import { validationResult } from 'express-validator'
 import statusMessages from '../constants/statusMessages'
 import UserModel from '../models/UserModel'
@@ -5,9 +6,9 @@ import TransactionModel from '../models/TransactionModel'
 import { removeTokenFromRedis } from '../utils/UseRedis'
 
 export default class AccountController {
-    async checkAuth(req, res) {
+    async checkAuth(req: Request, res: Response) {
         try {
-            const user = await UserModel.findById(req.id).select('-date')
+            const user = await UserModel.findById(req.headers.id).select('-date')
 
             if (user) {
                 return res.status(200).json({ user })
@@ -23,9 +24,9 @@ export default class AccountController {
         }
     }
 
-    async signOut(req, res) {
+    async signOut(req: Request, res: Response) {
         try {
-            await removeTokenFromRedis(req.id)
+            await removeTokenFromRedis(req.headers.id)
             return res.status(200).json({ msg: statusMessages.signOutSuccess })
         }
 
@@ -34,7 +35,7 @@ export default class AccountController {
         }
     }
 
-    async createTransaction(req, res) {
+    async createTransaction(req: Request, res: Response) {
         const errors = validationResult(req)
 
         if (!errors.isEmpty()) {
@@ -45,7 +46,7 @@ export default class AccountController {
             const { transactionType, fromAddress, lftAmount, ethAmount, txHash } = req.body
 
             try {
-                const transaction = new TransactionModel({ owner: req.id, transactionType, fromAddress, lftAmount, ethAmount, txHash })
+                const transaction = new TransactionModel({ owner: req.headers.id, transactionType, fromAddress, lftAmount, ethAmount, txHash })
                 await transaction.save()
                 return res.status(200).json({ msg: statusMessages.transactionCreationSuccess, transaction })
             }
@@ -56,9 +57,9 @@ export default class AccountController {
         }
     }
 
-    async getTransactions(req, res) {
+    async getTransactions(req: Request, res: Response) {
         try {
-            const transactions = await TransactionModel.find({ owner: req.id }).sort({ date: -1 })
+            const transactions = await TransactionModel.find({ owner: req.headers.id }).sort({ date: -1 })
             return res.status(200).json({ transactions })
         }
 

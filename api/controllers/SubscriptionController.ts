@@ -1,10 +1,11 @@
+import { Request, Response } from 'express'
 import statusMessages from '../constants/statusMessages'
 import SubscriptionModel from '../models/SubscriptionModel'
 
 export default class SubscriptionController {
-    async subscribe(req, res) {
+    async subscribe(req: Request, res: Response) {
         const { datasetId, tokenId } = req.body
-        const userId = req.id
+        const userId = req.headers.id
 
         try {
             const subscription = new SubscriptionModel({ userId, datasetId, tokenId })
@@ -17,9 +18,9 @@ export default class SubscriptionController {
         }
     }
 
-    async unsubscribe(req, res) {
+    async unsubscribe(req: Request, res: Response) {
         const { datasetId } = req.body
-        const userId = req.id
+        const userId = req.headers.id
 
         try {
             await SubscriptionModel.findOneAndDelete({ datasetId, userId })
@@ -31,9 +32,9 @@ export default class SubscriptionController {
         }
     }
 
-    async checkSubscriptionStatus(req, res) {
+    async checkSubscriptionStatus(req: Request, res: Response) {
         const { datasetId } = req.body
-        const userId = req.id
+        const userId = req.headers.id
 
         try {
             const subscription = await SubscriptionModel.findOne({ userId, datasetId })

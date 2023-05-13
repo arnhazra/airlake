@@ -1,6 +1,7 @@
 # Lenstack Changelog
 
 ## [current v3.1]
+* Typescript migration for Express Server app.
 * Restructured project to new monorepo architecture.
 * Added new build steps in Github Actions Pipeline.
 
