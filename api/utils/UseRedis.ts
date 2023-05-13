@@ -6,8 +6,12 @@ dotenv.config()
 const redis = createClient({ url: process.env.REDIS_URI })
 
 const connectRedis = async () => {
-    await redis.connect()
-    console.log(statusMessages.redisConnected)
+    try {
+        await redis.connect()
+        console.log(statusMessages.redisConnected)
+    } catch (error) {
+        console.log(statusMessages.connectionError)
+    }
 }
 
 const setTokenInRedis = async (userId, accessToken) => {
