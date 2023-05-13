@@ -21,7 +21,7 @@ jobs:
           npm install
           npm run build
 
-      - name: Build api
+      - name: Build api application
         working-directory: api
         run: |
           npm install
@@ -31,13 +31,13 @@ jobs:
         run: |
           cp -r api/package.json api/build
 
-      - name: Copy API build output to server dist directory
+      - name: Move API build output to server dist directory
         run: |
-          cp -r api/build dist
+          mv api/build dist
 
-      - name: Copy client build output to server dist directory
+      - name: Move client build output to server dist directory
         run: |
-          cp -r client/out dist/client
+          mv client/out dist/client
 
       - name: Build API application
         working-directory: dist
