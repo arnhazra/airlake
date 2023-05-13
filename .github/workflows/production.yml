@@ -15,14 +15,14 @@ jobs:
       - name: Install Vercel CLI
         run: npm install --global vercel@canary
 
-      - name: Build client application
-        working-directory: client
+      - name: Build api application
+        working-directory: api
         run: |
           npm install
           npm run build
 
-      - name: Build api application
-        working-directory: api
+      - name: Build client application
+        working-directory: client
         run: |
           npm install
           npm run build
@@ -39,14 +39,16 @@ jobs:
         run: |
           mv client/out dist/client
 
-      - name: Build API application
-        working-directory: dist
-        run: |
-          npm install --omit=dev
-
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
       - name: Build Project Artifacts
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Cleanup
+        run: |
+          cd .vercel/output/functions/dist/handler.js.func/dist
+          npm uninstall @openzeppelin/contracts @types/express @types/node nodemon typescript
+
       - name: Deploy Project Artifacts to Vercel
         run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
