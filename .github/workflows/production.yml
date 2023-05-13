@@ -42,7 +42,7 @@ jobs:
       - name: Build API application
         working-directory: dist
         run: |
-          npm install
+          npm install --omit=dev
 
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
