@@ -1,13 +1,14 @@
-const express = require('express')
-const cors = require('cors')
-const path = require('path')
-const dotenv = require('dotenv').config()
-const connectMongo = require('./utils/ConnectMongo')
-const { connectRedis } = require('./utils/UseRedis')
-const SubscriptionRouter = require('./routes/SubscriptionRouter')
-const DatasetRouter = require('./routes/DatasetRouter')
-const AuthRouter = require('./routes/AuthRouter')
-const AccountRouter = require('./routes/AccountRouter')
+import express from 'express'
+import dotenv from 'dotenv'
+import cors from 'cors'
+import path from 'path'
+import connectMongo from './utils/ConnectMongo'
+import { connectRedis } from './utils/UseRedis'
+import SubscriptionRouter from './routes/SubscriptionRouter'
+import DatasetRouter from './routes/DatasetRouter'
+import AuthRouter from './routes/AuthRouter'
+import AccountRouter from './routes/AccountRouter'
+dotenv.config()
 
 const subscriptionRouter = new SubscriptionRouter()
 const datasetRouter = new DatasetRouter()
@@ -17,7 +18,7 @@ const accountRouter = new AccountRouter()
 const app = express()
 app.listen(process.env.PORT)
 app.use(cors())
-app.use(express.json({ extended: false, limit: '5mb' }))
+app.use(express.json({ limit: '5mb' }))
 connectMongo()
 connectRedis()
 

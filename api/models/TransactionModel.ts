@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
 const TransactionSchema = new mongoose.Schema({
     owner: {
@@ -37,4 +37,6 @@ const TransactionSchema = new mongoose.Schema({
     }
 }, { versionKey: false })
 
-module.exports = TransactionModel = mongoose.model('transaction', TransactionSchema)
+const TransactionModel = mongoose.model('transaction', TransactionSchema)
+
+export default TransactionModel

@@ -1,15 +1,19 @@
-const dotenv = require('dotenv').config()
-const jwt = require('jsonwebtoken')
-const otptool = require('otp-without-db')
-const otpGenerator = require('otp-generator')
-const { validationResult } = require('express-validator')
-const statusMessages = require('../constants/statusMessages')
-const endPoints = require('../constants/endPoints')
-const UserModel = require('../models/UserModel')
-const sendmail = require('../utils/SendMail')
-const { setTokenInRedis, getTokenFromRedis } = require('../utils/UseRedis')
+import dotenv from 'dotenv'
+import jwt from 'jsonwebtoken'
+import otptool from 'otp-without-db'
+import { validationResult } from 'express-validator'
+import statusMessages from '../constants/statusMessages'
+import endPoints from '../constants/endPoints'
+import UserModel from '../models/UserModel'
+import sendmail from '../utils/SendMail'
+import { setTokenInRedis, getTokenFromRedis } from '../utils/UseRedis'
 
-class AuthController {
+dotenv.config()
+
+export default class AuthController {
+    public otpKey: string
+    public rsaPrivateKey: string
+
     constructor() {
         this.otpKey = process.env.OTP_KEY
         this.rsaPrivateKey = process.env.RSA_PRIVATE_KEY
@@ -27,7 +31,7 @@ class AuthController {
 
             try {
                 let user = await UserModel.findOne({ email })
-                const otp = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false, lowerCaseAlphabets: false })
+                const otp = Math.floor(100000 + Math.random() * 900000)
                 const hash = otptool.createNewOTP(email, otp, this.otpKey, 5, 'sha256')
                 await sendmail(email, otp)
                 if (user) {
@@ -100,5 +104,3 @@ class AuthController {
         }
     }
 }
-
-module.exports = AuthController

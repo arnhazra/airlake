@@ -1,10 +1,10 @@
-const { validationResult } = require('express-validator')
-const arraySort = require('array-sort')
-const statusMessages = require('../constants/statusMessages')
-const DatasetModel = require('../models/DatasetModel')
-const SubscriptionModel = require('../models/SubscriptionModel')
+import { validationResult } from 'express-validator'
+import arraySort from 'array-sort'
+import statusMessages from '../constants/statusMessages'
+import DatasetModel from '../models/DatasetModel'
+import SubscriptionModel from '../models/SubscriptionModel'
 
-class DatasetController {
+export default class DatasetController {
     async createDataset(req, res) {
         const errors = validationResult(req)
 
@@ -69,13 +69,13 @@ class DatasetController {
 
     async getMySubscriptions(req, res) {
         try {
-            const subscribedDatasetIds = await SubscriptionModel.find({ userId: req.id }).distinct('datasetId');
-            const subscribedDatasets = await DatasetModel.find({ _id: { $in: subscribedDatasetIds } }).select('-data -description');
-            return res.status(200).json({ subscribedDatasets });
+            const subscribedDatasetIds = await SubscriptionModel.find({ userId: req.id }).distinct('datasetId')
+            const subscribedDatasets = await DatasetModel.find({ _id: { $in: subscribedDatasetIds } }).select('-data -description')
+            return res.status(200).json({ subscribedDatasets })
         }
 
         catch (error) {
-            return res.status(500).json({ msg: statusMessages.connectionError });
+            return res.status(500).json({ msg: statusMessages.connectionError })
         }
     }
 
@@ -136,5 +136,3 @@ class DatasetController {
         }
     }
 }
-
-module.exports = DatasetController
