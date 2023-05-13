@@ -9,6 +9,7 @@ export type DatasetCardProps = {
     category: string,
     name: string,
     price: number,
+    rating: number
 }
 
 export type ShowProps = {
@@ -30,10 +31,4 @@ export type DatasetRequestState = {
 export type UserState = {
     userid: string,
     name: string,
-}
-
-export type AccordionProps = {
-    eventKey: string,
-    header: string,
-    body: ReactNode
 }

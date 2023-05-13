@@ -21,7 +21,7 @@ const DataPlatformPage: NextPage = () => {
     })
 
     const datasetsToDisplay = dataPlatform?.data?.datasets?.map((dataset: any) => {
-        return <DatasetCard key={dataset._id} id={dataset._id} category={dataset.category} name={dataset.name} price={dataset.price} />
+        return <DatasetCard key={dataset._id} id={dataset._id} category={dataset.category} name={dataset.name} price={dataset.price} rating={dataset.rating} />
     })
 
     const noDatasetsToDisplay = <Error customMessage='No Datasets' />

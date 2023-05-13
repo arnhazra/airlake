@@ -2,10 +2,11 @@ import { FC } from 'react'
 import { Card, Col } from 'react-bootstrap'
 import { DatasetCardProps } from '@/types/Types'
 import Link from 'next/link'
+import { Rating } from 'react-simple-star-rating'
 
-const DatasetCard: FC<DatasetCardProps> = ({ id, category, name, price }) => {
+const DatasetCard: FC<DatasetCardProps> = ({ id, category, name, price, rating }) => {
     return (
-        <Col xs={6} sm={6} md={4} lg={3} xl={2} className='mb-4'>
+        <Col xs={12} sm={6} md={4} lg={3} xl={3} className='mb-4'>
             <Link href={`/viewdataset?id=${id}`}>
                 <Card>
                     <Card.Header className='pt-3'>
@@ -16,6 +17,7 @@ const DatasetCard: FC<DatasetCardProps> = ({ id, category, name, price }) => {
                             <p>{name}</p>
                         </div>
                         <p className='smalltext'>{category} • {price + ' LFT'}</p>
+                        <Rating className='card-rating' initialValue={rating} allowHover={false} allowFraction size={25} readonly />
                     </Card.Footer>
                 </Card>
             </Link>

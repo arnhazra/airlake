@@ -123,7 +123,7 @@ const ViewDatasetPage: NextPage = () => {
     }
 
     const similarDatasetsToDisplay = similarDatasets?.data?.similarDatasets?.map((dataset: any) => {
-        return <DatasetCard key={dataset._id} id={dataset._id} category={dataset.category} name={dataset?.name} price={dataset?.price} />
+        return <DatasetCard key={dataset._id} id={dataset._id} category={dataset.category} name={dataset?.name} price={dataset?.price} rating={dataset?.rating} />
     })
 
     const datasetTagsToDisplay = dataset?.data?.description?.split(' ').slice(0, 30).map((item: string) => {
@@ -149,11 +149,10 @@ const ViewDatasetPage: NextPage = () => {
                     <Container className='mt-4'>
                         <div className='jumbotron'>
                             <Row>
-                                <DatasetCard key={dataset?.data?._id} id={dataset?.data?._id} category={dataset?.data?.category} name={dataset?.data?.name} price={dataset?.data?.price} />
-                                <Col sm={6} md={8} lg={9} xl={10}>
+                                <DatasetCard key={dataset?.data?._id} id={dataset?.data?._id} category={dataset?.data?.category} name={dataset?.data?.name} price={dataset?.data?.price} rating={dataset?.data?.rating} />
+                                <Col sm={6} md={8} lg={9} xl={9}>
                                     <p className='display-6 text-capitalize'>{dataset?.data?.name}</p>
                                     <p className='lead'>{dataset?.data?.category}</p>
-                                    <Rating initialValue={dataset?.data?.rating} allowHover={false} allowFraction size={25} readonly />
                                     <Show when={subscriptionStatus?.data?.isSubscribed}>
                                         <Link target='_blank' passHref href={`https://sepolia.etherscan.io/nft/${contractAddress.nftContractAddress}/${subscriptionStatus?.data?.tokenId}`}>
                                             <img style={{ marginLeft: '1rem' }} src='https://cdn2.iconfinder.com/data/icons/nft-flat/64/NFT_Cryptocurrency_blockchain-90-256.png' alt='NFT' height={30} width={30} />
@@ -161,34 +160,35 @@ const ViewDatasetPage: NextPage = () => {
                                     </Show>
                                     <p className='lead mt-3'>{dataset?.data?.description}</p>
                                     <div>{datasetTagsToDisplay}</div>
+                                    <Show when={!subscriptionStatus?.data?.isSubscribed}>
+                                        <Show when={!isTransactionProcessing}>
+                                            <button className='btn' onClick={subscribe}>
+                                                Subscribe {`${dataset?.data?.price} LFT`}<i className='fa-solid fa-circle-plus'></i>
+                                            </button>
+                                        </Show>
+                                        <Show when={isTransactionProcessing}>
+                                            <button disabled className='btn'>
+                                                Processing <i className='fas fa-circle-notch fa-spin color-gold'></i>
+                                            </button>
+                                        </Show>
+                                        <button className='btn' onClick={copyMetadataAPI}>Metadata API <i className='fa-solid fa-copy'></i></button>
+                                    </Show>
+                                    <Show when={subscriptionStatus?.data?.isSubscribed}>
+                                        <Show when={!isTransactionProcessing}>
+                                            <button className='btn' onClick={unsubscribe}>
+                                                Unsubscribe - Refund {dataset?.data?.price} LFT
+                                            </button>
+                                        </Show>
+                                        <Show when={isTransactionProcessing}>
+                                            <button disabled className='btn'>
+                                                Processing <i className='fas fa-circle-notch fa-spin color-gold'></i>
+                                            </button>
+                                        </Show>
+                                        <button className='btn' onClick={copyDataAPI}>Data API <i className='fa-solid fa-copy'></i></button>
+                                    </Show>
                                 </Col>
                             </Row>
-                            <Show when={!subscriptionStatus?.data?.isSubscribed}>
-                                <Show when={!isTransactionProcessing}>
-                                    <button className='btn' onClick={subscribe}>
-                                        Subscribe {`${dataset?.data?.price} LFT`}<i className='fa-solid fa-circle-plus'></i>
-                                    </button>
-                                </Show>
-                                <Show when={isTransactionProcessing}>
-                                    <button disabled className='btn'>
-                                        Processing <i className='fas fa-circle-notch fa-spin color-gold'></i>
-                                    </button>
-                                </Show>
-                                <button className='btn' onClick={copyMetadataAPI}>Metadata API <i className='fa-solid fa-copy'></i></button>
-                            </Show>
-                            <Show when={subscriptionStatus?.data?.isSubscribed}>
-                                <Show when={!isTransactionProcessing}>
-                                    <button className='btn' onClick={unsubscribe}>
-                                        Unsubscribe - Refund {dataset?.data?.price} LFT
-                                    </button>
-                                </Show>
-                                <Show when={isTransactionProcessing}>
-                                    <button disabled className='btn'>
-                                        Processing <i className='fas fa-circle-notch fa-spin color-gold'></i>
-                                    </button>
-                                </Show>
-                                <button className='btn' onClick={copyDataAPI}>Data API <i className='fa-solid fa-copy'></i></button>
-                            </Show>
+
                         </div>
                         <Row>
                             <p className='lead text-center text-white mb-4'>Similar Datasets</p>

@@ -5,6 +5,7 @@ import { Container, Navbar, Nav, Form } from 'react-bootstrap'
 import Link from 'next/link'
 import Show from './Show'
 import { useRouter } from 'next/router'
+import Avatar from '../assets/svg/avatar.svg'
 
 const NavBar: FC = () => {
     const [{ userState }, dispatch] = useContext(GlobalContext)
@@ -34,7 +35,7 @@ const NavBar: FC = () => {
     return (
         <Fragment>
             <Show when={isAuthenticated}>
-                <Navbar variant='dark' expand='lg' style={{ zoom: 0.85 }} fixed='top'>
+                <Navbar variant='light' expand='lg' style={{ zoom: 0.85 }} fixed='top'>
                     <Container>
                         <Link href='/dataplatform'><Navbar.Brand style={{ fontSize: '1.3rem' }}>Lenstack</Navbar.Brand></Link>
                         <Navbar.Toggle aria-controls='navbarScroll' />
@@ -59,7 +60,7 @@ const NavBar: FC = () => {
                 </Navbar>
             </Show>
             <Show when={!isAuthenticated}>
-                <Navbar variant='dark' className='navbar-unauthorized' expand='lg'>
+                <Navbar variant='light' className='navbar-unauthorized' expand='lg'>
                     <Container>
                         <Link href='/'>
                             <Navbar.Brand style={{ fontSize: '1.3rem' }}>Lenstack</Navbar.Brand>

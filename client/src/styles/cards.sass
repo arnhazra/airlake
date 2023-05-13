@@ -1,87 +1,70 @@
-$mainColor: #1a1a1f
+$mainColor: #171717
 $white: #ffffff
 
 .card
-    background: transparent
-    color: $white
-    border-radius: 1rem !important
+    background: $white
+    color: $mainColor
+    border-radius: 0.5rem !important
     border: none
     animation: transitionIn 0.4s forwards
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px
+
+.card:hover
+    background: #f2f2f2
 
 .card-header
-    border-radius: 1rem 1rem 0 0 !important
+    border-radius: 0.5rem 0.5rem 0 0 !important
     border: none !important
     text-align: center
-    padding: 0 !important
+    padding: 1rem 1rem 0 1rem !important
 
 .card-footer
-    border-radius: 0 0 1rem 1rem !important
+    border-radius: 0 0 0.5rem 0.5rem !important
     border: none !important
 
 .card-body
     border: none !important
 
 @mixin categoryContainer
-    height: 8.5rem
+    height: 12rem
     width: 100%
-    border-radius: 1rem 1rem 0 0
-    transition: transform 0.5s ease
-    background-size: cover
+    border-radius: 0.5rem
+    transition: transform 0.75s ease
+    background-size: contain
     background-position: center
+    background-repeat: no-repeat
 
 .scienceContainer
-    background: linear-gradient(to top, #D2D5DCff, #D2D5DC00), url(../assets/images/science.jpg)
+    background: url(../assets/svg/science.svg)
     @include categoryContainer
-
-.scienceColor
-    background: #D2D5DC
 
 .musicContainer
-    background: linear-gradient(to top, #058EB8ff, #058EB800), url(../assets/images/music.jpg)
+    background: url(../assets/svg/music.svg)
     @include categoryContainer
-
-.musicColor
-    background: #058EB8
 
 .financeContainer
-    background: linear-gradient(to top, #78929Fff, #78929F00), url(../assets/images/finance.jpg)
+    background: url(../assets/svg/finance.svg)
     @include categoryContainer
-
-.financeColor
-    background: #78929F
 
 .entertainmentContainer
-    background: linear-gradient(to top, #B5C9D2ff, #B5C9D200), url(../assets/images/entertainment.jpg)
+    background: url(../assets/svg/entertainment.svg)
     @include categoryContainer
-
-.entertainmentColor
-    background: #B5C9D2
 
 .genericContainer
-    background: linear-gradient(to top, #B3BCCBff, #B3BCCB00), url(../assets/images/generic.jpg)
+    background: url(../assets/svg/generic.svg)
     @include categoryContainer
-
-.genericColor
-    background: #B3BCCB
 
 .usersContainer
-    background: linear-gradient(to top, #000000ff, #00000000), url(../assets/images/users.jpg)
+    background: url(../assets/svg/users.svg)
     @include categoryContainer
-
-.usersColor
-    background: #000000
 
 .booksContainer
-    background: linear-gradient(to top, #696C63ff, #696C6300), url(../assets/images/books.jpg)
+    background: url(../assets/svg/books.svg)
     @include categoryContainer
-
-.booksColor
-    background: #696C63
 
 .sportsContainer
-    background: linear-gradient(to top, #D87438ff, #D8743800), url(../assets/images/sports.jpg)
+    background: url(../assets/svg/sports.svg)
     @include categoryContainer
 
-.sportsColor
-    background: #D87438
+.card-rating
+    margin-bottom: 1rem

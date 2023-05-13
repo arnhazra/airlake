@@ -1,17 +1,21 @@
 # Lenstack Changelog
 
-## [current v3.1]
+## [Current v3.2]
+* Design Changes
+* New Card UI - Replaced Photos with Svg
+
+## [v3.1]
 * Typescript migration for Express Server app.
 * Restructured project to new monorepo architecture.
 * Added new build steps in Github Actions Pipeline.
 
-## [Current v3.0]
+## [v3.0]
 * Code Refactoring.
 * Refund on sell NFT.
 * New UI.
 * Added Github Actions CI-CD Pipeline.
 
-## [Currrent v2.9]
+## [v2.9]
 * Code Refactoring.
 * Combined transfer amount inside NFT mint function.
 * Dataset Unsubscribe & NFT Transfer.

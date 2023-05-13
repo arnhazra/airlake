@@ -13,7 +13,7 @@ const ViewSubscriptionsPage: NextPage = () => {
     const datasetSubscriptions = useFetchRealtime('subscriptions', endPoints.datasetSubscriptionEndpoint, HTTPMethods.POST)
 
     const datasetsToDisplay = datasetSubscriptions?.data?.subscribedDatasets?.map((dataset: any) => {
-        return <DatasetCard key={dataset._id} id={dataset._id} category={dataset.category} name={dataset.name} price={dataset.price} />
+        return <DatasetCard key={dataset._id} id={dataset._id} category={dataset.category} name={dataset.name} price={dataset.price} rating={dataset.rating} />
     })
 
     return (

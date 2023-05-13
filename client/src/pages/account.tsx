@@ -64,7 +64,7 @@ const AccountPage: NextPage = () => {
                     </div>
                     <Show when={transactions?.data?.transactions?.length > 0}>
                         <p className='lead text-center text-white mb-4'>Transactions</p>
-                        <Table responsive hover variant='dark'>
+                        <Table responsive hover variant='light'>
                             <thead>
                                 <tr>
                                     <th>Event</th>
