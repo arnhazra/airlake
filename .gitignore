@@ -6,3 +6,4 @@ client/*.tsbuildinfo
 client/out
 .vercel
 dist
+api/build
