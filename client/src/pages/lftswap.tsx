@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { FloatingLabel, Form } from 'react-bootstrap'
 import { Fragment } from 'react'
-import ReactIf from '@/components/ReactIf'
+import Show from '@/components/Show'
 import { tokenABI } from '@/contracts/LFTABI'
 import { vendorABI } from '@/contracts/VendorABI'
 import Web3 from 'web3'
@@ -102,77 +102,77 @@ const LFTSwapPage: NextPage = () => {
     return (
         <Fragment>
             <div className='box'>
-                <ReactIf condition={account === ''}>
+                <Show when={account === ''}>
                     <p className='branding'>Swap LFT</p>
                     <button className='btn btn-block' onClick={() => connectWallet('buy')}>Buy LFT<i className='fa-solid fa-circle-arrow-up'></i></button>
                     <button className='btn btn-block' onClick={() => connectWallet('sell')}>Sell LFT<i className='fa-solid fa-circle-arrow-down'></i></button>
-                </ReactIf>
-                <ReactIf condition={account !== ''}>
-                    <ReactIf condition={type === 'buy'}>
-                        <ReactIf condition={step === 1}>
+                </Show>
+                <Show when={account !== ''}>
+                    <Show when={type === 'buy'}>
+                        <Show when={step === 1}>
                             <p className='branding'>Buy LFT</p>
                             <FloatingLabel controlId='floatingAmount' label='Amount of tokens'>
                                 <Form.Control autoFocus type='email' placeholder='Amount of tokens' onChange={(e: any) => setTokens(e.target.value)} required />
                             </FloatingLabel>
                             <p id='alert'>ETH equivalent: {ether}</p>
                             <button className='btn btn-block' onClick={buyCoin}>Buy<i className='fa-solid fa-circle-arrow-right'></i></button>
-                        </ReactIf>
-                        <ReactIf condition={step === 2}>
+                        </Show>
+                        <Show when={step === 2}>
                             <p className='branding'>Transaction Status</p>
                             <div className='text-center mt-4'>
                                 <i className='fa-solid fa-circle-notch fa-spin text-center fa-4x color-gold'></i>
                                 <p className='lead text-center mt-4'>Processing</p>
                             </div>
-                        </ReactIf>
-                        <ReactIf condition={step === 3}>
+                        </Show>
+                        <Show when={step === 3}>
                             <p className='branding'>Transaction Status</p>
-                            <ReactIf condition={!txError}>
+                            <Show when={!txError}>
                                 <div className='text-center'>
                                     <i className='fa-solid fa-circle-check fa-4x'></i>
                                     <p className='lead text-center mt-4'>Success</p>
                                 </div>
-                            </ReactIf>
-                            <ReactIf condition={txError}>
+                            </Show>
+                            <Show when={txError}>
                                 <div className='text-center'>
                                     <i className='fa-solid fa-circle-xmark fa-4x'></i>
                                     <p className='lead text-center mt-4'>Failed</p>
                                 </div>
-                            </ReactIf>
-                        </ReactIf>
-                    </ReactIf>
-                    <ReactIf condition={type === 'sell'}>
-                        <ReactIf condition={step === 1}>
+                            </Show>
+                        </Show>
+                    </Show>
+                    <Show when={type === 'sell'}>
+                        <Show when={step === 1}>
                             <p className='branding'>Sell LFT</p>
                             <FloatingLabel controlId='floatingAmount' label='Amount of tokens'>
                                 <Form.Control autoFocus type='email' placeholder='Amount of tokens' onChange={(e: any) => setTokens(e.target.value)} required />
                             </FloatingLabel>
                             <p id='alert'>ETH equivalent: {ether}</p>
                             <button className='btn btn-block' onClick={sellCoin}>Sell<i className='fa-solid fa-circle-arrow-right'></i></button>
-                        </ReactIf>
-                        <ReactIf condition={step === 2}>
+                        </Show>
+                        <Show when={step === 2}>
                             <p className='branding'>Transaction Status</p>
                             <div className='text-center mt-4'>
                                 <i className='fa-solid fa-circle-notch fa-spin text-center fa-4x color-gold'></i>
                                 <p className='lead text-center mt-4'>Processing</p>
                             </div>
-                        </ReactIf>
-                        <ReactIf condition={step === 3}>
+                        </Show>
+                        <Show when={step === 3}>
                             <p className='branding'>Transaction Status</p>
-                            <ReactIf condition={!txError}>
+                            <Show when={!txError}>
                                 <div className='text-center'>
                                     <i className='fa-solid fa-circle-check fa-4x'></i>
                                     <p className='lead text-center mt-4'>Success</p>
                                 </div>
-                            </ReactIf>
-                            <ReactIf condition={txError}>
+                            </Show>
+                            <Show when={txError}>
                                 <div className='text-center'>
                                     <i className='fa-solid fa-circle-xmark fa-4x'></i>
                                     <p className='lead text-center mt-4'>Failed</p>
                                 </div>
-                            </ReactIf>
-                        </ReactIf>
-                    </ReactIf>
-                </ReactIf>
+                            </Show>
+                        </Show>
+                    </Show>
+                </Show>
             </div>
         </Fragment>
     )

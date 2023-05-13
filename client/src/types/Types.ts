@@ -11,8 +11,8 @@ export type DatasetCardProps = {
     price: number,
 }
 
-export type ReactIfProps = {
-    condition: boolean,
+export type ShowProps = {
+    when: boolean,
     children: ReactNode
 }
 

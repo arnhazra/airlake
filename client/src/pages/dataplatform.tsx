@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { Col, Container, FloatingLabel, Form, Row } from 'react-bootstrap'
 import { Fragment } from 'react'
 import Loading from '@/components/Loading'
-import ReactIf from '@/components/ReactIf'
+import Show from '@/components/Show'
 import { GlobalContext } from '@/context/globalStateProvider'
 import DatasetCard from '@/components/DatasetCard'
 import { NextPage } from 'next'
@@ -40,7 +40,7 @@ const DataPlatformPage: NextPage = () => {
 
     return (
         <Fragment>
-            <ReactIf condition={!dataPlatform.isLoading && !filters.isLoading}>
+            <Show when={!dataPlatform.isLoading && !filters.isLoading}>
                 <Container>
                     <Row className='g-2 mt-4'>
                         <Col xs={12} sm={12} md={6} lg={4} xl={3}>
@@ -67,10 +67,10 @@ const DataPlatformPage: NextPage = () => {
                         {dataPlatform?.data?.datasets?.length === 24 && <button className='btn' onClick={nextPage}>Show Next<i className='fa-solid fa-circle-arrow-right'></i></button>}
                     </div>
                 </Container>
-            </ReactIf>
-            <ReactIf condition={dataPlatform.isLoading || filters.isLoading}>
+            </Show>
+            <Show when={dataPlatform.isLoading || filters.isLoading}>
                 <Loading />
-            </ReactIf>
+            </Show>
         </Fragment >
     )
 }

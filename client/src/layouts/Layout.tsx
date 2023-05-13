@@ -1,7 +1,7 @@
 import NavBar from '@/components/NavBar'
 import { LayoutProps } from '@/types/Types'
 import { Fragment, FC, useEffect } from 'react'
-import ReactIf from '@/components/ReactIf'
+import Show from '@/components/Show'
 import Loading from '@/components/Loading'
 import useChcekAuth from '@/hooks/useCheckAuth'
 import { Toaster } from 'react-hot-toast'
@@ -24,12 +24,12 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 				<NavBar />
 			</nav>
 			<main>
-				<ReactIf condition={checkAuth.isLoaded}>
+				<Show when={checkAuth.isLoaded}>
 					{children}
-				</ReactIf>
-				<ReactIf condition={!checkAuth.isLoaded}>
+				</Show>
+				<Show when={!checkAuth.isLoaded}>
 					<Loading />
-				</ReactIf>
+				</Show>
 				<Toaster position='bottom-center' containerClassName='toaster' />
 			</main>
 		</Fragment>

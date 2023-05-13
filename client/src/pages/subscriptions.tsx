@@ -3,7 +3,7 @@ import { Fragment } from 'react'
 import { NextPage } from 'next'
 import Loading from '@/components/Loading'
 import Error from '@/components/ErrorComp'
-import ReactIf from '@/components/ReactIf'
+import Show from '@/components/Show'
 import DatasetCard from '@/components/DatasetCard'
 import useFetchRealtime from '@/hooks/useFetchRealtime'
 import endPoints from '@/constants/Endpoints'
@@ -18,21 +18,21 @@ const ViewSubscriptionsPage: NextPage = () => {
 
     return (
         <Fragment>
-            <ReactIf condition={!datasetSubscriptions.isLoading}>
+            <Show when={!datasetSubscriptions.isLoading}>
                 <Container>
-                    <ReactIf condition={datasetSubscriptions?.data?.subscribedDatasets?.length > 0}>
+                    <Show when={datasetSubscriptions?.data?.subscribedDatasets?.length > 0}>
                         <Row className='mt-4 mb-4'>
                             {datasetsToDisplay}
                         </Row>
-                    </ReactIf>
-                    <ReactIf condition={datasetSubscriptions?.data?.subscribedDatasets?.length === 0}>
+                    </Show>
+                    <Show when={datasetSubscriptions?.data?.subscribedDatasets?.length === 0}>
                         <Error customMessage='No Subscriptions' />
-                    </ReactIf>
+                    </Show>
                 </Container>
-            </ReactIf>
-            <ReactIf condition={datasetSubscriptions.isLoading}>
+            </Show>
+            <Show when={datasetSubscriptions.isLoading}>
                 <Loading />
-            </ReactIf>
+            </Show>
         </Fragment>
     )
 }

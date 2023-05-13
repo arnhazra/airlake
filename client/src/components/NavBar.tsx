@@ -3,7 +3,7 @@ import debounce from 'lodash.debounce'
 import { ChangeEvent, FC, Fragment, useContext, useMemo, useEffect, useState } from 'react'
 import { Container, Navbar, Nav, Form } from 'react-bootstrap'
 import Link from 'next/link'
-import ReactIf from './ReactIf'
+import Show from './Show'
 import { useRouter } from 'next/router'
 
 const NavBar: FC = () => {
@@ -33,7 +33,7 @@ const NavBar: FC = () => {
 
     return (
         <Fragment>
-            <ReactIf condition={isAuthenticated}>
+            <Show when={isAuthenticated}>
                 <Navbar variant='dark' expand='lg' style={{ zoom: 0.85 }} fixed='top'>
                     <Container>
                         <Link href='/dataplatform'><Navbar.Brand style={{ fontSize: '1.3rem' }}>Lenstack</Navbar.Brand></Link>
@@ -57,8 +57,8 @@ const NavBar: FC = () => {
                         </Navbar.Collapse>
                     </Container>
                 </Navbar>
-            </ReactIf>
-            <ReactIf condition={!isAuthenticated}>
+            </Show>
+            <Show when={!isAuthenticated}>
                 <Navbar variant='dark' className='navbar-unauthorized' expand='lg'>
                     <Container>
                         <Link href='/'>
@@ -73,7 +73,7 @@ const NavBar: FC = () => {
                         </Navbar.Collapse>
                     </Container>
                 </Navbar>
-            </ReactIf>
+            </Show>
         </Fragment >
     )
 }

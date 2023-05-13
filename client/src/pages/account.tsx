@@ -3,7 +3,7 @@ import { GlobalContext } from '@/context/globalStateProvider'
 import { NextPage } from 'next'
 import moment from 'moment'
 import endPoints from '@/constants/Endpoints'
-import ReactIf from '@/components/ReactIf'
+import Show from '@/components/Show'
 import { Container, Table } from 'react-bootstrap'
 import Constants from '@/constants/Constants'
 import Link from 'next/link'
@@ -49,7 +49,7 @@ const AccountPage: NextPage = () => {
 
     return (
         <Fragment>
-            <ReactIf condition={!transactions.isLoading}>
+            <Show when={!transactions.isLoading}>
                 <Container>
                     <div className='jumbotron mt-4 pl-5'>
                         <p className='display-6'>Account</p>
@@ -62,7 +62,7 @@ const AccountPage: NextPage = () => {
                             <button className='btn' onClick={signOutFromAllDevices}>Sign Out From All Devices<i className="fa-solid fa-square-arrow-up-right"></i></button>
                         </div>
                     </div>
-                    <ReactIf condition={transactions?.data?.transactions?.length > 0}>
+                    <Show when={transactions?.data?.transactions?.length > 0}>
                         <p className='lead text-center text-white mb-4'>Transactions</p>
                         <Table responsive hover variant='dark'>
                             <thead>
@@ -78,12 +78,12 @@ const AccountPage: NextPage = () => {
                                 {transactionsToDisplay}
                             </tbody>
                         </Table>
-                    </ReactIf>
+                    </Show>
                 </Container>
-            </ReactIf>
-            <ReactIf condition={transactions.isLoading}>
+            </Show>
+            <Show when={transactions.isLoading}>
                 <Loading />
-            </ReactIf>
+            </Show>
         </Fragment >
     )
 }

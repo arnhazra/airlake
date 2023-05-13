@@ -3,7 +3,7 @@ import { Col, Container, Row } from 'react-bootstrap'
 import { Fragment } from 'react'
 import Web3 from 'web3'
 import Loading from '@/components/Loading'
-import ReactIf from '@/components/ReactIf'
+import Show from '@/components/Show'
 import axios from 'axios'
 import { tokenABI } from '@/contracts/LFTABI'
 import { lnftABI } from '@/contracts/LNFTABI'
@@ -144,8 +144,8 @@ const ViewDatasetPage: NextPage = () => {
 
     return (
         <Fragment>
-            <ReactIf condition={!subscriptionStatus?.isLoading && !dataset?.isLoading && !similarDatasets?.isLoading}>
-                <ReactIf condition={!dataset.error}>
+            <Show when={!subscriptionStatus?.isLoading && !dataset?.isLoading && !similarDatasets?.isLoading}>
+                <Show when={!dataset.error}>
                     <Container className='mt-4'>
                         <div className='jumbotron'>
                             <Row>
@@ -154,55 +154,55 @@ const ViewDatasetPage: NextPage = () => {
                                     <p className='display-6 text-capitalize'>{dataset?.data?.name}</p>
                                     <p className='lead'>{dataset?.data?.category}</p>
                                     <Rating initialValue={dataset?.data?.rating} allowHover={false} allowFraction size={25} readonly />
-                                    <ReactIf condition={subscriptionStatus?.data?.isSubscribed}>
+                                    <Show when={subscriptionStatus?.data?.isSubscribed}>
                                         <Link target='_blank' passHref href={`https://sepolia.etherscan.io/nft/${contractAddress.nftContractAddress}/${subscriptionStatus?.data?.tokenId}`}>
                                             <img style={{ marginLeft: '1rem' }} src='https://cdn2.iconfinder.com/data/icons/nft-flat/64/NFT_Cryptocurrency_blockchain-90-256.png' alt='NFT' height={30} width={30} />
                                         </Link>
-                                    </ReactIf>
+                                    </Show>
                                     <p className='lead mt-3'>{dataset?.data?.description}</p>
                                     <div>{datasetTagsToDisplay}</div>
                                 </Col>
                             </Row>
-                            <ReactIf condition={!subscriptionStatus?.data?.isSubscribed}>
-                                <ReactIf condition={!isTransactionProcessing}>
+                            <Show when={!subscriptionStatus?.data?.isSubscribed}>
+                                <Show when={!isTransactionProcessing}>
                                     <button className='btn' onClick={subscribe}>
                                         Subscribe {`${dataset?.data?.price} LFT`}<i className='fa-solid fa-circle-plus'></i>
                                     </button>
-                                </ReactIf>
-                                <ReactIf condition={isTransactionProcessing}>
+                                </Show>
+                                <Show when={isTransactionProcessing}>
                                     <button disabled className='btn'>
                                         Processing <i className='fas fa-circle-notch fa-spin color-gold'></i>
                                     </button>
-                                </ReactIf>
+                                </Show>
                                 <button className='btn' onClick={copyMetadataAPI}>Metadata API <i className='fa-solid fa-copy'></i></button>
-                            </ReactIf>
-                            <ReactIf condition={subscriptionStatus?.data?.isSubscribed}>
-                                <ReactIf condition={!isTransactionProcessing}>
+                            </Show>
+                            <Show when={subscriptionStatus?.data?.isSubscribed}>
+                                <Show when={!isTransactionProcessing}>
                                     <button className='btn' onClick={unsubscribe}>
                                         Unsubscribe - Refund {dataset?.data?.price} LFT
                                     </button>
-                                </ReactIf>
-                                <ReactIf condition={isTransactionProcessing}>
+                                </Show>
+                                <Show when={isTransactionProcessing}>
                                     <button disabled className='btn'>
                                         Processing <i className='fas fa-circle-notch fa-spin color-gold'></i>
                                     </button>
-                                </ReactIf>
+                                </Show>
                                 <button className='btn' onClick={copyDataAPI}>Data API <i className='fa-solid fa-copy'></i></button>
-                            </ReactIf>
+                            </Show>
                         </div>
                         <Row>
                             <p className='lead text-center text-white mb-4'>Similar Datasets</p>
                             {similarDatasetsToDisplay}
                         </Row>
                     </Container>
-                </ReactIf>
-                <ReactIf condition={dataset.error}>
+                </Show>
+                <Show when={dataset.error}>
                     <Error />
-                </ReactIf>
-            </ReactIf>
-            <ReactIf condition={subscriptionStatus?.isLoading || dataset?.isLoading || similarDatasets?.isLoading}>
+                </Show>
+            </Show>
+            <Show when={subscriptionStatus?.isLoading || dataset?.isLoading || similarDatasets?.isLoading}>
                 <Loading />
-            </ReactIf>
+            </Show>
         </Fragment >
     )
 }

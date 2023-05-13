@@ -2,7 +2,7 @@ import { Fragment, useState } from 'react'
 import axios from 'axios'
 import { FloatingLabel, Form } from 'react-bootstrap'
 import Constants from '@/constants/Constants'
-import ReactIf from '@/components/ReactIf'
+import Show from '@/components/Show'
 import endPoints from '@/constants/Endpoints'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
@@ -61,7 +61,7 @@ const AuthPage: NextPage = () => {
 
     return (
         <Fragment>
-            <ReactIf condition={authstep === 1}>
+            <Show when={authstep === 1}>
                 <form className='box' onSubmit={generateAuthcode}>
                     <p className='branding'>Lenstack Auth</p>
                     <p className='boxtext'>Enter the email address where you can be contacted. This email address will be used for authentication.</p>
@@ -71,23 +71,23 @@ const AuthPage: NextPage = () => {
                     <p id='alert'>{alert}</p>
                     <button type='submit' className='mt-2 btn btn-block'>Continue {isLoading ? <i className='fas fa-circle-notch fa-spin'></i> : <i className='fa-solid fa-circle-arrow-right'></i>}</button><br />
                 </form>
-            </ReactIf>
-            <ReactIf condition={authstep === 2}>
+            </Show>
+            <Show when={authstep === 2}>
                 <form className='box' onSubmit={verifyAuthcode}>
                     <p className='branding'>Lenstack Auth</p>
                     <p className='boxtext'>Please verify your identity by entering the auth code we sent to your inbox. Once you've entered the code, you can continue using our services.</p>
-                    <ReactIf condition={state.newuser}>
+                    <Show when={state.newuser}>
                         <FloatingLabel controlId='floatingName' label='Your Name'>
                             <Form.Control type='text' placeholder='Your Name' onChange={(e) => setState({ ...state, name: e.target.value })} required autoComplete={'off'} minLength={3} maxLength={40} />
                         </FloatingLabel>
-                    </ReactIf>
+                    </Show>
                     <FloatingLabel controlId='floatingPassword' label='Enter Auth Code'>
                         <Form.Control type='password' name='otp' placeholder='Enter Auth Code' onChange={(e) => setState({ ...state, otp: e.target.value })} required autoComplete={'off'} minLength={6} maxLength={6} />
                     </FloatingLabel>
                     <p id='alert'>{alert}</p>
                     <button type='submit' className='mt-2 btn btn-block'>{state.newuser ? 'Sign Up' : 'Sign In'} {isLoading ? <i className='fas fa-circle-notch fa-spin'></i> : <i className='fa-solid fa-circle-arrow-right'></i>}</button>
                 </form>
-            </ReactIf>
+            </Show>
         </Fragment >
     )
 }
