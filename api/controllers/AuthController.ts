@@ -1,7 +1,6 @@
 import dotenv from 'dotenv'
 import jwt from 'jsonwebtoken'
 import otptool from 'otp-without-db'
-import otpGenerator from 'otp-generator'
 import { validationResult } from 'express-validator'
 import statusMessages from '../constants/statusMessages'
 import endPoints from '../constants/endPoints'
@@ -32,7 +31,7 @@ export default class AuthController {
 
             try {
                 let user = await UserModel.findOne({ email })
-                const otp = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false, lowerCaseAlphabets: false })
+                const otp = Math.floor(100000 + Math.random() * 900000)
                 const hash = otptool.createNewOTP(email, otp, this.otpKey, 5, 'sha256')
                 await sendmail(email, otp)
                 if (user) {

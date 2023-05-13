@@ -8,7 +8,6 @@
 * jsonwebtoken - Generates and validates JSON Web Tokens (JWTs) for user authentication and authorization.
 * mongoose - Elegant MongoDB object modeling for Node.js.
 * nodemailer - Sends email from Node.js.
-* otp-generator - Generates OTPs for two-factor authentication (2FA) and other use cases.
 * otp-without-db - Generates and verifies one-time passwords (OTPs) without a database.
 * redis - In-memory data store for caching and session management.
 * axios - Promise-based HTTP client for the browser and Node.js.
