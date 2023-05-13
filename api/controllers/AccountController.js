@@ -2,7 +2,7 @@ const { validationResult } = require('express-validator')
 const statusMessages = require('../constants/statusMessages')
 const UserModel = require('../models/UserModel')
 const TransactionModel = require('../models/TransactionModel')
-const { removeTokenFromRedis } = require('../functions/UseRedis')
+const { removeTokenFromRedis } = require('../utils/UseRedis')
 
 class AccountController {
     async checkAuth(req, res) {

@@ -1,18 +1,23 @@
 {
     "builds": [
         {
-            "src": "./app.js",
-            "use": "@vercel/node"
+            "src": "dist/handler.js",
+            "use": "@vercel/node",
+            "config": {
+                "includeFiles": [
+                    "dist/**"
+                ]
+            }
         },
         {
-            "src": "./views/out",
+            "src": "./dist/client",
             "use": "@vercel/static"
         }
     ],
     "routes": [
         {
-            "src": "/.*",
-            "dest": "app.js"
+            "src": "/(.*)",
+            "dest": "dist/handler.js"
         }
     ]
 }

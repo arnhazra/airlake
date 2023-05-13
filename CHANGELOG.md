@@ -1,5 +1,9 @@
 # Lenstack Changelog
 
+## [current v3.1]
+* Restructured project to new monorepo architecture.
+* Added new build steps in Github Actions Pipeline.
+
 ## [Current v3.0]
 * Code Refactoring.
 * Refund on sell NFT.

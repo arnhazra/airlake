@@ -13,10 +13,26 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install Vercel CLI
         run: npm install --global vercel@canary
-      - name: Install FE Dependencies
-        run: npm install --prefix views
-      - name: Run Next App Build
-        run: npm run build --prefix views
+
+      - name: Build client application
+        working-directory: client
+        run: |
+          npm install
+          npm run build
+
+      - name: Copy API to server
+        run: |
+          cp -r api dist
+
+      - name: Copy client build output to server public directory
+        run: |
+          cp -r client/out dist/client
+
+      - name: Build API application
+        working-directory: dist
+        run: |
+          npm install
+
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
       - name: Build Project Artifacts
