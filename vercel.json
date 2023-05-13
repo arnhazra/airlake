@@ -1,23 +1,23 @@
 {
     "builds": [
         {
-            "src": "api/handler.js",
+            "src": "dist/handler.js",
             "use": "@vercel/node",
             "config": {
                 "includeFiles": [
-                    "api/**"
+                    "dist/**"
                 ]
             }
         },
         {
-            "src": "./client/out",
+            "src": "./dist/client",
             "use": "@vercel/static"
         }
     ],
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "api/handler.js"
+            "dest": "dist/handler.js"
         }
     ]
 }

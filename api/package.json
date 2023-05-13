@@ -4,6 +4,7 @@
   "description": "",
   "main": "handler.js",
   "scripts": {
+    "start": "node handler",
     "dev": "nodemon handler"
   },
   "keywords": [],

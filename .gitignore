@@ -3,4 +3,6 @@ node_modules
 client/.next
 client/.vercel
 client/*.tsbuildinfo
+client/out
 .vercel
+dist
