@@ -2,12 +2,12 @@ import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
 import path from 'path'
-import connectMongo from './utils/ConnectMongo'
-import { connectRedis } from './utils/UseRedis'
-import SubscriptionRouter from './routes/SubscriptionRouter'
-import DatasetRouter from './routes/DatasetRouter'
-import AuthRouter from './routes/AuthRouter'
-import AccountRouter from './routes/AccountRouter'
+import connectMongo from './src/utils/ConnectMongo'
+import { connectRedis } from './src/utils/UseRedis'
+import SubscriptionRouter from './src/routes/SubscriptionRouter'
+import DatasetRouter from './src/routes/DatasetRouter'
+import AuthRouter from './src/routes/AuthRouter'
+import AccountRouter from './src/routes/AccountRouter'
 dotenv.config()
 
 const subscriptionRouter = new SubscriptionRouter()
