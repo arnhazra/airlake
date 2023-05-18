@@ -14,17 +14,17 @@ const connectRedis = async () => {
     }
 }
 
-const setTokenInRedis = async (userId, accessToken) => {
+const setTokenInRedis = async (userId: string, accessToken: string) => {
     const response = await redis.set(userId, accessToken)
     return response
 }
 
-const getTokenFromRedis = async (userId) => {
+const getTokenFromRedis = async (userId: string) => {
     const response = await redis.get(userId)
     return response
 }
 
-const removeTokenFromRedis = async (userId) => {
+const removeTokenFromRedis = async (userId: string) => {
     const response = await redis.del(userId)
     return response
 }

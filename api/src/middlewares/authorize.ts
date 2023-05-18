@@ -18,7 +18,7 @@ async function authorize(req: Request, res: Response, next: NextFunction) {
         try {
             const decoded = jwt.verify(accessToken, rsaPublicKey, { algorithms: ['RS512'] })
             req.headers.id = (decoded as any).id
-            const redisAccessToken = await getTokenFromRedis(req.headers.id)
+            const redisAccessToken = await getTokenFromRedis(req.headers.id as string)
 
             if (redisAccessToken === accessToken) {
                 next()

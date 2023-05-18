@@ -63,8 +63,8 @@ const AuthPage: NextPage = () => {
         <Fragment>
             <Show when={authstep === 1}>
                 <form className='box' onSubmit={generateAuthcode}>
-                    <p className='branding'>Lenstack Auth</p>
-                    <p className='boxtext'>Enter the email address where you can be contacted. This email address will be used for authentication.</p>
+                    <p className='branding'>Auth</p>
+                    <p className='boxtext'>Enter the email address, it will be used for authentication.</p>
                     <FloatingLabel controlId='floatingEmail' label='Your Email'>
                         <Form.Control autoFocus type='email' placeholder='Your Email' onChange={(e) => setState({ ...state, email: e.target.value })} required autoComplete={'off'} minLength={4} maxLength={40} />
                     </FloatingLabel>
@@ -74,8 +74,8 @@ const AuthPage: NextPage = () => {
             </Show>
             <Show when={authstep === 2}>
                 <form className='box' onSubmit={verifyAuthcode}>
-                    <p className='branding'>Lenstack Auth</p>
-                    <p className='boxtext'>Please verify your identity by entering the auth code we sent to your inbox. Once you've entered the code, you can continue using our services.</p>
+                    <p className='branding'>Auth</p>
+                    <p className='boxtext'>Please verify your identity by entering the auth code we sent to your inbox.</p>
                     <Show when={state.newuser}>
                         <FloatingLabel controlId='floatingName' label='Your Name'>
                             <Form.Control type='text' placeholder='Your Name' onChange={(e) => setState({ ...state, name: e.target.value })} required autoComplete={'off'} minLength={3} maxLength={40} />

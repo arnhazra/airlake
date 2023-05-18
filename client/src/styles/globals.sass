@@ -1,4 +1,4 @@
-$mainColor: #1a1a1f
+$mainColor: #1c2b33
 $white: #ffffff
 $green: #39e78d
 $red: #FF0066
@@ -10,7 +10,7 @@ html
     width: 0
 
 body
-    background: linear-gradient(to right, #12121250, #12121250), url(../assets/landing.jpg)
+    background: linear-gradient(to right, #12121280, #12121280), url(../assets/hero.jpg)
     -webkit-background-size: cover
     -moz-background-size: cover
     -o-background-size: cover
@@ -27,7 +27,7 @@ body
     color: $white
     vertical-align: middle
     display: table-cell
-    text-align: center
+    text-align: left
     letter-spacing: 0.05rem
     animation: transitionIn 0.4s forwards
 
@@ -42,17 +42,28 @@ body
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px
 
 .lead
-    font-size: 130%
+    font-size: 110%
 
 .nameContainer
     white-space: nowrap
     overflow: hidden
 
 .smalltext
-    font-size: 110%
+    font-size: 70%
 
 .container
     min-width: 85%
+
+.loading-container
+    top: 54%
+    left: 50%
+    position: absolute
+    transform: translate(-50%,-50%)
+    box-sizing: border-box
+    background: transparent
+    color: $white
+    width: 20rem
+    text-align: center
 
 table tr:first-child th:first-child
     border-top-left-radius: 1rem

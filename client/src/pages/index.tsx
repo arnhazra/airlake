@@ -9,13 +9,15 @@ const HomePage: NextPage = () => {
 		<Fragment>
 			<Container>
 				<div className='cover'>
-					<p className='display-3'>
+					<p className='display-5'>
 						{Constants.HomeHeader1}<br />
-						{Constants.HomeHeader2}
+						{Constants.HomeHeader2}<br />
+						{Constants.HomeHeader3}
 					</p>
 					<p className='lead my-4'>
 						{Constants.HomeIntro1} <br />
 						{Constants.HomeIntro2} <br />
+						{Constants.HomeIntro3} <br />
 					</p>
 					<Link href='/auth' className='btn'>Get Started<i className='fa-solid fa-circle-arrow-right'></i></Link>
 				</div>
