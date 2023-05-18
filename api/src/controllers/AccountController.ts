@@ -26,7 +26,7 @@ export default class AccountController {
 
     async signOut(req: Request, res: Response) {
         try {
-            await removeTokenFromRedis(req.headers.id)
+            await removeTokenFromRedis(req.headers.id as string)
             return res.status(200).json({ msg: statusMessages.signOutSuccess })
         }
 
