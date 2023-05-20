@@ -31,4 +31,5 @@ export type DatasetRequestState = {
 export type UserState = {
     userid: string,
     name: string,
+    privateKey: string
 }

@@ -17,7 +17,9 @@ const endPoints = {
     subscribeEndpoint: `${apiHost}/api/subscribe`,
     unsubscribeEndpoint: `${apiHost}/api/unsubscribe`,
     checkSubscriptionEndpoint: `${apiHost}/api/checksubscriptionstatus`,
+    walletBalanceEndpoint: `${apiHost}/api/getwalletbalance`,
     etherScanEndpoint: `https://sepolia.etherscan.io/tx`,
+    infuraEndpoint: `https://sepolia.infura.io/v3/8e718b45dd2b4425bc1e785e56bde9c4`
 }
 
 export default endPoints

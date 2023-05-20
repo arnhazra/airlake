@@ -9,7 +9,7 @@ const DatasetCard: FC<DatasetCardProps> = ({ id, category, name, price, rating }
     const router = useRouter()
 
     return (
-        <Col xs={12} sm={6} md={4} lg={3} xl={2} className='mb-4'>
+        <Col xs={6} sm={6} md={4} lg={3} xl={2} className='mb-4'>
             <Link href={`/viewdataset?id=${id}`}>
                 <Card>
                     <Card.Header className='pt-3'>

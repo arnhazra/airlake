@@ -20,6 +20,11 @@ const UserSchema = new mongoose.Schema({
     role: {
         type: String,
         default: 'consumer'
+    },
+
+    privateKey: {
+        type: String,
+        required: true
     }
 }, { versionKey: false })
 

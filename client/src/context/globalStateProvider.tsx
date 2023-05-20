@@ -10,6 +10,7 @@ const initialState = {
     userState: {
         userid: '',
         name: '',
+        privateKey: ''
     },
 
     datasetRequestState: {

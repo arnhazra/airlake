@@ -17,7 +17,6 @@ import Constants from '@/constants/Constants'
 import useFetch from '@/hooks/useFetch'
 import HTTPMethods from '@/constants/HTTPMethods'
 import Error from '@/components/ErrorComp'
-import { Rating } from 'react-simple-star-rating'
 import Link from 'next/link'
 declare const window: any
 const web3 = new Web3(Web3.givenProvider)
