@@ -1,5 +1,4 @@
 import { Request, Response } from 'express'
-import Web3 from 'web3'
 import dotenv from 'dotenv'
 import jwt from 'jsonwebtoken'
 import otptool from 'otp-without-db'
@@ -15,12 +14,10 @@ dotenv.config()
 export default class AuthController {
     public otpKey: string
     public rsaPrivateKey: string
-    public web3Provider: Web3
 
     constructor() {
         this.otpKey = process.env.OTP_KEY
         this.rsaPrivateKey = process.env.RSA_PRIVATE_KEY
-        this.web3Provider = new Web3(new Web3.providers.HttpProvider(process.env.SEPOLIA_PROVIDER))
     }
 
     async generateAuthCode(req: Request, res: Response) {
@@ -61,7 +58,7 @@ export default class AuthController {
         }
 
         else {
-            const { email, otp, hash } = req.body
+            const { email, otp, hash, privateKey } = req.body
 
             try {
                 const isOTPValid = otptool.verifyOTP(email, otp, hash, this.otpKey, 'sha256')
@@ -87,7 +84,6 @@ export default class AuthController {
 
                     else {
                         const { name } = req.body || otherConstants.undefinedName
-                        const { privateKey } = this.web3Provider.eth.accounts.create()
                         user = new UserModel({ name, email, privateKey })
                         const payload = { id: user.id, email: user.email, iss: otherConstants.tokenIssuer }
                         const accessToken = jwt.sign(payload, this.rsaPrivateKey, { algorithm: 'RS512' })
