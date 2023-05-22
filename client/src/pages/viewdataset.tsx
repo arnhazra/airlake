@@ -154,7 +154,7 @@ const ViewDatasetPage: NextPage = () => {
                                     <p className='lead'>{dataset?.data?.category}</p>
                                     <Show when={subscriptionStatus?.data?.isSubscribed}>
                                         <Link target='_blank' passHref href={`https://sepolia.etherscan.io/nft/${contractAddress.nftContractAddress}/${subscriptionStatus?.data?.tokenId}`}>
-                                            <img style={{ marginLeft: '1rem' }} src='https://cdn2.iconfinder.com/data/icons/nft-flat/64/NFT_Cryptocurrency_blockchain-90-256.png' alt='NFT' height={30} width={30} />
+                                            <img src='https://cdn-icons-png.flaticon.com/128/6298/6298900.png' alt='NFT' height={50} width={50} />
                                         </Link>
                                     </Show>
                                     <p className='lead mt-3'>{dataset?.data?.description}</p>
