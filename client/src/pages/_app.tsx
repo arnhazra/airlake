@@ -1,6 +1,6 @@
 import Layout from '@/layouts/Layout'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import '@/styles/globals.sass'
+import '@/styles/global.sass'
 import '@/styles/media.sass'
 import '@/styles/cards.sass'
 import '@/styles/navbar.sass'

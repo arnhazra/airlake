@@ -15,7 +15,7 @@ interface WalletHomeProps {
 }
 
 const WalletHome: FC<WalletHomeProps> = ({ onButtonClick }) => {
-    const web3Infura = new Web3(endPoints.infuraEndpoint)
+    const web3Provider = new Web3(endPoints.infuraEndpoint)
     const [{ userState }] = useContext(GlobalContext)
     const [etherBalance, setEther] = useState('0')
     const [lftBalance, setLft] = useState('0')
@@ -25,17 +25,17 @@ const WalletHome: FC<WalletHomeProps> = ({ onButtonClick }) => {
         (async () => {
             try {
                 const { privateKey } = userState
-                const { address: walletAddress } = web3Infura.eth.accounts.privateKeyToAccount(privateKey)
-                const ethBalanceInWei = await web3Infura.eth.getBalance(walletAddress)
-                const ethBalance = web3Infura.utils.fromWei(ethBalanceInWei, 'ether')
+                const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
+                const ethBalanceInWei = await web3Provider.eth.getBalance(walletAddress)
+                const ethBalance = web3Provider.utils.fromWei(ethBalanceInWei, 'ether')
                 setEther(ethBalance)
-                const lftContract = new web3Infura.eth.Contract(tokenABI as any, contractAddress.tokenContractAddress)
+                const lftContract = new web3Provider.eth.Contract(tokenABI as any, contractAddress.tokenContractAddress)
                 let lftBalance = '0'
                 lftContract.methods.balanceOf(walletAddress).call((error: any, balance: any) => {
                     if (error) {
                         toast.error(Constants.ErrorMessage)
                     } else {
-                        lftBalance = web3Infura.utils.fromWei(balance, 'ether')
+                        lftBalance = web3Provider.utils.fromWei(balance, 'ether')
                         setLft(lftBalance)
                     }
                 })

@@ -17,7 +17,7 @@ interface LFTSwapProps {
 }
 
 const LFTSwap: FC<LFTSwapProps> = ({ onButtonClick }) => {
-    const web3Infura = new Web3(endPoints.infuraEndpoint)
+    const web3Provider = new Web3(endPoints.infuraEndpoint)
     const [tokens, setTokens] = useState('')
     const [ether, setEther] = useState(0)
     const [step, setStep] = useState(1)
@@ -32,11 +32,11 @@ const LFTSwap: FC<LFTSwapProps> = ({ onButtonClick }) => {
     const buyCoin = async () => {
         try {
             setStep(2)
-            const privateKey = userState.privateKey
-            const { address: walletAddress } = web3Infura.eth.accounts.privateKeyToAccount(privateKey)
-            const vendor = new web3Infura.eth.Contract(vendorABI as any, contractAddress.vendorContractAddress)
-            const gasPrice = await web3Infura.eth.getGasPrice()
-            const weiValue = web3Infura.utils.toWei(ether.toString(), 'ether')
+            const { privateKey } = userState
+            const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
+            const vendor = new web3Provider.eth.Contract(vendorABI as any, contractAddress.vendorContractAddress)
+            const gasPrice = await web3Provider.eth.getGasPrice()
+            const weiValue = web3Provider.utils.toWei(ether.toString(), 'ether')
 
             const transaction = {
                 from: walletAddress,
@@ -47,9 +47,9 @@ const LFTSwap: FC<LFTSwapProps> = ({ onButtonClick }) => {
                 data: vendor.methods.buyTokens().encodeABI(),
             }
 
-            const signedTransaction = await web3Infura.eth.accounts.signTransaction(transaction, privateKey)
+            const signedTransaction = await web3Provider.eth.accounts.signTransaction(transaction, privateKey)
             if (signedTransaction.rawTransaction) {
-                const receipt = await web3Infura.eth.sendSignedTransaction(signedTransaction.rawTransaction)
+                const receipt = await web3Provider.eth.sendSignedTransaction(signedTransaction.rawTransaction)
                 const txObj = {
                     fromAddress: receipt.from,
                     transactionType: 'Buy',
@@ -71,38 +71,38 @@ const LFTSwap: FC<LFTSwapProps> = ({ onButtonClick }) => {
     const sellCoin = async () => {
         try {
             setStep(2)
-            const privateKey = userState.privateKey
-            const { address: walletAddress } = web3Infura.eth.accounts.privateKeyToAccount(privateKey)
-            const gasPrice = await web3Infura.eth.getGasPrice()
+            const { privateKey } = userState
+            const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
+            const gasPrice = await web3Provider.eth.getGasPrice()
 
-            const tokenContract = new web3Infura.eth.Contract(tokenABI as any, contractAddress.tokenContractAddress)
-            const approvalData = tokenContract.methods.approve(contractAddress.vendorContractAddress, web3Infura.utils.toWei(tokens, 'ether')).encodeABI()
+            const tokenContract = new web3Provider.eth.Contract(tokenABI as any, contractAddress.tokenContractAddress)
+            const approvalData = tokenContract.methods.approve(contractAddress.vendorContractAddress, web3Provider.utils.toWei(tokens, 'ether')).encodeABI()
             const approvalTx = {
                 from: walletAddress,
                 to: contractAddress.tokenContractAddress,
                 data: approvalData,
                 gasPrice: gasPrice,
-                gas: await tokenContract.methods.approve(contractAddress.vendorContractAddress, web3Infura.utils.toWei(tokens, 'ether')).estimateGas({ from: walletAddress })
+                gas: await tokenContract.methods.approve(contractAddress.vendorContractAddress, web3Provider.utils.toWei(tokens, 'ether')).estimateGas({ from: walletAddress })
             }
 
-            const signedApprovalTx = await web3Infura.eth.accounts.signTransaction(approvalTx, privateKey)
+            const signedApprovalTx = await web3Provider.eth.accounts.signTransaction(approvalTx, privateKey)
             if (signedApprovalTx.rawTransaction) {
-                await web3Infura.eth.sendSignedTransaction(signedApprovalTx.rawTransaction)
+                await web3Provider.eth.sendSignedTransaction(signedApprovalTx.rawTransaction)
             }
 
-            const vendor = new web3Infura.eth.Contract(vendorABI as any, contractAddress.vendorContractAddress)
-            const sellData = vendor.methods.sellTokens(web3Infura.utils.toWei(tokens, 'ether')).encodeABI()
+            const vendor = new web3Provider.eth.Contract(vendorABI as any, contractAddress.vendorContractAddress)
+            const sellData = vendor.methods.sellTokens(web3Provider.utils.toWei(tokens, 'ether')).encodeABI()
             const sellTx = {
                 from: walletAddress,
                 to: contractAddress.vendorContractAddress,
                 data: sellData,
                 gasPrice: gasPrice,
-                gas: await vendor.methods.sellTokens(web3Infura.utils.toWei(tokens, 'ether')).estimateGas({ from: walletAddress })
+                gas: await vendor.methods.sellTokens(web3Provider.utils.toWei(tokens, 'ether')).estimateGas({ from: walletAddress })
             }
 
-            const signedSellTx = await web3Infura.eth.accounts.signTransaction(sellTx, privateKey)
+            const signedSellTx = await web3Provider.eth.accounts.signTransaction(sellTx, privateKey)
             if (signedSellTx.rawTransaction) {
-                const sellReceipt = await web3Infura.eth.sendSignedTransaction(signedSellTx.rawTransaction)
+                const sellReceipt = await web3Provider.eth.sendSignedTransaction(signedSellTx.rawTransaction)
 
                 const obj = {
                     fromAddress: sellReceipt.from,

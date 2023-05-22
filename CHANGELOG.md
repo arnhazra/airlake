@@ -3,7 +3,7 @@
 ## [Current v3.3]
 * Major changes in transactions - replaced Metamask with Inbuilt wallet.
 
-## [Current v3.2]
+## [v3.2]
 * Design Changes
 * New Card UI - Replaced Photos with Svg
 
