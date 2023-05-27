@@ -4,7 +4,6 @@ enum Constants {
     HomeHeader3 = `with Blockchain`,
     HomeIntro1 = `Maximize your data-driven insights with datasets,`,
     HomeIntro2 = `Subscribe with decentralized transactions and NFT ownership`,
-    Warning = 'Do not use mainnet ethers to buy LFT, it is just an implementation POC for ERC-20 standard.',
     ConnectionErrorMessage = `Connection Error`,
     AuthMessage = `Securely Authenticating`,
     ErrorMessage = '404, Lost',

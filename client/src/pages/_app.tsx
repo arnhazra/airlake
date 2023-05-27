@@ -11,6 +11,7 @@ import axios from 'axios'
 import GlobalStateProvider from '@/context/globalStateProvider'
 import Head from 'next/head'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { useEffect } from 'react'
 
 axios.interceptors.request.use((request) => {
 	request.headers.Authorization = `Bearer ${localStorage.getItem('accessToken')}`
@@ -20,6 +21,14 @@ axios.interceptors.request.use((request) => {
 const queryClient = new QueryClient()
 
 export default function App({ Component, pageProps }: AppProps) {
+	useEffect(() => {
+		if (process.env.NODE_ENV !== 'development' && !sessionStorage.getItem('isRefreshed')) {
+			console.log('Refreshing')
+			location.reload()
+			sessionStorage.setItem('isRefreshed', 'true')
+		}
+	}, [])
+
 	return (
 		<QueryClientProvider client={queryClient}>
 			<GlobalStateProvider>

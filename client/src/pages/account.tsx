@@ -55,8 +55,6 @@ const AccountPage: NextPage = () => {
                         <p className='display-6'>Account</p>
                         <div className='info'>
                             <p className='lead'>Signed in as {userState.name}</p>
-                            <p className='lead'>{Constants.Info} {contractAddress.tokenContractAddress}</p>
-                            <p className='lead'>{Constants.Warning}</p>
                             <Link href='/wallet' className='btn'>Wallet<i className="fa-solid fa-wallet"></i></Link>
                             <button className='btn' onClick={signOutFromThisDevice}>Sign Out<i className='fa-solid fa-circle-arrow-right'></i></button><br />
                             <button className='btn' onClick={signOutFromAllDevices}>Sign Out From All Devices<i className="fa-solid fa-square-arrow-up-right"></i></button>
