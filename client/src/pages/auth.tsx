@@ -1,5 +1,6 @@
 import { Fragment, useState } from 'react'
 import axios from 'axios'
+import Web3 from 'web3'
 import { FloatingLabel, Form } from 'react-bootstrap'
 import Constants from '@/constants/Constants'
 import Show from '@/components/Show'
@@ -8,8 +9,9 @@ import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 
 const AuthPage: NextPage = () => {
+    const web3Provider = new Web3(endPoints.infuraEndpoint)
     const [authstep, setAuthStep] = useState(1)
-    const [state, setState] = useState({ name: '', email: '', hash: '', otp: '', newuser: false })
+    const [state, setState] = useState({ name: '', email: '', hash: '', otp: '', privateKey: '', newuser: false })
     const [alert, setAlert] = useState('')
     const [isLoading, setLoading] = useState(false)
     const router = useRouter()
@@ -21,7 +23,15 @@ const AuthPage: NextPage = () => {
 
         try {
             const response = await axios.post(endPoints.generateAuthCodeEndpoint, state)
-            setState({ ...state, hash: response.data.hash, newuser: response.data.newuser })
+            if (response.data.newuser) {
+                const { privateKey } = web3Provider.eth.accounts.create()
+                setState({ ...state, privateKey: privateKey, hash: response.data.hash, newuser: true })
+            }
+
+            else {
+                setState({ ...state, hash: response.data.hash, newuser: false })
+            }
+
             setAlert(response.data.msg)
             setAuthStep(2)
             setLoading(false)

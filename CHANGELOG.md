@@ -4,6 +4,7 @@
 * New Transaction system with wallet
 * Restructured UI and API app with new components
 * Validations moved to new directory
+* Auto wallet address generation on signup
 
 ## [v3.2]
 * Design Changes
