@@ -20,7 +20,7 @@ const walletRouter = new WalletRouter()
 const app = express()
 app.listen(process.env.PORT)
 app.use(cors())
-app.use(express.json({ limit: '4mb' }))
+app.use(express.json({ limit: '3mb' }))
 connectMongo()
 connectRedis()
 
