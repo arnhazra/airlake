@@ -41,7 +41,7 @@ const AccountPage: NextPage = () => {
                     <div className='info text-center'>
                         <p className='lead text-center'>Signed in as {userState.name}</p>
                         <button className='btn btn-block' onClick={signOutFromThisDevice}>Sign Out<i className='fa-solid fa-circle-arrow-right'></i></button><br />
-                        <button className='btn btn-block' onClick={signOutFromAllDevices}>Sign Out From All Devices<i className="fa-solid fa-square-arrow-up-right"></i></button>
+                        <button className='btn btn-block' onClick={signOutFromAllDevices}>Sign Out From All Devices<i className='fa-solid fa-square-arrow-up-right'></i></button>
                     </div>
                 </div>
             </Show>

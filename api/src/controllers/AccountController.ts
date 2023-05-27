@@ -1,8 +1,6 @@
 import { Request, Response } from 'express'
-import { validationResult } from 'express-validator'
 import statusMessages from '../constants/statusMessages'
 import UserModel from '../models/UserModel'
-import TransactionModel from '../models/TransactionModel'
 import { removeTokenFromRedis } from '../utils/UseRedis'
 
 export default class AccountController {
