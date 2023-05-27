@@ -1,6 +1,6 @@
 import express, { Router } from 'express'
-import { check } from 'express-validator'
 import AuthController from '../controllers/AuthController'
+import { generateAuthCodeValidators, verifyAuthCodeValidators } from '../validations/authValidators'
 
 export default class AuthRouter {
     public router: Router
@@ -13,23 +13,8 @@ export default class AuthRouter {
     }
 
     registerRoutes() {
-        this.router.post(
-            '/generateauthcode',
-            [
-                check('email', 'Invalid Email Format').isEmail(),
-            ],
-            this.authController.generateAuthCode.bind(this.authController),
-        )
-
-        this.router.post(
-            '/verifyauthcode',
-            [
-                check('email', 'Provide valid email').isEmail(),
-                check('otp', 'Invalid OTP format').notEmpty(),
-                check('hash', 'Invalid Hash').notEmpty(),
-            ],
-            this.authController.verifyAuthCode.bind(this.authController),
-        )
+        this.router.post('/generateauthcode', generateAuthCodeValidators, this.authController.generateAuthCode.bind(this.authController))
+        this.router.post('/verifyauthcode', verifyAuthCodeValidators, this.authController.verifyAuthCode.bind(this.authController))
     }
 
     getRouter() {
