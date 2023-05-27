@@ -7,7 +7,7 @@ import { GlobalContext } from '@/context/globalStateProvider'
 import { unprotectedRoutes } from '@/constants/UnprotectedRoutes'
 import Constants from '@/constants/Constants'
 
-const useChcekAuth = () => {
+const useAuth = () => {
     const [, dispatch] = useContext(GlobalContext)
     const [state, setState] = useState({ isLoaded: false })
     const router = useRouter()
@@ -51,4 +51,4 @@ const useChcekAuth = () => {
     return state
 }
 
-export default useChcekAuth
+export default useAuth

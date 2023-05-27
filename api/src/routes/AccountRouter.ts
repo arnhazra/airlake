@@ -14,7 +14,7 @@ export default class AccountRouter {
     }
 
     registerRoutes() {
-        this.router.post('/checkauth', authorize, this.accountController.checkAuth.bind(this.accountController))
+        this.router.post('/verifyuser', authorize, this.accountController.verifyUser.bind(this.accountController))
         this.router.post('/signout', authorize, this.accountController.signOut.bind(this.accountController))
         this.router.post(
             '/createtransaction',

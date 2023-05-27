@@ -3,7 +3,7 @@ const apiHost = process.env.NODE_ENV === 'development' ? 'http://localhost:7000'
 const endPoints = {
     generateAuthCodeEndpoint: `${apiHost}/api/generateauthcode`,
     verifyAuthCodeEndpoint: `${apiHost}/api/verifyauthcode`,
-    checkAuthEndpoint: `${apiHost}/api/checkauth`,
+    checkAuthEndpoint: `${apiHost}/api/verifyuser`,
     signOutEndpoint: `${apiHost}/api/signout`,
     createTransactionEndpoint: `${apiHost}/api/createtransaction`,
     getTransactionsEndpoint: `${apiHost}/api/transactions`,

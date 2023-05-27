@@ -6,7 +6,7 @@ import TransactionModel from '../models/TransactionModel'
 import { removeTokenFromRedis } from '../utils/UseRedis'
 
 export default class AccountController {
-    async checkAuth(req: Request, res: Response) {
+    async verifyUser(req: Request, res: Response) {
         try {
             const user = await UserModel.findById(req.headers.id).select('-date')
 

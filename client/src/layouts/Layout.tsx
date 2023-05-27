@@ -3,13 +3,13 @@ import { LayoutProps } from '@/types/Types'
 import { Fragment, FC, useEffect } from 'react'
 import Show from '@/components/Show'
 import Loading from '@/components/Loading'
-import useChcekAuth from '@/hooks/useCheckAuth'
+import useAuth from '@/hooks/useAuth'
 import { Toaster } from 'react-hot-toast'
 import { unprotectedRoutes } from '@/constants/UnprotectedRoutes'
 import { useRouter } from 'next/router'
 
 const Layout: FC<LayoutProps> = ({ children }) => {
-	const checkAuth = useChcekAuth()
+	const auth = useAuth()
 	const router = useRouter()
 
 	useEffect(() => {
@@ -24,10 +24,10 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 				<NavBar />
 			</nav>
 			<main>
-				<Show when={checkAuth.isLoaded}>
+				<Show when={auth.isLoaded}>
 					{children}
 				</Show>
-				<Show when={!checkAuth.isLoaded}>
+				<Show when={!auth.isLoaded}>
 					<Loading />
 				</Show>
 				<Toaster position='bottom-center' containerClassName='toaster' />
