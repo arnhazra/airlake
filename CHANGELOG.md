@@ -1,8 +1,5 @@
 # Lenstack Changelog
 
-## [Current v3.3]
-* Major changes in transactions - replaced Metamask with Inbuilt wallet.
-
 ## [v3.2]
 * Design Changes
 * New Card UI - Replaced Photos with Svg
@@ -26,7 +23,6 @@
 ## [v2.8]
 * Added Create NFT functionality when subscribing to a dataset.
 * View NFT feature and added a new field in subscription model.
-* Fixed issue when connecting to metamask on view dataset page.
 
 ## [v2.7]
 * New UI of view dataset page.

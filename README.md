@@ -23,15 +23,3 @@ To access the datasets offered by Lenstack, users can subscribe to a plan that b
 ## Subscribing to premium datasets
 
 Accessing Lenstack's premium datasets requires the use of LFT, an ERC-20 standard token developed on the Ethereum blockchain. Users must hold LFT tokens in their cryptocurrency wallet in order to subscribe to the premium plans and unlock the full potential of the platform. This innovative use of blockchain technology ensures secure and transparent transactions, providing users with a seamless and trustworthy experience.
-
-## Add LFT to Metamask
-
-To add LFT to your MetaMask wallet, you can import the token by following these steps:
-* Open the MetaMask wallet extension in your browser and log in to your account.
-* Click on the three dots in the top right corner and select "Add Token".
-* Click on the "Custom Token" tab.
-* Enter the LFT contract address, which is a unique identifier for the token. The LFT contract address is provided by Lenstack.
-* MetaMask will automatically fill in the Token Symbol and Decimal fields. If not, the Token Symbol is LFT and the Decimals is 18.
-Click "Next".
-* On the next screen, you can review the details of the token you are adding. Click "Add Tokens" to complete the import process.
-* Once you have imported LFT to your MetaMask wallet, you will be able to use the token to access Lenstack's premium datasets.
