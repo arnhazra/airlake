@@ -4,18 +4,16 @@ import cors from 'cors'
 import path from 'path'
 import connectMongo from './src/utils/ConnectMongo'
 import { connectRedis } from './src/utils/UseRedis'
-import SubscriptionRouter from './src/routes/SubscriptionRouter'
 import DatasetRouter from './src/routes/DatasetRouter'
-import AuthRouter from './src/routes/AuthRouter'
-import AccountRouter from './src/routes/AccountRouter'
-import WalletRouter from './src/routes/WalletRouter'
+import SubscriptionRouter from './src/routes/SubscriptionRouter'
+import TransactionRouter from './src/routes/TransactionRouter'
+import UserRouter from './src/routes/UserRouter'
 dotenv.config()
 
-const subscriptionRouter = new SubscriptionRouter()
 const datasetRouter = new DatasetRouter()
-const authRouter = new AuthRouter()
-const accountRouter = new AccountRouter()
-const walletRouter = new WalletRouter()
+const subscriptionRouter = new SubscriptionRouter()
+const transactionRouter = new TransactionRouter()
+const userRouter = new UserRouter()
 
 const app = express()
 app.listen(process.env.PORT)
@@ -24,11 +22,10 @@ app.use(express.json({ limit: '3mb' }))
 connectMongo()
 connectRedis()
 
-app.use('/api', authRouter.getRouter())
-app.use('/api', accountRouter.getRouter())
-app.use('/api', datasetRouter.getRouter())
-app.use('/api', subscriptionRouter.getRouter())
-app.use('/api', walletRouter.getRouter())
+app.use('/api/dataset', datasetRouter.getRouter())
+app.use('/api/subscription', subscriptionRouter.getRouter())
+app.use('/api/transaction', transactionRouter.getRouter())
+app.use('/api/user', userRouter.getRouter())
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, 'client')))

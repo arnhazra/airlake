@@ -6,16 +6,15 @@ import { validationResult } from 'express-validator'
 import statusMessages from '../constants/statusMessages'
 import UserModel from '../models/UserModel'
 import sendmail from '../utils/SendMail'
-import { setTokenInRedis, getTokenFromRedis } from '../utils/UseRedis'
+import { setTokenInRedis, getTokenFromRedis, removeTokenFromRedis } from '../utils/UseRedis'
 import otherConstants from '../constants/otherConstants'
 
-dotenv.config()
-
-export default class AuthController {
+export default class UserController {
     public otpKey: string
     public rsaPrivateKey: string
 
     constructor() {
+        dotenv.config()
         this.otpKey = process.env.OTP_KEY
         this.rsaPrivateKey = process.env.RSA_PRIVATE_KEY
     }
@@ -101,6 +100,35 @@ export default class AuthController {
             catch (error) {
                 return res.status(500).json({ msg: statusMessages.connectionError })
             }
+        }
+    }
+
+    async verifyUser(req: Request, res: Response) {
+        try {
+            const user = await UserModel.findById(req.headers.id).select('-date')
+
+            if (user) {
+                return res.status(200).json({ user })
+            }
+
+            else {
+                return res.status(401).json({ msg: statusMessages.unauthorized })
+            }
+        }
+
+        catch (error) {
+            return res.status(500).json({ msg: statusMessages.connectionError })
+        }
+    }
+
+    async signOut(req: Request, res: Response) {
+        try {
+            await removeTokenFromRedis(req.headers.id as string)
+            return res.status(200).json({ msg: statusMessages.signOutSuccess })
+        }
+
+        catch (error) {
+            return res.status(500).json({ msg: statusMessages.connectionError })
         }
     }
 }
