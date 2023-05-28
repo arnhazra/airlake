@@ -5,7 +5,6 @@ import { Container, Navbar, Nav, Form } from 'react-bootstrap'
 import Link from 'next/link'
 import Show from './Show'
 import { useRouter } from 'next/router'
-import Avatar from '../assets/svg/avatar.svg'
 
 const NavBar: FC = () => {
     const [{ userState }, dispatch] = useContext(GlobalContext)
@@ -41,9 +40,7 @@ const NavBar: FC = () => {
                         <Navbar.Toggle aria-controls='navbarScroll' />
                         <Navbar.Collapse id='navbarScroll'>
                             <Nav className='me-auto my-2 my-lg-0' style={{ maxHeight: '8rem' }} navbarScroll>
-                                <Link href='/subscriptions'><Navbar.Brand>Subscriptions</Navbar.Brand></Link>
-                                <Link href='/account' className='user-link'><Navbar.Brand>Account</Navbar.Brand></Link>
-                                <Link href='/wallet'><Navbar.Brand>Wallet</Navbar.Brand></Link>
+                                <Link href='/dashboard' className='user-link'><Navbar.Brand>Dashboard</Navbar.Brand></Link>
                             </Nav>
                             <Form className='d-flex' onSubmit={(e) => e.preventDefault()}>
                                 <Form.Control
@@ -55,7 +52,7 @@ const NavBar: FC = () => {
                                     onChange={debouncedChangeHandler}
                                 />
                             </Form>
-                            <Link href='/account'><button className='user-btn'>{userState.name[0]}</button></Link>
+                            <Link href='/dashboard'><button className='user-btn'>{userState.name[0]}</button></Link>
                         </Navbar.Collapse>
                     </Container>
                 </Navbar>

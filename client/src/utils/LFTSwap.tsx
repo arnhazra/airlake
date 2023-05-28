@@ -124,78 +124,69 @@ const LFTSwap: FC<LFTSwapProps> = ({ onButtonClick }) => {
 
     return (
         <Fragment>
-            <div className='box'>
-                <Show when={type === 'swap'}>
-                    <p className='branding'>Swap LFT</p>
-                    <button className='btn btn-block' onClick={() => setType('buy')}>Buy LFT<i className='fa-solid fa-circle-arrow-up'></i></button>
-                    <button className='btn btn-block' onClick={() => setType('sell')}>Sell LFT<i className='fa-solid fa-circle-arrow-down'></i></button>
+            <Show when={type === 'swap'}>
+                <button className='btn btn-block' onClick={() => setType('buy')}>Buy LFT<i className='fa-solid fa-circle-arrow-up'></i></button>
+                <button className='btn btn-block' onClick={() => setType('sell')}>Sell LFT<i className='fa-solid fa-circle-arrow-down'></i></button>
+            </Show>
+            <Show when={type === 'buy'}>
+                <Show when={step === 1}>
+                    <FloatingLabel controlId='floatingAmount' label='Amount of tokens'>
+                        <Form.Control autoFocus type='email' placeholder='Amount of tokens' onChange={(e: any) => setTokens(e.target.value)} required />
+                    </FloatingLabel>
+                    <p id='alert'>ETH equivalent: {ether}</p>
+                    <button className='btn btn-block' onClick={buyCoin}>Buy<i className='fa-solid fa-circle-arrow-right'></i></button>
                 </Show>
-                <Show when={type === 'buy'}>
-                    <Show when={step === 1}>
-                        <p className='branding'>Buy LFT</p>
-                        <FloatingLabel controlId='floatingAmount' label='Amount of tokens'>
-                            <Form.Control autoFocus type='email' placeholder='Amount of tokens' onChange={(e: any) => setTokens(e.target.value)} required />
-                        </FloatingLabel>
-                        <p id='alert'>ETH equivalent: {ether}</p>
-                        <button className='btn btn-block' onClick={buyCoin}>Buy<i className='fa-solid fa-circle-arrow-right'></i></button>
-                    </Show>
-                    <Show when={step === 2}>
-                        <p className='branding'>Transaction Status</p>
-                        <div className='text-center mt-4'>
-                            <i className='fa-solid fa-circle-notch fa-spin text-center fa-4x color-gold'></i>
-                            <p className='lead text-center mt-4'>Processing</p>
+                <Show when={step === 2}>
+                    <div className='text-center mt-4'>
+                        <i className='fa-solid fa-circle-notch fa-spin text-center fa-4x color-gold'></i>
+                        <p className='lead text-center mt-4'>Processing</p>
+                    </div>
+                </Show>
+                <Show when={step === 3}>
+                    <Show when={!txError}>
+                        <div className='text-center'>
+                            <i className='fa-solid fa-circle-check fa-4x'></i>
+                            <p className='lead text-center mt-4'>Success</p>
                         </div>
                     </Show>
-                    <Show when={step === 3}>
-                        <p className='branding'>Transaction Status</p>
-                        <Show when={!txError}>
-                            <div className='text-center'>
-                                <i className='fa-solid fa-circle-check fa-4x'></i>
-                                <p className='lead text-center mt-4'>Success</p>
-                            </div>
-                        </Show>
-                        <Show when={txError}>
-                            <div className='text-center'>
-                                <i className='fa-solid fa-circle-xmark fa-4x'></i>
-                                <p className='lead text-center mt-4'>Failed</p>
-                            </div>
-                        </Show>
-                    </Show>
-                </Show>
-                <Show when={type === 'sell'}>
-                    <Show when={step === 1}>
-                        <p className='branding'>Sell LFT</p>
-                        <FloatingLabel controlId='floatingAmount' label='Amount of tokens'>
-                            <Form.Control autoFocus type='email' placeholder='Amount of tokens' onChange={(e: any) => setTokens(e.target.value)} required />
-                        </FloatingLabel>
-                        <p id='alert'>ETH equivalent: {ether}</p>
-                        <button className='btn btn-block' onClick={sellCoin}>Sell<i className='fa-solid fa-circle-arrow-right'></i></button>
-                    </Show>
-                    <Show when={step === 2}>
-                        <p className='branding'>Transaction Status</p>
-                        <div className='text-center mt-4'>
-                            <i className='fa-solid fa-circle-notch fa-spin text-center fa-4x color-gold'></i>
-                            <p className='lead text-center mt-4'>Processing</p>
+                    <Show when={txError}>
+                        <div className='text-center'>
+                            <i className='fa-solid fa-circle-xmark fa-4x'></i>
+                            <p className='lead text-center mt-4'>Failed</p>
                         </div>
                     </Show>
-                    <Show when={step === 3}>
-                        <p className='branding'>Transaction Status</p>
-                        <Show when={!txError}>
-                            <div className='text-center'>
-                                <i className='fa-solid fa-circle-check fa-4x'></i>
-                                <p className='lead text-center mt-4'>Success</p>
-                            </div>
-                        </Show>
-                        <Show when={txError}>
-                            <div className='text-center'>
-                                <i className='fa-solid fa-circle-xmark fa-4x'></i>
-                                <p className='lead text-center mt-4'>Failed</p>
-                            </div>
-                        </Show>
+                </Show>
+            </Show>
+            <Show when={type === 'sell'}>
+                <Show when={step === 1}>
+                    <FloatingLabel controlId='floatingAmount' label='Amount of tokens'>
+                        <Form.Control autoFocus type='email' placeholder='Amount of tokens' onChange={(e: any) => setTokens(e.target.value)} required />
+                    </FloatingLabel>
+                    <p id='alert'>ETH equivalent: {ether}</p>
+                    <button className='btn btn-block' onClick={sellCoin}>Sell<i className='fa-solid fa-circle-arrow-right'></i></button>
+                </Show>
+                <Show when={step === 2}>
+                    <div className='text-center mt-4'>
+                        <i className='fa-solid fa-circle-notch fa-spin text-center fa-4x color-gold'></i>
+                        <p className='lead text-center mt-4'>Processing</p>
+                    </div>
+                </Show>
+                <Show when={step === 3}>
+                    <Show when={!txError}>
+                        <div className='text-center'>
+                            <i className='fa-solid fa-circle-check fa-4x'></i>
+                            <p className='lead text-center mt-4'>Success</p>
+                        </div>
+                    </Show>
+                    <Show when={txError}>
+                        <div className='text-center'>
+                            <i className='fa-solid fa-circle-xmark fa-4x'></i>
+                            <p className='lead text-center mt-4'>Failed</p>
+                        </div>
                     </Show>
                 </Show>
-                <button className='btn btn-block' onClick={onButtonClick}>Go Back to Wallet <i className='fa-solid fa-circle-arrow-left'></i></button>
-            </div >
+            </Show>
+            <p className='link-para' onClick={onButtonClick}>Go Back to Wallet</p>
         </Fragment >
     )
 }
