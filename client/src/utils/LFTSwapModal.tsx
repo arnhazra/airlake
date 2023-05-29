@@ -1,4 +1,4 @@
-import { useState, useEffect, FC, useContext } from 'react'
+import React, { FC, useEffect, useState, useContext } from 'react'
 import { FloatingLabel, Form } from 'react-bootstrap'
 import { Fragment } from 'react'
 import Show from '@/components/Show'
@@ -11,12 +11,14 @@ import endPoints from '@/constants/Endpoints'
 import { toast } from 'react-hot-toast'
 import Constants from '@/constants/Constants'
 import { GlobalContext } from '@/context/globalStateProvider'
+import { Modal } from 'react-bootstrap'
 
-interface LFTSwapProps {
-    onButtonClick: () => void
+interface LFTSwapModalProps {
+    isOpened: boolean,
+    closeModal: () => void
 }
 
-const LFTSwap: FC<LFTSwapProps> = ({ onButtonClick }) => {
+const LFTSwapModal: FC<LFTSwapModalProps> = ({ isOpened, closeModal }) => {
     const web3Provider = new Web3(endPoints.infuraEndpoint)
     const [tokens, setTokens] = useState('')
     const [ether, setEther] = useState(0)
@@ -123,72 +125,85 @@ const LFTSwap: FC<LFTSwapProps> = ({ onButtonClick }) => {
     }
 
     return (
-        <Fragment>
-            <Show when={type === 'swap'}>
-                <button className='btn btn-block' onClick={() => setType('buy')}>Buy LFT<i className='fa-solid fa-circle-arrow-up'></i></button>
-                <button className='btn btn-block' onClick={() => setType('sell')}>Sell LFT<i className='fa-solid fa-circle-arrow-down'></i></button>
-            </Show>
-            <Show when={type === 'buy'}>
-                <Show when={step === 1}>
-                    <FloatingLabel controlId='floatingAmount' label='Amount of tokens'>
-                        <Form.Control autoFocus type='email' placeholder='Amount of tokens' onChange={(e: any) => setTokens(e.target.value)} required />
-                    </FloatingLabel>
-                    <p id='alert'>ETH equivalent: {ether}</p>
-                    <button className='btn btn-block' onClick={buyCoin}>Buy<i className='fa-solid fa-circle-arrow-right'></i></button>
-                </Show>
-                <Show when={step === 2}>
-                    <div className='text-center mt-4'>
-                        <i className='fa-solid fa-circle-notch fa-spin text-center fa-4x color-gold'></i>
-                        <p className='lead text-center mt-4'>Processing</p>
-                    </div>
-                </Show>
-                <Show when={step === 3}>
-                    <Show when={!txError}>
-                        <div className='text-center'>
-                            <i className='fa-solid fa-circle-check fa-4x'></i>
-                            <p className='lead text-center mt-4'>Success</p>
-                        </div>
-                    </Show>
-                    <Show when={txError}>
-                        <div className='text-center'>
-                            <i className='fa-solid fa-circle-xmark fa-4x'></i>
-                            <p className='lead text-center mt-4'>Failed</p>
-                        </div>
-                    </Show>
-                </Show>
-            </Show>
-            <Show when={type === 'sell'}>
-                <Show when={step === 1}>
-                    <FloatingLabel controlId='floatingAmount' label='Amount of tokens'>
-                        <Form.Control autoFocus type='email' placeholder='Amount of tokens' onChange={(e: any) => setTokens(e.target.value)} required />
-                    </FloatingLabel>
-                    <p id='alert'>ETH equivalent: {ether}</p>
-                    <button className='btn btn-block' onClick={sellCoin}>Sell<i className='fa-solid fa-circle-arrow-right'></i></button>
-                </Show>
-                <Show when={step === 2}>
-                    <div className='text-center mt-4'>
-                        <i className='fa-solid fa-circle-notch fa-spin text-center fa-4x color-gold'></i>
-                        <p className='lead text-center mt-4'>Processing</p>
-                    </div>
-                </Show>
-                <Show when={step === 3}>
-                    <Show when={!txError}>
-                        <div className='text-center'>
-                            <i className='fa-solid fa-circle-check fa-4x'></i>
-                            <p className='lead text-center mt-4'>Success</p>
-                        </div>
-                    </Show>
-                    <Show when={txError}>
-                        <div className='text-center'>
-                            <i className='fa-solid fa-circle-xmark fa-4x'></i>
-                            <p className='lead text-center mt-4'>Failed</p>
-                        </div>
-                    </Show>
-                </Show>
-            </Show>
-            <p className='link-para' onClick={onButtonClick}>Go Back to Wallet</p>
-        </Fragment >
+        <>
+            <Modal centered show={isOpened} onHide={closeModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>LFT Swap</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className='text-center'>
+                    <Fragment>
+                        <Show when={type === 'swap'}>
+                            <button className='btn ' onClick={() => setType('buy')}>Buy LFT<i className='fa-solid fa-circle-arrow-up'></i></button>
+                            <button className='btn ' onClick={() => setType('sell')}>Sell LFT<i className='fa-solid fa-circle-arrow-down'></i></button>
+                        </Show>
+                        <Show when={type === 'buy'}>
+                            <Show when={step === 1}>
+                                <FloatingLabel controlId='floatingAmount' label='Amount of tokens'>
+                                    <Form.Control autoFocus type='email' placeholder='Amount of tokens' onChange={(e: any) => setTokens(e.target.value)} required />
+                                </FloatingLabel>
+                                <p id='alert'>ETH equivalent: {ether}</p>
+                                <button className='btn ' onClick={buyCoin}>Buy<i className='fa-solid fa-circle-arrow-right'></i></button>
+                            </Show>
+                            <Show when={step === 2}>
+                                <div className='text-center mt-4'>
+                                    <i className='fa-solid fa-circle-notch fa-spin text-center fa-4x color-gold'></i>
+                                    <p className='lead text-center mt-4'>Processing</p>
+                                </div>
+                            </Show>
+                            <Show when={step === 3}>
+                                <Show when={!txError}>
+                                    <div className='text-center'>
+                                        <i className='fa-solid fa-circle-check fa-4x'></i>
+                                        <p className='lead text-center mt-4'>Success</p>
+                                    </div>
+                                </Show>
+                                <Show when={txError}>
+                                    <div className='text-center'>
+                                        <i className='fa-solid fa-circle-xmark fa-4x'></i>
+                                        <p className='lead text-center mt-4'>Failed</p>
+                                    </div>
+                                </Show>
+                            </Show>
+                        </Show>
+                        <Show when={type === 'sell'}>
+                            <Show when={step === 1}>
+                                <FloatingLabel controlId='floatingAmount' label='Amount of tokens'>
+                                    <Form.Control autoFocus type='email' placeholder='Amount of tokens' onChange={(e: any) => setTokens(e.target.value)} required />
+                                </FloatingLabel>
+                                <p id='alert'>ETH equivalent: {ether}</p>
+                                <button className='btn ' onClick={sellCoin}>Sell<i className='fa-solid fa-circle-arrow-right'></i></button>
+                            </Show>
+                            <Show when={step === 2}>
+                                <div className='text-center mt-4'>
+                                    <i className='fa-solid fa-circle-notch fa-spin text-center fa-4x color-gold'></i>
+                                    <p className='lead text-center mt-4'>Processing</p>
+                                </div>
+                            </Show>
+                            <Show when={step === 3}>
+                                <Show when={!txError}>
+                                    <div className='text-center'>
+                                        <i className='fa-solid fa-circle-check fa-4x'></i>
+                                        <p className='lead text-center mt-4'>Success</p>
+                                    </div>
+                                </Show>
+                                <Show when={txError}>
+                                    <div className='text-center'>
+                                        <i className='fa-solid fa-circle-xmark fa-4x'></i>
+                                        <p className='lead text-center mt-4'>Failed</p>
+                                    </div>
+                                </Show>
+                            </Show>
+                        </Show>
+                    </Fragment >
+                </Modal.Body>
+                <Modal.Footer>
+                    <button className='btn' onClick={closeModal}>
+                        Close
+                    </button>
+                </Modal.Footer>
+            </Modal>
+        </>
     )
 }
 
-export default LFTSwap
+export default LFTSwapModal
