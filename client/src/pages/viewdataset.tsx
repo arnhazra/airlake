@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
+import { Card, Col, Container, Row } from 'react-bootstrap'
 import { Fragment } from 'react'
 import Web3 from 'web3'
 import Loading from '@/components/Loading'
@@ -19,9 +19,10 @@ import HTTPMethods from '@/constants/HTTPMethods'
 import Error from '@/components/ErrorComp'
 import Link from 'next/link'
 import { GlobalContext } from '@/context/globalStateProvider'
-const web3Provider = new Web3(endPoints.infuraEndpoint)
+import { Rating } from 'react-simple-star-rating'
 
 const ViewDatasetPage: NextPage = () => {
+    const web3Provider = new Web3(endPoints.infuraEndpoint)
     const router = useRouter()
     const { id: datasetId } = router.query
     const [eventId, setEventId] = useState(Math.random().toString())
@@ -44,7 +45,6 @@ const ViewDatasetPage: NextPage = () => {
             const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
             const tokenId = Math.floor(1000000 + Math.random() * 9000000)
 
-            // Approve the contract to spend the tokens
             const tokenContract = new web3Provider.eth.Contract(
                 tokenABI as any,
                 contractAddress.tokenContractAddress
@@ -69,7 +69,6 @@ const ViewDatasetPage: NextPage = () => {
                 await web3Provider.eth.sendSignedTransaction(signedApprovalTx.rawTransaction)
             }
 
-            // Spend the tokens to buy an NFT
             const nftcontract = new web3Provider.eth.Contract(lnftABI as any, contractAddress.nftContractAddress)
             const mintNftData = nftcontract.methods.mintNft(tokenId).encodeABI()
             const purchaseNftData = nftcontract.methods
@@ -120,7 +119,6 @@ const ViewDatasetPage: NextPage = () => {
 
             const tokenId = subscriptionStatus?.data?.tokenId
 
-            // Sell the NFT
             const nftcontract = new web3Provider.eth.Contract(lnftABI as any, contractAddress.nftContractAddress)
             const sellNftData = nftcontract.methods.sellNft(tokenId).encodeABI()
             const refundAmount = (dataset?.data?.price / 2).toString()
@@ -138,7 +136,6 @@ const ViewDatasetPage: NextPage = () => {
                 await web3Provider.eth.sendSignedTransaction(signedSellNftTx.rawTransaction)
             }
 
-            // Mint custom amount of tokens as refund
             const tokenContract = new web3Provider.eth.Contract(tokenABI as any, contractAddress.tokenContractAddress)
             const mintCustomAmountData = tokenContract.methods.mintCustomAmount(web3Provider.utils.toWei(refundAmount, 'ether')).encodeABI()
 
@@ -193,8 +190,21 @@ const ViewDatasetPage: NextPage = () => {
                     <Container className='mt-4'>
                         <div className='jumbotron'>
                             <Row>
-                                <DatasetCard key={dataset?.data?._id} id={dataset?.data?._id} category={dataset?.data?.category} name={dataset?.data?.name} price={dataset?.data?.price} rating={dataset?.data?.rating} />
-                                <Col sm={6} md={8} lg={9} xl={9}>
+                                <Col xs={12} sm={12} md={4} lg={3} xl={2} className='mb-4'>
+                                    <Card>
+                                        <Card.Header className='pt-3'>
+                                            <div className={`${dataset?.data?.category.toLowerCase()}Container pt-4`} />
+                                        </Card.Header>
+                                        <Card.Footer className={`pt-4 pb-2 ps-4 ${dataset?.data?.category.toLowerCase()}Color`}>
+                                            <div className='nameContainer'>
+                                                <p>{dataset?.data?.name}</p>
+                                            </div>
+                                            <p className='smalltext'>{dataset?.data?.category} • {dataset?.data?.price + ' LFT'}</p>
+                                            <Rating className='card-rating' initialValue={dataset?.data?.rating} allowHover={false} allowFraction size={25} readonly /><br />
+                                        </Card.Footer>
+                                    </Card>
+                                </Col >
+                                <Col xs={12} sm={12} md={8} lg={9} xl={10}>
                                     <p className='display-6 text-capitalize'>{dataset?.data?.name}</p>
                                     <p className='lead'>{dataset?.data?.category}</p>
                                     <Show when={subscriptionStatus?.data?.isSubscribed}>
