@@ -13,7 +13,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 	const router = useRouter()
 
 	useEffect(() => {
-		if (unprotectedRoutes.includes(router.pathname) && localStorage.hasOwnProperty('accessToken')) {
+		if (unprotectedRoutes.includes(router.pathname) && sessionStorage.hasOwnProperty('accessToken')) {
 			router.replace('/dataplatform')
 		}
 	}, [router.pathname])

@@ -22,7 +22,7 @@ const NavBar: FC = () => {
     )
 
     useEffect(() => {
-        if (localStorage.hasOwnProperty('accessToken')) {
+        if (sessionStorage.hasOwnProperty('accessToken')) {
             setAuthenticated(true)
         }
 

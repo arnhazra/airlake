@@ -25,14 +25,14 @@ const DashboardPage: NextPage = () => {
     const datasetSubscriptions = useFetch('subscriptions', endPoints.datasetSubscriptionEndpoint, HTTPMethods.POST)
 
     const signOutFromThisDevice = () => {
-        localStorage.removeItem('accessToken')
+        sessionStorage.removeItem('accessToken')
         router.push('/')
     }
 
     const signOutFromAllDevices = async () => {
         try {
             await axios.post(endPoints.signOutEndpoint)
-            localStorage.removeItem('accessToken')
+            sessionStorage.removeItem('accessToken')
             router.push('/')
         } catch (error) {
             toast.error(Constants.ToastError)

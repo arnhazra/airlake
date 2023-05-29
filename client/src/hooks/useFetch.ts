@@ -22,7 +22,7 @@ function useFetch(queryKey: string, queryUrl: string, method: Method, requestBod
             retryDelay: 2500,
             onError(err: any) {
                 if (err.response && err.response.status === 401) {
-                    localStorage.removeItem('accessToken')
+                    sessionStorage.removeItem('accessToken')
                     router.push('/')
                 }
 

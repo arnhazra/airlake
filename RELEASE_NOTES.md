@@ -1,5 +1,8 @@
 # Lenstack Release Notes
 
+## [v3.4]
+* Replaced local storage with session storage for authorization
+
 ## [v3.3]
 * New Transaction system with wallet
 * Restructured UI and API app with new components

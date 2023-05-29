@@ -24,7 +24,7 @@ const useAuth = () => {
                 catch (error: any) {
                     if (error.response) {
                         if (error.response.status === 401) {
-                            localStorage.removeItem('accessToken')
+                            sessionStorage.removeItem('accessToken')
                             setState({ isLoaded: true })
                             router.push('/')
                         }
