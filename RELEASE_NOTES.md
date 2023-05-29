@@ -1,4 +1,4 @@
-# Lenstack Changelog
+# Lenstack Release Notes
 
 ## [v3.3]
 * New Transaction system with wallet
