@@ -1,5 +1,6 @@
 $btnColor: #1c2b33
 $textColor: #fafafb
+$tagColor: #f1f5f9
 
 .btn
     background: $btnColor
@@ -20,7 +21,7 @@ $textColor: #fafafb
 
 .btn:hover,
 .btn:focus
-    background-color: $btnColor !important
+    background-color: $btnColor
 
 a,
 a:hover,
@@ -31,6 +32,8 @@ a:active
     cursor: pointer
 
 .tag-chip
+    background: $tagColor !important
+    color: $btnColor !important
     padding: 0.7rem
     padding-left: 1.4rem
     padding-right: 1.4rem
@@ -38,6 +41,12 @@ a:active
     border-radius: 3rem
     cursor: default !important
     text-transform: uppercase
+
+.tag-chip:hover,
+.tag-chip:focus
+.tag-chip:active
+    background: $tagColor
+    color: $btnColor
 
 .btn-block
     width: 119.5%
@@ -57,6 +66,13 @@ a:active
     margin-bottom: 0
     border-radius: 0 0 0.5rem 0.5rem
     padding: 1.5rem
+    text-transform: uppercase
+
+.btn-modal
+    width: 100%
+    position: relative
+    margin-bottom: 0.5rem
+    border-radius: 0.5rem
     text-transform: uppercase
 
 .btn-block:hover,

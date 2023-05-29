@@ -113,7 +113,7 @@ const DashboardPage: NextPage = () => {
                                 <p className='display-6'>{transactions?.data?.transactions?.length}</p>
                                 <p className='smalltext'>Buy LFT - {transactions?.data?.transactions?.filter((transaction: any) => transaction.transactionType === 'Buy').length}</p>
                                 <p className='smalltext'>Sell LFT - {transactions?.data?.transactions?.filter((transaction: any) => transaction.transactionType === 'Sell').length}</p>
-                                <button className='btn btn-bottom' onClick={signOut}>Refresh<i className='fa-solid fa-circle-arrow-right'></i></button><br />
+                                <button className='btn btn-bottom' onClick={() => toast.success('Transaction will refresh in a few seconds')}>Refresh<i className='fa-solid fa-circle-arrow-right'></i></button><br />
                             </div>
                         </Col>
                         <Col xs={12} sm={6} md={6} lg={4} xl={3} className='mb-2'>
@@ -125,7 +125,6 @@ const DashboardPage: NextPage = () => {
                             </div>
                         </Col>
                     </Row>
-
                 </Container>
                 <Container>
                     <Show when={transactions?.data?.transactions?.length > 0}>
@@ -146,7 +145,7 @@ const DashboardPage: NextPage = () => {
                         </Table>
                     </Show>
                 </Container>
-                <LFTSwapModal isOpened={isSwapModalOpened} closeModal={() => setSwapModalOpened(false)} />
+                <LFTSwapModal isOpened={isSwapModalOpened} closeModal={() => { setSwapModalOpened(false) }} />
             </Show>
             <Show when={transactions.isLoading || walletLoading}>
                 <Loading />

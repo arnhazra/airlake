@@ -31,7 +31,16 @@ const LFTSwapModal: FC<LFTSwapModalProps> = ({ isOpened, closeModal }) => {
         setEther(Number(tokens) / 10000)
     }, [tokens])
 
-    const buyCoin = async () => {
+    useEffect(() => {
+        setType('swap')
+        setStep(1)
+        setTxError(false)
+        setEther(0)
+        setTokens('')
+    }, [isOpened])
+
+    const buyToken = async (e: any) => {
+        e.preventDefault()
         try {
             setStep(2)
             const { privateKey } = userState
@@ -70,7 +79,8 @@ const LFTSwapModal: FC<LFTSwapModalProps> = ({ isOpened, closeModal }) => {
         }
     }
 
-    const sellCoin = async () => {
+    const sellToken = async (e: any) => {
+        e.preventDefault()
         try {
             setStep(2)
             const { privateKey } = userState
@@ -126,23 +136,25 @@ const LFTSwapModal: FC<LFTSwapModalProps> = ({ isOpened, closeModal }) => {
 
     return (
         <>
-            <Modal centered show={isOpened} onHide={closeModal}>
+            <Modal dialogClassName='mymodal' backdrop="static" centered show={isOpened} onHide={closeModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>LFT Swap</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className='text-center'>
                     <Fragment>
                         <Show when={type === 'swap'}>
-                            <button className='btn ' onClick={() => setType('buy')}>Buy LFT<i className='fa-solid fa-circle-arrow-up'></i></button>
-                            <button className='btn ' onClick={() => setType('sell')}>Sell LFT<i className='fa-solid fa-circle-arrow-down'></i></button>
+                            <button className='btn btn-modal' onClick={() => setType('buy')}>Buy LFT<i className='fa-solid fa-circle-arrow-up'></i></button>
+                            <button className='btn btn-modal' onClick={() => setType('sell')}>Sell LFT<i className='fa-solid fa-circle-arrow-down'></i></button>
                         </Show>
                         <Show when={type === 'buy'}>
                             <Show when={step === 1}>
-                                <FloatingLabel controlId='floatingAmount' label='Amount of tokens'>
-                                    <Form.Control autoFocus type='email' placeholder='Amount of tokens' onChange={(e: any) => setTokens(e.target.value)} required />
-                                </FloatingLabel>
-                                <p id='alert'>ETH equivalent: {ether}</p>
-                                <button className='btn ' onClick={buyCoin}>Buy<i className='fa-solid fa-circle-arrow-right'></i></button>
+                                <form onSubmit={buyToken}>
+                                    <FloatingLabel controlId='floatingAmount' label='Amount of tokens'>
+                                        <Form.Control autoComplete={'off'} autoFocus type='number' placeholder='Amount of tokens' onChange={(e: any) => setTokens(e.target.value)} required />
+                                    </FloatingLabel>
+                                    <p id='alert'>ETH equivalent: {ether}</p>
+                                    <button className='btn btn-modal' type='submit'>Buy<i className='fa-solid fa-circle-arrow-right'></i></button>
+                                </form>
                             </Show>
                             <Show when={step === 2}>
                                 <div className='text-center mt-4'>
@@ -167,11 +179,13 @@ const LFTSwapModal: FC<LFTSwapModalProps> = ({ isOpened, closeModal }) => {
                         </Show>
                         <Show when={type === 'sell'}>
                             <Show when={step === 1}>
-                                <FloatingLabel controlId='floatingAmount' label='Amount of tokens'>
-                                    <Form.Control autoFocus type='email' placeholder='Amount of tokens' onChange={(e: any) => setTokens(e.target.value)} required />
-                                </FloatingLabel>
-                                <p id='alert'>ETH equivalent: {ether}</p>
-                                <button className='btn ' onClick={sellCoin}>Sell<i className='fa-solid fa-circle-arrow-right'></i></button>
+                                <form onSubmit={sellToken}>
+                                    <FloatingLabel controlId='floatingAmount' label='Amount of tokens'>
+                                        <Form.Control autoComplete={'off'} autoFocus type='number' placeholder='Amount of tokens' onChange={(e: any) => setTokens(e.target.value)} required />
+                                    </FloatingLabel>
+                                    <p id='alert'>ETH equivalent: {ether}</p>
+                                    <button type='submit' className='btn btn-modal'>Sell<i className='fa-solid fa-circle-arrow-right'></i></button>
+                                </form>
                             </Show>
                             <Show when={step === 2}>
                                 <div className='text-center mt-4'>
@@ -196,11 +210,6 @@ const LFTSwapModal: FC<LFTSwapModalProps> = ({ isOpened, closeModal }) => {
                         </Show>
                     </Fragment >
                 </Modal.Body>
-                <Modal.Footer>
-                    <button className='btn' onClick={closeModal}>
-                        Close
-                    </button>
-                </Modal.Footer>
             </Modal>
         </>
     )
