@@ -13,7 +13,9 @@ import '@/styles/button.sass'
 import '@/styles/form.sass'
 
 axios.interceptors.request.use((request) => {
-	request.headers.Authorization = `Bearer ${sessionStorage.getItem('accessToken')}`
+	if (sessionStorage.hasOwnProperty('accessToken')) {
+		request.headers.Authorization = `Bearer ${sessionStorage.getItem('accessToken')}`
+	}
 	return request
 })
 
