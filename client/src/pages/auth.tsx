@@ -7,6 +7,7 @@ import Show from '@/components/Show'
 import endPoints from '@/constants/Endpoints'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
+import { toast } from 'react-hot-toast'
 
 const AuthPage: NextPage = () => {
     const web3Provider = new Web3(endPoints.infuraEndpoint)
@@ -32,13 +33,13 @@ const AuthPage: NextPage = () => {
                 setState({ ...state, hash: response.data.hash, newuser: false })
             }
 
-            setAlert(response.data.msg)
+            toast.success(response.data.msg)
             setAuthStep(2)
             setLoading(false)
         }
 
         catch (error) {
-            setAlert(Constants.ConnectionErrorMessage)
+            toast.error(Constants.ConnectionErrorMessage)
             setLoading(false)
         }
     }
@@ -51,19 +52,19 @@ const AuthPage: NextPage = () => {
         try {
             const response = await axios.post(endPoints.verifyAuthCodeEndpoint, state)
             sessionStorage.setItem('accessToken', response.data.accessToken)
-            setAlert('Successfully authenticated')
+            toast.success('Successfully authenticated')
             setLoading(false)
             router.push('/dataplatform')
         }
 
         catch (error: any) {
             if (error.response) {
-                setAlert(error.response.data.msg)
+                toast.error(error.response.data.msg)
                 setLoading(false)
             }
 
             else {
-                setAlert(Constants.ConnectionErrorMessage)
+                toast.error(Constants.ConnectionErrorMessage)
                 setLoading(false)
             }
         }
@@ -76,10 +77,12 @@ const AuthPage: NextPage = () => {
                     <p className='branding'>Auth</p>
                     <p className='boxtext'>Enter the email address, it will be used for authentication.</p>
                     <FloatingLabel controlId='floatingEmail' label='Your Email'>
-                        <Form.Control autoFocus type='email' placeholder='Your Email' onChange={(e) => setState({ ...state, email: e.target.value })} required autoComplete={'off'} minLength={4} maxLength={40} />
-                    </FloatingLabel>
-                    <p id='alert'>{alert}</p>
-                    <button type='submit' className='mt-2 btn btn-block'>Continue {isLoading ? <i className='fas fa-circle-notch fa-spin'></i> : <i className='fa-solid fa-circle-arrow-right'></i>}</button><br />
+                        <Form.Control disabled={isLoading} autoFocus type='email' placeholder='Your Email' onChange={(e) => setState({ ...state, email: e.target.value })} required autoComplete={'off'} minLength={4} maxLength={40} />
+                    </FloatingLabel><br />
+                    <button type='submit' disabled={isLoading} className='mt-2 btn btn-block'>
+                        <Show when={!isLoading}>Continue <i className='fa-solid fa-circle-arrow-right'></i></Show>
+                        <Show when={isLoading}><i className='fas fa-circle-notch fa-spin'></i> {alert}</Show>
+                    </button>
                 </form>
             </Show>
             <Show when={authstep === 2}>
@@ -88,14 +91,16 @@ const AuthPage: NextPage = () => {
                     <p className='boxtext'>Please verify your identity by entering the auth code we sent to your inbox.</p>
                     <Show when={state.newuser}>
                         <FloatingLabel controlId='floatingName' label='Your Name'>
-                            <Form.Control type='text' placeholder='Your Name' onChange={(e) => setState({ ...state, name: e.target.value })} required autoComplete={'off'} minLength={3} maxLength={40} />
+                            <Form.Control type='text' disabled={isLoading} placeholder='Your Name' onChange={(e) => setState({ ...state, name: e.target.value })} required autoComplete={'off'} minLength={3} maxLength={40} />
                         </FloatingLabel>
-                    </Show>
+                    </Show><br />
                     <FloatingLabel controlId='floatingPassword' label='Enter Auth Code'>
-                        <Form.Control type='password' name='otp' placeholder='Enter Auth Code' onChange={(e) => setState({ ...state, otp: e.target.value })} required autoComplete={'off'} minLength={6} maxLength={6} />
-                    </FloatingLabel>
-                    <p id='alert'>{alert}</p>
-                    <button type='submit' className='mt-2 btn btn-block'>{state.newuser ? 'Sign Up' : 'Sign In'} {isLoading ? <i className='fas fa-circle-notch fa-spin'></i> : <i className='fa-solid fa-circle-arrow-right'></i>}</button>
+                        <Form.Control type='password' disabled={isLoading} name='otp' placeholder='Enter Auth Code' onChange={(e) => setState({ ...state, otp: e.target.value })} required autoComplete={'off'} minLength={6} maxLength={6} />
+                    </FloatingLabel><br />
+                    <button type='submit' disabled={isLoading} className='mt-2 btn btn-block'>
+                        <Show when={!isLoading}>Continue <i className='fa-solid fa-circle-arrow-right'></i></Show>
+                        <Show when={isLoading}><i className='fas fa-circle-notch fa-spin'></i> {alert}</Show>
+                    </button>
                 </form>
             </Show>
         </Fragment >

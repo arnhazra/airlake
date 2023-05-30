@@ -5,7 +5,7 @@ enum Constants {
     HomeIntro1 = `Maximize your data-driven insights with datasets,`,
     HomeIntro2 = `Subscribe with decentralized transactions and NFT ownership`,
     ConnectionErrorMessage = `Connection Error`,
-    AuthMessage = `Securely Authenticating`,
+    AuthMessage = `Authenticating`,
     ErrorMessage = '404, Lost',
     ToastError = 'Something went wrong',
     TransactionError = 'Transaction Error',
