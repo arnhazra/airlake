@@ -86,24 +86,21 @@ const DashboardPage: NextPage = () => {
                 <Container>
                     <Row className='mt-4'>
                         <Col xs={12} sm={6} md={6} lg={4} xl={3} className='mb-2'>
-                            <Link href={'/subscriptions'}>
-                                <div className='jumbotron'>
-                                    <p className='branding'>Subscriptions <i className='fa-solid fa-circle-plus'></i></p>
-                                    <p className='display-6'>{datasetSubscriptions?.data?.subscribedDatasets?.length}</p>
-                                    <p className='lead'>NFT Count {datasetSubscriptions?.data?.subscribedDatasets?.length}</p>
-                                </div>
-                            </Link>
+                            <div className='jumbotron'>
+                                <p className='branding'>Subscriptions <i className='fa-solid fa-circle-plus'></i></p>
+                                <p className='smalltext'>Subscription Count</p>
+                                <h4>{datasetSubscriptions?.data?.subscribedDatasets?.length}</h4>
+                                <Link className='btn btn-block' href={'/subscriptions'}>My Subscriptions <i className='fa-solid fa-circle-arrow-right'></i></Link>
+                            </div>
                         </Col>
                         <Col xs={12} sm={6} md={6} lg={4} xl={3} className='mb-2'>
                             <div className='jumbotron'>
                                 <p className='branding'>Wallet <i className='fa-solid fa-wallet'></i></p>
-                                <div>
-                                    <p className='smalltext'>{accountAddress}</p>
-                                    <h4>
-                                        <i className='fa-brands fa-ethereum'></i>{Number(etherBalance).toFixed(2)} ETH
-                                        <i className='fa-solid fa-certificate'></i>{Number(lftBalance).toFixed(0)} LFT
-                                    </h4>
-                                </div>
+                                <p className='smalltext'>{accountAddress}</p>
+                                <h4>
+                                    <i className='fa-brands fa-ethereum'></i>{Number(etherBalance).toFixed(2)} ETH
+                                    <i className='fa-solid fa-certificate'></i>{Number(lftBalance).toFixed(0)} LFT
+                                </h4>
                                 <button className='btn btn-block' onClick={() => setSwapModalOpened(true)}>Swap LFT<i className='fa-solid fa-circle-arrow-right'></i></button><br />
                             </div>
                         </Col>
@@ -120,7 +117,7 @@ const DashboardPage: NextPage = () => {
                         <Col xs={12} sm={6} md={6} lg={4} xl={3} className='mb-2'>
                             <div className='jumbotron'>
                                 <p className='branding'>Account <i className='fa-solid fa-address-card'></i></p>
-                                <p className='smalltext'>Signed in as</p>
+                                <p className='smalltext'>Signed in As</p>
                                 <h4>{userState.name}</h4>
                                 <button className='btn btn-block' onClick={signOut}>Sign Out<i className='fa-solid fa-circle-arrow-right'></i></button><br />
                             </div>
