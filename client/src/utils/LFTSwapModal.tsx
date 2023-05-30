@@ -24,6 +24,7 @@ const LFTSwapModal: FC<LFTSwapModalProps> = ({ isOpened, closeModal }) => {
     const [tokens, setTokens] = useState('')
     const [ether, setEther] = useState(0)
     const [step, setStep] = useState(1)
+    const [isTxProcessing, setTxProcessing] = useState(false)
     const [txError, setTxError] = useState(false)
     const [type, setType] = useState('swap')
     const [{ userState }] = useContext(GlobalContext)
@@ -33,17 +34,18 @@ const LFTSwapModal: FC<LFTSwapModalProps> = ({ isOpened, closeModal }) => {
     }, [tokens])
 
     useEffect(() => {
-        setType('swap')
-        setStep(1)
-        setTxError(false)
-        setEther(0)
         setTokens('')
+        setEther(0)
+        setStep(1)
+        setTxProcessing(false)
+        setTxError(false)
+        setType('swap')
     }, [isOpened])
 
     const buyToken = async (e: any) => {
         e.preventDefault()
         try {
-            setStep(2)
+            setTxProcessing(true)
             const { privateKey } = userState
             const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
             const vendor = new web3Provider.eth.Contract(vendorABI as any, contractAddress.vendorContractAddress)
@@ -70,12 +72,14 @@ const LFTSwapModal: FC<LFTSwapModalProps> = ({ isOpened, closeModal }) => {
                     txHash: receipt.transactionHash
                 }
                 await axios.post(endPoints.createTransactionEndpoint, txObj)
-                setStep(3)
+                setTxProcessing(false)
+                setStep(2)
                 toast.success(Constants.TokenPurchaseSuccess)
             }
         } catch (err) {
             setTxError(true)
-            setStep(3)
+            setTxProcessing(false)
+            setStep(2)
             toast.error(Constants.TokenPurchaseFailure)
         }
     }
@@ -83,7 +87,7 @@ const LFTSwapModal: FC<LFTSwapModalProps> = ({ isOpened, closeModal }) => {
     const sellToken = async (e: any) => {
         e.preventDefault()
         try {
-            setStep(2)
+            setTxProcessing(true)
             const { privateKey } = userState
             const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
             const gasPrice = await web3Provider.eth.getGasPrice()
@@ -125,19 +129,27 @@ const LFTSwapModal: FC<LFTSwapModalProps> = ({ isOpened, closeModal }) => {
                     txHash: sellReceipt.transactionHash
                 }
                 await axios.post(endPoints.createTransactionEndpoint, obj)
-                setStep(3)
+                setStep(2)
+                setTxProcessing(false)
                 toast.success(Constants.TokenSellSuccess)
             }
         } catch (err) {
             setTxError(true)
-            setStep(3)
+            setTxProcessing(false)
+            setStep(2)
             toast.error(Constants.TokenSellFailure)
+        }
+    }
+
+    const hideModal = (): void => {
+        if (!isTxProcessing) {
+            closeModal()
         }
     }
 
     return (
         <>
-            <Modal dialogClassName='mymodal' backdrop="static" centered show={isOpened} onHide={closeModal}>
+            <Modal backdrop='static' centered show={isOpened} onHide={hideModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>LFT Swap</Modal.Title>
                 </Modal.Header>
@@ -152,62 +164,42 @@ const LFTSwapModal: FC<LFTSwapModalProps> = ({ isOpened, closeModal }) => {
                             <Show when={step === 1}>
                                 <form onSubmit={buyToken}>
                                     <FloatingLabel controlId='floatingAmount' label='Amount of tokens'>
-                                        <Form.Control autoComplete={'off'} autoFocus type='number' placeholder='Amount of tokens' onChange={(e: any) => setTokens(e.target.value)} required />
+                                        <Form.Control disabled={isTxProcessing} autoComplete={'off'} autoFocus type='number' placeholder='Amount of tokens' onChange={(e: any) => setTokens(e.target.value)} required />
                                     </FloatingLabel>
                                     <p id='alert'>ETH equivalent: {ether}</p>
-                                    <button className='btn btn-block' type='submit'>Buy<i className='fa-solid fa-circle-arrow-right'></i></button>
+                                    <button className='btn btn-block' type='submit' disabled={isTxProcessing}>
+                                        <Show when={!isTxProcessing}>Buy<i className='fa-solid fa-circle-arrow-right'></i></Show>
+                                        <Show when={isTxProcessing}><i className='fa-solid fa-circle-notch fa-spin'></i> Processing Tx</Show>
+                                    </button>
                                 </form>
-                            </Show>
-                            <Show when={step === 2}>
-                                <div className='text-center mt-4'>
-                                    <i className='fa-solid fa-circle-notch fa-spin text-center fa-4x color-gold'></i>
-                                    <p className='lead text-center mt-4'>Processing</p>
-                                </div>
-                            </Show>
-                            <Show when={step === 3}>
-                                <Show when={!txError}>
-                                    <div className='text-center'>
-                                        <i className='fa-solid fa-circle-check fa-4x'></i>
-                                        <p className='lead text-center mt-4'>Success</p>
-                                    </div>
-                                </Show>
-                                <Show when={txError}>
-                                    <div className='text-center'>
-                                        <i className='fa-solid fa-circle-xmark fa-4x'></i>
-                                        <p className='lead text-center mt-4'>Failed</p>
-                                    </div>
-                                </Show>
                             </Show>
                         </Show>
                         <Show when={type === 'sell'}>
                             <Show when={step === 1}>
                                 <form onSubmit={sellToken}>
                                     <FloatingLabel controlId='floatingAmount' label='Amount of tokens'>
-                                        <Form.Control autoComplete={'off'} autoFocus type='number' placeholder='Amount of tokens' onChange={(e: any) => setTokens(e.target.value)} required />
+                                        <Form.Control disabled={isTxProcessing} autoComplete={'off'} autoFocus type='number' placeholder='Amount of tokens' onChange={(e: any) => setTokens(e.target.value)} required />
                                     </FloatingLabel>
                                     <p id='alert'>ETH equivalent: {ether}</p>
-                                    <button type='submit' className='btn btn-block'>Sell<i className='fa-solid fa-circle-arrow-right'></i></button>
+                                    <button className='btn btn-block' type='submit' disabled={isTxProcessing}>
+                                        <Show when={!isTxProcessing}>Sell<i className='fa-solid fa-circle-arrow-right'></i></Show>
+                                        <Show when={isTxProcessing}><i className='fa-solid fa-circle-notch fa-spin'></i> Processing Tx</Show>
+                                    </button>
                                 </form>
                             </Show>
-                            <Show when={step === 2}>
-                                <div className='text-center mt-4'>
-                                    <i className='fa-solid fa-circle-notch fa-spin text-center fa-4x color-gold'></i>
-                                    <p className='lead text-center mt-4'>Processing</p>
+                        </Show>
+                        <Show when={step === 2}>
+                            <Show when={!txError}>
+                                <div className='text-center'>
+                                    <i className='fa-solid fa-circle-check fa-4x'></i>
+                                    <p className='lead text-center mt-4'>Success</p>
                                 </div>
                             </Show>
-                            <Show when={step === 3}>
-                                <Show when={!txError}>
-                                    <div className='text-center'>
-                                        <i className='fa-solid fa-circle-check fa-4x'></i>
-                                        <p className='lead text-center mt-4'>Success</p>
-                                    </div>
-                                </Show>
-                                <Show when={txError}>
-                                    <div className='text-center'>
-                                        <i className='fa-solid fa-circle-xmark fa-4x'></i>
-                                        <p className='lead text-center mt-4'>Failed</p>
-                                    </div>
-                                </Show>
+                            <Show when={txError}>
+                                <div className='text-center'>
+                                    <i className='fa-solid fa-circle-xmark fa-4x'></i>
+                                    <p className='lead text-center mt-4'>Failed</p>
+                                </div>
                             </Show>
                         </Show>
                     </Fragment >
