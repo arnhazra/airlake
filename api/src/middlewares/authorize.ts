@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-import jwt, { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 import statusMessages from '../constants/statusMessages'
 import { getTokenFromRedis } from '../utils/UseRedis'
@@ -25,18 +25,12 @@ async function authorize(req: Request, res: Response, next: NextFunction) {
             }
 
             else {
-                throw JsonWebTokenError
+                return res.status(401).json({ msg: statusMessages.invalidToken })
             }
         }
 
         catch (error) {
-            if (error instanceof JsonWebTokenError || error instanceof TokenExpiredError) {
-                return res.status(401).json({ msg: statusMessages.invalidToken })
-            }
-
-            else {
-                return res.status(500).json({ msg: statusMessages.connectionError })
-            }
+            return res.status(401).json({ msg: statusMessages.invalidToken })
         }
     }
 }
