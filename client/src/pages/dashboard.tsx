@@ -61,7 +61,7 @@ const DashboardPage: NextPage = () => {
     const signOut = async () => {
         try {
             await axios.post(endPoints.signOutEndpoint)
-            sessionStorage.removeItem('accessToken')
+            localStorage.removeItem('accessToken')
             router.push('/')
         } catch (error) {
             toast.error(Constants.ToastError)

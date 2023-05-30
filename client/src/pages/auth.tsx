@@ -51,7 +51,7 @@ const AuthPage: NextPage = () => {
 
         try {
             const response = await axios.post(endPoints.verifyAuthCodeEndpoint, state)
-            sessionStorage.setItem('accessToken', response.data.accessToken)
+            localStorage.setItem('accessToken', response.data.accessToken)
             toast.success('Successfully authenticated')
             setLoading(false)
             router.push('/dataplatform')

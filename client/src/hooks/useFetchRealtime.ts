@@ -23,7 +23,7 @@ function useFetchRealtime(queryKey: string, queryUrl: string, method: Method, re
             retryDelay: 2500,
             onError(err: any) {
                 if (err.response && err.response.status === 401) {
-                    sessionStorage.removeItem('accessToken')
+                    localStorage.removeItem('accessToken')
                     router.push('/')
                 }
 
