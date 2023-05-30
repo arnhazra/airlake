@@ -30,7 +30,6 @@ async function authorize(req: Request, res: Response, next: NextFunction) {
         }
 
         catch (error) {
-            console.log(error)
             if (error instanceof JsonWebTokenError || error instanceof TokenExpiredError) {
                 return res.status(401).json({ msg: statusMessages.invalidToken })
             }

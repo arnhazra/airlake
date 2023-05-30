@@ -7,7 +7,7 @@ import Show from './Show'
 import { useRouter } from 'next/router'
 
 const NavBar: FC = () => {
-    const [{ userState }, dispatch] = useContext(GlobalContext)
+    const [, dispatch] = useContext(GlobalContext)
     const router = useRouter()
     const [isAuthenticated, setAuthenticated] = useState(false)
 
@@ -52,7 +52,7 @@ const NavBar: FC = () => {
                                     onChange={debouncedChangeHandler}
                                 />
                             </Form>
-                            <Link href='/dashboard'><button className='user-btn'>{userState.name[0]}</button></Link>
+                            <Link href='/dashboard'><button className='user-btn'><i className='fa-solid fa-user'></i></button></Link>
                         </Navbar.Collapse>
                     </Container>
                 </Navbar>

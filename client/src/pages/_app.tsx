@@ -11,6 +11,7 @@ import '@/styles/cards.sass'
 import '@/styles/navbar.sass'
 import '@/styles/button.sass'
 import '@/styles/form.sass'
+import '@/styles/icons.sass'
 
 axios.interceptors.request.use((request) => {
 	if (localStorage.hasOwnProperty('accessToken')) {
