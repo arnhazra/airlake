@@ -12,6 +12,7 @@ import { toast } from 'react-hot-toast'
 import Constants from '@/constants/Constants'
 import { GlobalContext } from '@/context/globalStateProvider'
 import { Modal } from 'react-bootstrap'
+import Link from 'next/link'
 
 interface LFTSwapModalProps {
     isOpened: boolean,
@@ -143,8 +144,9 @@ const LFTSwapModal: FC<LFTSwapModalProps> = ({ isOpened, closeModal }) => {
                 <Modal.Body className='text-center'>
                     <Fragment>
                         <Show when={type === 'swap'}>
-                            <button className='btn btn-modal' onClick={() => setType('buy')}>Buy LFT<i className='fa-solid fa-circle-arrow-up'></i></button>
-                            <button className='btn btn-modal' onClick={() => setType('sell')}>Sell LFT<i className='fa-solid fa-circle-arrow-down'></i></button>
+                            <button className='btn btn-block' onClick={() => setType('buy')}>Buy LFT<i className='fa-solid fa-circle-arrow-up'></i></button>
+                            <button className='btn btn-block' onClick={() => setType('sell')}>Sell LFT<i className='fa-solid fa-circle-arrow-down'></i></button>
+                            <Link className='btn btn-block' href={'https://sepoliafaucet.com/'} passHref target='_blank'>Get Some Test Ethers<i className='fa-solid fa-circle-arrow-right'></i></Link>
                         </Show>
                         <Show when={type === 'buy'}>
                             <Show when={step === 1}>
@@ -153,7 +155,7 @@ const LFTSwapModal: FC<LFTSwapModalProps> = ({ isOpened, closeModal }) => {
                                         <Form.Control autoComplete={'off'} autoFocus type='number' placeholder='Amount of tokens' onChange={(e: any) => setTokens(e.target.value)} required />
                                     </FloatingLabel>
                                     <p id='alert'>ETH equivalent: {ether}</p>
-                                    <button className='btn btn-modal' type='submit'>Buy<i className='fa-solid fa-circle-arrow-right'></i></button>
+                                    <button className='btn btn-block' type='submit'>Buy<i className='fa-solid fa-circle-arrow-right'></i></button>
                                 </form>
                             </Show>
                             <Show when={step === 2}>
@@ -184,7 +186,7 @@ const LFTSwapModal: FC<LFTSwapModalProps> = ({ isOpened, closeModal }) => {
                                         <Form.Control autoComplete={'off'} autoFocus type='number' placeholder='Amount of tokens' onChange={(e: any) => setTokens(e.target.value)} required />
                                     </FloatingLabel>
                                     <p id='alert'>ETH equivalent: {ether}</p>
-                                    <button type='submit' className='btn btn-modal'>Sell<i className='fa-solid fa-circle-arrow-right'></i></button>
+                                    <button type='submit' className='btn btn-block'>Sell<i className='fa-solid fa-circle-arrow-right'></i></button>
                                 </form>
                             </Show>
                             <Show when={step === 2}>

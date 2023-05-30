@@ -86,12 +86,13 @@ const DashboardPage: NextPage = () => {
                 <Container>
                     <Row className='mt-4'>
                         <Col xs={12} sm={6} md={6} lg={4} xl={3} className='mb-2'>
-                            <div className='jumbotron'>
-                                <p className='branding'>Subscriptions <i className='fa-solid fa-circle-plus'></i></p>
-                                <p className='display-6'>{datasetSubscriptions?.data?.subscribedDatasets?.length}</p>
-                                <p className='lead'>NFT Count - {datasetSubscriptions?.data?.subscribedDatasets?.length}</p>
-                                <Link href={'/subscriptions'} className='btn btn-bottom'>View Subscriptions <i className='fa-solid fa-circle-arrow-right'></i></Link>
-                            </div>
+                            <Link href={'/subscriptions'}>
+                                <div className='jumbotron'>
+                                    <p className='branding'>Subscriptions <i className='fa-solid fa-circle-plus'></i></p>
+                                    <p className='display-6'>{datasetSubscriptions?.data?.subscribedDatasets?.length}</p>
+                                    <p className='lead'>NFT Count {datasetSubscriptions?.data?.subscribedDatasets?.length}</p>
+                                </div>
+                            </Link>
                         </Col>
                         <Col xs={12} sm={6} md={6} lg={4} xl={3} className='mb-2'>
                             <div className='jumbotron'>
@@ -102,26 +103,26 @@ const DashboardPage: NextPage = () => {
                                         <i className='fa-brands fa-ethereum'></i>{Number(etherBalance).toFixed(2)} ETH
                                         <i className='fa-solid fa-certificate'></i>{Number(lftBalance).toFixed(0)} LFT
                                     </h4>
-                                    <Link className='link-para' href={'https://sepoliafaucet.com/'} passHref target='_blank'>Get Some Test Ethers</Link>
                                 </div>
-                                <button className='btn btn-bottom' onClick={() => setSwapModalOpened(true)}>Swap LFT with ETH<i className='fa-solid fa-circle-arrow-right'></i></button><br />
+                                <button className='btn btn-block' onClick={() => setSwapModalOpened(true)}>Swap LFT<i className='fa-solid fa-circle-arrow-right'></i></button><br />
                             </div>
                         </Col>
                         <Col xs={12} sm={6} md={6} lg={4} xl={3} className='mb-2'>
                             <div className='jumbotron'>
                                 <p className='branding'>Transactions <i className='fa-solid fa-sack-dollar'></i></p>
                                 <p className='display-6'>{transactions?.data?.transactions?.length}</p>
-                                <p className='smalltext'>Buy LFT - {transactions?.data?.transactions?.filter((transaction: any) => transaction.transactionType === 'Buy').length}</p>
-                                <p className='smalltext'>Sell LFT - {transactions?.data?.transactions?.filter((transaction: any) => transaction.transactionType === 'Sell').length}</p>
-                                <button className='btn btn-bottom' onClick={() => toast.success('Transaction will refresh in a few seconds')}>Refresh<i className='fa-solid fa-circle-arrow-right'></i></button><br />
+                                <Row>
+                                    <Col><p className='lead'>Buy LFT - {transactions?.data?.transactions?.filter((transaction: any) => transaction.transactionType === 'Buy').length}</p></Col>
+                                    <Col><p className='lead'>Sell LFT - {transactions?.data?.transactions?.filter((transaction: any) => transaction.transactionType === 'Sell').length}</p></Col>
+                                </Row>
                             </div>
                         </Col>
                         <Col xs={12} sm={6} md={6} lg={4} xl={3} className='mb-2'>
                             <div className='jumbotron'>
                                 <p className='branding'>Account <i className='fa-solid fa-address-card'></i></p>
-                                <p className='branding'>{userState.name}</p>
-                                <p className="smalltext">If you close the browser window you'll be automatically signed out, however if you want to destroy the access token, you can click on sign out explicitly.</p>
-                                <button className='btn btn-bottom' onClick={signOut}>Sign Out<i className='fa-solid fa-circle-arrow-right'></i></button><br />
+                                <p className='smalltext'>Signed in as</p>
+                                <h4>{userState.name}</h4>
+                                <button className='btn btn-block' onClick={signOut}>Sign Out<i className='fa-solid fa-circle-arrow-right'></i></button><br />
                             </div>
                         </Col>
                     </Row>
