@@ -2,9 +2,12 @@
 
 ## [v3.4]
 * Replaced local storage with session storage for authorization
+* UI enhancements
+* Modals for Payment UI using Ethereum Payment
+* Subscription Modals
 
 ## [v3.3]
-* New Transaction system with wallet
+* New integrated Transaction system with wallet
 * Restructured UI and API app with new components
 * Validations moved to new directory
 * Auto wallet address generation on signup

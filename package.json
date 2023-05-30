@@ -1,6 +1,6 @@
 {
   "name": "project-lenstack",
-  "version": "3.3",
+  "version": "3.4",
   "description": "Project Lenstack",
   "scripts": {
     "dev": "concurrently \"npm run dev --prefix api\" \"npm run dev --prefix client\"",

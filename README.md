@@ -1,20 +1,20 @@
 ## Lenstack
 
-Lenstack is a Data Platform that offers premium data sets to users. With its user-friendly interface and advanced search capabilities, Lenstack enables individuals and businesses to discover and utilize valuable data to drive informed decision-making.
+An open source application built using MERN Stack with Next JS and Ethereum blockchain to easily find, subscribe to, and use third-party data on the cloud.
 
 ### Tech Stack
 
-* Mongo DB For Users, Transactions Datasets Management
+* Mongo DB For Users & Datasets Management
+* Ethereum Blockchain for decentralized transactions - ERC-20 token for payment & ERC-721 token for data ownership representation
 * Web3 JS - Ethereum blockchain for Web3 transactions
 * Redis for Managing user authentication, access tokens
 * Express JS as a framework on top of Node JS for API - Microservices
 * Next JS as a framework on top of React as a UI library
 * Google OAuth2 with nodemailer for 2 factor authentication (OTP based)
-* Check DEPENDENCIES.md for better understanding
 
-### What is a dataset?
+### Data marketplace
 
-In data science, a dataset refers to a comprehensive compilation of data that is often organized into one or more database tables. In the case of tabular data, each table column represents a unique variable, while each row corresponds to a specific record within the dataset. Datasets are an essential component of many analytical and machine learning tasks, as they serve as the foundation for identifying patterns, making predictions, and generating insights.
+Data marketplaces have a strong relationship with metadata. A data marketplace offers data consumers an intuitive, secure, centralized, and standardized data shopping experience. It brings data closer to data analysts and scientists by utilizing the underlying metadata. It also tracks all your data products, which are often stored across a range of data domains.
 
 ### Subscribing Lenstack's datasets
 
