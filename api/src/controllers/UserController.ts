@@ -12,11 +12,13 @@ import otherConstants from '../constants/otherConstants'
 export default class UserController {
     public otpKey: string
     public rsaPrivateKey: string
+    public hsaJwtSecret: string
 
     constructor() {
         dotenv.config()
         this.otpKey = process.env.OTP_KEY
         this.rsaPrivateKey = process.env.RSA_PRIVATE_KEY
+        this.hsaJwtSecret = process.env.SUB_HS_JWT_SECRET
     }
 
     async generateAuthCode(req: Request, res: Response) {
@@ -125,6 +127,36 @@ export default class UserController {
         try {
             await removeTokenFromRedis(req.headers.id as string)
             return res.status(200).json({ msg: statusMessages.signOutSuccess })
+        }
+
+        catch (error) {
+            return res.status(500).json({ msg: statusMessages.connectionError })
+        }
+    }
+
+    async subscribe(req: Request, res: Response) {
+        const { tokenId } = req.body
+        const userId = req.headers.id
+
+        try {
+            const payload = { userId, tokenId }
+            const subscriptionKey = jwt.sign(payload, this.hsaJwtSecret, { algorithm: 'HS256', expiresIn: '1y' })
+            await UserModel.findByIdAndUpdate(userId, { subscriptionKey })
+            return res.status(200).json({ msg: statusMessages.transactionCreationSuccess })
+        }
+
+        catch (error) {
+            return res.status(500).json({ msg: statusMessages.connectionError })
+        }
+    }
+
+    async unsubscribe(req: Request, res: Response) {
+        const userId = req.headers.id
+
+        try {
+            const subscriptionKey = ''
+            await UserModel.findByIdAndUpdate(userId, { subscriptionKey })
+            return res.status(200).json({ msg: statusMessages.transactionCreationSuccess })
         }
 
         catch (error) {
