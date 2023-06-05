@@ -1,40 +1,25 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect } from 'react'
 import { Card, Col, Container, Row } from 'react-bootstrap'
 import { Fragment } from 'react'
-import Web3 from 'web3'
 import Loading from '@/components/Loading'
 import Show from '@/components/Show'
-import axios from 'axios'
-import { tokenABI } from '@/contracts/LFTABI'
-import { lnftABI } from '@/contracts/LNFTABI'
-import contractAddress from '@/constants/Address'
 import endPoints from '@/constants/Endpoints'
 import { toast } from 'react-hot-toast'
 import DatasetCard from '@/components/DatasetCard'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import Constants from '@/constants/Constants'
 import useFetch from '@/hooks/useFetch'
 import HTTPMethods from '@/constants/HTTPMethods'
 import Error from '@/components/ErrorComp'
-import Link from 'next/link'
 import { GlobalContext } from '@/context/globalStateProvider'
 import { Rating } from 'react-simple-star-rating'
-import SubscribeModal from '@/utils/SubscribeModal'
-import UnsubscribeModal from '@/utils/UnsubscribeModal'
 
 const ViewDatasetPage: NextPage = () => {
-    const web3Provider = new Web3(endPoints.infuraEndpoint)
     const router = useRouter()
     const { id: datasetId } = router.query
-    const [eventId, setEventId] = useState(Math.random().toString())
     const [{ userState }] = useContext(GlobalContext)
-    const [isTransactionProcessing, setTransactionProcessing] = useState(false)
-    const [isSubscribeModalOpened, setSubscribeModalOpened] = useState(false)
-    const [isUnsubscribeModalOpened, setUnsubscribeModalOpened] = useState(false)
     const dataset = useFetch('view dataset', endPoints.datasetViewEndpoint, HTTPMethods.POST, { datasetId })
     const similarDatasets = useFetch('similar datasets', endPoints.findsimilarDatasets, HTTPMethods.POST, { datasetId })
-    const subscriptionStatus = useFetch('subscription status', endPoints.checkSubscriptionEndpoint, HTTPMethods.POST, { datasetId }, eventId)
 
     useEffect(() => {
         if (!datasetId) {
@@ -42,18 +27,8 @@ const ViewDatasetPage: NextPage = () => {
         }
     }, [])
 
-    const hideSubscribeModal = () => {
-        setSubscribeModalOpened(false)
-        setEventId(Math.random().toString())
-    }
-
-    const hideUnsubscribeModal = () => {
-        setUnsubscribeModalOpened(false)
-        setEventId(Math.random().toString())
-    }
-
     const similarDatasetsToDisplay = similarDatasets?.data?.similarDatasets?.map((dataset: any) => {
-        return <DatasetCard key={dataset._id} id={dataset._id} category={dataset.category} name={dataset?.name} price={dataset?.price} rating={dataset?.rating} />
+        return <DatasetCard key={dataset._id} id={dataset._id} category={dataset.category} name={dataset?.name} rating={dataset?.rating} />
     })
 
     const datasetTagsToDisplay = dataset?.data?.description?.split(' ').slice(0, 30).map((item: string) => {
@@ -68,13 +43,13 @@ const ViewDatasetPage: NextPage = () => {
     }
 
     const copyDataAPI = (): void => {
-        navigator.clipboard.writeText(`${endPoints.dataapi}/${datasetId}/${subscriptionStatus?.data?.subscriptionId}`)
+        navigator.clipboard.writeText(`${endPoints.dataapi}/${datasetId}/${userState.subscriptionKey}`)
         toast.success('Copied to Clipboard')
     }
 
     return (
         <Fragment>
-            <Show when={!subscriptionStatus?.isLoading && !dataset?.isLoading && !similarDatasets?.isLoading}>
+            <Show when={!dataset?.isLoading && !similarDatasets?.isLoading}>
                 <Show when={!dataset.error}>
                     <Container className='mt-4'>
                         <div className='jumbotron'>
@@ -88,7 +63,7 @@ const ViewDatasetPage: NextPage = () => {
                                             <div className='nameContainer'>
                                                 <p>{dataset?.data?.name}</p>
                                             </div>
-                                            <p className='smalltext'>{dataset?.data?.category} • {dataset?.data?.price + ' LFT'}</p>
+                                            <p className='smalltext'>{dataset?.data?.category}</p>
                                             <Rating className='card-rating' initialValue={dataset?.data?.rating} allowHover={false} allowFraction size={25} readonly /><br />
                                         </Card.Footer>
                                     </Card>
@@ -96,42 +71,16 @@ const ViewDatasetPage: NextPage = () => {
                                 <Col xs={12} sm={12} md={8} lg={9} xl={10}>
                                     <p className='display-6 text-capitalize'>{dataset?.data?.name}</p>
                                     <p className='lead'>{dataset?.data?.category}</p>
-                                    <Show when={subscriptionStatus?.data?.isSubscribed}>
-                                        <Link target='_blank' passHref href={`https://sepolia.etherscan.io/nft/${contractAddress.nftContractAddress}/${subscriptionStatus?.data?.tokenId}`}>
-                                            <img src='https://cdn-icons-png.flaticon.com/128/6298/6298900.png' alt='NFT' height={50} width={50} />
-                                        </Link>
-                                    </Show>
                                     <p className='lead mt-3'>{dataset?.data?.description}</p>
                                     <div>{datasetTagsToDisplay}</div>
-                                    <Show when={!subscriptionStatus?.data?.isSubscribed}>
-                                        <Show when={!isTransactionProcessing}>
-                                            <button className='btn' onClick={() => setSubscribeModalOpened(true)}>
-                                                Subscribe {`${dataset?.data?.price} LFT`}<i className='fa-solid fa-circle-plus'></i>
-                                            </button>
-                                        </Show>
-                                        <Show when={isTransactionProcessing}>
-                                            <button disabled className='btn'>
-                                                Processing <i className='fas fa-circle-notch fa-spin color-gold'></i>
-                                            </button>
-                                        </Show>
+                                    <Show when={userState.subscriptionKey.length === 0}>
                                         <button className='btn' onClick={copyMetadataAPI}>Metadata API <i className='fa-solid fa-copy'></i></button>
                                     </Show>
-                                    <Show when={subscriptionStatus?.data?.isSubscribed}>
-                                        <Show when={!isTransactionProcessing}>
-                                            <button className='btn' onClick={() => setUnsubscribeModalOpened(true)}>
-                                                Unsubscribe - Refund {dataset?.data?.price / 2} LFT
-                                            </button>
-                                        </Show>
-                                        <Show when={isTransactionProcessing}>
-                                            <button disabled className='btn'>
-                                                Processing <i className='fas fa-circle-notch fa-spin color-gold'></i>
-                                            </button>
-                                        </Show>
+                                    <Show when={userState.subscriptionKey.length > 0}>
                                         <button className='btn' onClick={copyDataAPI}>Data API <i className='fa-solid fa-copy'></i></button>
                                     </Show>
                                 </Col>
                             </Row>
-
                         </div>
                         <Row>
                             <p className='lead text-center text-white mb-4'>Similar Datasets</p>
@@ -143,11 +92,9 @@ const ViewDatasetPage: NextPage = () => {
                     <Error />
                 </Show>
             </Show>
-            <Show when={subscriptionStatus?.isLoading || dataset?.isLoading || similarDatasets?.isLoading}>
+            <Show when={dataset?.isLoading || similarDatasets?.isLoading}>
                 <Loading />
             </Show>
-            <SubscribeModal datasetId={datasetId} dataset={dataset} isOpened={isSubscribeModalOpened} closeModal={() => { hideSubscribeModal() }} />
-            <UnsubscribeModal tokenId={subscriptionStatus?.data?.tokenId} datasetId={datasetId} dataset={dataset} isOpened={isUnsubscribeModalOpened} closeModal={() => { hideUnsubscribeModal() }} />
         </Fragment >
     )
 }

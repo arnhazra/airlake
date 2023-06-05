@@ -21,11 +21,6 @@ const DatasetSchema = new mongoose.Schema({
         required: true
     },
 
-    price: {
-        type: Number,
-        required: true
-    },
-
     rating: {
         type: Number,
         required: true

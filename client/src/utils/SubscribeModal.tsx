@@ -15,12 +15,11 @@ import { lnftABI } from '@/contracts/LNFTABI'
 
 interface SubscribeModalProps {
     isOpened: boolean,
-    dataset: any,
-    datasetId: any
+    price: number
     closeModal: () => void
 }
 
-const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, dataset, datasetId }) => {
+const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price }) => {
     const web3Provider = new Web3(endPoints.infuraEndpoint)
     const [step, setStep] = useState(1)
     const [isTxProcessing, setTxProcessing] = useState(false)
@@ -46,7 +45,7 @@ const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, dataset
             )
             const approvalData = tokenContract.methods.approve(
                 contractAddress.nftContractAddress,
-                web3Provider.utils.toWei(dataset?.data?.price.toString(), 'ether')
+                web3Provider.utils.toWei(price.toString(), 'ether')
             ).encodeABI()
 
             const approvalTx = {
@@ -55,7 +54,7 @@ const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, dataset
                 data: approvalData,
                 gasPrice: await web3Provider.eth.getGasPrice(),
                 gas: await tokenContract.methods
-                    .approve(contractAddress.nftContractAddress, web3Provider.utils.toWei(dataset?.data?.price.toString(), 'ether'))
+                    .approve(contractAddress.nftContractAddress, web3Provider.utils.toWei(price.toString(), 'ether'))
                     .estimateGas({ from: walletAddress }),
             }
 
@@ -67,7 +66,7 @@ const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, dataset
             const nftcontract = new web3Provider.eth.Contract(lnftABI as any, contractAddress.nftContractAddress)
             const mintNftData = nftcontract.methods.mintNft(tokenId).encodeABI()
             const purchaseNftData = nftcontract.methods
-                .purchaseNft(tokenId, web3Provider.utils.toWei(dataset?.data?.price.toString(), 'ether'))
+                .purchaseNft(tokenId, web3Provider.utils.toWei(price.toString(), 'ether'))
                 .encodeABI()
 
             const mintNftTx = {
@@ -96,7 +95,7 @@ const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, dataset
                 await web3Provider.eth.sendSignedTransaction(signedPurchaseNftTx.rawTransaction)
             }
 
-            await axios.post(`${endPoints.subscribeEndpoint}`, { datasetId, tokenId })
+            await axios.post(`${endPoints.subscribeEndpoint}`, { tokenId })
             setTxProcessing(false)
             setTxError(false)
             setStep(2)
@@ -124,8 +123,8 @@ const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, dataset
                 <Modal.Body className='text-center'>
                     <Fragment>
                         <Show when={step === 1}>
-                            <FloatingLabel controlId='floatingAmount' label={`${dataset?.data?.price} LFT`}>
-                                <Form.Control disabled defaultValue={`${dataset?.data?.price} LFT`} autoComplete={'off'} autoFocus type='number' placeholder={`${dataset?.data?.price} LFT`} />
+                            <FloatingLabel controlId='floatingAmount' label={`${price} LFT`}>
+                                <Form.Control disabled defaultValue={`${price} LFT`} autoComplete={'off'} autoFocus type='number' placeholder={`${price} LFT`} />
                             </FloatingLabel><br />
                             <button className='btn btn-block' type='submit' disabled={isTxProcessing} onClick={subscribe}>
                                 <Show when={!isTxProcessing}>Pay & Subscribe<i className='fa-solid fa-circle-arrow-right'></i></Show>

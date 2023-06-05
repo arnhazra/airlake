@@ -17,7 +17,9 @@ const useAuth = () => {
             (async () => {
                 try {
                     const response = await axios.post(endPoints.checkAuthEndpoint)
-                    dispatch('setUserState', { userid: response.data.user._id, name: response.data.user.name, privateKey: response.data.user.privateKey })
+                    const userid = response.data.user._id
+                    const { name, email, privateKey, role, subscriptionKey } = response.data.user
+                    dispatch('setUserState', { userid, name, email, privateKey, role, subscriptionKey })
                     setState({ isLoaded: true })
                 }
 

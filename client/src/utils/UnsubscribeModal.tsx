@@ -15,13 +15,12 @@ import { lnftABI } from '@/contracts/LNFTABI'
 
 interface UnsubscribeModalProps {
     isOpened: boolean,
-    dataset: any,
-    datasetId: any
+    refundAmount: number
     tokenId: any
     closeModal: () => void
 }
 
-const UnsubscribeModal: FC<UnsubscribeModalProps> = ({ isOpened, closeModal, dataset, datasetId, tokenId }) => {
+const UnsubscribeModal: FC<UnsubscribeModalProps> = ({ isOpened, closeModal, refundAmount, tokenId }) => {
     const web3Provider = new Web3(endPoints.infuraEndpoint)
     const [step, setStep] = useState(1)
     const [isTxProcessing, setTxProcessing] = useState(false)
@@ -42,7 +41,6 @@ const UnsubscribeModal: FC<UnsubscribeModalProps> = ({ isOpened, closeModal, dat
 
             const nftcontract = new web3Provider.eth.Contract(lnftABI as any, contractAddress.nftContractAddress)
             const sellNftData = nftcontract.methods.sellNft(tokenId).encodeABI()
-            const refundAmount = (dataset?.data?.price / 2).toString()
 
             const sellNftTx = {
                 from: walletAddress,
@@ -58,7 +56,7 @@ const UnsubscribeModal: FC<UnsubscribeModalProps> = ({ isOpened, closeModal, dat
             }
 
             const tokenContract = new web3Provider.eth.Contract(tokenABI as any, contractAddress.tokenContractAddress)
-            const mintCustomAmountData = tokenContract.methods.mintCustomAmount(web3Provider.utils.toWei(refundAmount, 'ether')).encodeABI()
+            const mintCustomAmountData = tokenContract.methods.mintCustomAmount(web3Provider.utils.toWei(refundAmount.toString(), 'ether')).encodeABI()
 
             const mintCustomAmountTx = {
                 from: walletAddress,
@@ -73,7 +71,7 @@ const UnsubscribeModal: FC<UnsubscribeModalProps> = ({ isOpened, closeModal, dat
                 await web3Provider.eth.sendSignedTransaction(signedMintCustomAmountTx.rawTransaction)
             }
 
-            await axios.post(`${endPoints.unsubscribeEndpoint}`, { datasetId, tokenId })
+            await axios.post(`${endPoints.unsubscribeEndpoint}`)
             setTxProcessing(false)
             setTxError(false)
             setStep(2)
@@ -101,8 +99,8 @@ const UnsubscribeModal: FC<UnsubscribeModalProps> = ({ isOpened, closeModal, dat
                 <Modal.Body className='text-center'>
                     <Fragment>
                         <Show when={step === 1}>
-                            <FloatingLabel controlId='floatingAmount' label={`${dataset?.data?.price / 2} LFT`}>
-                                <Form.Control disabled defaultValue={`${dataset?.data?.price / 2} LFT`} autoComplete={'off'} autoFocus type='number' placeholder={`${dataset?.data?.price / 2} LFT`} />
+                            <FloatingLabel controlId='floatingAmount' label={`${refundAmount} LFT`}>
+                                <Form.Control disabled defaultValue={`${refundAmount} LFT`} autoComplete={'off'} autoFocus type='number' placeholder={`${refundAmount} LFT`} />
                             </FloatingLabel><br />
                             <button className='btn btn-block' type='submit' disabled={isTxProcessing} onClick={unsubscribe}>
                                 <Show when={!isTxProcessing}>Get Refund<i className='fa-solid fa-circle-arrow-right'></i></Show>

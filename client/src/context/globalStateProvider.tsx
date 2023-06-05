@@ -10,7 +10,10 @@ const initialState = {
     userState: {
         userid: '',
         name: '',
-        privateKey: ''
+        privateKey: '',
+        email: '',
+        role: '',
+        subscriptionKey: ''
     },
 
     datasetRequestState: {

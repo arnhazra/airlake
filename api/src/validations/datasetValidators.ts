@@ -5,5 +5,4 @@ export const createDatasetValidations = [
     check('category').notEmpty().withMessage('Category must not be empty'),
     check('description').notEmpty().withMessage('Description must not be empty'),
     check('data').isArray().withMessage('Data must be an array of objects'),
-    check('price').isNumeric().withMessage('Price must be a numeric value'),
 ]

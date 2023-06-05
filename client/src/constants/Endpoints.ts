@@ -2,7 +2,7 @@ const apiHost = process.env.NODE_ENV === 'development' ? 'http://localhost:7000'
 
 const endPoints = {
     datasetFiltersEndpoint: `${apiHost}/api/dataset/filters`,
-    dataplatformEndpoint: `${apiHost}/api/dataset/platform`,
+    findDatasetsEndpoint: `${apiHost}/api/dataset/finddatasets`,
     datasetSubscriptionEndpoint: `${apiHost}/api/dataset/subscriptions`,
     datasetViewEndpoint: `${apiHost}/api/dataset/viewdataset`,
     findsimilarDatasets: `${apiHost}/api/dataset/findsimilardatasets`,

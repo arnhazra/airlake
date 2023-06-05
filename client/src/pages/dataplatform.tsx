@@ -14,14 +14,14 @@ import Error from '@/components/ErrorComp'
 const DataPlatformPage: NextPage = () => {
     const [{ datasetRequestState }, dispatch] = useContext(GlobalContext)
     const filters = useFetch('filters', endPoints.datasetFiltersEndpoint, HTTPMethods.POST)
-    const dataPlatform = useFetch('data platform', endPoints.dataplatformEndpoint, HTTPMethods.POST, datasetRequestState)
+    const dataPlatform = useFetch('data platform', endPoints.findDatasetsEndpoint, HTTPMethods.POST, datasetRequestState)
 
     const filterCategoriesToDisplay = filters?.data?.filterCategories?.map((category: string) => {
         return <option className='options' key={category} value={category}>{category}</option>
     })
 
     const datasetsToDisplay = dataPlatform?.data?.datasets?.map((dataset: any) => {
-        return <DatasetCard key={dataset._id} id={dataset._id} category={dataset.category} name={dataset.name} price={dataset.price} rating={dataset.rating} />
+        return <DatasetCard key={dataset._id} id={dataset._id} category={dataset.category} name={dataset.name} rating={dataset.rating} />
     })
 
     const noDatasetsToDisplay = <Error customMessage='No Datasets' />

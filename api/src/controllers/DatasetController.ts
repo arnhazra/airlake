@@ -3,9 +3,18 @@ import { validationResult } from 'express-validator'
 import arraySort from 'array-sort'
 import statusMessages from '../constants/statusMessages'
 import DatasetModel from '../models/DatasetModel'
-import SubscriptionModel from '../models/SubscriptionModel'
+import jwt from 'jsonwebtoken'
+import dotenv from 'dotenv'
+import UserModel from '../models/UserModel'
 
 export default class DatasetController {
+    public hsaJwtSecret: string
+
+    constructor() {
+        dotenv.config()
+        this.hsaJwtSecret = process.env.SUB_HS_JWT_SECRET
+    }
+
     async createDataset(req: Request, res: Response) {
         const errors = validationResult(req)
 
@@ -14,10 +23,10 @@ export default class DatasetController {
         }
 
         else {
-            const { name, category, description, data, price } = req.body
+            const { name, category, description, data } = req.body
 
             try {
-                const dataset = new DatasetModel({ name, category, description, data, price })
+                const dataset = new DatasetModel({ name, category, description, data })
                 await dataset.save()
                 return res.status(200).json({ msg: statusMessages.transactionCreationSuccess })
             }
@@ -41,7 +50,7 @@ export default class DatasetController {
         }
     }
 
-    async getDataPlatform(req: Request, res: Response) {
+    async findDatasets(req: Request, res: Response) {
         const selectedFilterCategory = req.body.selectedFilter === 'All' ? '' : req.body.selectedFilter
         const selectedSortOption = req.body.selectedSortOption === '-name' ? { reverse: true } : { reverse: false }
         const searchQuery = req.body.searchQuery || ''
@@ -61,18 +70,6 @@ export default class DatasetController {
 
             datasets = arraySort(datasets, 'name', selectedSortOption)
             return res.status(200).json({ datasets })
-        }
-
-        catch (error) {
-            return res.status(500).json({ msg: statusMessages.connectionError })
-        }
-    }
-
-    async getMySubscriptions(req: Request, res: Response) {
-        try {
-            const subscribedDatasetIds = await SubscriptionModel.find({ userId: req.headers.id }).distinct('datasetId')
-            const subscribedDatasets = await DatasetModel.find({ _id: { $in: subscribedDatasetIds } }).select('-data -description')
-            return res.status(200).json({ subscribedDatasets })
         }
 
         catch (error) {
@@ -108,7 +105,7 @@ export default class DatasetController {
     async getMetadata(req: Request, res: Response) {
         try {
             const data = await DatasetModel.findById(req.params.datasetId).select('data')
-            const previewdata = data.data[0]
+            const previewdata = data.data.slice(-5)
             return res.status(200).json({ previewdata })
         }
 
@@ -121,8 +118,10 @@ export default class DatasetController {
         try {
             const subscriptionId = req.params.subscriptionId
             const datasetId = req.params.datasetId
-            const subscription = await SubscriptionModel.find({ _id: subscriptionId, datasetId: datasetId })
-            if (subscription.length > 0) {
+            const subscription = jwt.verify(subscriptionId, this.hsaJwtSecret, { algorithms: ['HS256'] })
+            const userId = (subscription as any).userId
+            const { subscriptionKey } = await UserModel.findById(userId)
+            if (subscriptionId === subscriptionKey) {
                 const data = await DatasetModel.findById(datasetId).select('data')
                 return res.status(200).json({ data })
             }

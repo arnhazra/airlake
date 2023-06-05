@@ -8,7 +8,6 @@ export type DatasetCardProps = {
     id: string
     category: string,
     name: string,
-    price: number,
     rating: number
 }
 
@@ -31,5 +30,8 @@ export type DatasetRequestState = {
 export type UserState = {
     userid: string,
     name: string,
-    privateKey: string
+    privateKey: string,
+    email: string,
+    role: string,
+    subscriptionKey: string
 }

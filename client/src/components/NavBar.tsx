@@ -52,13 +52,13 @@ const NavBar: FC = () => {
                                     onChange={debouncedChangeHandler}
                                 />
                             </Form>
-                            <Link href='/dashboard'><button className='user-btn'><i className='fa-solid fa-user'></i></button></Link>
+                            <Link href='/dashboard'><i className='fa-solid fa-circle-user fa-3x'></i></Link>
                         </Navbar.Collapse>
                     </Container>
                 </Navbar>
             </Show>
             <Show when={!isAuthenticated}>
-                <Navbar variant='light' className='navbar-unauthorized' expand='lg'>
+                <Navbar variant='light' className='navbar-unauthorized' expand='lg' fixed='top'>
                     <Container>
                         <Link href='/'>
                             <Navbar.Brand style={{ fontSize: '1.3rem' }}>Lenstack</Navbar.Brand>

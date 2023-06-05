@@ -15,7 +15,7 @@ export default class DatasetRouter {
 
     registerRoutes() {
         this.router.post('/filters', authorize, this.datasetController.getDatasetFilters.bind(this.datasetController))
-        this.router.post('/platform', authorize, this.datasetController.getDataPlatform.bind(this.datasetController))
+        this.router.post('/finddatasets', authorize, this.datasetController.findDatasets.bind(this.datasetController))
         this.router.post('/subscriptions', authorize, this.datasetController.getMySubscriptions.bind(this.datasetController))
         this.router.post('/viewdataset', authorize, this.datasetController.viewDataset.bind(this.datasetController))
         this.router.post('/findsimilardatasets', authorize, this.datasetController.findSimilarDatasets.bind(this.datasetController))

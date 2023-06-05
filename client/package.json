@@ -11,6 +11,7 @@
   "dependencies": {
     "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
+    "jwt-decode": "^3.1.2",
     "lodash.debounce": "^4.0.8",
     "moment": "^2.29.4",
     "next": "13.4.2",

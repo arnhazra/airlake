@@ -25,6 +25,12 @@ const UserSchema = new mongoose.Schema({
     privateKey: {
         type: String,
         required: true
+    },
+
+    subscriptionKey: {
+        type: String,
+        required: true,
+        default: ""
     }
 }, { versionKey: false })
 

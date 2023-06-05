@@ -1,29 +1,25 @@
 import { Request, Response } from 'express'
 import statusMessages from '../constants/statusMessages'
-import SubscriptionModel from '../models/SubscriptionModel'
+import UserModel from '../models/UserModel'
+import jwt from 'jsonwebtoken'
+import dotenv from 'dotenv'
 
 export default class SubscriptionController {
-    async subscribe(req: Request, res: Response) {
-        const { datasetId, tokenId } = req.body
-        const userId = req.headers.id
+    public hsaJwtSecret: string
 
-        try {
-            const subscription = new SubscriptionModel({ userId, datasetId, tokenId })
-            await subscription.save()
-            return res.status(200).json({ msg: statusMessages.transactionCreationSuccess, subscription })
-        }
-
-        catch (error) {
-            return res.status(500).json({ msg: statusMessages.connectionError })
-        }
+    constructor() {
+        dotenv.config()
+        this.hsaJwtSecret = process.env.SUB_HS_JWT_SECRET
     }
 
-    async unsubscribe(req: Request, res: Response) {
-        const { datasetId } = req.body
+    async subscribe(req: Request, res: Response) {
+        const { tokenId } = req.body
         const userId = req.headers.id
 
         try {
-            await SubscriptionModel.findOneAndDelete({ datasetId, userId })
+            const payload = { userId, tokenId }
+            const subscriptionKey = jwt.sign(payload, this.hsaJwtSecret, { algorithm: 'HS256', expiresIn: '1y' })
+            await UserModel.findByIdAndUpdate(userId, { subscriptionKey })
             return res.status(200).json({ msg: statusMessages.transactionCreationSuccess })
         }
 
@@ -32,18 +28,13 @@ export default class SubscriptionController {
         }
     }
 
-    async checkSubscriptionStatus(req: Request, res: Response) {
-        const { datasetId } = req.body
+    async unsubscribe(req: Request, res: Response) {
         const userId = req.headers.id
 
         try {
-            const subscription = await SubscriptionModel.findOne({ userId, datasetId })
-            if (subscription === null) {
-                return res.status(200).json({ isSubscribed: false })
-            }
-            else {
-                return res.status(200).json({ isSubscribed: true, subscriptionId: subscription.id, tokenId: subscription.tokenId })
-            }
+            const subscriptionKey = ''
+            await UserModel.findByIdAndUpdate(userId, { subscriptionKey })
+            return res.status(200).json({ msg: statusMessages.transactionCreationSuccess })
         }
 
         catch (error) {

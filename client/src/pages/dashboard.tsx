@@ -15,9 +15,9 @@ import axios from 'axios'
 import { toast } from 'react-hot-toast'
 import moment from 'moment'
 import Web3 from 'web3'
-import useFetch from '@/hooks/useFetch'
 import contractAddress from '@/constants/Address'
 import LFTSwapModal from '@/utils/LFTSwapModal'
+import jwtDecode from 'jwt-decode'
 
 const DashboardPage: NextPage = () => {
     const web3Provider = new Web3(endPoints.infuraEndpoint)
@@ -29,7 +29,16 @@ const DashboardPage: NextPage = () => {
     const router = useRouter()
     const [isSwapModalOpened, setSwapModalOpened] = useState(false)
     const transactions = useFetchRealtime('transactions', endPoints.getTransactionsEndpoint, HTTPMethods.POST)
-    const datasetSubscriptions = useFetch('subscriptions', endPoints.datasetSubscriptionEndpoint, HTTPMethods.POST)
+    const [tokenId, setTokenId] = useState('')
+
+    useEffect(() => {
+        try {
+            const decodedSubId: any = jwtDecode(userState.subscriptionKey)
+            setTokenId(decodedSubId.tokenId)
+        } catch (error) {
+            setTokenId('')
+        }
+    }, [userState.subscriptionKey])
 
     useEffect(() => {
         (async () => {
@@ -87,10 +96,17 @@ const DashboardPage: NextPage = () => {
                     <Row className='mt-4'>
                         <Col xs={12} sm={6} md={6} lg={4} xl={3} className='mb-2'>
                             <div className='jumbotron'>
-                                <p className='branding'>Subscriptions <i className='fa-solid fa-circle-plus'></i></p>
-                                <p className='smalltext'>Subscription Count</p>
-                                <h4>{datasetSubscriptions?.data?.subscribedDatasets?.length}</h4>
-                                <Link className='btn btn-block' href={'/subscriptions'}>My Subscriptions <i className='fa-solid fa-circle-arrow-right'></i></Link>
+                                <p className='branding'>Subscription <i className='fa-solid fa-circle-plus'></i></p>
+                                <p className='smalltext'>My Plan</p>
+                                <h4>
+                                    {userState.subscriptionKey.length === 0 ? 'FREE' : 'PRO '}
+                                    <Show when={userState.subscriptionKey.length > 0}>
+                                        <Link title='Access NFT' target='_blank' passHref href={`https://sepolia.etherscan.io/nft/${contractAddress.nftContractAddress}/${tokenId}`}>
+                                            <i className="fa-solid fa-cubes"></i>
+                                        </Link>
+                                    </Show>
+                                </h4>
+                                <Link className='btn btn-block' href={'/subscribe'}>View Benefits <i className='fa-solid fa-circle-arrow-right'></i></Link>
                             </div>
                         </Col>
                         <Col xs={12} sm={6} md={6} lg={4} xl={3} className='mb-2'>
@@ -101,17 +117,15 @@ const DashboardPage: NextPage = () => {
                                     <i className='fa-brands fa-ethereum'></i>{Number(etherBalance).toFixed(2)} ETH
                                     <i className='fa-solid fa-certificate'></i>{Number(lftBalance).toFixed(0)} LFT
                                 </h4>
-                                <button className='btn btn-block' onClick={() => setSwapModalOpened(true)}>Swap LFT<i className='fa-solid fa-circle-arrow-right'></i></button><br />
+                                <Link className='btn btn-block' href={'https://sepoliafaucet.com/'} passHref target='_blank'>Get Ethers<i className='fa-solid fa-circle-arrow-right'></i></Link>
                             </div>
                         </Col>
                         <Col xs={12} sm={6} md={6} lg={4} xl={3} className='mb-2'>
                             <div className='jumbotron'>
                                 <p className='branding'>Transactions <i className='fa-solid fa-sack-dollar'></i></p>
-                                <p className='display-6'>{transactions?.data?.transactions?.length}</p>
-                                <Row>
-                                    <Col><p className='lead'>Buy LFT - {transactions?.data?.transactions?.filter((transaction: any) => transaction.transactionType === 'Buy').length}</p></Col>
-                                    <Col><p className='lead'>Sell LFT - {transactions?.data?.transactions?.filter((transaction: any) => transaction.transactionType === 'Sell').length}</p></Col>
-                                </Row>
+                                <p className='smalltext'>Total Count</p>
+                                <h4>{transactions?.data?.transactions?.length}</h4>
+                                <button className='btn btn-block' onClick={() => setSwapModalOpened(true)}>Swap LFT<i className='fa-solid fa-circle-arrow-right'></i></button><br />
                             </div>
                         </Col>
                         <Col xs={12} sm={6} md={6} lg={4} xl={3} className='mb-2'>
