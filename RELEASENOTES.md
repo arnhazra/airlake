@@ -1,5 +1,8 @@
 # Lenstack Release Notes
 
+## [v3.5]
+* Subscription based full platform access
+
 ## [v3.4]
 * Replaced local storage with session storage for authorization
 * UI enhancements

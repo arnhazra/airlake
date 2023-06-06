@@ -115,7 +115,7 @@ const DashboardPage: NextPage = () => {
                                 <p className='smalltext'>{accountAddress}</p>
                                 <h4>
                                     <i className='fa-brands fa-ethereum'></i>{Number(etherBalance).toFixed(2)} ETH
-                                    <i className='fa-solid fa-certificate'></i>{Number(lftBalance).toFixed(0)} LFT
+                                    <i className="fa-solid fa-money-bill"></i>{Number(lftBalance).toFixed(0)} LFT
                                 </h4>
                                 <Link className='btn btn-block' href={'https://sepoliafaucet.com/'} passHref target='_blank'>Get Ethers<i className='fa-solid fa-circle-arrow-right'></i></Link>
                             </div>

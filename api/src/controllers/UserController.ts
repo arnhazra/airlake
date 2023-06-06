@@ -110,7 +110,16 @@ export default class UserController {
             const user = await UserModel.findById(req.headers.id).select('-date')
 
             if (user) {
-                return res.status(200).json({ user })
+                try {
+                    if (user.subscriptionKey.length) {
+                        jwt.verify(user.subscriptionKey, this.hsaJwtSecret, { algorithms: ['HS256'] })
+                    }
+                    return res.status(200).json({ user })
+                } catch (error) {
+                    const subscriptionKey = ''
+                    await UserModel.findByIdAndUpdate(user._id, { subscriptionKey })
+                    return res.status(200).json({ user })
+                }
             }
 
             else {

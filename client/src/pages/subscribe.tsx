@@ -43,7 +43,7 @@ const HomePage: NextPage = () => {
                         <Col xs={12} sm={6} md={6} lg={4} xl={3}>
                             <div className='jumbotron'>
                                 <p className='branding text-center'>Free</p>
-                                <p className='display-6 text-center'><i className='fa-solid fa-litecoin-sign'></i> 0/yr</p>
+                                <p className='display-6 text-center'><i className="fa-solid fa-money-bill"></i> 0/year</p>
                                 <p className='lead'><i className='fa-solid fa-circle-check'></i>Metadata API</p>
                                 <p className='lead'><i className='fa-solid fa-circle-check'></i>Lifetime Free</p>
                                 <p className='lead'><i className='fa-solid fa-circle-xmark'></i>Data API</p>
@@ -60,7 +60,7 @@ const HomePage: NextPage = () => {
                         <Col xs={12} sm={6} md={6} lg={4} xl={3}>
                             <div className='jumbotron'>
                                 <p className='branding text-center'>Pro</p>
-                                <p className='display-6 text-center'><i className='fa-solid fa-litecoin-sign'></i> 365/yr</p>
+                                <p className='display-6 text-center'><i className="fa-solid fa-money-bill"></i> 365/year</p>
                                 <p className='lead'><i className='fa-solid fa-circle-check'></i>Metadata API</p>
                                 <p className='lead'><i className='fa-solid fa-circle-check'></i>1 year Subscription</p>
                                 <p className='lead'><i className='fa-solid fa-circle-check'></i>Data API</p>
