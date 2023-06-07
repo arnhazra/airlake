@@ -26,3 +26,4 @@
 * array-sort - Fast and powerful array sorting.
 * react-simple-star-rating- Star Rating UI component.
 * concurrently - Run concurrent servers.
+* jwt-decode - Decode JWT.

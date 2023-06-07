@@ -1,7 +1,14 @@
 # Lenstack Release Notes
 
+## [v3.7]
+* Minor changes and bug fixes
+
+## [v3.6]
+* UI enhancements
+
 ## [v3.5]
 * Subscription based full platform access
+* No more multiple subscriptions needed for multiple datasets
 
 ## [v3.4]
 * Replaced local storage with session storage for authorization
