@@ -29,7 +29,6 @@ const UserSchema = new mongoose.Schema({
 
     subscriptionKey: {
         type: String,
-        required: true,
         default: ""
     }
 }, { versionKey: false })
