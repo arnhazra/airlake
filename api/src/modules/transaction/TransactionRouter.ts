@@ -1,6 +1,6 @@
 import express, { Router } from 'express'
-import authorize from '../middlewares/authorize'
-import TransactionController from '../controllers/TransactionController'
+import authorize from '../../middlewares/authorize'
+import TransactionController from './TransactionController'
 
 export default class TransactionRouter {
     public router: Router

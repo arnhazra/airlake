@@ -3,11 +3,11 @@ import dotenv from 'dotenv'
 import jwt from 'jsonwebtoken'
 import otptool from 'otp-without-db'
 import { validationResult } from 'express-validator'
-import statusMessages from '../constants/statusMessages'
-import UserModel from '../models/UserModel'
-import sendmail from '../utils/SendMail'
-import { setTokenInRedis, getTokenFromRedis, removeTokenFromRedis } from '../utils/UseRedis'
-import otherConstants from '../constants/otherConstants'
+import statusMessages from '../../constants/statusMessages'
+import UserModel from './UserModel'
+import sendmail from '../../utils/SendMail'
+import { setTokenInRedis, getTokenFromRedis, removeTokenFromRedis } from '../../utils/UseRedis'
+import otherConstants from '../../constants/otherConstants'
 
 export default class UserController {
     public otpKey: string
@@ -100,6 +100,7 @@ export default class UserController {
             }
 
             catch (error) {
+                console.log(error)
                 return res.status(500).json({ msg: statusMessages.connectionError })
             }
         }

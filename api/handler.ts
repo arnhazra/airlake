@@ -4,9 +4,9 @@ import cors from 'cors'
 import path from 'path'
 import connectMongo from './src/utils/ConnectMongo'
 import { connectRedis } from './src/utils/UseRedis'
-import DatasetRouter from './src/routes/DatasetRouter'
-import TransactionRouter from './src/routes/TransactionRouter'
-import UserRouter from './src/routes/UserRouter'
+import DatasetRouter from './src/modules/dataset/DatasetRouter'
+import TransactionRouter from './src/modules/transaction/TransactionRouter'
+import UserRouter from './src/modules/user/UserRouter'
 dotenv.config()
 
 const datasetRouter = new DatasetRouter()

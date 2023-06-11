@@ -1,7 +1,7 @@
 import express, { Router } from 'express'
-import DatasetController from '../controllers/DatasetController'
-import authorize from '../middlewares/authorize'
-import { createDatasetValidations } from '../validations/datasetValidators'
+import DatasetController from './DatasetController'
+import authorize from '../../middlewares/authorize'
+import { createDatasetValidations } from '../../validations/datasetValidators'
 
 export default class DatasetRouter {
     public router: Router

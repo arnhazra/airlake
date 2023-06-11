@@ -1,11 +1,11 @@
 import { Request, Response } from 'express'
 import { validationResult } from 'express-validator'
 import arraySort from 'array-sort'
-import statusMessages from '../constants/statusMessages'
-import DatasetModel from '../models/DatasetModel'
+import statusMessages from '../../constants/statusMessages'
+import DatasetModel from './DatasetModel'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
-import UserModel from '../models/UserModel'
+import UserModel from '../user/UserModel'
 
 export default class DatasetController {
     public hsaJwtSecret: string
