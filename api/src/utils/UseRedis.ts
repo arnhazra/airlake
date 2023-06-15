@@ -1,9 +1,8 @@
 import { createClient } from 'redis'
-import dotenv from 'dotenv'
 import statusMessages from '../constants/statusMessages'
+import { envConfig } from '../../config/envConfig'
 
-dotenv.config()
-const redis = createClient({ url: process.env.REDIS_URI })
+const redis = createClient({ url: envConfig.redisUri })
 
 const connectRedis = async () => {
     try {

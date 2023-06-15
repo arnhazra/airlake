@@ -16,7 +16,7 @@ export default class UserRouter {
     registerRoutes() {
         this.router.post('/generateauthcode', generateAuthCodeValidators, this.userController.generateAuthCode.bind(this.userController))
         this.router.post('/verifyauthcode', verifyAuthCodeValidators, this.userController.verifyAuthCode.bind(this.userController))
-        this.router.post('/verifyuser', authorize, this.userController.verifyUser.bind(this.userController))
+        this.router.post('/user', authorize, this.userController.userDetails.bind(this.userController))
         this.router.post('/signout', authorize, this.userController.signOut.bind(this.userController))
         this.router.post('/subscribe', authorize, this.userController.subscribe.bind(this.userController))
         this.router.post('/unsubscribe', authorize, this.userController.unsubscribe.bind(this.userController))

@@ -1,5 +1,4 @@
 import { Request, Response } from 'express'
-import dotenv from 'dotenv'
 import jwt from 'jsonwebtoken'
 import otptool from 'otp-without-db'
 import { validationResult } from 'express-validator'
@@ -8,17 +7,17 @@ import UserModel from './UserModel'
 import sendmail from '../../utils/SendMail'
 import { setTokenInRedis, getTokenFromRedis, removeTokenFromRedis } from '../../utils/UseRedis'
 import otherConstants from '../../constants/otherConstants'
+import { envConfig } from '../../../config/envConfig'
 
 export default class UserController {
     public otpKey: string
-    public rsaPrivateKey: string
-    public hsaJwtSecret: string
+    public authPrivateKey: string
+    public subscriptionSecret: string
 
     constructor() {
-        dotenv.config()
-        this.otpKey = process.env.OTP_KEY
-        this.rsaPrivateKey = process.env.RSA_PRIVATE_KEY
-        this.hsaJwtSecret = process.env.SUB_HS_JWT_SECRET
+        this.otpKey = envConfig.otpKey
+        this.authPrivateKey = envConfig.authPrivateKey
+        this.subscriptionSecret = envConfig.subscriptionSecret
     }
 
     async generateAuthCode(req: Request, res: Response) {
@@ -77,7 +76,7 @@ export default class UserController {
 
                         else {
                             const payload = { id: user.id, email: user.email, iss: otherConstants.tokenIssuer }
-                            const accessToken = jwt.sign(payload, this.rsaPrivateKey, { algorithm: 'RS512' })
+                            const accessToken = jwt.sign(payload, this.authPrivateKey, { algorithm: 'RS512' })
                             await setTokenInRedis(user.id, accessToken)
                             return res.status(200).json({ accessToken })
                         }
@@ -87,7 +86,7 @@ export default class UserController {
                         const { name } = req.body || otherConstants.undefinedName
                         user = new UserModel({ name, email, privateKey })
                         const payload = { id: user.id, email: user.email, iss: otherConstants.tokenIssuer }
-                        const accessToken = jwt.sign(payload, this.rsaPrivateKey, { algorithm: 'RS512' })
+                        const accessToken = jwt.sign(payload, this.authPrivateKey, { algorithm: 'RS512' })
                         await setTokenInRedis(user.id, accessToken)
                         await user.save()
                         return res.status(200).json({ accessToken, user })
@@ -106,20 +105,20 @@ export default class UserController {
         }
     }
 
-    async verifyUser(req: Request, res: Response) {
+    async userDetails(req: Request, res: Response) {
         try {
             const user = await UserModel.findById(req.headers.id).select('-date')
-
+            const { proSubscriptionPrice, currentDiscount } = envConfig
             if (user) {
                 try {
                     if (user.subscriptionKey.length) {
-                        jwt.verify(user.subscriptionKey, this.hsaJwtSecret, { algorithms: ['HS256'] })
+                        jwt.verify(user.subscriptionKey, this.subscriptionSecret, { algorithms: ['HS256'] })
                     }
-                    return res.status(200).json({ user })
+                    return res.status(200).json({ user, proSubscriptionPrice, currentDiscount })
                 } catch (error) {
                     const subscriptionKey = ''
                     await UserModel.findByIdAndUpdate(user._id, { subscriptionKey })
-                    return res.status(200).json({ user })
+                    return res.status(200).json({ user, proSubscriptionPrice, currentDiscount })
                 }
             }
 
@@ -150,7 +149,7 @@ export default class UserController {
 
         try {
             const payload = { userId, tokenId }
-            const subscriptionKey = jwt.sign(payload, this.hsaJwtSecret, { algorithm: 'HS256', expiresIn: '1y' })
+            const subscriptionKey = jwt.sign(payload, this.subscriptionSecret, { algorithm: 'HS256', expiresIn: '1y' })
             await UserModel.findByIdAndUpdate(userId, { subscriptionKey })
             return res.status(200).json({ msg: statusMessages.transactionCreationSuccess })
         }

@@ -11,7 +11,7 @@ const endPoints = {
     getTransactionsEndpoint: `${apiHost}/api/transaction/getlistbyuser`,
     generateAuthCodeEndpoint: `${apiHost}/api/user/generateauthcode`,
     verifyAuthCodeEndpoint: `${apiHost}/api/user/verifyauthcode`,
-    checkAuthEndpoint: `${apiHost}/api/user/verifyuser`,
+    userDetailsEndpoint: `${apiHost}/api/user/user`,
     signOutEndpoint: `${apiHost}/api/user/signout`,
     subscribeEndpoint: `${apiHost}/api/user/subscribe`,
     unsubscribeEndpoint: `${apiHost}/api/user/unsubscribe`,

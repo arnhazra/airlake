@@ -1,11 +1,10 @@
 import { Request, Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
-import dotenv from 'dotenv'
 import statusMessages from '../constants/statusMessages'
 import { getTokenFromRedis } from '../utils/UseRedis'
-dotenv.config()
+import { envConfig } from '../../config/envConfig'
 
-const rsaPublicKey = process.env.RSA_PUBLIC_KEY
+const authPublicKey = envConfig.authPublicKey
 
 async function authorize(req: Request, res: Response, next: NextFunction) {
     const accessToken = req.headers['authorization']?.split(' ')[1]
@@ -16,7 +15,7 @@ async function authorize(req: Request, res: Response, next: NextFunction) {
 
     else {
         try {
-            const decoded = jwt.verify(accessToken, rsaPublicKey, { algorithms: ['RS512'] })
+            const decoded = jwt.verify(accessToken, authPublicKey, { algorithms: ['RS512'] })
             req.headers.id = (decoded as any).id
             const redisAccessToken = await getTokenFromRedis(req.headers.id as string)
 

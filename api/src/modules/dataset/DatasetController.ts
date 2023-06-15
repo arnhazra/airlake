@@ -6,13 +6,14 @@ import DatasetModel from './DatasetModel'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 import UserModel from '../user/UserModel'
+import { envConfig } from '../../../config/envConfig'
 
 export default class DatasetController {
-    public hsaJwtSecret: string
+    public subscriptionSecret: string
 
     constructor() {
         dotenv.config()
-        this.hsaJwtSecret = process.env.SUB_HS_JWT_SECRET
+        this.subscriptionSecret = envConfig.subscriptionSecret
     }
 
     async createDataset(req: Request, res: Response) {
@@ -118,7 +119,7 @@ export default class DatasetController {
         try {
             const subscriptionId = req.params.subscriptionId
             const datasetId = req.params.datasetId
-            const subscription = jwt.verify(subscriptionId, this.hsaJwtSecret, { algorithms: ['HS256'] })
+            const subscription = jwt.verify(subscriptionId, this.subscriptionSecret, { algorithms: ['HS256'] })
             const userId = (subscription as any).userId
             const { subscriptionKey } = await UserModel.findById(userId)
             if (subscriptionId === subscriptionKey) {

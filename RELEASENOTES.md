@@ -2,6 +2,7 @@
 
 ## [v3.8]
 * UI Performance enhancements
+* API Structural changes
 
 ## [v3.7]
 * Minor changes and bug fixes

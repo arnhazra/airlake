@@ -1,13 +1,9 @@
 import mongoose from 'mongoose'
-import dotenv from 'dotenv'
 import statusMessages from '../constants/statusMessages'
-
-dotenv.config()
-const MONGO_URI = process.env.MONGO_URI
+import { envConfig } from '../../config/envConfig'
 
 const connectMongo = async () => {
-
-    mongoose.connect(MONGO_URI)
+    mongoose.connect(envConfig.mongoUri)
 
     mongoose.connection.on('connected', () => {
         console.log(statusMessages.mongoDbConnected)
