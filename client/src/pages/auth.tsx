@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useState, useEffect } from 'react'
 import axios from 'axios'
 import Web3 from 'web3'
 import { FloatingLabel, Form } from 'react-bootstrap'
@@ -16,6 +16,12 @@ const AuthPage: NextPage = () => {
     const [alert, setAlert] = useState('')
     const [isLoading, setLoading] = useState(false)
     const router = useRouter()
+
+    useEffect(() => {
+        if (localStorage.hasOwnProperty('accessToken')) {
+            router.push('/')
+        }
+    }, [])
 
     const generateAuthcode = async (event: any) => {
         event.preventDefault()
@@ -54,7 +60,7 @@ const AuthPage: NextPage = () => {
             localStorage.setItem('accessToken', response.data.accessToken)
             toast.success('Successfully authenticated')
             setLoading(false)
-            router.push('/dataplatform')
+            router.push('/')
         }
 
         catch (error: any) {

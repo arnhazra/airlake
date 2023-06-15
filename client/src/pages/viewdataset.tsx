@@ -23,7 +23,7 @@ const ViewDatasetPage: NextPage = () => {
 
     useEffect(() => {
         if (!datasetId) {
-            router.push('/dataplatform')
+            router.push('/')
         }
     }, [])
 

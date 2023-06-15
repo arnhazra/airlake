@@ -7,7 +7,7 @@ const ErrorPage: NextPage = () => {
     const router = useRouter()
 
     useEffect(() => {
-        router.push('/dataplatform')
+        router.push('/')
     }, [])
 
     return (

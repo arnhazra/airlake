@@ -1,22 +1,13 @@
 import NavBar from '@/components/NavBar'
 import { LayoutProps } from '@/types/Types'
-import { Fragment, FC, useEffect } from 'react'
+import { Fragment, FC } from 'react'
 import Show from '@/components/Show'
 import Loading from '@/components/Loading'
 import useAuth from '@/hooks/useAuth'
 import { Toaster } from 'react-hot-toast'
-import { unprotectedRoutes } from '@/constants/UnprotectedRoutes'
-import { useRouter } from 'next/router'
 
 const Layout: FC<LayoutProps> = ({ children }) => {
 	const auth = useAuth()
-	const router = useRouter()
-
-	useEffect(() => {
-		if (unprotectedRoutes.includes(router.pathname) && localStorage.hasOwnProperty('accessToken')) {
-			router.replace('/dataplatform')
-		}
-	}, [router.pathname])
 
 	return (
 		<Fragment>
