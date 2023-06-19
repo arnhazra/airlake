@@ -2,7 +2,7 @@ import Layout from '@/layouts/Layout'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import type { AppProps } from 'next/app'
 import axios from 'axios'
-import GlobalStateProvider from '@/context/globalStateProvider'
+import AppStateProvider from '@/context/appStateProvider'
 import Head from 'next/head'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import '@/styles/global.sass'
@@ -25,7 +25,7 @@ const queryClient = new QueryClient()
 export default function App({ Component, pageProps }: AppProps) {
 	return (
 		<QueryClientProvider client={queryClient}>
-			<GlobalStateProvider>
+			<AppStateProvider>
 				<Head>
 					<title>Lenstack</title>
 					<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' />
@@ -36,7 +36,7 @@ export default function App({ Component, pageProps }: AppProps) {
 				<Layout>
 					<Component {...pageProps} />
 				</Layout>
-			</GlobalStateProvider >
+			</AppStateProvider>
 		</QueryClientProvider>
 	)
 }

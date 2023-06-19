@@ -2,14 +2,14 @@ import { Col, Container, Row } from 'react-bootstrap'
 import { Fragment, useContext, useEffect, useState } from 'react'
 import { NextPage } from 'next'
 import jwtDecode from 'jwt-decode'
-import { GlobalContext } from '@/context/globalStateProvider'
+import { AppContext } from '@/context/appStateProvider'
 import Show from '@/components/Show'
 import SubscribeModal from '@/utils/SubscribeModal'
 import UnsubscribeModal from '@/utils/UnsubscribeModal'
 import { useRouter } from 'next/router'
 
 const HomePage: NextPage = () => {
-    const [{ userState }] = useContext(GlobalContext)
+    const [{ userState, subPlanState }] = useContext(AppContext)
     const [isSubscribeModalOpened, setSubscribeModalOpened] = useState(false)
     const [isUnsubscribeModalOpened, setUnsubscribeModalOpened] = useState(false)
     const [tokenId, setTokenId] = useState('')
@@ -42,13 +42,10 @@ const HomePage: NextPage = () => {
                     <Row className='justify-content-center mt-4'>
                         <Col xs={12} sm={6} md={6} lg={4} xl={3}>
                             <div className='jumbotron'>
-                                <p className='branding text-center'>Free</p>
-                                <p className='display-6 text-center'><i className="fa-solid fa-money-bill"></i> 0/year</p>
+                                <p className='branding text-center'>Free Plan</p>
+                                <p className='display-6 text-center'><i className='fa-brands fa-ethereum'></i>0</p>
                                 <p className='lead'><i className='fa-solid fa-circle-check'></i>Metadata API</p>
                                 <p className='lead'><i className='fa-solid fa-circle-check'></i>Lifetime Free</p>
-                                <p className='lead'><i className='fa-solid fa-circle-xmark'></i>Data API</p>
-                                <p className='lead'><i className='fa-solid fa-circle-xmark'></i>NFT Access</p>
-                                <p className='lead'><i className='fa-solid fa-circle-xmark'></i>Premium Features</p>
                                 <Show when={userState.subscriptionKey.length === 0}>
                                     <button disabled className='btn btn-block'>Current Plan <i className='fa-solid fa-circle-check'></i></button>
                                 </Show>
@@ -59,12 +56,9 @@ const HomePage: NextPage = () => {
                         </Col>
                         <Col xs={12} sm={6} md={6} lg={4} xl={3}>
                             <div className='jumbotron'>
-                                <p className='branding text-center'>Pro</p>
-                                <p className='display-6 text-center'><i className="fa-solid fa-money-bill"></i> 365/year</p>
-                                <p className='lead'><i className='fa-solid fa-circle-check'></i>Metadata API</p>
-                                <p className='lead'><i className='fa-solid fa-circle-check'></i>1 year Subscription</p>
+                                <p className='branding text-center'>Lenstack Pro</p>
+                                <p className='display-6 text-center'><i className='fa-brands fa-ethereum'></i>{subPlanState.proSubscriptionPrice}/mo</p>
                                 <p className='lead'><i className='fa-solid fa-circle-check'></i>Data API</p>
-                                <p className='lead'><i className='fa-solid fa-circle-check'></i>NFT Access</p>
                                 <p className='lead'><i className='fa-solid fa-circle-check'></i>Premium Features</p>
                                 <Show when={userState.subscriptionKey.length === 0}>
                                     <button className='btn btn-block' onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe</button>

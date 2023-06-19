@@ -1,5 +1,9 @@
 # Lenstack Release Notes
 
+## [v3.9]
+* Started integrating direct ethereum pay instead of custom ERC-20
+* Appstate replacing Globalstate
+
 ## [v3.8]
 * UI Performance enhancements
 * API Structural changes

@@ -1,10 +1,10 @@
 import { FC, ReactNode, createContext, useCallback, useMemo, useReducer } from 'react'
-import { GlobalState, Actions, ActionsMap, GlobalReducer } from './globalReducer'
+import { AppState, Actions, ActionsMap, AppReducer } from './appReducer'
 
 export type Dispatcher = <Type extends Actions['type'], Payload extends ActionsMap[Type]>(type: Type,
     ...payload: Payload extends undefined ? [undefined?] : [Payload]) => void
 
-type GlobalContextInterface = readonly [GlobalState, Dispatcher]
+type AppContextInterface = readonly [AppState, Dispatcher]
 
 const initialState = {
     userState: {
@@ -13,7 +13,7 @@ const initialState = {
         privateKey: '',
         email: '',
         role: '',
-        subscriptionKey: ''
+        subscriptionKey: '',
     },
 
     datasetRequestState: {
@@ -22,21 +22,26 @@ const initialState = {
         selectedSortOption: 'name',
         offset: 0
     },
+
+    subPlanState: {
+        proSubscriptionPrice: '',
+        currentDiscount: ''
+    }
 }
 
-export const GlobalContext = createContext<GlobalContextInterface>([initialState, ((): void => undefined)])
+export const AppContext = createContext<AppContextInterface>([initialState, ((): void => undefined)])
 
-interface GlobalStateProviderProps {
+interface AppStateProviderProps {
     children: ReactNode
 }
 
-const GlobalStateProvider: FC<GlobalStateProviderProps> = ({ children }) => {
-    const [state, _dispatch] = useReducer(GlobalReducer, initialState)
+const AppStateProvider: FC<AppStateProviderProps> = ({ children }) => {
+    const [state, _dispatch] = useReducer(AppReducer, initialState)
     const dispatch: Dispatcher = useCallback((type, ...payload) => {
         _dispatch({ type, payload: payload[0] } as Actions)
     }, [])
-    const values = useMemo(() => [state, dispatch] as GlobalContextInterface, [state])
-    return <GlobalContext.Provider value={values}>{children}</GlobalContext.Provider>
+    const values = useMemo(() => [state, dispatch] as AppContextInterface, [state])
+    return <AppContext.Provider value={values}>{children}</AppContext.Provider>
 }
 
-export default GlobalStateProvider
+export default AppStateProvider

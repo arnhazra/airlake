@@ -3,11 +3,11 @@ import axios from 'axios'
 import endPoints from '@/constants/Endpoints'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/router'
-import { GlobalContext } from '@/context/globalStateProvider'
+import { AppContext } from '@/context/appStateProvider'
 import Constants from '@/constants/Constants'
 
 const useAuth = () => {
-    const [, dispatch] = useContext(GlobalContext)
+    const [, dispatch] = useContext(AppContext)
     const [state, setState] = useState({ isLoaded: false })
     const router = useRouter()
 
@@ -18,7 +18,9 @@ const useAuth = () => {
                     const response = await axios.post(endPoints.userDetailsEndpoint)
                     const userid = response.data.user._id
                     const { name, email, privateKey, role, subscriptionKey } = response.data.user
+                    const { proSubscriptionPrice, currentDiscount } = response.data
                     dispatch('setUserState', { userid, name, email, privateKey, role, subscriptionKey })
+                    dispatch('setSubPlanState', { proSubscriptionPrice, currentDiscount })
                     setState({ isLoaded: true })
                 }
 

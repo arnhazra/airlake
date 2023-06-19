@@ -9,7 +9,7 @@ import contractAddress from '@/constants/Address'
 import endPoints from '@/constants/Endpoints'
 import { toast } from 'react-hot-toast'
 import Constants from '@/constants/Constants'
-import { GlobalContext } from '@/context/globalStateProvider'
+import { AppContext } from '@/context/appStateProvider'
 import { Modal } from 'react-bootstrap'
 import { lnftABI } from '@/contracts/LNFTABI'
 
@@ -25,7 +25,7 @@ const UnsubscribeModal: FC<UnsubscribeModalProps> = ({ isOpened, closeModal, ref
     const [step, setStep] = useState(1)
     const [isTxProcessing, setTxProcessing] = useState(false)
     const [txError, setTxError] = useState(false)
-    const [{ userState }] = useContext(GlobalContext)
+    const [{ userState }] = useContext(AppContext)
 
     useEffect(() => {
         setStep(1)

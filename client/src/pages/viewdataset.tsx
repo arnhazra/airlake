@@ -11,13 +11,13 @@ import { useRouter } from 'next/router'
 import useFetch from '@/hooks/useFetch'
 import HTTPMethods from '@/constants/HTTPMethods'
 import Error from '@/components/ErrorComp'
-import { GlobalContext } from '@/context/globalStateProvider'
+import { AppContext } from '@/context/appStateProvider'
 import { Rating } from 'react-simple-star-rating'
 
 const ViewDatasetPage: NextPage = () => {
     const router = useRouter()
     const { id: datasetId } = router.query
-    const [{ userState }] = useContext(GlobalContext)
+    const [{ userState }] = useContext(AppContext)
     const dataset = useFetch('view dataset', endPoints.datasetViewEndpoint, HTTPMethods.POST, { datasetId })
     const similarDatasets = useFetch('similar datasets', endPoints.findsimilarDatasets, HTTPMethods.POST, { datasetId })
 

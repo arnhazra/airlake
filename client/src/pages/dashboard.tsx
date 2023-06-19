@@ -1,5 +1,5 @@
 import { Fragment, useContext, useState, useEffect } from 'react'
-import { GlobalContext } from '@/context/globalStateProvider'
+import { AppContext } from '@/context/appStateProvider'
 import { NextPage } from 'next'
 import endPoints from '@/constants/Endpoints'
 import Show from '@/components/Show'
@@ -21,7 +21,7 @@ import jwtDecode from 'jwt-decode'
 
 const DashboardPage: NextPage = () => {
     const web3Provider = new Web3(endPoints.infuraEndpoint)
-    const [{ userState }] = useContext(GlobalContext)
+    const [{ userState }] = useContext(AppContext)
     const [etherBalance, setEther] = useState('0')
     const [lftBalance, setLft] = useState('0')
     const [walletLoading, setWalletLoading] = useState(true)

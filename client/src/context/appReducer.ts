@@ -1,13 +1,15 @@
-import { DatasetRequestState, UserState } from '@/types/Types'
+import { DatasetRequestState, UserState, SubPlanState } from '@/types/Types'
 
-export type GlobalState = {
+export type AppState = {
     userState: UserState
-    datasetRequestState: DatasetRequestState
+    datasetRequestState: DatasetRequestState,
+    subPlanState: SubPlanState,
 }
 
 export type ActionsMap = {
     setUserState: { [key: string]: string | boolean }
     setDatasetRequestState: { [key: string]: string | number }
+    setSubPlanState: { [key: string]: string }
 }
 
 export type Actions = {
@@ -17,7 +19,7 @@ export type Actions = {
     }
 }[keyof ActionsMap]
 
-export const GlobalReducer = (state: GlobalState, action: Actions): GlobalState => {
+export const AppReducer = (state: AppState, action: Actions): AppState => {
     switch (action.type) {
         case 'setUserState':
             return {
@@ -27,6 +29,11 @@ export const GlobalReducer = (state: GlobalState, action: Actions): GlobalState 
         case 'setDatasetRequestState':
             return {
                 ...state, datasetRequestState: { ...state.datasetRequestState, ...action.payload }
+            }
+
+        case 'setSubPlanState':
+            return {
+                ...state, subPlanState: { ...state.subPlanState, ...action.payload }
             }
 
         default:

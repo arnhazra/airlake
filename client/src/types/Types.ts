@@ -35,3 +35,8 @@ export type UserState = {
     role: string,
     subscriptionKey: string
 }
+
+export type SubPlanState = {
+    proSubscriptionPrice: string,
+    currentDiscount: string
+}

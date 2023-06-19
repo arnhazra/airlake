@@ -1,4 +1,4 @@
-import { GlobalContext } from '@/context/globalStateProvider'
+import { AppContext } from '@/context/appStateProvider'
 import debounce from 'lodash.debounce'
 import { ChangeEvent, FC, Fragment, useContext, useMemo, useEffect, useState } from 'react'
 import { Container, Navbar, Nav, Form } from 'react-bootstrap'
@@ -7,7 +7,7 @@ import Show from './Show'
 import { useRouter } from 'next/router'
 
 const NavBar: FC = () => {
-    const [, dispatch] = useContext(GlobalContext)
+    const [, dispatch] = useContext(AppContext)
     const router = useRouter()
     const [isAuthenticated, setAuthenticated] = useState(false)
 
