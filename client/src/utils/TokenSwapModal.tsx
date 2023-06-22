@@ -3,7 +3,7 @@ import { FloatingLabel, Form } from 'react-bootstrap'
 import { Fragment } from 'react'
 import Show from '@/components/Show'
 import { tokenABI } from '@/contracts/tokenABI'
-import { vendorABI } from '@/contracts/vendorABI'
+import { tokenVendorABI } from '@/contracts/tokenVendorABI'
 import Web3 from 'web3'
 import axios from 'axios'
 import contractAddress from '@/constants/Address'
@@ -48,7 +48,7 @@ const TokenSwapModal: FC<TokenSwapModalProps> = ({ isOpened, closeModal }) => {
             setTxProcessing(true)
             const { privateKey } = userState
             const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
-            const vendor = new web3Provider.eth.Contract(vendorABI as any, contractAddress.vendorContractAddress)
+            const vendor = new web3Provider.eth.Contract(tokenVendorABI as any, contractAddress.vendorContractAddress)
             const gasPrice = await web3Provider.eth.getGasPrice()
             const weiValue = web3Provider.utils.toWei(ether.toString(), 'ether')
 
@@ -106,7 +106,7 @@ const TokenSwapModal: FC<TokenSwapModalProps> = ({ isOpened, closeModal }) => {
                 await web3Provider.eth.sendSignedTransaction(signedApprovalTx.rawTransaction)
             }
 
-            const vendor = new web3Provider.eth.Contract(vendorABI as any, contractAddress.vendorContractAddress)
+            const vendor = new web3Provider.eth.Contract(tokenVendorABI as any, contractAddress.vendorContractAddress)
             const sellData = vendor.methods.sellTokens(web3Provider.utils.toWei(tokens, 'ether')).encodeABI()
             const sellTx = {
                 from: walletAddress,
