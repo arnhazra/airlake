@@ -6,7 +6,6 @@ import Show from '@/components/Show'
 import { Col, Container, Row, Table } from 'react-bootstrap'
 import Constants from '@/constants/Constants'
 import Link from 'next/link'
-import { tokenABI } from '@/contracts/tokenABI'
 import Loading from '@/components/Loading'
 import useFetchRealtime from '@/hooks/useFetchRealtime'
 import HTTPMethods from '@/constants/HTTPMethods'
@@ -27,11 +26,14 @@ const DashboardPage: NextPage = () => {
     const router = useRouter()
     const transactions = useFetchRealtime('transactions', endPoints.getTransactionsEndpoint, HTTPMethods.POST)
     const [tokenId, setTokenId] = useState('')
+    const [expiry, setExpiry] = useState(0)
 
     useEffect(() => {
         try {
             const decodedSubId: any = jwtDecode(userState.subscriptionKey)
             setTokenId(decodedSubId.tokenId)
+            console.log(decodedSubId)
+            setExpiry(decodedSubId.exp)
         } catch (error) {
             setTokenId('')
         }
@@ -93,7 +95,7 @@ const DashboardPage: NextPage = () => {
                         <Col xs={12} sm={6} md={6} lg={4} xl={4} className='mb-2'>
                             <div className='jumbotron'>
                                 <p className='branding'>Subscription <i className='fa-solid fa-circle-plus'></i></p>
-                                <p className='smalltext'>Active Plan</p>
+                                <p className='smalltext'>Active plan {userState.subscriptionKey.length > 0 && `valid till ${moment.unix(expiry).format('DD MMM, YYYY')}`}</p>
                                 <h4>
                                     {userState.subscriptionKey.length === 0 ? 'FREE' : 'PRO '}
                                     <Show when={userState.subscriptionKey.length > 0}>

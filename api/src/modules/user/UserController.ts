@@ -4,8 +4,8 @@ import otptool from 'otp-without-db'
 import { validationResult } from 'express-validator'
 import statusMessages from '../../constants/statusMessages'
 import UserModel from './UserModel'
-import sendmail from '../../utils/SendMail'
-import { setTokenInRedis, getTokenFromRedis, removeTokenFromRedis } from '../../utils/UseRedis'
+import sendmail from '../../utils/mailer'
+import { setTokenInRedis, getTokenFromRedis, removeTokenFromRedis } from '../../utils/redisHelper'
 import otherConstants from '../../constants/otherConstants'
 import { envConfig } from '../../../config/envConfig'
 
@@ -149,7 +149,7 @@ export default class UserController {
 
         try {
             const payload = { userId, tokenId }
-            const subscriptionKey = jwt.sign(payload, this.subscriptionSecret, { algorithm: 'HS256', expiresIn: '1y' })
+            const subscriptionKey = jwt.sign(payload, this.subscriptionSecret, { algorithm: 'HS256', expiresIn: '30d' })
             await UserModel.findByIdAndUpdate(userId, { subscriptionKey })
             return res.status(200).json({ msg: statusMessages.transactionCreationSuccess })
         }

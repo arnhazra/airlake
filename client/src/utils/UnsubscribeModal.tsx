@@ -79,11 +79,13 @@ const UnsubscribeModal: FC<UnsubscribeModalProps> = ({ isOpened, closeModal, ref
                 await axios.post(endPoints.createTransactionEndpoint, obj)
                 setStep(2)
                 setTxProcessing(false)
+                toast.success(Constants.TransactionSuccess)
             }
         } catch (err) {
             setTxError(true)
             setTxProcessing(false)
             setStep(2)
+            toast.error(Constants.TransactionError)
         }
     }
 
@@ -126,7 +128,6 @@ const UnsubscribeModal: FC<UnsubscribeModalProps> = ({ isOpened, closeModal, ref
             }
             sellToken()
             await axios.post(`${endPoints.unsubscribeEndpoint}`)
-            toast.success(Constants.TransactionSuccess)
         } catch (error) {
             setTxProcessing(false)
             setTxError(true)

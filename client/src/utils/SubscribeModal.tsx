@@ -23,7 +23,6 @@ interface SubscribeModalProps {
 const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price }) => {
     const web3Provider = new Web3(endPoints.infuraEndpoint)
     const [step, setStep] = useState(1)
-    const [tokens,] = useState(price)
     const [ether,] = useState(price / 10000)
     const [isTxProcessing, setTxProcessing] = useState(false)
     const [txError, setTxError] = useState(false)
