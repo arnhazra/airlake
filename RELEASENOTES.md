@@ -1,5 +1,12 @@
 # Airlake Release Notes
 
+## [v4.0]
+* Switched to Polygon from Sepolia Testnet
+* Native currency is now MATIC
+* Users can directly subscribe using native currency without the ERC-20 token purchase
+* ERC-20 token purchase will happen internally
+* Added backup database 
+
 ## [v3.9]
 * Started integrating direct ethereum pay instead of custom ERC-20
 * Appstate replacing Globalstate

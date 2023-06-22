@@ -1,6 +1,6 @@
 {
   "name": "project-airlake",
-  "version": "3.9",
+  "version": "4.0",
   "description": "Project Airlake",
   "scripts": {
     "dev": "concurrently \"npm run dev --prefix api\" \"npm run dev --prefix client\"",

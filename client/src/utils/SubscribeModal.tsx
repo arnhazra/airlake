@@ -12,6 +12,7 @@ import Constants from '@/constants/Constants'
 import { AppContext } from '@/context/appStateProvider'
 import { Modal } from 'react-bootstrap'
 import { anftABI } from '@/contracts/nftABI'
+import { tokenVendorABI } from '@/contracts/tokenVendorABI'
 
 interface SubscribeModalProps {
     isOpened: boolean,
@@ -22,6 +23,8 @@ interface SubscribeModalProps {
 const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price }) => {
     const web3Provider = new Web3(endPoints.infuraEndpoint)
     const [step, setStep] = useState(1)
+    const [tokens,] = useState(price)
+    const [ether,] = useState(price / 10000)
     const [isTxProcessing, setTxProcessing] = useState(false)
     const [txError, setTxError] = useState(false)
     const [{ userState }] = useContext(AppContext)
@@ -106,6 +109,45 @@ const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price }
         }
     }
 
+    const buyToken = async (e: any) => {
+        e.preventDefault()
+        try {
+            setTxProcessing(true)
+            const { privateKey } = userState
+            const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
+            const vendor = new web3Provider.eth.Contract(tokenVendorABI as any, contractAddress.vendorContractAddress)
+            const gasPrice = await web3Provider.eth.getGasPrice()
+            const weiValue = web3Provider.utils.toWei(ether.toString(), 'ether')
+
+            const transaction = {
+                from: walletAddress,
+                to: vendor.options.address,
+                value: weiValue,
+                gas: await vendor.methods.buyTokens().estimateGas({ from: walletAddress, value: weiValue }),
+                gasPrice: gasPrice,
+                data: vendor.methods.buyTokens().encodeABI(),
+            }
+
+            const signedTransaction = await web3Provider.eth.accounts.signTransaction(transaction, privateKey)
+            if (signedTransaction.rawTransaction) {
+                const receipt = await web3Provider.eth.sendSignedTransaction(signedTransaction.rawTransaction)
+                const txObj = {
+                    fromAddress: receipt.from,
+                    transactionType: 'Subscribe',
+                    ethAmount: ether,
+                    txHash: receipt.transactionHash
+                }
+                subscribe()
+                await axios.post(endPoints.createTransactionEndpoint, txObj)
+            }
+        } catch (err) {
+            setTxError(true)
+            setTxProcessing(false)
+            setStep(2)
+            toast.error(Constants.TokenPurchaseFailure)
+        }
+    }
+
     const hideModal = (): void => {
         if (!isTxProcessing) {
             closeModal()
@@ -121,10 +163,10 @@ const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price }
                 <Modal.Body className='text-center'>
                     <Fragment>
                         <Show when={step === 1}>
-                            <FloatingLabel controlId='floatingAmount' label={`${price} AFT`}>
-                                <Form.Control disabled defaultValue={`${price} AFT`} autoComplete={'off'} autoFocus type='number' placeholder={`${price} AFT`} />
+                            <FloatingLabel controlId='floatingAmount' label={`${price / 10000} MATIC`}>
+                                <Form.Control disabled defaultValue={`${price / 10000} MATIC`} autoComplete={'off'} autoFocus type='number' placeholder={`${price / 10000} MATIC`} />
                             </FloatingLabel><br />
-                            <button className='btn btn-block' type='submit' disabled={isTxProcessing} onClick={subscribe}>
+                            <button className='btn btn-block' type='submit' disabled={isTxProcessing} onClick={buyToken}>
                                 <Show when={!isTxProcessing}>Pay & Subscribe<i className='fa-solid fa-circle-arrow-right'></i></Show>
                                 <Show when={isTxProcessing}><i className='fa-solid fa-circle-notch fa-spin'></i> Processing Tx</Show>
                             </button>

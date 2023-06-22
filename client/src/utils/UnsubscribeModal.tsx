@@ -12,6 +12,7 @@ import Constants from '@/constants/Constants'
 import { AppContext } from '@/context/appStateProvider'
 import { Modal } from 'react-bootstrap'
 import { anftABI } from '@/contracts/nftABI'
+import { tokenVendorABI } from '@/contracts/tokenVendorABI'
 
 interface UnsubscribeModalProps {
     isOpened: boolean,
@@ -32,6 +33,59 @@ const UnsubscribeModal: FC<UnsubscribeModalProps> = ({ isOpened, closeModal, ref
         setTxProcessing(false)
         setTxError(false)
     }, [isOpened])
+
+    const sellToken = async () => {
+        try {
+            setTxProcessing(true)
+            const { privateKey } = userState
+            const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
+            const gasPrice = await web3Provider.eth.getGasPrice()
+
+            const tokenContract = new web3Provider.eth.Contract(tokenABI as any, contractAddress.tokenContractAddress)
+            const approvalData = tokenContract.methods.approve(contractAddress.vendorContractAddress, web3Provider.utils.toWei(refundAmount.toString(), 'ether')).encodeABI()
+            const approvalTx = {
+                from: walletAddress,
+                to: contractAddress.tokenContractAddress,
+                data: approvalData,
+                gasPrice: gasPrice,
+                gas: await tokenContract.methods.approve(contractAddress.vendorContractAddress, web3Provider.utils.toWei(refundAmount.toString(), 'ether')).estimateGas({ from: walletAddress })
+            }
+
+            const signedApprovalTx = await web3Provider.eth.accounts.signTransaction(approvalTx, privateKey)
+            if (signedApprovalTx.rawTransaction) {
+                await web3Provider.eth.sendSignedTransaction(signedApprovalTx.rawTransaction)
+            }
+
+            const vendor = new web3Provider.eth.Contract(tokenVendorABI as any, contractAddress.vendorContractAddress)
+            const sellData = vendor.methods.sellTokens(web3Provider.utils.toWei(refundAmount.toString(), 'ether')).encodeABI()
+            const sellTx = {
+                from: walletAddress,
+                to: contractAddress.vendorContractAddress,
+                data: sellData,
+                gasPrice: gasPrice,
+                gas: await vendor.methods.sellTokens(web3Provider.utils.toWei(refundAmount.toString(), 'ether')).estimateGas({ from: walletAddress })
+            }
+
+            const signedSellTx = await web3Provider.eth.accounts.signTransaction(sellTx, privateKey)
+            if (signedSellTx.rawTransaction) {
+                const sellReceipt = await web3Provider.eth.sendSignedTransaction(signedSellTx.rawTransaction)
+
+                const obj = {
+                    fromAddress: sellReceipt.from,
+                    transactionType: 'Unsubscribe',
+                    ethAmount: (refundAmount / 10000).toString(),
+                    txHash: sellReceipt.transactionHash
+                }
+                await axios.post(endPoints.createTransactionEndpoint, obj)
+                setStep(2)
+                setTxProcessing(false)
+            }
+        } catch (err) {
+            setTxError(true)
+            setTxProcessing(false)
+            setStep(2)
+        }
+    }
 
     const unsubscribe = async () => {
         try {
@@ -70,11 +124,8 @@ const UnsubscribeModal: FC<UnsubscribeModalProps> = ({ isOpened, closeModal, ref
             if (signedMintCustomAmountTx.rawTransaction) {
                 await web3Provider.eth.sendSignedTransaction(signedMintCustomAmountTx.rawTransaction)
             }
-
+            sellToken()
             await axios.post(`${endPoints.unsubscribeEndpoint}`)
-            setTxProcessing(false)
-            setTxError(false)
-            setStep(2)
             toast.success(Constants.TransactionSuccess)
         } catch (error) {
             setTxProcessing(false)
@@ -99,8 +150,8 @@ const UnsubscribeModal: FC<UnsubscribeModalProps> = ({ isOpened, closeModal, ref
                 <Modal.Body className='text-center'>
                     <Fragment>
                         <Show when={step === 1}>
-                            <FloatingLabel controlId='floatingAmount' label={`${refundAmount} AFT`}>
-                                <Form.Control disabled defaultValue={`${refundAmount} AFT`} autoComplete={'off'} autoFocus type='number' placeholder={`${refundAmount} AFT`} />
+                            <FloatingLabel controlId='floatingAmount' label={`${refundAmount / 10000} MATIC`}>
+                                <Form.Control disabled defaultValue={`${refundAmount / 10000} MATIC`} autoComplete={'off'} autoFocus type='number' placeholder={`${refundAmount / 10000} MATIC`} />
                             </FloatingLabel><br />
                             <button className='btn btn-block' type='submit' disabled={isTxProcessing} onClick={unsubscribe}>
                                 <Show when={!isTxProcessing}>Get Refund<i className='fa-solid fa-circle-arrow-right'></i></Show>

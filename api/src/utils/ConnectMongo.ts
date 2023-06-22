@@ -3,7 +3,7 @@ import statusMessages from '../constants/statusMessages'
 import { envConfig } from '../../config/envConfig'
 
 const connectMongo = async () => {
-    mongoose.connect(envConfig.backupMongoUri)
+    mongoose.connect(envConfig.primaryMongoUri)
 
     mongoose.connection.on('connected', () => {
         console.log(statusMessages.mongoDbConnected)
