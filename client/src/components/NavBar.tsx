@@ -36,7 +36,7 @@ const NavBar: FC = () => {
             <Show when={isAuthenticated}>
                 <Navbar variant='light' expand='lg' style={{ zoom: 0.85 }} fixed='top'>
                     <Container>
-                        <Link href='/'><Navbar.Brand style={{ fontSize: '1.3rem' }}>Lenstack</Navbar.Brand></Link>
+                        <Link href='/'><Navbar.Brand style={{ fontSize: '1.3rem' }}>Airlake</Navbar.Brand></Link>
                         <Navbar.Toggle aria-controls='navbarScroll' />
                         <Navbar.Collapse id='navbarScroll'>
                             <Nav className='me-auto my-2 my-lg-0' style={{ maxHeight: '8rem' }} navbarScroll>
@@ -61,7 +61,7 @@ const NavBar: FC = () => {
                 <Navbar variant='light' className='navbar-unauthorized' expand='lg' fixed='top'>
                     <Container>
                         <Link href='/'>
-                            <Navbar.Brand style={{ fontSize: '1.3rem' }}>Lenstack</Navbar.Brand>
+                            <Navbar.Brand style={{ fontSize: '1.3rem' }}>Airlake</Navbar.Brand>
                         </Link>
                         <Navbar.Toggle></Navbar.Toggle>
                         <Navbar.Collapse>

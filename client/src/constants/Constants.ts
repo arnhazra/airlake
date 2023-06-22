@@ -10,10 +10,10 @@ enum Constants {
     ToastError = 'Something went wrong',
     TransactionError = 'Transaction Error',
     TransactionSuccess = 'Transaction Success',
-    TokenPurchaseSuccess = 'You have successfully purchased LFT',
-    TokenPurchaseFailure = 'Error purchasing LFT',
-    TokenSellSuccess = 'You have successfully sold LFT tokens',
-    TokenSellFailure = 'Error selling LFT tokens'
+    TokenPurchaseSuccess = 'You have successfully purchased AFT',
+    TokenPurchaseFailure = 'Error purchasing AFT',
+    TokenSellSuccess = 'You have successfully sold AFT tokens',
+    TokenSellFailure = 'Error selling AFT tokens'
 }
 
 export default Constants

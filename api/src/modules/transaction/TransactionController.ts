@@ -12,10 +12,10 @@ export default class TransactionController {
         }
 
         else {
-            const { transactionType, fromAddress, lftAmount, ethAmount, txHash } = req.body
+            const { transactionType, fromAddress, ethAmount, txHash } = req.body
 
             try {
-                const transaction = new TransactionModel({ owner: req.headers.id, transactionType, fromAddress, lftAmount, ethAmount, txHash })
+                const transaction = new TransactionModel({ owner: req.headers.id, transactionType, fromAddress, ethAmount, txHash })
                 await transaction.save()
                 return res.status(200).json({ msg: statusMessages.transactionCreationSuccess, transaction })
             }

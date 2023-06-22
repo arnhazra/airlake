@@ -1,20 +1,20 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
-import "./LFT.sol";
+import "./AFT.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract Vendor is Ownable {
-    LFTContract tokenContract;
-    uint256 public tokensPerETH = 10000;
+    AFTContract tokenContract;
+    uint256 public tokensPerMatic = 10000;
     event BuyTokens(address buyer, uint256 amountOfETH, uint256 amountOfTokens);
 
     constructor(address tokenAddress) {
-        tokenContract = LFTContract(tokenAddress);
+        tokenContract = AFTContract(tokenAddress);
     }
 
     function buyTokens() public payable returns (uint256 tokenAmount) {
         require(msg.value > 0, "You need to send some ETH to proceed");
-        uint256 amountToBuy = msg.value * tokensPerETH;
+        uint256 amountToBuy = msg.value * tokensPerMatic;
 
         uint256 vendorBalance = tokenContract.balanceOf(address(this));
         require(vendorBalance >= amountToBuy, "Vendor has insufficient tokens");
@@ -38,7 +38,7 @@ contract Vendor is Ownable {
             "You have insufficient tokens"
         );
 
-        uint256 amountOfETHToTransfer = tokenAmountToSell / tokensPerETH;
+        uint256 amountOfETHToTransfer = tokenAmountToSell / tokensPerMatic;
         uint256 ownerETHBalance = address(this).balance;
         require(
             ownerETHBalance >= amountOfETHToTransfer,

@@ -102,7 +102,7 @@ export const vendorABI = [
     },
     {
         "inputs": [],
-        "name": "tokensPerETH",
+        "name": "tokensPerMatic",
         "outputs": [
             {
                 "internalType": "uint256",

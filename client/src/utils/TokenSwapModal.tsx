@@ -2,8 +2,8 @@ import React, { FC, useEffect, useState, useContext } from 'react'
 import { FloatingLabel, Form } from 'react-bootstrap'
 import { Fragment } from 'react'
 import Show from '@/components/Show'
-import { tokenABI } from '@/contracts/LFTABI'
-import { vendorABI } from '@/contracts/VendorABI'
+import { tokenABI } from '@/contracts/tokenABI'
+import { vendorABI } from '@/contracts/vendorABI'
 import Web3 from 'web3'
 import axios from 'axios'
 import contractAddress from '@/constants/Address'
@@ -14,12 +14,12 @@ import { AppContext } from '@/context/appStateProvider'
 import { Modal } from 'react-bootstrap'
 import Link from 'next/link'
 
-interface LFTSwapModalProps {
+interface TokenSwapModalProps {
     isOpened: boolean,
     closeModal: () => void
 }
 
-const LFTSwapModal: FC<LFTSwapModalProps> = ({ isOpened, closeModal }) => {
+const TokenSwapModal: FC<TokenSwapModalProps> = ({ isOpened, closeModal }) => {
     const web3Provider = new Web3(endPoints.infuraEndpoint)
     const [tokens, setTokens] = useState('')
     const [ether, setEther] = useState(0)
@@ -66,8 +66,7 @@ const LFTSwapModal: FC<LFTSwapModalProps> = ({ isOpened, closeModal }) => {
                 const receipt = await web3Provider.eth.sendSignedTransaction(signedTransaction.rawTransaction)
                 const txObj = {
                     fromAddress: receipt.from,
-                    transactionType: 'Buy',
-                    lftAmount: tokens,
+                    transactionType: 'Subscribe',
                     ethAmount: ether,
                     txHash: receipt.transactionHash
                 }
@@ -123,8 +122,7 @@ const LFTSwapModal: FC<LFTSwapModalProps> = ({ isOpened, closeModal }) => {
 
                 const obj = {
                     fromAddress: sellReceipt.from,
-                    transactionType: 'Sell',
-                    lftAmount: tokens,
+                    transactionType: 'Unsubscribe',
                     ethAmount: ether,
                     txHash: sellReceipt.transactionHash
                 }
@@ -151,13 +149,13 @@ const LFTSwapModal: FC<LFTSwapModalProps> = ({ isOpened, closeModal }) => {
         <>
             <Modal backdrop='static' centered show={isOpened} onHide={hideModal}>
                 <Modal.Header closeButton>
-                    <Modal.Title>LFT Swap</Modal.Title>
+                    <Modal.Title>AFT Swap</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className='text-center'>
                     <Fragment>
                         <Show when={type === 'swap'}>
-                            <button className='btn btn-block' onClick={() => setType('buy')}>Buy LFT<i className='fa-solid fa-circle-arrow-up'></i></button>
-                            <button className='btn btn-block' onClick={() => setType('sell')}>Sell LFT<i className='fa-solid fa-circle-arrow-down'></i></button>
+                            <button className='btn btn-block' onClick={() => setType('buy')}>Buy AFT<i className='fa-solid fa-circle-arrow-up'></i></button>
+                            <button className='btn btn-block' onClick={() => setType('sell')}>Sell AFT<i className='fa-solid fa-circle-arrow-down'></i></button>
                             <Link className='btn btn-block' href={'https://sepoliafaucet.com/'} passHref target='_blank'>Get Some Test Ethers<i className='fa-solid fa-circle-arrow-right'></i></Link>
                         </Show>
                         <Show when={type === 'buy'}>
@@ -166,7 +164,7 @@ const LFTSwapModal: FC<LFTSwapModalProps> = ({ isOpened, closeModal }) => {
                                     <FloatingLabel controlId='floatingAmount' label='Amount of tokens'>
                                         <Form.Control disabled={isTxProcessing} autoComplete={'off'} autoFocus type='number' placeholder='Amount of tokens' onChange={(e: any) => setTokens(e.target.value)} required />
                                     </FloatingLabel>
-                                    <p id='alert'>ETH equivalent: {ether}</p>
+                                    <p id='alert'>MATIC equivalent: {ether}</p>
                                     <button className='btn btn-block' type='submit' disabled={isTxProcessing}>
                                         <Show when={!isTxProcessing}>Buy<i className='fa-solid fa-circle-arrow-right'></i></Show>
                                         <Show when={isTxProcessing}><i className='fa-solid fa-circle-notch fa-spin'></i> Processing Tx</Show>
@@ -180,7 +178,7 @@ const LFTSwapModal: FC<LFTSwapModalProps> = ({ isOpened, closeModal }) => {
                                     <FloatingLabel controlId='floatingAmount' label='Amount of tokens'>
                                         <Form.Control disabled={isTxProcessing} autoComplete={'off'} autoFocus type='number' placeholder='Amount of tokens' onChange={(e: any) => setTokens(e.target.value)} required />
                                     </FloatingLabel>
-                                    <p id='alert'>ETH equivalent: {ether}</p>
+                                    <p id='alert'>MATIC equivalent: {ether}</p>
                                     <button className='btn btn-block' type='submit' disabled={isTxProcessing}>
                                         <Show when={!isTxProcessing}>Sell<i className='fa-solid fa-circle-arrow-right'></i></Show>
                                         <Show when={isTxProcessing}><i className='fa-solid fa-circle-notch fa-spin'></i> Processing Tx</Show>
@@ -209,4 +207,4 @@ const LFTSwapModal: FC<LFTSwapModalProps> = ({ isOpened, closeModal }) => {
     )
 }
 
-export default LFTSwapModal
+export default TokenSwapModal

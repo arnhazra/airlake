@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState, useContext } from 'react'
 import { FloatingLabel, Form } from 'react-bootstrap'
 import { Fragment } from 'react'
 import Show from '@/components/Show'
-import { tokenABI } from '@/contracts/LFTABI'
+import { tokenABI } from '@/contracts/tokenABI'
 import Web3 from 'web3'
 import axios from 'axios'
 import contractAddress from '@/constants/Address'
@@ -11,7 +11,7 @@ import { toast } from 'react-hot-toast'
 import Constants from '@/constants/Constants'
 import { AppContext } from '@/context/appStateProvider'
 import { Modal } from 'react-bootstrap'
-import { lnftABI } from '@/contracts/LNFTABI'
+import { anftABI } from '@/contracts/nftABI'
 
 interface SubscribeModalProps {
     isOpened: boolean,
@@ -63,10 +63,10 @@ const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price }
                 await web3Provider.eth.sendSignedTransaction(signedApprovalTx.rawTransaction)
             }
 
-            const nftcontract = new web3Provider.eth.Contract(lnftABI as any, contractAddress.nftContractAddress)
+            const nftcontract = new web3Provider.eth.Contract(anftABI as any, contractAddress.nftContractAddress)
             const mintNftData = nftcontract.methods.mintNft(tokenId).encodeABI()
-            const purchaseNftData = nftcontract.methods
-                .purchaseNft(tokenId, web3Provider.utils.toWei(price.toString(), 'ether'))
+            const purchaseNFTData = nftcontract.methods
+                .purchaseNFT(tokenId, web3Provider.utils.toWei(price.toString(), 'ether'))
                 .encodeABI()
 
             const mintNftTx = {
@@ -82,17 +82,17 @@ const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price }
                 await web3Provider.eth.sendSignedTransaction(signedMintNftTx.rawTransaction)
             }
 
-            const purchaseNftTx = {
+            const purchaseNFTTx = {
                 from: walletAddress,
                 to: contractAddress.nftContractAddress,
-                data: purchaseNftData,
+                data: purchaseNFTData,
                 gasPrice: await web3Provider.eth.getGasPrice(),
                 gas: 500000,
             }
 
-            const signedPurchaseNftTx = await web3Provider.eth.accounts.signTransaction(purchaseNftTx, privateKey)
-            if (signedPurchaseNftTx.rawTransaction) {
-                await web3Provider.eth.sendSignedTransaction(signedPurchaseNftTx.rawTransaction)
+            const signedpurchaseNFTTx = await web3Provider.eth.accounts.signTransaction(purchaseNFTTx, privateKey)
+            if (signedpurchaseNFTTx.rawTransaction) {
+                await web3Provider.eth.sendSignedTransaction(signedpurchaseNFTTx.rawTransaction)
             }
 
             await axios.post(`${endPoints.subscribeEndpoint}`, { tokenId })
@@ -123,8 +123,8 @@ const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price }
                 <Modal.Body className='text-center'>
                     <Fragment>
                         <Show when={step === 1}>
-                            <FloatingLabel controlId='floatingAmount' label={`${price} LFT`}>
-                                <Form.Control disabled defaultValue={`${price} LFT`} autoComplete={'off'} autoFocus type='number' placeholder={`${price} LFT`} />
+                            <FloatingLabel controlId='floatingAmount' label={`${price} AFT`}>
+                                <Form.Control disabled defaultValue={`${price} AFT`} autoComplete={'off'} autoFocus type='number' placeholder={`${price} AFT`} />
                             </FloatingLabel><br />
                             <button className='btn btn-block' type='submit' disabled={isTxProcessing} onClick={subscribe}>
                                 <Show when={!isTxProcessing}>Pay & Subscribe<i className='fa-solid fa-circle-arrow-right'></i></Show>

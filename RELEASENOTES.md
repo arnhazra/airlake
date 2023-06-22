@@ -1,4 +1,4 @@
-# Lenstack Release Notes
+# Airlake Release Notes
 
 ## [v3.9]
 * Started integrating direct ethereum pay instead of custom ERC-20
@@ -74,7 +74,7 @@
 * Exposed Data Preview & Fullview API instead of redirection.
 
 ## [v2.3]
-* Introduced LFT Swap Protocol to replace the buycoin and sellcoin page.
+* Introduced AFT Swap Protocol to replace the buycoin and sellcoin page.
 * Integrated React query for realtime data fetching & advanced mechanisms.
 * Introduced new useFetch & useFetchRealtime hook to replace other hooks.
 * Conducted code refactoring for better performance.
@@ -133,7 +133,7 @@
 * Enabled Single and Multi-device signouts.
 
 ## [v1.0]
-* Lenstack offers premium data sets to users.
+* Airlake offers premium data sets to users.
 * Used MongoDB for Users, Transactions Datasets Management.
 * Employed Web3 JS - Ethereum blockchain for Web3 transactions.
 * Used Express JS as a framework on top of Node JS for API - Microservices.

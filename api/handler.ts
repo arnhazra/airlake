@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { Request, Response } from 'express'
 import cors from 'cors'
 import path from 'path'
 import connectMongo from './src/utils/ConnectMongo'
@@ -25,8 +25,8 @@ app.use('/api/user', userRouter.getRouter())
 
 if (envConfig.nodeEnv === 'production') {
     app.use(express.static(path.join(__dirname, 'client')))
-    app.use('/*', (req, res) => {
-        res.set('Content-Type', 'application/javascript')
+    app.use('/*', (req: Request, res: Response) => {
+        res.setHeader('Content-Type', 'application/javascript')
         res.sendFile(path.join(__dirname, 'client', `${req.originalUrl.split('?')[0]}.html`))
     })
 }

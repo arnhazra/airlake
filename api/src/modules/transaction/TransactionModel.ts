@@ -16,11 +16,6 @@ const TransactionSchema = new mongoose.Schema({
         required: true
     },
 
-    lftAmount: {
-        type: String,
-        required: true
-    },
-
     ethAmount: {
         type: String,
         required: true

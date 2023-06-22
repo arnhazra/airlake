@@ -1,4 +1,4 @@
-const apiHost = process.env.NODE_ENV === 'development' ? 'http://localhost:8000' : 'https://lenstack.vercel.app'
+const apiHost = process.env.NODE_ENV === 'development' ? 'http://localhost:8000' : 'https://airlake.vercel.app'
 
 const endPoints = {
     datasetFiltersEndpoint: `${apiHost}/api/dataset/filters`,
@@ -17,7 +17,7 @@ const endPoints = {
     unsubscribeEndpoint: `${apiHost}/api/user/unsubscribe`,
     walletBalanceEndpoint: `${apiHost}/api/getwalletbalance`,
     etherScanEndpoint: `https://sepolia.etherscan.io/tx`,
-    infuraEndpoint: `https://sepolia.infura.io/v3/8e718b45dd2b4425bc1e785e56bde9c4`
+    infuraEndpoint: `https://polygon-mumbai.infura.io/v3/fcb2c26ca13f46a591ed0822c3565c50`
 }
 
 export default endPoints

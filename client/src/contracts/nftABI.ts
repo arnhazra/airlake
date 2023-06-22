@@ -1,4 +1,4 @@
-export const lnftABI = [
+export const anftABI = [
     {
         "inputs": [
             {
@@ -185,19 +185,6 @@ export const lnftABI = [
         "type": "function"
     },
     {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "tokenId",
-                "type": "uint256"
-            }
-        ],
-        "name": "mintNft",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
         "inputs": [],
         "name": "name",
         "outputs": [
@@ -255,7 +242,7 @@ export const lnftABI = [
                 "type": "uint256"
             }
         ],
-        "name": "purchaseNft",
+        "name": "purchaseNFT",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -326,7 +313,7 @@ export const lnftABI = [
                 "type": "uint256"
             }
         ],
-        "name": "sellNft",
+        "name": "sellNFT",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"

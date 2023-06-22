@@ -56,7 +56,7 @@ const HomePage: NextPage = () => {
                         </Col>
                         <Col xs={12} sm={6} md={6} lg={4} xl={3}>
                             <div className='jumbotron'>
-                                <p className='branding text-center'>Lenstack Pro</p>
+                                <p className='branding text-center'>Airlake Pro</p>
                                 <p className='display-6 text-center'><i className='fa-brands fa-ethereum'></i>{subPlanState.proSubscriptionPrice}/mo</p>
                                 <p className='lead'><i className='fa-solid fa-circle-check'></i>Data API</p>
                                 <p className='lead'><i className='fa-solid fa-circle-check'></i>Premium Features</p>

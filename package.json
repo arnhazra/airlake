@@ -1,7 +1,7 @@
 {
-  "name": "project-lenstack",
+  "name": "project-airlake",
   "version": "3.9",
-  "description": "Project Lenstack",
+  "description": "Project Airlake",
   "scripts": {
     "dev": "concurrently \"npm run dev --prefix api\" \"npm run dev --prefix client\"",
     "deploy": "git add . && git commit -m ProdDeploy && git push"

@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState, useContext } from 'react'
 import { FloatingLabel, Form } from 'react-bootstrap'
 import { Fragment } from 'react'
 import Show from '@/components/Show'
-import { tokenABI } from '@/contracts/LFTABI'
+import { tokenABI } from '@/contracts/tokenABI'
 import Web3 from 'web3'
 import axios from 'axios'
 import contractAddress from '@/constants/Address'
@@ -11,7 +11,7 @@ import { toast } from 'react-hot-toast'
 import Constants from '@/constants/Constants'
 import { AppContext } from '@/context/appStateProvider'
 import { Modal } from 'react-bootstrap'
-import { lnftABI } from '@/contracts/LNFTABI'
+import { anftABI } from '@/contracts/nftABI'
 
 interface UnsubscribeModalProps {
     isOpened: boolean,
@@ -39,20 +39,20 @@ const UnsubscribeModal: FC<UnsubscribeModalProps> = ({ isOpened, closeModal, ref
             const { privateKey } = userState
             const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
 
-            const nftcontract = new web3Provider.eth.Contract(lnftABI as any, contractAddress.nftContractAddress)
-            const sellNftData = nftcontract.methods.sellNft(tokenId).encodeABI()
+            const nftcontract = new web3Provider.eth.Contract(anftABI as any, contractAddress.nftContractAddress)
+            const sellNFTData = nftcontract.methods.sellNFT(tokenId).encodeABI()
 
-            const sellNftTx = {
+            const sellNFTTx = {
                 from: walletAddress,
                 to: contractAddress.nftContractAddress,
-                data: sellNftData,
+                data: sellNFTData,
                 gasPrice: await web3Provider.eth.getGasPrice(),
                 gas: 500000,
             }
 
-            const signedSellNftTx = await web3Provider.eth.accounts.signTransaction(sellNftTx, privateKey)
-            if (signedSellNftTx.rawTransaction) {
-                await web3Provider.eth.sendSignedTransaction(signedSellNftTx.rawTransaction)
+            const signedsellNFTTx = await web3Provider.eth.accounts.signTransaction(sellNFTTx, privateKey)
+            if (signedsellNFTTx.rawTransaction) {
+                await web3Provider.eth.sendSignedTransaction(signedsellNFTTx.rawTransaction)
             }
 
             const tokenContract = new web3Provider.eth.Contract(tokenABI as any, contractAddress.tokenContractAddress)
@@ -99,8 +99,8 @@ const UnsubscribeModal: FC<UnsubscribeModalProps> = ({ isOpened, closeModal, ref
                 <Modal.Body className='text-center'>
                     <Fragment>
                         <Show when={step === 1}>
-                            <FloatingLabel controlId='floatingAmount' label={`${refundAmount} LFT`}>
-                                <Form.Control disabled defaultValue={`${refundAmount} LFT`} autoComplete={'off'} autoFocus type='number' placeholder={`${refundAmount} LFT`} />
+                            <FloatingLabel controlId='floatingAmount' label={`${refundAmount} AFT`}>
+                                <Form.Control disabled defaultValue={`${refundAmount} AFT`} autoComplete={'off'} autoFocus type='number' placeholder={`${refundAmount} AFT`} />
                             </FloatingLabel><br />
                             <button className='btn btn-block' type='submit' disabled={isTxProcessing} onClick={unsubscribe}>
                                 <Show when={!isTxProcessing}>Get Refund<i className='fa-solid fa-circle-arrow-right'></i></Show>

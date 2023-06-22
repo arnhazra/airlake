@@ -1,7 +1,7 @@
 enum contractAddress {
-    tokenContractAddress = '0x25ce8BBB3E1840594F87812b2a8667501213c2dE',
-    vendorContractAddress = '0x314Bd829363497168E2A6092969baf522dd84608',
-    nftContractAddress = '0xDC98C07e6A73ce3F0B29a84AEEe98DE4511f33c5'
+    tokenContractAddress = '0x0C91eCF8e3EcCDe70D62d1a0C4DABA2cdAc16c67',
+    vendorContractAddress = '0xF2692150983b28E20075c855Bad60403885412C8',
+    nftContractAddress = '0xBeb84d61d6aC0cBd396AAf488996e78928544A74'
 }
 
 export default contractAddress

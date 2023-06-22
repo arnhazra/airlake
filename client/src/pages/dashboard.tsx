@@ -6,7 +6,7 @@ import Show from '@/components/Show'
 import { Col, Container, Row, Table } from 'react-bootstrap'
 import Constants from '@/constants/Constants'
 import Link from 'next/link'
-import { tokenABI } from '@/contracts/LFTABI'
+import { tokenABI } from '@/contracts/tokenABI'
 import Loading from '@/components/Loading'
 import useFetchRealtime from '@/hooks/useFetchRealtime'
 import HTTPMethods from '@/constants/HTTPMethods'
@@ -16,14 +16,14 @@ import { toast } from 'react-hot-toast'
 import moment from 'moment'
 import Web3 from 'web3'
 import contractAddress from '@/constants/Address'
-import LFTSwapModal from '@/utils/LFTSwapModal'
+import TokenSwapModal from '@/utils/TokenSwapModal'
 import jwtDecode from 'jwt-decode'
 
 const DashboardPage: NextPage = () => {
     const web3Provider = new Web3(endPoints.infuraEndpoint)
     const [{ userState }] = useContext(AppContext)
     const [etherBalance, setEther] = useState('0')
-    const [lftBalance, setLft] = useState('0')
+    const [aftBalance, setAft] = useState('0')
     const [walletLoading, setWalletLoading] = useState(true)
     const [accountAddress, setAccountAddress] = useState('')
     const router = useRouter()
@@ -49,14 +49,14 @@ const DashboardPage: NextPage = () => {
                 const ethBalanceInWei = await web3Provider.eth.getBalance(walletAddress)
                 const ethBalance = web3Provider.utils.fromWei(ethBalanceInWei, 'ether')
                 setEther(ethBalance)
-                const lftContract = new web3Provider.eth.Contract(tokenABI as any, contractAddress.tokenContractAddress)
-                let lftBalance = '0'
-                lftContract.methods.balanceOf(walletAddress).call((error: any, balance: any) => {
+                const aftContract = new web3Provider.eth.Contract(tokenABI as any, contractAddress.tokenContractAddress)
+                let aftBalance = '0'
+                aftContract.methods.balanceOf(walletAddress).call((error: any, balance: any) => {
                     if (error) {
                         toast.error(Constants.ErrorMessage)
                     } else {
-                        lftBalance = web3Provider.utils.fromWei(balance, 'ether')
-                        setLft(lftBalance)
+                        aftBalance = web3Provider.utils.fromWei(balance, 'ether')
+                        setAft(aftBalance)
                     }
                 })
                 setWalletLoading(false)
@@ -80,9 +80,8 @@ const DashboardPage: NextPage = () => {
     const transactionsToDisplay = transactions?.data?.transactions?.map((tx: any) => {
         return (
             <tr key={tx._id}>
-                <td>{tx.transactionType} LFT</td>
-                <td>{tx.lftAmount} LFT</td>
-                <td>{tx.ethAmount} ETH</td>
+                <td>{tx.transactionType}</td>
+                <td>{tx.ethAmount} MATIC</td>
                 <td>{moment(tx.date).format('MMM, Do YYYY, h:mm a')}</td>
                 <td><a href={`${endPoints.etherScanEndpoint}/${tx.txHash}`} target='_blank' rel='noopener noreferrer' className='link-table'>View on EtherScan</a></td>
             </tr>
@@ -114,10 +113,10 @@ const DashboardPage: NextPage = () => {
                                 <p className='branding'>Wallet <i className='fa-solid fa-wallet'></i></p>
                                 <p className='smalltext'>{accountAddress}</p>
                                 <h4>
-                                    <i className='fa-brands fa-ethereum'></i>{Number(etherBalance).toFixed(2)} ETH
-                                    <i className="fa-solid fa-money-bill"></i>{Number(lftBalance).toFixed(0)} LFT
+                                    <i className='fa-brands fa-ethereum'></i>{Number(etherBalance).toFixed(2)} MATIC
+                                    <i className="fa-solid fa-money-bill"></i>{Number(aftBalance).toFixed(0)} AFT
                                 </h4>
-                                <Link className='btn btn-block' href={'https://sepoliafaucet.com/'} passHref target='_blank'>Get Ethers<i className='fa-solid fa-circle-arrow-right'></i></Link>
+                                <Link className='btn btn-block' href={'https://faucet.polygon.technology/'} passHref target='_blank'>Fund my wallet<i className='fa-solid fa-circle-arrow-right'></i></Link>
                             </div>
                         </Col>
                         <Col xs={12} sm={6} md={6} lg={4} xl={3} className='mb-2'>
@@ -125,7 +124,7 @@ const DashboardPage: NextPage = () => {
                                 <p className='branding'>Transactions <i className='fa-solid fa-sack-dollar'></i></p>
                                 <p className='smalltext'>Total Count</p>
                                 <h4>{transactions?.data?.transactions?.length}</h4>
-                                <button className='btn btn-block' onClick={() => setSwapModalOpened(true)}>Swap LFT<i className='fa-solid fa-circle-arrow-right'></i></button><br />
+                                <button className='btn btn-block' onClick={() => setSwapModalOpened(true)}>Swap Tokens<i className='fa-solid fa-circle-arrow-right'></i></button><br />
                             </div>
                         </Col>
                         <Col xs={12} sm={6} md={6} lg={4} xl={3} className='mb-2'>
@@ -145,8 +144,7 @@ const DashboardPage: NextPage = () => {
                             <thead>
                                 <tr>
                                     <th>Event</th>
-                                    <th>LFT Amount</th>
-                                    <th>ETH Amount</th>
+                                    <th>MATIC Amount</th>
                                     <th>Transaction Time</th>
                                     <th>EtherScan Link</th>
                                 </tr>
@@ -157,7 +155,7 @@ const DashboardPage: NextPage = () => {
                         </Table>
                     </Show>
                 </Container>
-                <LFTSwapModal isOpened={isSwapModalOpened} closeModal={() => { setSwapModalOpened(false) }} />
+                <TokenSwapModal isOpened={isSwapModalOpened} closeModal={() => { setSwapModalOpened(false) }} />
             </Show>
             <Show when={transactions.isLoading || walletLoading}>
                 <Loading />
