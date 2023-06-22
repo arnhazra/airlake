@@ -156,7 +156,7 @@ const TokenSwapModal: FC<TokenSwapModalProps> = ({ isOpened, closeModal }) => {
                         <Show when={type === 'swap'}>
                             <button className='btn btn-block' onClick={() => setType('buy')}>Buy AFT<i className='fa-solid fa-circle-arrow-up'></i></button>
                             <button className='btn btn-block' onClick={() => setType('sell')}>Sell AFT<i className='fa-solid fa-circle-arrow-down'></i></button>
-                            <Link className='btn btn-block' href={'https://sepoliafaucet.com/'} passHref target='_blank'>Get Some Test Ethers<i className='fa-solid fa-circle-arrow-right'></i></Link>
+                            <Link className='btn btn-block' href={'https://faucet.polygon.technology/'} passHref target='_blank'>Fund My Wallet<i className='fa-solid fa-circle-arrow-right'></i></Link>
                         </Show>
                         <Show when={type === 'buy'}>
                             <Show when={step === 1}>

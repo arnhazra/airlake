@@ -4,7 +4,6 @@ config()
 export const envConfig = {
     apiPort: process.env.API_PORT,
     proSubscriptionPrice: process.env.PRO_SUBSCRIPTION_PRICE,
-    currentDiscount: process.env.CURRENT_DISCOUNT,
     subscriptionSecret: process.env.SUBSCRIPTION_JWT_SECRET,
     primaryMongoUri: process.env.MONGO_PRIMARY_URI,
     backupMongoUri: process.env.MONGO_BACKUP_URI,

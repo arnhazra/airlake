@@ -83,7 +83,7 @@ const DashboardPage: NextPage = () => {
                 <td>{tx.transactionType}</td>
                 <td>{tx.ethAmount} MATIC</td>
                 <td>{moment(tx.date).format('MMM, Do YYYY, h:mm a')}</td>
-                <td><a href={`${endPoints.etherScanEndpoint}/${tx.txHash}`} target='_blank' rel='noopener noreferrer' className='link-table'>View on EtherScan</a></td>
+                <td><a href={`${endPoints.polygonScanEndpoint}/${tx.txHash}`} target='_blank' rel='noopener noreferrer' className='link-table'>View on Polygonscan</a></td>
             </tr>
         )
     })
@@ -100,7 +100,7 @@ const DashboardPage: NextPage = () => {
                                 <h4>
                                     {userState.subscriptionKey.length === 0 ? 'FREE' : 'PRO '}
                                     <Show when={userState.subscriptionKey.length > 0}>
-                                        <Link title='Access NFT' target='_blank' passHref href={`https://sepolia.etherscan.io/nft/${contractAddress.nftContractAddress}/${tokenId}`}>
+                                        <Link title='Access NFT' target='_blank' passHref href={`https://mumbai.polygonscan.com/token/${contractAddress.nftContractAddress}?a=${tokenId}`}>
                                             <i className="fa-solid fa-cubes"></i>
                                         </Link>
                                     </Show>

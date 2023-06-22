@@ -16,7 +16,7 @@ const endPoints = {
     subscribeEndpoint: `${apiHost}/api/user/subscribe`,
     unsubscribeEndpoint: `${apiHost}/api/user/unsubscribe`,
     walletBalanceEndpoint: `${apiHost}/api/getwalletbalance`,
-    etherScanEndpoint: `https://sepolia.etherscan.io/tx`,
+    polygonScanEndpoint: `https://mumbai.polygonscan.com/tx`,
     infuraEndpoint: `https://polygon-mumbai.infura.io/v3/fcb2c26ca13f46a591ed0822c3565c50`
 }
 

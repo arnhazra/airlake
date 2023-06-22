@@ -25,7 +25,6 @@ const initialState = {
 
     subPlanState: {
         proSubscriptionPrice: '',
-        currentDiscount: ''
     }
 }
 

@@ -38,5 +38,4 @@ export type UserState = {
 
 export type SubPlanState = {
     proSubscriptionPrice: string,
-    currentDiscount: string
 }

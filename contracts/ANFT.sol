@@ -12,6 +12,10 @@ contract AirlakeNFT is ERC721, Ownable {
         tokenContract = IERC20(_tokenAddress);
     }
 
+    function mintNFT(uint256 tokenId) public {
+        _mint(address(this), tokenId);
+    }
+
     function purchaseNFT(uint256 tokenId, uint256 nftPrice) public {
         address nftOwner = ownerOf(tokenId);
         require(
@@ -19,7 +23,7 @@ contract AirlakeNFT is ERC721, Ownable {
             "You are already the owner of this token"
         );
         tokenContract.transferFrom(msg.sender, nftOwner, nftPrice);
-        _mint(msg.sender, tokenId);
+        _transfer(nftOwner, msg.sender, tokenId);
     }
 
     function sellNFT(uint256 tokenId) public {

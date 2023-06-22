@@ -70,8 +70,8 @@ const HomePage: NextPage = () => {
                         </Col>
                     </Row>
                 </div>
-                <SubscribeModal price={365} isOpened={isSubscribeModalOpened} closeModal={() => { hideSubscribeModal() }} />
-                <UnsubscribeModal tokenId={tokenId} refundAmount={180} isOpened={isUnsubscribeModalOpened} closeModal={() => { hideUnsubscribeModal() }} />
+                <SubscribeModal price={Number(subPlanState.proSubscriptionPrice) * 10000} isOpened={isSubscribeModalOpened} closeModal={() => { hideSubscribeModal() }} />
+                <UnsubscribeModal tokenId={tokenId} refundAmount={Number(subPlanState.proSubscriptionPrice) * 5000} isOpened={isUnsubscribeModalOpened} closeModal={() => { hideUnsubscribeModal() }} />
             </Container>
         </Fragment >
     )

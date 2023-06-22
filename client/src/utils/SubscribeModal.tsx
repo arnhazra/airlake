@@ -64,22 +64,20 @@ const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price }
             }
 
             const nftcontract = new web3Provider.eth.Contract(anftABI as any, contractAddress.nftContractAddress)
-            const mintNftData = nftcontract.methods.mintNft(tokenId).encodeABI()
-            const purchaseNFTData = nftcontract.methods
-                .purchaseNFT(tokenId, web3Provider.utils.toWei(price.toString(), 'ether'))
-                .encodeABI()
+            const mintNFTData = nftcontract.methods.mintNFT(tokenId).encodeABI()
+            const purchaseNFTData = nftcontract.methods.purchaseNFT(tokenId, web3Provider.utils.toWei(price.toString(), 'ether')).encodeABI()
 
-            const mintNftTx = {
+            const mintNFTTx = {
                 from: walletAddress,
                 to: contractAddress.nftContractAddress,
-                data: mintNftData,
+                data: mintNFTData,
                 gasPrice: await web3Provider.eth.getGasPrice(),
                 gas: 500000,
             }
 
-            const signedMintNftTx = await web3Provider.eth.accounts.signTransaction(mintNftTx, privateKey)
-            if (signedMintNftTx.rawTransaction) {
-                await web3Provider.eth.sendSignedTransaction(signedMintNftTx.rawTransaction)
+            const signedmintNFTTx = await web3Provider.eth.accounts.signTransaction(mintNFTTx, privateKey)
+            if (signedmintNFTTx.rawTransaction) {
+                await web3Provider.eth.sendSignedTransaction(signedmintNFTTx.rawTransaction)
             }
 
             const purchaseNFTTx = {
