@@ -1,7 +1,7 @@
 import { Fragment, useState, useEffect } from 'react'
 import axios from 'axios'
 import Web3 from 'web3'
-import { FloatingLabel, Form } from 'react-bootstrap'
+import { Button, FloatingLabel, Form } from 'react-bootstrap'
 import Constants from '@/constants/Constants'
 import Show from '@/components/Show'
 import endPoints from '@/constants/Endpoints'
@@ -85,10 +85,10 @@ const AuthPage: NextPage = () => {
                     <FloatingLabel controlId='floatingEmail' label='Your Email'>
                         <Form.Control disabled={isLoading} autoFocus type='email' placeholder='Your Email' onChange={(e) => setState({ ...state, email: e.target.value })} required autoComplete={'off'} minLength={4} maxLength={40} />
                     </FloatingLabel><br />
-                    <button type='submit' disabled={isLoading} className='mt-2 btn btn-block'>
+                    <Button variant='flat' type='submit' disabled={isLoading} className='mt-2 btn-block'>
                         <Show when={!isLoading}>Continue <i className='fa-solid fa-circle-arrow-right'></i></Show>
                         <Show when={isLoading}><i className='fas fa-circle-notch fa-spin'></i> {alert}</Show>
-                    </button>
+                    </Button>
                 </form>
             </Show>
             <Show when={authstep === 2}>
@@ -103,10 +103,10 @@ const AuthPage: NextPage = () => {
                     <FloatingLabel controlId='floatingPassword' label='Enter Auth Code'>
                         <Form.Control type='password' disabled={isLoading} name='otp' placeholder='Enter Auth Code' onChange={(e) => setState({ ...state, otp: e.target.value })} required autoComplete={'off'} minLength={6} maxLength={6} />
                     </FloatingLabel><br />
-                    <button type='submit' disabled={isLoading} className='mt-2 btn btn-block'>
+                    <Button type='submit' disabled={isLoading} className='mt-2 btn-block'>
                         <Show when={!isLoading}>Continue <i className='fa-solid fa-circle-arrow-right'></i></Show>
                         <Show when={isLoading}><i className='fas fa-circle-notch fa-spin'></i> {alert}</Show>
-                    </button>
+                    </Button>
                 </form>
             </Show>
         </Fragment >

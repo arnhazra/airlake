@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react'
-import { Card, Col, Container, Row } from 'react-bootstrap'
+import { Button, Card, Col, Container, Row } from 'react-bootstrap'
 import { Fragment } from 'react'
 import Loading from '@/components/Loading'
 import Show from '@/components/Show'
@@ -33,7 +33,7 @@ const ViewDatasetPage: NextPage = () => {
 
     const datasetTagsToDisplay = dataset?.data?.description?.split(' ').slice(0, 30).map((item: string) => {
         if (item.length > 4) {
-            return <button className='btn tag-chip' title='tags' key={Math.random().toString()}>{item}</button>
+            return <Button className='tag-chip' title='tags' key={Math.random().toString()}>{item}</Button>
         }
     })
 
@@ -74,10 +74,10 @@ const ViewDatasetPage: NextPage = () => {
                                     <p className='lead mt-3'>{dataset?.data?.description}</p>
                                     <div>{datasetTagsToDisplay}</div>
                                     <Show when={userState.subscriptionKey.length === 0}>
-                                        <button className='btn' onClick={copyMetadataAPI}>Metadata API <i className='fa-solid fa-copy'></i></button>
+                                        <Button onClick={copyMetadataAPI}>Metadata API <i className='fa-solid fa-copy'></i></Button>
                                     </Show>
                                     <Show when={userState.subscriptionKey.length > 0}>
-                                        <button className='btn' onClick={copyDataAPI}>Data API <i className='fa-solid fa-copy'></i></button>
+                                        <Button onClick={copyDataAPI}>Data API <i className='fa-solid fa-copy'></i></Button>
                                     </Show>
                                 </Col>
                             </Row>

@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState, useContext } from 'react'
-import { FloatingLabel, Form } from 'react-bootstrap'
+import { Button, FloatingLabel, Form } from 'react-bootstrap'
 import { Fragment } from 'react'
 import Show from '@/components/Show'
 import { tokenABI } from '@/contracts/tokenABI'
@@ -165,10 +165,10 @@ const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price }
                             <FloatingLabel controlId='floatingAmount' label={`${price / 10000} MATIC`}>
                                 <Form.Control disabled defaultValue={`${price / 10000} MATIC`} autoComplete={'off'} autoFocus type='number' placeholder={`${price / 10000} MATIC`} />
                             </FloatingLabel><br />
-                            <button className='btn btn-block' type='submit' disabled={isTxProcessing} onClick={buyToken}>
+                            <Button className='btn-block' type='submit' disabled={isTxProcessing} onClick={buyToken}>
                                 <Show when={!isTxProcessing}>Pay & Subscribe<i className='fa-solid fa-circle-arrow-right'></i></Show>
                                 <Show when={isTxProcessing}><i className='fa-solid fa-circle-notch fa-spin'></i> Processing Tx</Show>
-                            </button>
+                            </Button>
                         </Show>
                         <Show when={step === 2}>
                             <Show when={!txError}>

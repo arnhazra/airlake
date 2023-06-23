@@ -1,5 +1,5 @@
 import axios, { Method } from 'axios'
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { toast } from 'react-hot-toast'
 import Constants from '@/constants/Constants'

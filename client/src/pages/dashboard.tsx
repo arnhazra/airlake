@@ -3,7 +3,7 @@ import { AppContext } from '@/context/appStateProvider'
 import { NextPage } from 'next'
 import endPoints from '@/constants/Endpoints'
 import Show from '@/components/Show'
-import { Col, Container, Row, Table } from 'react-bootstrap'
+import { Button, Col, Container, Row, Table } from 'react-bootstrap'
 import Constants from '@/constants/Constants'
 import Link from 'next/link'
 import Loading from '@/components/Loading'
@@ -122,7 +122,7 @@ const DashboardPage: NextPage = () => {
                                 <p className='branding'>Account <i className='fa-solid fa-address-card'></i></p>
                                 <p className='smalltext'>Signed in As</p>
                                 <h4>{userState.name}</h4>
-                                <button className='btn btn-block' onClick={signOut}>Sign Out<i className='fa-solid fa-circle-arrow-right'></i></button><br />
+                                <Button className='btn-block' onClick={signOut}>Sign Out<i className='fa-solid fa-circle-arrow-right'></i></Button><br />
                             </div>
                         </Col>
                     </Row>

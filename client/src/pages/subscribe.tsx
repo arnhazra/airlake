@@ -1,4 +1,4 @@
-import { Col, Container, Row } from 'react-bootstrap'
+import { Button, Col, Container, Row } from 'react-bootstrap'
 import { Fragment, useContext, useEffect, useState } from 'react'
 import { NextPage } from 'next'
 import jwtDecode from 'jwt-decode'
@@ -47,10 +47,10 @@ const HomePage: NextPage = () => {
                                 <p className='lead'><i className='fa-solid fa-circle-check'></i>Metadata API</p>
                                 <p className='lead'><i className='fa-solid fa-circle-check'></i>Lifetime Free</p>
                                 <Show when={userState.subscriptionKey.length === 0}>
-                                    <button disabled className='btn btn-block'>Current Plan <i className='fa-solid fa-circle-check'></i></button>
+                                    <Button disabled className='btn-block'>Current Plan <i className='fa-solid fa-circle-check'></i></Button>
                                 </Show>
                                 <Show when={userState.subscriptionKey.length > 0}>
-                                    <button className='btn btn-block' onClick={() => setUnsubscribeModalOpened(true)}>Downgrade</button>
+                                    <Button className='btn-block' onClick={() => setUnsubscribeModalOpened(true)}>Downgrade</Button>
                                 </Show>
                             </div>
                         </Col>
@@ -61,10 +61,10 @@ const HomePage: NextPage = () => {
                                 <p className='lead'><i className='fa-solid fa-circle-check'></i>Data API</p>
                                 <p className='lead'><i className='fa-solid fa-circle-check'></i>Premium Features</p>
                                 <Show when={userState.subscriptionKey.length === 0}>
-                                    <button className='btn btn-block' onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe</button>
+                                    <Button className='btn-block' onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe</Button>
                                 </Show>
                                 <Show when={userState.subscriptionKey.length > 0}>
-                                    <button disabled className='btn btn-block'>Current Plan <i className='fa-solid fa-circle-check'></i></button>
+                                    <Button disabled className='btn-block'>Current Plan <i className='fa-solid fa-circle-check'></i></Button>
                                 </Show>
                             </div>
                         </Col>

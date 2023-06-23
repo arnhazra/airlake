@@ -1,5 +1,5 @@
 import { FC, useContext } from 'react'
-import { Col, Container, FloatingLabel, Form, Row } from 'react-bootstrap'
+import { Button, Col, Container, FloatingLabel, Form, Row } from 'react-bootstrap'
 import { Fragment } from 'react'
 import Loading from '@/components/Loading'
 import Show from '@/components/Show'
@@ -63,8 +63,8 @@ const DataLibrary: FC = () => {
                         {dataLibrary?.data?.datasets?.length ? datasetsToDisplay : noDatasetsToDisplay}
                     </Row>
                     <div className='text-center'>
-                        {datasetRequestState.offset !== 0 && <button className='btn' onClick={prevPage}>Show Prev<i className='fa-solid fa-circle-arrow-left'></i></button>}
-                        {dataLibrary?.data?.datasets?.length === 36 && <button className='btn' onClick={nextPage}>Show Next<i className='fa-solid fa-circle-arrow-right'></i></button>}
+                        {datasetRequestState.offset !== 0 && <Button className='btn' onClick={prevPage}>Show Prev<i className='fa-solid fa-circle-arrow-left'></i></Button>}
+                        {dataLibrary?.data?.datasets?.length === 36 && <Button className='btn' onClick={nextPage}>Show Next<i className='fa-solid fa-circle-arrow-right'></i></Button>}
                     </div>
                 </Container>
             </Show>

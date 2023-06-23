@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import Constants from '@/constants/Constants'
 import { ErrorProps } from '@/types/Types'
+import { Button } from 'react-bootstrap'
 
 const Error: FC<ErrorProps> = ({ customMessage }) => {
     return (
@@ -9,7 +10,7 @@ const Error: FC<ErrorProps> = ({ customMessage }) => {
             <div className='text-center'>
                 <i className='fa-solid fa-circle-exclamation fa-4x '></i><br /><br />
             </div>
-            <button onClick={() => window.history.back()} className='btn mt-2'><i className='fa-solid fa-circle-arrow-left'></i>Go Back</button>
+            <Button onClick={() => window.history.back()} className='btn-block mt-2'><i className='fa-solid fa-circle-arrow-left'></i>Go Back</Button>
         </div>
     )
 }

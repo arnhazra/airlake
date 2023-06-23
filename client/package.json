@@ -9,19 +9,19 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tanstack/react-query": "^4.29.15",
     "axios": "^1.4.0",
-    "bootstrap": "^5.2.3",
+    "bootstrap": "^5.3.0",
     "jwt-decode": "^3.1.2",
     "lodash.debounce": "^4.0.8",
     "moment": "^2.29.4",
     "next": "13.4.2",
     "react": "18.2.0",
-    "react-bootstrap": "^2.7.4",
+    "react-bootstrap": "^2.8.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
-    "react-query": "^3.39.3",
     "react-simple-star-rating": "^5.1.7",
-    "sass": "^1.62.1",
+    "sass": "^1.63.6",
     "typescript": "^5.0.4",
     "web3": "^1.10.0"
   },
