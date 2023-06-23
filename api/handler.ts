@@ -26,7 +26,6 @@ app.use('/api/user', userRouter.getRouter())
 if (envConfig.nodeEnv === 'production') {
     app.use(express.static(path.join(__dirname, 'client')))
     app.use('/*', (req: Request, res: Response) => {
-        res.setHeader('Content-Type', 'application/javascript')
         res.sendFile(path.join(__dirname, 'client', `${req.originalUrl.split('?')[0]}.html`))
     })
 }

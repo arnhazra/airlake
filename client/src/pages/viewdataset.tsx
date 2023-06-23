@@ -64,7 +64,7 @@ const ViewDatasetPage: NextPage = () => {
                                                 <p>{dataset?.data?.name}</p>
                                             </div>
                                             <p className='smalltext'>{dataset?.data?.category}</p>
-                                            <Rating className='card-rating' initialValue={dataset?.data?.rating} allowHover={false} allowFraction size={25} readonly /><br />
+                                            <Rating className='card-rating' initialValue={dataset?.data?.rating} allowHover={false} allowFraction size={15} readonly /><br />
                                         </Card.Footer>
                                     </Card>
                                 </Col >

@@ -4,7 +4,6 @@ import arraySort from 'array-sort'
 import statusMessages from '../../constants/statusMessages'
 import DatasetModel from './DatasetModel'
 import jwt from 'jsonwebtoken'
-import dotenv from 'dotenv'
 import UserModel from '../user/UserModel'
 import { envConfig } from '../../../config/envConfig'
 
@@ -12,7 +11,6 @@ export default class DatasetController {
     public subscriptionSecret: string
 
     constructor() {
-        dotenv.config()
         this.subscriptionSecret = envConfig.subscriptionSecret
     }
 
@@ -56,7 +54,7 @@ export default class DatasetController {
         const selectedSortOption = req.body.selectedSortOption === '-name' ? { reverse: true } : { reverse: false }
         const searchQuery = req.body.searchQuery || ''
         const offset = req.body.offset || 0
-        const limit = 24
+        const limit = 36
 
         try {
             let datasets = await DatasetModel.find({
@@ -106,7 +104,7 @@ export default class DatasetController {
     async getMetadata(req: Request, res: Response) {
         try {
             const data = await DatasetModel.findById(req.params.datasetId).select('data')
-            const previewdata = data.data.slice(-5)
+            const previewdata = data.data.slice(-10)
             return res.status(200).json({ previewdata })
         }
 

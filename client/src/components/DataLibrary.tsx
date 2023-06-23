@@ -27,13 +27,13 @@ const DataLibrary: FC = () => {
     const noDatasetsToDisplay = <Error customMessage='No Datasets' />
 
     const prevPage = () => {
-        const prevDatasetReqNumber = datasetRequestState.offset - 24
+        const prevDatasetReqNumber = datasetRequestState.offset - 36
         dispatch('setDatasetRequestState', { offset: prevDatasetReqNumber })
         window.scrollTo(0, 0)
     }
 
     const nextPage = () => {
-        const nextOffset = datasetRequestState.offset + 24
+        const nextOffset = datasetRequestState.offset + 36
         dispatch('setDatasetRequestState', { offset: nextOffset })
         window.scrollTo(0, 0)
     }
@@ -64,7 +64,7 @@ const DataLibrary: FC = () => {
                     </Row>
                     <div className='text-center'>
                         {datasetRequestState.offset !== 0 && <button className='btn' onClick={prevPage}>Show Prev<i className='fa-solid fa-circle-arrow-left'></i></button>}
-                        {dataLibrary?.data?.datasets?.length === 24 && <button className='btn' onClick={nextPage}>Show Next<i className='fa-solid fa-circle-arrow-right'></i></button>}
+                        {dataLibrary?.data?.datasets?.length === 36 && <button className='btn' onClick={nextPage}>Show Next<i className='fa-solid fa-circle-arrow-right'></i></button>}
                     </div>
                 </Container>
             </Show>

@@ -17,11 +17,11 @@ const DatasetCard: FC<DatasetCardProps> = ({ id, category, name, rating }) => {
                             <p>{name}</p>
                         </div>
                         <p className='smalltext'>{category}</p>
-                        <Rating className='card-rating' initialValue={rating} allowHover={false} allowFraction size={25} readonly /><br />
+                        <Rating className='card-rating' initialValue={rating} allowHover={false} allowFraction size={15} readonly /><br />
                     </Card.Footer>
                 </Card>
             </Link>
-        </Col >
+        </Col>
     )
 }
 
