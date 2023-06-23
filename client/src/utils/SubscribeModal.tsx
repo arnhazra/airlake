@@ -16,14 +16,15 @@ import { tokenVendorABI } from '@/contracts/tokenVendorABI'
 
 interface SubscribeModalProps {
     isOpened: boolean,
-    price: number
-    closeModal: () => void
+    price: number,
+    closeModal: () => void,
+    selectedPlan: string
 }
 
-const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price }) => {
+const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price, selectedPlan }) => {
     const web3Provider = new Web3(endPoints.infuraEndpoint)
     const [step, setStep] = useState(1)
-    const [ether,] = useState(price / 10000)
+    const [ether, setEther] = useState(price / 10000)
     const [isTxProcessing, setTxProcessing] = useState(false)
     const [txError, setTxError] = useState(false)
     const [{ userState }] = useContext(AppContext)
@@ -33,6 +34,10 @@ const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price }
         setTxProcessing(false)
         setTxError(false)
     }, [isOpened])
+
+    useEffect(() => {
+        setEther(price / 10000)
+    }, [price])
 
     const subscribe = async () => {
         try {
@@ -95,12 +100,13 @@ const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price }
                 await web3Provider.eth.sendSignedTransaction(signedpurchaseNFTTx.rawTransaction)
             }
 
-            await axios.post(`${endPoints.subscribeEndpoint}`, { tokenId })
+            await axios.post(`${endPoints.subscribeEndpoint}`, { tokenId, selectedPlan })
             setTxProcessing(false)
             setTxError(false)
             setStep(2)
             toast.success(Constants.TransactionSuccess)
         } catch (error) {
+            console.log(error)
             setTxProcessing(false)
             setTxError(true)
             setStep(2)

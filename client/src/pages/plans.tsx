@@ -1,0 +1,109 @@
+import { Button, ButtonGroup } from 'react-bootstrap'
+import { Fragment, useContext, useEffect, useState } from 'react'
+import { NextPage } from 'next'
+import jwtDecode from 'jwt-decode'
+import { AppContext } from '@/context/appStateProvider'
+import Show from '@/components/Show'
+import SubscribeModal from '@/utils/SubscribeModal'
+import UnsubscribeModal from '@/utils/UnsubscribeModal'
+import { SubPlanState } from '@/types/Types'
+
+const HomePage: NextPage = () => {
+    const [{ userState, subPlanState }] = useContext(AppContext)
+    const [selectedPlan, setSelectedPlan] = useState('Standard')
+    const [isSubscribeModalOpened, setSubscribeModalOpened] = useState(false)
+    const [isUnsubscribeModalOpened, setUnsubscribeModalOpened] = useState(false)
+    const [planPrice, setPlanPrice] = useState('')
+    const [tokenId, setTokenId] = useState('')
+    const [userCurrentPlan, setUserCurrentPlan] = useState('Free')
+
+    useEffect(() => {
+        try {
+            const decodedSubId: any = jwtDecode(userState.subscriptionKey)
+            setTokenId(decodedSubId.tokenId)
+            setUserCurrentPlan(decodedSubId.selectedPlan)
+        } catch (error) {
+            setTokenId('')
+        }
+    }, [userState.subscriptionKey])
+
+    const hideSubscribeModal = () => {
+        setSubscribeModalOpened(false)
+    }
+
+    const hideUnsubscribeModal = () => {
+        setUnsubscribeModalOpened(false)
+    }
+
+    useEffect(() => {
+        const planPriceKey = `${selectedPlan.toLocaleLowerCase()}SubscriptionPrice`
+        const selectedPlanPrice = subPlanState[planPriceKey as keyof SubPlanState]
+        setPlanPrice(selectedPlanPrice)
+    }, [selectedPlan])
+
+    return (
+        <Fragment>
+            <div className='box'>
+                <p className='branding'>Plans</p>
+                <ButtonGroup className='btn-group-card'>
+                    <Button className={selectedPlan === 'Free' ? 'btn-grp-btn-sel' : 'btn-grp-btn'} onClick={(): void => setSelectedPlan('Free')}>FREE</Button>
+                    <Button className={selectedPlan === 'Basic' ? 'btn-grp-btn-sel' : 'btn-grp-btn'} onClick={(): void => setSelectedPlan('Basic')}>BASIC</Button>
+                </ButtonGroup>
+                <ButtonGroup className='btn-group-card'>
+                    <Button className={selectedPlan === 'Standard' ? 'btn-grp-btn-sel' : 'btn-grp-btn'} onClick={(): void => setSelectedPlan('Standard')}>STANDARD</Button>
+                    <Button className={selectedPlan === 'Premium' ? 'btn-grp-btn-sel' : 'btn-grp-btn'} onClick={(): void => setSelectedPlan('Premium')}>PREMIUM</Button>
+                </ButtonGroup>
+                <div className='plans mt-2'>
+                    <Show when={selectedPlan === 'Free'}>
+                        <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>0/mo</p>
+                        <p className='lead'><i className='fa-solid fa-circle-check'></i>Metadata API</p>
+                        <p className='lead'><i className='fa-solid fa-circle-xmark'></i>Data API</p>
+                        <Show when={selectedPlan === userCurrentPlan}>
+                            <Button disabled className='btn-block'>Current Plan <i className='fa-solid fa-circle-check'></i></Button>
+                        </Show>
+                        <Show when={userState.subscriptionKey.length > 0}>
+                            <Button className='btn-block' onClick={() => setUnsubscribeModalOpened(true)}>Downgrade</Button>
+                        </Show>
+                    </Show>
+                    <Show when={selectedPlan === 'Basic'}>
+                        <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>{subPlanState.basicSubscriptionPrice}/mo</p>
+                        <p className='lead'><i className='fa-solid fa-circle-check'></i>Data API</p>
+                        <p className='lead'><i className='fa-solid fa-circle-check'></i>999 API calls/month</p>
+                        <Show when={selectedPlan === userCurrentPlan}>
+                            <Button disabled className='btn-block'>Current Plan <i className='fa-solid fa-circle-check'></i></Button>
+                        </Show>
+                        <Show when={userState.subscriptionKey.length === 0}>
+                            <Button className='btn-block' onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe</Button>
+                        </Show>
+                    </Show>
+                    <Show when={selectedPlan === 'Standard'}>
+                        <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>{subPlanState.standardSubscriptionPrice}/mo</p>
+                        <p className='lead'><i className='fa-solid fa-circle-check'></i>Data API</p>
+                        <p className='lead'><i className='fa-solid fa-circle-check'></i>2999 API calls/month</p>
+                        <Show when={selectedPlan === userCurrentPlan}>
+                            <Button disabled className='btn-block'>Current Plan <i className='fa-solid fa-circle-check'></i></Button>
+                        </Show>
+                        <Show when={userState.subscriptionKey.length === 0}>
+                            <Button className='btn-block' onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe</Button>
+                        </Show>
+                    </Show>
+                    <Show when={selectedPlan === 'Premium'}>
+                        <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>{subPlanState.premiumSubscriptionPrice}/mo</p>
+                        <p className='lead'><i className='fa-solid fa-circle-check'></i>Data API</p>
+                        <p className='lead'><i className='fa-solid fa-circle-check'></i>3999 API calls/month</p>
+                        <Show when={selectedPlan === userCurrentPlan}>
+                            <Button disabled className='btn-block'>Current Plan <i className='fa-solid fa-circle-check'></i></Button>
+                        </Show>
+                        <Show when={userState.subscriptionKey.length === 0}>
+                            <Button className='btn-block' onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe</Button>
+                        </Show>
+                    </Show>
+                </div>
+            </div>
+            <SubscribeModal price={Number(planPrice) * 10000} isOpened={isSubscribeModalOpened} closeModal={() => { hideSubscribeModal() }} selectedPlan={selectedPlan} />
+            <UnsubscribeModal tokenId={tokenId} refundAmount={Number(0.20) * 5000} isOpened={isUnsubscribeModalOpened} closeModal={() => { hideUnsubscribeModal() }} />
+        </Fragment>
+    )
+}
+
+export default HomePage

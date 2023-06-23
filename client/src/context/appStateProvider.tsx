@@ -24,7 +24,9 @@ const initialState = {
     },
 
     subPlanState: {
-        proSubscriptionPrice: '',
+        basicSubscriptionPrice: '',
+        standardSubscriptionPrice: '',
+        premiumSubscriptionPrice: '',
     }
 }
 

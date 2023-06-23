@@ -27,6 +27,7 @@ const DashboardPage: NextPage = () => {
     const transactions = useFetchRealtime('transactions', endPoints.getTransactionsEndpoint, HTTPMethods.POST)
     const [tokenId, setTokenId] = useState('')
     const [expiry, setExpiry] = useState(0)
+    const [selectedPlan, setSelectedPlan] = useState('Free')
 
     useEffect(() => {
         try {
@@ -34,6 +35,7 @@ const DashboardPage: NextPage = () => {
             setTokenId(decodedSubId.tokenId)
             console.log(decodedSubId)
             setExpiry(decodedSubId.exp)
+            setSelectedPlan(decodedSubId.selectedPlan)
         } catch (error) {
             setTokenId('')
         }
@@ -97,14 +99,14 @@ const DashboardPage: NextPage = () => {
                                 <p className='branding'>Subscription <i className='fa-solid fa-circle-plus'></i></p>
                                 <p className='smalltext'>Active plan {userState.subscriptionKey.length > 0 && `valid till ${moment.unix(expiry).format('DD MMM, YYYY')}`}</p>
                                 <h4>
-                                    {userState.subscriptionKey.length === 0 ? 'FREE' : 'PRO '}
+                                    {selectedPlan}
                                     <Show when={userState.subscriptionKey.length > 0}>
                                         <Link title='Access NFT' target='_blank' passHref href={`https://mumbai.polygonscan.com/token/${contractAddress.nftContractAddress}?a=${tokenId}`}>
-                                            <i className="fa-solid fa-cubes"></i>
+                                            <i className='fa-solid fa-cubes'></i>
                                         </Link>
                                     </Show>
                                 </h4>
-                                <Link className='btn btn-block' href={'/subscribe'}>View Benefits <i className='fa-solid fa-circle-arrow-right'></i></Link>
+                                <Link className='btn btn-block' href={'/plans'}>View Plans <i className='fa-solid fa-circle-arrow-right'></i></Link>
                             </div>
                         </Col>
                         <Col xs={12} sm={6} md={6} lg={4} xl={4} className='mb-2'>

@@ -37,5 +37,7 @@ export type UserState = {
 }
 
 export type SubPlanState = {
-    proSubscriptionPrice: string,
+    basicSubscriptionPrice: string,
+    standardSubscriptionPrice: string,
+    premiumSubscriptionPrice: string,
 }

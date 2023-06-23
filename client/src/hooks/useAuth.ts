@@ -18,9 +18,9 @@ const useAuth = () => {
                     const response = await axios.post(endPoints.userDetailsEndpoint)
                     const userid = response.data.user._id
                     const { name, email, privateKey, role, subscriptionKey } = response.data.user
-                    const { proSubscriptionPrice } = response.data
+                    const { basicSubscriptionPrice, standardSubscriptionPrice, premiumSubscriptionPrice } = response.data.subscriptionCharges
                     dispatch('setUserState', { userid, name, email, privateKey, role, subscriptionKey })
-                    dispatch('setSubPlanState', { proSubscriptionPrice })
+                    dispatch('setSubPlanState', { basicSubscriptionPrice, standardSubscriptionPrice, premiumSubscriptionPrice })
                     setState({ isLoaded: true })
                 }
 

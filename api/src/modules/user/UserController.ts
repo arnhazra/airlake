@@ -108,17 +108,18 @@ export default class UserController {
     async userDetails(req: Request, res: Response) {
         try {
             const user = await UserModel.findById(req.headers.id).select('-date')
-            const { proSubscriptionPrice } = envConfig
+            const { basicSubscriptionPrice, standardSubscriptionPrice, premiumSubscriptionPrice } = envConfig
+            const subscriptionCharges = { basicSubscriptionPrice, standardSubscriptionPrice, premiumSubscriptionPrice }
             if (user) {
                 try {
                     if (user.subscriptionKey.length) {
                         jwt.verify(user.subscriptionKey, this.subscriptionSecret, { algorithms: ['HS256'] })
                     }
-                    return res.status(200).json({ user, proSubscriptionPrice })
+                    return res.status(200).json({ user, subscriptionCharges })
                 } catch (error) {
                     const subscriptionKey = ''
                     await UserModel.findByIdAndUpdate(user._id, { subscriptionKey })
-                    return res.status(200).json({ user, proSubscriptionPrice })
+                    return res.status(200).json({ user, subscriptionCharges })
                 }
             }
 
@@ -144,11 +145,11 @@ export default class UserController {
     }
 
     async subscribe(req: Request, res: Response) {
-        const { tokenId } = req.body
+        const { tokenId, selectedPlan } = req.body
         const userId = req.headers.id
 
         try {
-            const payload = { userId, tokenId }
+            const payload = { userId, tokenId, selectedPlan }
             const subscriptionKey = jwt.sign(payload, this.subscriptionSecret, { algorithm: 'HS256', expiresIn: '30d' })
             await UserModel.findByIdAndUpdate(userId, { subscriptionKey })
             return res.status(200).json({ msg: statusMessages.transactionCreationSuccess })

@@ -3,7 +3,9 @@ config()
 
 export const envConfig = {
     apiPort: process.env.API_PORT,
-    proSubscriptionPrice: process.env.PRO_SUBSCRIPTION_PRICE,
+    basicSubscriptionPrice: process.env.BASIC_SUBSCRIPTION_PRICE,
+    standardSubscriptionPrice: process.env.STANDARD_SUBSCRIPTION_PRICE,
+    premiumSubscriptionPrice: process.env.PREMIUM_SUBSCRIPTION_PRICE,
     subscriptionSecret: process.env.SUBSCRIPTION_JWT_SECRET,
     mongoUri: process.env.MONGO_URI,
     redisUri: process.env.REDIS_URI,
