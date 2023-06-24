@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
-import endPoints from '@/constants/Endpoints'
+import endPoints from '@/constants/apiEndpoints'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/router'
 import { AppContext } from '@/context/appStateProvider'
-import Constants from '@/constants/Constants'
+import Constants from '@/constants/appConstants'
 
 const useAuth = () => {
     const [, dispatch] = useContext(AppContext)
@@ -12,7 +12,7 @@ const useAuth = () => {
     const router = useRouter()
 
     useEffect(() => {
-        if (!router.pathname.includes('/auth')) {
+        if (localStorage.getItem('accessToken')) {
             (async () => {
                 try {
                     const response = await axios.post(endPoints.userDetailsEndpoint)

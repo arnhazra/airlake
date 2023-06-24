@@ -3,13 +3,13 @@ import { Button, Card, Col, Container, Row } from 'react-bootstrap'
 import { Fragment } from 'react'
 import Loading from '@/components/Loading'
 import Show from '@/components/Show'
-import endPoints from '@/constants/Endpoints'
+import endPoints from '@/constants/apiEndpoints'
 import { toast } from 'react-hot-toast'
 import DatasetCard from '@/components/DatasetCard'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import useFetch from '@/hooks/useFetch'
-import HTTPMethods from '@/constants/HTTPMethods'
+import HTTPMethods from '@/constants/httpMethod'
 import Error from '@/components/ErrorComp'
 import { AppContext } from '@/context/appStateProvider'
 import { Rating } from 'react-simple-star-rating'
@@ -63,7 +63,7 @@ const ViewDatasetPage: NextPage = () => {
                                             <div className='nameContainer'>
                                                 <p>{dataset?.data?.name}</p>
                                             </div>
-                                            <p className='smalltext'>{dataset?.data?.category}</p>
+                                            <p className='category'>{dataset?.data?.category}</p>
                                             <Rating className='card-rating' initialValue={dataset?.data?.rating} allowHover={false} allowFraction size={15} readonly /><br />
                                         </Card.Footer>
                                     </Card>

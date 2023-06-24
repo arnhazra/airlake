@@ -1,20 +1,20 @@
 import { Fragment, useContext, useState, useEffect } from 'react'
 import { AppContext } from '@/context/appStateProvider'
 import { NextPage } from 'next'
-import endPoints from '@/constants/Endpoints'
+import endPoints from '@/constants/apiEndpoints'
 import Show from '@/components/Show'
 import { Button, Col, Container, Row, Table } from 'react-bootstrap'
-import Constants from '@/constants/Constants'
+import Constants from '@/constants/appConstants'
 import Link from 'next/link'
 import Loading from '@/components/Loading'
 import useFetchRealtime from '@/hooks/useFetchRealtime'
-import HTTPMethods from '@/constants/HTTPMethods'
+import HTTPMethods from '@/constants/httpMethod'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
 import moment from 'moment'
 import Web3 from 'web3'
-import contractAddress from '@/constants/Address'
+import contractAddress from '@/constants/contractAddress'
 import jwtDecode from 'jwt-decode'
 
 const DashboardPage: NextPage = () => {
@@ -79,7 +79,7 @@ const DashboardPage: NextPage = () => {
     })
 
     const showWalletAddress = (address: string) => {
-        const displayAddress = `(${address.substring(0, 4)}...${address.substring(address.length - 4)})`
+        const displayAddress = `(${address.substring(0, 3)}...${address.substring(address.length - 3)})`
         return displayAddress
     }
 
@@ -98,11 +98,12 @@ const DashboardPage: NextPage = () => {
                                 <p className='branding'>Subscription <i className='fa-solid fa-circle-plus'></i></p>
                                 <p className='smalltext'>Active plan {userState.subscriptionKey.length > 0 && `valid till ${moment.unix(expiry).format('DD MMM, YYYY')}`}</p>
                                 <h4>
-                                    {selectedPlan}, {userState.subscriptionKeyUsage} API Req
+                                    {selectedPlan}
                                     <Show when={userState.subscriptionKey.length > 0}>
                                         <Link title='Access NFT' target='_blank' passHref href={`https://mumbai.polygonscan.com/token/${contractAddress.nftContractAddress}?a=${tokenId}`}>
                                             <i className='fa-solid fa-cubes'></i>
                                         </Link>
+                                        {userState.subscriptionKeyUsage} API Req
                                     </Show>
                                 </h4>
                                 <Link className='btn btn-block' href={'/plans'}>View Plans <i className='fa-solid fa-circle-arrow-right'></i></Link>
@@ -111,7 +112,7 @@ const DashboardPage: NextPage = () => {
                         <Col xs={12} sm={6} md={6} lg={4} xl={4} className='mb-2'>
                             <div className='jumbotron'>
                                 <p className='branding'>Wallet <i className='fa-solid fa-wallet'></i></p>
-                                <p className='smalltext' title={accountAddress}>Address : {showWalletAddress(accountAddress)}<i className='fa-solid fa-copy' onClick={copyWalletAddress}></i></p>
+                                <p className='smalltext' title={accountAddress}>Wallet Address - {showWalletAddress(accountAddress)}<i className='fa-solid fa-copy' onClick={copyWalletAddress}></i></p>
                                 <h4>
                                     <i className='fa-brands fa-ethereum'></i>{Number(etherBalance).toFixed(3)} MATIC
                                 </h4>
@@ -137,7 +138,7 @@ const DashboardPage: NextPage = () => {
                                     <th>Event</th>
                                     <th>MATIC Amount</th>
                                     <th>Transaction Time</th>
-                                    <th>EtherScan Link</th>
+                                    <th>Polygon scan Link</th>
                                 </tr>
                             </thead>
                             <tbody>

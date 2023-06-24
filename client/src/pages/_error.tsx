@@ -1,5 +1,5 @@
 import { NextPage } from 'next'
-import Constants from '@/constants/Constants'
+import Constants from '@/constants/appConstants'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 

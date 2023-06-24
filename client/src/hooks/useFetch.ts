@@ -2,7 +2,7 @@ import axios, { Method } from 'axios'
 import { useQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { toast } from 'react-hot-toast'
-import Constants from '@/constants/Constants'
+import Constants from '@/constants/appConstants'
 
 function useFetch(queryKey: string, queryUrl: string, method: Method, requestBody?: object, eventId?: string) {
     const router = useRouter()

@@ -1,7 +1,7 @@
 import { Container } from 'react-bootstrap'
 import { Fragment } from 'react'
 import { NextPage } from 'next'
-import Constants from '@/constants/Constants'
+import Constants from '@/constants/appConstants'
 import Link from 'next/link'
 import Show from '@/components/Show'
 import DataLibrary from '@/components/DataLibrary'

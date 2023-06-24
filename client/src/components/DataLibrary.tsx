@@ -7,8 +7,8 @@ import { AppContext } from '@/context/appStateProvider'
 import DatasetCard from '@/components/DatasetCard'
 import { NextPage } from 'next'
 import useFetch from '@/hooks/useFetch'
-import endPoints from '@/constants/Endpoints'
-import HTTPMethods from '@/constants/HTTPMethods'
+import endPoints from '@/constants/apiEndpoints'
+import HTTPMethods from '@/constants/httpMethod'
 import Error from '@/components/ErrorComp'
 
 const DataLibrary: FC = () => {
