@@ -14,6 +14,7 @@ const initialState = {
         email: '',
         role: '',
         subscriptionKey: '',
+        subscriptionKeyUsage: 0
     },
 
     datasetRequestState: {

@@ -6,12 +6,15 @@ import DatasetModel from './DatasetModel'
 import jwt from 'jsonwebtoken'
 import UserModel from '../user/UserModel'
 import { envConfig } from '../../../config/envConfig'
+import AnalyticsController from '../analytics/AnalyticsController'
 
 export default class DatasetController {
     public subscriptionSecret: string
+    public analyticsController: AnalyticsController
 
     constructor() {
         this.subscriptionSecret = envConfig.subscriptionSecret
+        this.analyticsController = new AnalyticsController()
     }
 
     async createDataset(req: Request, res: Response) {
@@ -119,10 +122,47 @@ export default class DatasetController {
             const datasetId = req.params.datasetId
             const subscription = jwt.verify(subscriptionId, this.subscriptionSecret, { algorithms: ['HS256'] })
             const userId = (subscription as any).userId
+            const selectedPlan = (subscription as any).selectedPlan
             const { subscriptionKey } = await UserModel.findById(userId)
             if (subscriptionId === subscriptionKey) {
-                const data = await DatasetModel.findById(datasetId).select('data')
-                return res.status(200).json({ data })
+                const txCount = (await this.analyticsController.getAnalyticsBySubKey(subscriptionKey)).length
+                switch (selectedPlan) {
+                    case 'Basic':
+                        if (txCount < 1000) {
+                            const data = await DatasetModel.findById(datasetId).select('data')
+                            this.analyticsController.createAnalytics(subscriptionKey, datasetId)
+                            return res.status(200).json({ data })
+                        }
+
+                        else {
+                            throw new Error
+                        }
+
+                    case 'Standard':
+                        if (txCount < 3000) {
+                            const data = await DatasetModel.findById(datasetId).select('data')
+                            this.analyticsController.createAnalytics(subscriptionKey, datasetId)
+                            return res.status(200).json({ data })
+                        }
+
+                        else {
+                            throw new Error
+                        }
+
+                    case 'Premium':
+                        if (txCount < 4000) {
+                            const data = await DatasetModel.findById(datasetId).select('data')
+                            this.analyticsController.createAnalytics(subscriptionKey, datasetId)
+                            return res.status(200).json({ data })
+                        }
+
+                        else {
+                            throw new Error
+                        }
+
+                    default:
+                        break
+                }
             }
 
             else {
@@ -131,7 +171,7 @@ export default class DatasetController {
         }
 
         catch (error) {
-            return res.status(404).json({ msg: statusMessages.connectionError })
+            return res.status(500).json({ msg: statusMessages.connectionError })
         }
     }
 }

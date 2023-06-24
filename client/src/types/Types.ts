@@ -34,6 +34,7 @@ export type UserState = {
     email: string,
     role: string,
     subscriptionKey: string
+    subscriptionKeyUsage: number
 }
 
 export type SubPlanState = {

@@ -19,7 +19,8 @@ const useAuth = () => {
                     const userid = response.data.user._id
                     const { name, email, privateKey, role, subscriptionKey } = response.data.user
                     const { basicSubscriptionPrice, standardSubscriptionPrice, premiumSubscriptionPrice } = response.data.subscriptionCharges
-                    dispatch('setUserState', { userid, name, email, privateKey, role, subscriptionKey })
+                    const { subscriptionKeyUsage } = response.data
+                    dispatch('setUserState', { userid, name, email, privateKey, role, subscriptionKey, subscriptionKeyUsage })
                     dispatch('setSubPlanState', { basicSubscriptionPrice, standardSubscriptionPrice, premiumSubscriptionPrice })
                     setState({ isLoaded: true })
                 }

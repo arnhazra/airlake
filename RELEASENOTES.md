@@ -1,5 +1,9 @@
 # Airlake Release Notes
 
+## [v4.1]
+* Added multiple subscription plans
+* Added analytics for subscriptions
+
 ## [v4.0]
 * Switched to Polygon from Sepolia Testnet
 * Native currency is now MATIC

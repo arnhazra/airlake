@@ -8,16 +8,19 @@ import sendmail from '../../utils/mailer'
 import { setTokenInRedis, getTokenFromRedis, removeTokenFromRedis } from '../../utils/redisHelper'
 import otherConstants from '../../constants/otherConstants'
 import { envConfig } from '../../../config/envConfig'
+import AnalyticsController from '../analytics/AnalyticsController'
 
 export default class UserController {
     public otpKey: string
     public authPrivateKey: string
     public subscriptionSecret: string
+    public analyticsController: AnalyticsController
 
     constructor() {
         this.otpKey = envConfig.otpKey
         this.authPrivateKey = envConfig.authPrivateKey
         this.subscriptionSecret = envConfig.subscriptionSecret
+        this.analyticsController = new AnalyticsController()
     }
 
     async generateAuthCode(req: Request, res: Response) {
@@ -99,7 +102,6 @@ export default class UserController {
             }
 
             catch (error) {
-                console.log(error)
                 return res.status(500).json({ msg: statusMessages.connectionError })
             }
         }
@@ -110,16 +112,18 @@ export default class UserController {
             const user = await UserModel.findById(req.headers.id).select('-date')
             const { basicSubscriptionPrice, standardSubscriptionPrice, premiumSubscriptionPrice } = envConfig
             const subscriptionCharges = { basicSubscriptionPrice, standardSubscriptionPrice, premiumSubscriptionPrice }
+            let subscriptionKeyUsage = 0
             if (user) {
                 try {
                     if (user.subscriptionKey.length) {
                         jwt.verify(user.subscriptionKey, this.subscriptionSecret, { algorithms: ['HS256'] })
+                        subscriptionKeyUsage = (await this.analyticsController.getAnalyticsBySubKey(user.subscriptionKey)).length
                     }
-                    return res.status(200).json({ user, subscriptionCharges })
+                    return res.status(200).json({ user, subscriptionCharges, subscriptionKeyUsage })
                 } catch (error) {
                     const subscriptionKey = ''
                     await UserModel.findByIdAndUpdate(user._id, { subscriptionKey })
-                    return res.status(200).json({ user, subscriptionCharges })
+                    return res.status(200).json({ user, subscriptionCharges, subscriptionKeyUsage })
                 }
             }
 

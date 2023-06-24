@@ -106,7 +106,6 @@ const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price, 
             setStep(2)
             toast.success(Constants.TransactionSuccess)
         } catch (error) {
-            console.log(error)
             setTxProcessing(false)
             setTxError(true)
             setStep(2)

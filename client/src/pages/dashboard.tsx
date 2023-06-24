@@ -33,7 +33,6 @@ const DashboardPage: NextPage = () => {
         try {
             const decodedSubId: any = jwtDecode(userState.subscriptionKey)
             setTokenId(decodedSubId.tokenId)
-            console.log(decodedSubId)
             setExpiry(decodedSubId.exp)
             setSelectedPlan(decodedSubId.selectedPlan)
         } catch (error) {
@@ -99,7 +98,7 @@ const DashboardPage: NextPage = () => {
                                 <p className='branding'>Subscription <i className='fa-solid fa-circle-plus'></i></p>
                                 <p className='smalltext'>Active plan {userState.subscriptionKey.length > 0 && `valid till ${moment.unix(expiry).format('DD MMM, YYYY')}`}</p>
                                 <h4>
-                                    {selectedPlan}
+                                    {selectedPlan}, {userState.subscriptionKeyUsage} API Req
                                     <Show when={userState.subscriptionKey.length > 0}>
                                         <Link title='Access NFT' target='_blank' passHref href={`https://mumbai.polygonscan.com/token/${contractAddress.nftContractAddress}?a=${tokenId}`}>
                                             <i className='fa-solid fa-cubes'></i>
