@@ -1,15 +1,7 @@
 import { NextPage } from 'next'
 import Constants from '@/constants/appConstants'
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
 
 const ErrorPage: NextPage = () => {
-    const router = useRouter()
-
-    useEffect(() => {
-        router.push('/')
-    }, [])
-
     return (
         <div className='box text-center'>
             <p className='branding mb-4'>{Constants.ErrorMessage}</p>

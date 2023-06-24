@@ -19,7 +19,7 @@ const AuthPage: NextPage = () => {
 
     useEffect(() => {
         if (localStorage.hasOwnProperty('accessToken')) {
-            router.push('/')
+            router.push('/datasets')
         }
     }, [])
 
@@ -60,7 +60,7 @@ const AuthPage: NextPage = () => {
             localStorage.setItem('accessToken', response.data.accessToken)
             toast.success('Successfully authenticated')
             setLoading(false)
-            router.push('/')
+            router.push('/datasets')
         }
 
         catch (error: any) {

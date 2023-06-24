@@ -16,10 +16,11 @@ import moment from 'moment'
 import Web3 from 'web3'
 import contractAddress from '@/constants/contractAddress'
 import jwtDecode from 'jwt-decode'
+import { SubReqLimitState } from '@/types/Types'
 
 const DashboardPage: NextPage = () => {
     const web3Provider = new Web3(endPoints.infuraEndpoint)
-    const [{ userState }] = useContext(AppContext)
+    const [{ userState, subReqLimitState }] = useContext(AppContext)
     const [etherBalance, setEther] = useState('0')
     const [walletLoading, setWalletLoading] = useState(true)
     const [accountAddress, setAccountAddress] = useState('')
@@ -28,6 +29,7 @@ const DashboardPage: NextPage = () => {
     const [tokenId, setTokenId] = useState('')
     const [expiry, setExpiry] = useState(0)
     const [selectedPlan, setSelectedPlan] = useState('Free')
+    const [maxLimit, setMaxLimit] = useState('')
 
     useEffect(() => {
         try {
@@ -38,6 +40,8 @@ const DashboardPage: NextPage = () => {
         } catch (error) {
             setTokenId('')
         }
+        const subReqLimitStateKey = `${selectedPlan.toLowerCase()}SubscriptionReqLimit`
+        setMaxLimit(subReqLimitState[subReqLimitStateKey as keyof SubReqLimitState])
     }, [userState.subscriptionKey])
 
     useEffect(() => {
@@ -93,7 +97,7 @@ const DashboardPage: NextPage = () => {
             <Show when={!transactions.isLoading && !walletLoading}>
                 <Container>
                     <Row className='mt-4'>
-                        <Col xs={12} sm={6} md={6} lg={4} xl={4} className='mb-2'>
+                        <Col xs={12} sm={6} md={6} lg={4} xl={3} className='mb-2'>
                             <div className='jumbotron'>
                                 <p className='branding'>Subscription <i className='fa-solid fa-circle-plus'></i></p>
                                 <p className='smalltext'>Active plan {userState.subscriptionKey.length > 0 && `valid till ${moment.unix(expiry).format('DD MMM, YYYY')}`}</p>
@@ -103,23 +107,32 @@ const DashboardPage: NextPage = () => {
                                         <Link title='Access NFT' target='_blank' passHref href={`https://mumbai.polygonscan.com/token/${contractAddress.nftContractAddress}?a=${tokenId}`}>
                                             <i className='fa-solid fa-cubes'></i>
                                         </Link>
-                                        {userState.subscriptionKeyUsage} API Req
                                     </Show>
                                 </h4>
                                 <Link className='btn btn-block' href={'/plans'}>View Plans <i className='fa-solid fa-circle-arrow-right'></i></Link>
                             </div>
                         </Col>
-                        <Col xs={12} sm={6} md={6} lg={4} xl={4} className='mb-2'>
+                        <Col xs={12} sm={6} md={6} lg={4} xl={3} className='mb-2'>
+                            <div className='jumbotron'>
+                                <p className='branding'>Usage <i className='fa-solid fa-circle-plus'></i></p>
+                                <p className='smalltext'>Used #API Requests</p>
+                                <h4>
+                                    {userState.subscriptionKeyUsage} API REQ
+                                </h4>
+                                <Button disabled className='btn-block'>Plan Limit {maxLimit} <i className="fa-solid fa-wifi"></i></Button>
+                            </div>
+                        </Col>
+                        <Col xs={12} sm={6} md={6} lg={4} xl={3} className='mb-2'>
                             <div className='jumbotron'>
                                 <p className='branding'>Wallet <i className='fa-solid fa-wallet'></i></p>
                                 <p className='smalltext' title={accountAddress}>Wallet Address - {showWalletAddress(accountAddress)}<i className='fa-solid fa-copy' onClick={copyWalletAddress}></i></p>
                                 <h4>
                                     <i className='fa-brands fa-ethereum'></i>{Number(etherBalance).toFixed(3)} MATIC
                                 </h4>
-                                <Link className='btn btn-block' href={'https://faucet.polygon.technology/'} passHref target='_blank'>Fund my wallet<i className='fa-solid fa-circle-arrow-right'></i></Link>
+                                <Link className='btn btn-block' href={'https://faucet.polygon.technology/'} passHref target='_blank'>Fund my wallet<i className="fa-solid fa-square-arrow-up-right"></i></Link>
                             </div>
                         </Col>
-                        <Col xs={12} sm={6} md={6} lg={4} xl={4} className='mb-2'>
+                        <Col xs={12} sm={6} md={6} lg={4} xl={3} className='mb-2'>
                             <div className='jumbotron'>
                                 <p className='branding'>Account <i className='fa-solid fa-address-card'></i></p>
                                 <p className='smalltext'>Signed in As</p>

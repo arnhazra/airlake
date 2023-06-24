@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react'
+import { useContext } from 'react'
 import { Button, Col, Container, FloatingLabel, Form, Row } from 'react-bootstrap'
 import { Fragment } from 'react'
 import Loading from '@/components/Loading'
@@ -11,7 +11,7 @@ import endPoints from '@/constants/apiEndpoints'
 import HTTPMethods from '@/constants/httpMethod'
 import Error from '@/components/ErrorComp'
 
-const DataLibrary: FC = () => {
+const DatasetsPage: NextPage = () => {
     const [{ datasetRequestState }, dispatch] = useContext(AppContext)
     const filters = useFetch('filters', endPoints.datasetFiltersEndpoint, HTTPMethods.POST)
     const dataLibrary = useFetch('data platform', endPoints.findDatasetsEndpoint, HTTPMethods.POST, datasetRequestState)
@@ -75,4 +75,4 @@ const DataLibrary: FC = () => {
     )
 }
 
-export default DataLibrary
+export default DatasetsPage
