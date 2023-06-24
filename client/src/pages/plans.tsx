@@ -45,6 +45,7 @@ const HomePage: NextPage = () => {
         <Fragment>
             <div className='box'>
                 <p className='branding'>Plans</p>
+                <p>Choose your plan</p>
                 <ButtonGroup className='btn-group-card'>
                     <Button className={selectedPlan === 'Free' ? 'btn-grp-btn-sel' : 'btn-grp-btn'} onClick={(): void => setSelectedPlan('Free')}>FREE</Button>
                     <Button className={selectedPlan === 'Basic' ? 'btn-grp-btn-sel' : 'btn-grp-btn'} onClick={(): void => setSelectedPlan('Basic')}>BASIC</Button>
@@ -55,7 +56,7 @@ const HomePage: NextPage = () => {
                 </ButtonGroup>
                 <div className='plans mt-2'>
                     <Show when={selectedPlan === 'Free'}>
-                        <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>0/mo</p>
+                        <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>0 MATIC/mo</p>
                         <p className='lead'><i className='fa-solid fa-circle-check'></i>Metadata API</p>
                         <p className='lead'><i className='fa-solid fa-circle-xmark'></i>Data API</p>
                         <Show when={selectedPlan === userCurrentPlan}>
@@ -66,9 +67,9 @@ const HomePage: NextPage = () => {
                         </Show>
                     </Show>
                     <Show when={selectedPlan === 'Basic'}>
-                        <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>{subPlanState.basicSubscriptionPrice}/mo</p>
+                        <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>{subPlanState.basicSubscriptionPrice} MATIC/mo</p>
                         <p className='lead'><i className='fa-solid fa-circle-check'></i>Data API</p>
-                        <p className='lead'><i className='fa-solid fa-circle-check'></i>999 API calls/month</p>
+                        <p className='lead'><i className='fa-solid fa-circle-check'></i>999 API requests/month</p>
                         <Show when={selectedPlan === userCurrentPlan}>
                             <Button disabled className='btn-block'>Current Plan <i className='fa-solid fa-circle-check'></i></Button>
                         </Show>
@@ -77,9 +78,9 @@ const HomePage: NextPage = () => {
                         </Show>
                     </Show>
                     <Show when={selectedPlan === 'Standard'}>
-                        <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>{subPlanState.standardSubscriptionPrice}/mo</p>
+                        <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>{subPlanState.standardSubscriptionPrice} MATIC/mo</p>
                         <p className='lead'><i className='fa-solid fa-circle-check'></i>Data API</p>
-                        <p className='lead'><i className='fa-solid fa-circle-check'></i>2999 API calls/month</p>
+                        <p className='lead'><i className='fa-solid fa-circle-check'></i>2999 API requests/month</p>
                         <Show when={selectedPlan === userCurrentPlan}>
                             <Button disabled className='btn-block'>Current Plan <i className='fa-solid fa-circle-check'></i></Button>
                         </Show>
@@ -88,9 +89,9 @@ const HomePage: NextPage = () => {
                         </Show>
                     </Show>
                     <Show when={selectedPlan === 'Premium'}>
-                        <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>{subPlanState.premiumSubscriptionPrice}/mo</p>
+                        <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>{subPlanState.premiumSubscriptionPrice} MATIC/mo</p>
                         <p className='lead'><i className='fa-solid fa-circle-check'></i>Data API</p>
-                        <p className='lead'><i className='fa-solid fa-circle-check'></i>3999 API calls/month</p>
+                        <p className='lead'><i className='fa-solid fa-circle-check'></i>3999 API requests/month</p>
                         <Show when={selectedPlan === userCurrentPlan}>
                             <Button disabled className='btn-block'>Current Plan <i className='fa-solid fa-circle-check'></i></Button>
                         </Show>

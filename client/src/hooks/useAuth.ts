@@ -12,7 +12,7 @@ const useAuth = () => {
     const router = useRouter()
 
     useEffect(() => {
-        if (localStorage.getItem('accessToken')) {
+        if (!router.pathname.includes('/auth')) {
             (async () => {
                 try {
                     const response = await axios.post(endPoints.userDetailsEndpoint)
