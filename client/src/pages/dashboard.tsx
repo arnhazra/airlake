@@ -40,9 +40,12 @@ const DashboardPage: NextPage = () => {
         } catch (error) {
             setTokenId('')
         }
+    }, [userState.subscriptionKey])
+
+    useEffect(() => {
         const subReqLimitStateKey = `${selectedPlan.toLowerCase()}SubscriptionReqLimit`
         setMaxLimit(subReqLimitState[subReqLimitStateKey as keyof SubReqLimitState])
-    }, [userState.subscriptionKey])
+    }, [selectedPlan])
 
     useEffect(() => {
         (async () => {

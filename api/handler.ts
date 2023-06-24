@@ -15,7 +15,7 @@ const userRouter = new UserRouter()
 const app = express()
 app.listen(envConfig.apiPort)
 app.use(cors())
-app.use(express.json({ limit: '3mb' }))
+app.use(express.json({ limit: '5mb' }))
 connectMongo()
 connectRedis()
 
