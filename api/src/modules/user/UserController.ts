@@ -110,8 +110,9 @@ export default class UserController {
     async userDetails(req: Request, res: Response) {
         try {
             const user = await UserModel.findById(req.headers.id).select('-date')
-            const { basicSubscriptionPrice, standardSubscriptionPrice, premiumSubscriptionPrice } = envConfig
+            const { basicSubscriptionPrice, standardSubscriptionPrice, premiumSubscriptionPrice, basicSubscriptionReqLimit, standardSubscriptionReqLimit, premiumSubscriptionReqLimit } = envConfig
             const subscriptionCharges = { basicSubscriptionPrice, standardSubscriptionPrice, premiumSubscriptionPrice }
+            const subscriptionReqLimit = { basicSubscriptionReqLimit, standardSubscriptionReqLimit, premiumSubscriptionReqLimit }
             let subscriptionKeyUsage = 0
             if (user) {
                 try {
@@ -119,11 +120,11 @@ export default class UserController {
                         jwt.verify(user.subscriptionKey, this.subscriptionSecret, { algorithms: ['HS256'] })
                         subscriptionKeyUsage = (await this.analyticsController.getAnalyticsBySubKey(user.subscriptionKey)).length
                     }
-                    return res.status(200).json({ user, subscriptionCharges, subscriptionKeyUsage })
+                    return res.status(200).json({ user, subscriptionCharges, subscriptionKeyUsage, subscriptionReqLimit })
                 } catch (error) {
                     const subscriptionKey = ''
                     await UserModel.findByIdAndUpdate(user._id, { subscriptionKey })
-                    return res.status(200).json({ user, subscriptionCharges, subscriptionKeyUsage })
+                    return res.status(200).json({ user, subscriptionCharges, subscriptionKeyUsage, subscriptionReqLimit })
                 }
             }
 

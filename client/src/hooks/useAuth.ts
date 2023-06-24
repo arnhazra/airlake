@@ -19,9 +19,11 @@ const useAuth = () => {
                     const userid = response.data.user._id
                     const { name, email, privateKey, role, subscriptionKey } = response.data.user
                     const { basicSubscriptionPrice, standardSubscriptionPrice, premiumSubscriptionPrice } = response.data.subscriptionCharges
+                    const { basicSubscriptionReqLimit, standardSubscriptionReqLimit, premiumSubscriptionReqLimit } = response.data.subscriptionReqLimit
                     const { subscriptionKeyUsage } = response.data
                     dispatch('setUserState', { userid, name, email, privateKey, role, subscriptionKey, subscriptionKeyUsage })
                     dispatch('setSubPlanState', { basicSubscriptionPrice, standardSubscriptionPrice, premiumSubscriptionPrice })
+                    dispatch('setSubReqLimitState', { basicSubscriptionReqLimit, standardSubscriptionReqLimit, premiumSubscriptionReqLimit })
                     setState({ isLoaded: true })
                 }
 

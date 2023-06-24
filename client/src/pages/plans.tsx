@@ -9,7 +9,7 @@ import UnsubscribeModal from '@/utils/UnsubscribeModal'
 import { SubPlanState } from '@/types/Types'
 
 const HomePage: NextPage = () => {
-    const [{ userState, subPlanState }] = useContext(AppContext)
+    const [{ userState, subPlanState, subReqLimitState }] = useContext(AppContext)
     const [selectedPlan, setSelectedPlan] = useState('Standard')
     const [isSubscribeModalOpened, setSubscribeModalOpened] = useState(false)
     const [isUnsubscribeModalOpened, setUnsubscribeModalOpened] = useState(false)
@@ -69,7 +69,7 @@ const HomePage: NextPage = () => {
                     <Show when={selectedPlan === 'Basic'}>
                         <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>{subPlanState.basicSubscriptionPrice} MATIC/mo</p>
                         <p className='lead'><i className='fa-solid fa-circle-check'></i>Data API</p>
-                        <p className='lead'><i className='fa-solid fa-circle-check'></i>999 API requests/month</p>
+                        <p className='lead'><i className='fa-solid fa-circle-check'></i>{subReqLimitState.basicSubscriptionReqLimit} API requests/month</p>
                         <Show when={selectedPlan === userCurrentPlan}>
                             <Button disabled className='btn-block'>Current Plan <i className='fa-solid fa-circle-check'></i></Button>
                         </Show>
@@ -80,7 +80,7 @@ const HomePage: NextPage = () => {
                     <Show when={selectedPlan === 'Standard'}>
                         <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>{subPlanState.standardSubscriptionPrice} MATIC/mo</p>
                         <p className='lead'><i className='fa-solid fa-circle-check'></i>Data API</p>
-                        <p className='lead'><i className='fa-solid fa-circle-check'></i>2999 API requests/month</p>
+                        <p className='lead'><i className='fa-solid fa-circle-check'></i>{subReqLimitState.standardSubscriptionReqLimit} API requests/month</p>
                         <Show when={selectedPlan === userCurrentPlan}>
                             <Button disabled className='btn-block'>Current Plan <i className='fa-solid fa-circle-check'></i></Button>
                         </Show>
@@ -91,7 +91,7 @@ const HomePage: NextPage = () => {
                     <Show when={selectedPlan === 'Premium'}>
                         <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>{subPlanState.premiumSubscriptionPrice} MATIC/mo</p>
                         <p className='lead'><i className='fa-solid fa-circle-check'></i>Data API</p>
-                        <p className='lead'><i className='fa-solid fa-circle-check'></i>3999 API requests/month</p>
+                        <p className='lead'><i className='fa-solid fa-circle-check'></i>{subReqLimitState.premiumSubscriptionReqLimit} API requests/month</p>
                         <Show when={selectedPlan === userCurrentPlan}>
                             <Button disabled className='btn-block'>Current Plan <i className='fa-solid fa-circle-check'></i></Button>
                         </Show>

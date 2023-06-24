@@ -42,3 +42,9 @@ export type SubPlanState = {
     standardSubscriptionPrice: string,
     premiumSubscriptionPrice: string,
 }
+
+export type SubReqLimitState = {
+    basicSubscriptionReqLimit: string,
+    standardSubscriptionReqLimit: string,
+    premiumSubscriptionReqLimit: string
+}

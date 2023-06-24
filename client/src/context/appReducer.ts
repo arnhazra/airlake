@@ -1,15 +1,17 @@
-import { DatasetRequestState, UserState, SubPlanState } from '@/types/Types'
+import { DatasetRequestState, UserState, SubPlanState, SubReqLimitState } from '@/types/Types'
 
 export type AppState = {
     userState: UserState
     datasetRequestState: DatasetRequestState,
     subPlanState: SubPlanState,
+    subReqLimitState: SubReqLimitState
 }
 
 export type ActionsMap = {
     setUserState: { [key: string]: string | boolean }
     setDatasetRequestState: { [key: string]: string | number }
-    setSubPlanState: { [key: string]: string }
+    setSubPlanState: { [key: string]: string },
+    setSubReqLimitState: { [key: string]: string }
 }
 
 export type Actions = {
@@ -34,6 +36,11 @@ export const AppReducer = (state: AppState, action: Actions): AppState => {
         case 'setSubPlanState':
             return {
                 ...state, subPlanState: { ...state.subPlanState, ...action.payload }
+            }
+
+        case 'setSubReqLimitState':
+            return {
+                ...state, subReqLimitState: { ...state.subReqLimitState, ...action.payload }
             }
 
         default:

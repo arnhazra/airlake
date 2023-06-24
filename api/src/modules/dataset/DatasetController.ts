@@ -128,7 +128,7 @@ export default class DatasetController {
                 const txCount = (await this.analyticsController.getAnalyticsBySubKey(subscriptionKey)).length
                 switch (selectedPlan) {
                     case 'Basic':
-                        if (txCount < 1000) {
+                        if (txCount < Number(envConfig.basicSubscriptionReqLimit)) {
                             const data = await DatasetModel.findById(datasetId).select('data')
                             this.analyticsController.createAnalytics(subscriptionKey, datasetId)
                             return res.status(200).json({ data })
@@ -139,7 +139,7 @@ export default class DatasetController {
                         }
 
                     case 'Standard':
-                        if (txCount < 3000) {
+                        if (txCount < Number(envConfig.standardSubscriptionReqLimit)) {
                             const data = await DatasetModel.findById(datasetId).select('data')
                             this.analyticsController.createAnalytics(subscriptionKey, datasetId)
                             return res.status(200).json({ data })
@@ -150,7 +150,7 @@ export default class DatasetController {
                         }
 
                     case 'Premium':
-                        if (txCount < 4000) {
+                        if (txCount < Number(envConfig.premiumSubscriptionReqLimit)) {
                             const data = await DatasetModel.findById(datasetId).select('data')
                             this.analyticsController.createAnalytics(subscriptionKey, datasetId)
                             return res.status(200).json({ data })

@@ -28,6 +28,12 @@ const initialState = {
         basicSubscriptionPrice: '',
         standardSubscriptionPrice: '',
         premiumSubscriptionPrice: '',
+    },
+
+    subReqLimitState: {
+        basicSubscriptionReqLimit: '',
+        standardSubscriptionReqLimit: '',
+        premiumSubscriptionReqLimit: ''
     }
 }
 
