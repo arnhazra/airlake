@@ -8,7 +8,7 @@ import SubscribeModal from '@/utils/SubscribeModal'
 import UnsubscribeModal from '@/utils/UnsubscribeModal'
 import { SubPlanState } from '@/types/Types'
 
-const HomePage: NextPage = () => {
+const PlansPage: NextPage = () => {
     const [{ userState, subPlanState, subReqLimitState }] = useContext(AppContext)
     const [selectedPlan, setSelectedPlan] = useState('Standard')
     const [isSubscribeModalOpened, setSubscribeModalOpened] = useState(false)
@@ -107,4 +107,4 @@ const HomePage: NextPage = () => {
     )
 }
 
-export default HomePage
+export default PlansPage
