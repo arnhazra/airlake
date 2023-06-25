@@ -74,7 +74,7 @@ const PlansPage: NextPage = () => {
                             <Button disabled className='btn-block'>Current Plan <i className='fa-solid fa-circle-check'></i></Button>
                         </Show>
                         <Show when={selectedPlan !== userCurrentPlan}>
-                            <Button className='btn-block' disabled={selectedPlan !== userCurrentPlan} onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe<i className="fa-solid fa-lock"></i></Button>
+                            <Button className='btn-block' disabled={userState.subscriptionKey.length > 0} onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe<i className="fa-solid fa-lock"></i></Button>
                         </Show>
                     </Show>
                     <Show when={selectedPlan === 'Standard'}>
@@ -85,7 +85,7 @@ const PlansPage: NextPage = () => {
                             <Button disabled className='btn-block'>Current Plan <i className='fa-solid fa-circle-check'></i></Button>
                         </Show>
                         <Show when={selectedPlan !== userCurrentPlan}>
-                            <Button className='btn-block' disabled={selectedPlan !== userCurrentPlan} onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe<i className="fa-solid fa-lock"></i></Button>
+                            <Button className='btn-block' disabled={userState.subscriptionKey.length > 0} onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe<i className="fa-solid fa-lock"></i></Button>
                         </Show>
                     </Show>
                     <Show when={selectedPlan === 'Premium'}>
@@ -96,7 +96,7 @@ const PlansPage: NextPage = () => {
                             <Button disabled className='btn-block'>Current Plan <i className='fa-solid fa-circle-check'></i></Button>
                         </Show>
                         <Show when={selectedPlan !== userCurrentPlan}>
-                            <Button className='btn-block' disabled={selectedPlan !== userCurrentPlan} onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe<i className="fa-solid fa-lock"></i></Button>
+                            <Button className='btn-block' disabled={userState.subscriptionKey.length > 0} onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe<i className="fa-solid fa-lock"></i></Button>
                         </Show>
                     </Show>
                 </div>
