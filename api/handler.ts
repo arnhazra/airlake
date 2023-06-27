@@ -29,3 +29,19 @@ if (envConfig.nodeEnv === 'production') {
         res.sendFile(path.join(__dirname, 'client', `${req.originalUrl.split('?')[0]}.html`))
     })
 }
+
+if (envConfig.nodeEnv === 'production') {
+    const cacheControl = 'public, max-age=31536000'
+    function setCustomCacheControl(res, path) {
+        if (express.static.mime.lookup(path) === 'text/html') {
+            res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
+        } else {
+            res.setHeader('Cache-Control', cacheControl)
+        }
+    }
+
+    app.use(express.static(path.join(__dirname, 'client'), { maxAge: '1y', setHeaders: setCustomCacheControl }))
+    app.use('/*', (req: Request, res: Response) => {
+        res.sendFile(path.join(__dirname, 'client', `${req.originalUrl.split('?')[0]}.html`))
+    })
+}
