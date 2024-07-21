@@ -22,8 +22,7 @@
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.1.1",
     "nodemailer": "^6.9.2",
-    "otp-without-db": "^1.0.4",
-    "redis": "^4.6.6"
+    "otp-without-db": "^1.0.4"
   },
   "devDependencies": {
     "@openzeppelin/contracts": "^4.8.3",
