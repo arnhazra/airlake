@@ -1,31 +1,23 @@
-import { createClient } from 'redis'
-import statusMessages from '../constants/statusMessages'
-import { envConfig } from '../../config/envConfig'
+import Redis from "ioredis"
+import { envConfig } from "../../config/envConfig"
 
-const redis = createClient({ url: envConfig.redisUri })
+const redis: Redis = new Redis({
+  port: Number(envConfig.redisPort),
+  host: envConfig.redisSocketHost,
+  password: envConfig.redisPassword,
+})
 
-const connectRedis = async () => {
-    try {
-        await redis.connect()
-        console.log(statusMessages.redisConnected)
-    } catch (error) {
-        console.log(statusMessages.connectionError)
-    }
+export async function setTokenInRedis(userId: string, accessToken: string): Promise<"OK"> {
+  const response = await redis.set(userId, accessToken)
+  return response
 }
 
-const setTokenInRedis = async (userId: string, accessToken: string) => {
-    const response = await redis.set(userId, accessToken)
-    return response
+export async function getTokenFromRedis(userId: string): Promise<string> {
+  const response = await redis.get(userId)
+  return response
 }
 
-const getTokenFromRedis = async (userId: string) => {
-    const response = await redis.get(userId)
-    return response
+export async function removeTokenFromRedis(userId: string): Promise<number> {
+  const response = await redis.del(userId)
+  return response
 }
-
-const removeTokenFromRedis = async (userId: string) => {
-    const response = await redis.del(userId)
-    return response
-}
-
-export { getTokenFromRedis, removeTokenFromRedis, connectRedis, setTokenInRedis }
